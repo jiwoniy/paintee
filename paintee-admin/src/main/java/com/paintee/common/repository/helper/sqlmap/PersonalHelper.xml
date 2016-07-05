@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paintee.common.repository.helper.PersonalHelper">
+	<resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.PersonalVO" extends="com.paintee.common.repository.mapper.PaintingMapper.BaseResultMap">
+	    <result column="artist_name" property="artistName" />
+	</resultMap>
+  	
+	<!-- 특정 개인 작가가 업로드한 그림의 목록을 가져오기 -->
+  	<select id="selectPersonalPaintingList" resultMap="BaseResultMap">
+		select a.artist_id, 
+			   (select name from TB_USER where user_id = a.artist_id) artist_name, 
+			   a.sentence, 
+			   a.file_group_seq, 
+			   a.upload_date, 
+			   a.painting_id, 
+			   a.posted_num, 
+			   a.posted_people_cnt
+		  from TB_PAINTING a
+		 where a.artist_id = (select user_id from TB_USER where name = #{artistName})
+		   and a.private_at = 'N'
+		   and a.painting_status in <foreach item="status" collection="paintingStatusList" open="(" close=")" separator=",">
+		    							#{status}
+		                            </foreach>				 
+	    <choose >
+           <when test="paintingId != null" >
+           and seq &gt;= (select seq from TB_PAINTING where painting_id = #{paintingId})
+         order by seq desc 
+           </when>
+           <otherwise>
+		 order by seq desc
+		 limit #{startRow}, #{rowPerPage}
+           </otherwise>
+        </choose>    
+  	</select>  	
+
+	<!-- 개인페이지 홈에 필요한 정보 조회 -->
+  	<select id="selectPersonalPaintingInfo" resultType="com.paintee.common.repository.entity.vo.PersonalVO">
+  	    select (select introduce from TB_USER where name = #{artistName} limit 0, 1) as introduce,
+  	    	   (select user_id from TB_USER where name = #{artistName} limit 0, 1) as artistId,
+  	    	   (select count(*) 
+  	    	      from TB_FOLLOW 
+  	    	     where user_id = #{loginId} 
+  	    	       and following = (select user_id from TB_USER where name = #{artistName})) as followCnt,
+  	           (select count(*) 
+  	              from TB_PAINTING 
+  	             where artist_id = (select user_id from TB_USER where name = #{artistName})
+  	               and private_at = 'N'
+  	               and painting_status in <foreach item="status" collection="paintingStatusList" open="(" close=")" separator=",">
+		    								  #{status}
+		                                  </foreach>) as uploadCount 
+  	      from dual
+  	</select>    	
+</mapper>
+
+
+
+
+

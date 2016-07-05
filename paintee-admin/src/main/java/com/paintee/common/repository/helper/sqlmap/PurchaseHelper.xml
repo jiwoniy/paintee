@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paintee.common.repository.helper.PurchaseHelper">
+  
+  	<resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.PurchaseVO" extends="com.paintee.common.repository.mapper.PurchaseMapper.BaseResultMap">
+	    <result column="user_name" property="userName" />
+	</resultMap>
+	
+	<!-- 구매와 연관된 정보 조회 : 상세화면 구매자 목록 정보 -->
+  	<select id="selectPostedList" resultMap="com.paintee.common.repository.mapper.PurchaseMapper.BaseResultMap" parameterType="com.paintee.common.repository.entity.vo.PostedSearchVO">
+  		SELECT
+  			<include refid="com.paintee.common.repository.mapper.PurchaseMapper.Base_Column_List" />
+  		FROM TB_PURCHASE
+		<trim prefix="WHERE" prefixOverrides="AND|OR ">
+			<if test = "paintingId != null and paintingId != ''">
+				AND painting_id = #{paintingId}
+			</if>
+			<if test = "purchaseStatus != null and purchaseStatus != '' and purchaseStatusList == null">
+				AND purchase_status = #{purchaseStatus}
+			</if>
+			<if test = "purchaseStatusList != null">
+				AND purchase_status in
+                <foreach collection="purchaseStatusList" item="listItem" open="(" close=")" separator="," >
+                  #{listItem}
+                </foreach>
+			</if>
+			<if test = "privateAt != null and privateAt != ''">
+				AND private_at = #{privateAt}
+			</if>
+		</trim>
+  		ORDER BY created_date DESC
+  		LIMIT #{startRow}, #{rowPerPage}
+  	</select>
+  	
+  	<!-- 관리자 화면 구매 목록 정보 조회시의 공통 SQL -->
+  	<sql id="purchaseFromWhere">
+		  from TB_PURCHASE
+		 where purchase_status in <foreach item="status" collection="statusList" open="(" close=")" separator=",">
+	   								#{status}
+	                        	  </foreach>
+  	</sql>
+
+	<!-- 관리자 화면의 구매 목록을 조회 -->
+  	<select id="selectPurchaseList" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.vo.PurchaseSearchVO">
+		select a.*, 
+		       (select name from TB_USER where user_id = a.user_id) user_name
+		  from (select <include refid="com.paintee.common.repository.mapper.PurchaseMapper.Base_Column_List" />
+				  <include refid="purchaseFromWhere" />
+				 order by purchase_date desc) a
+  	</select>
+
+	<!-- 관리자 화면의 구매 목록 카운트 조회 :: 현재 무한 스크롤 방식으로 변경해서 필요없음 -->
+  	<select id="selectPurchaseListCount" resultType="int">
+		select count(*)
+		  <include refid="purchaseFromWhere" />
+	</select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paintee.common.repository.helper.PaintingHelper">
+
+	<resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.PaintingVO" extends="com.paintee.common.repository.mapper.PaintingMapper.BaseResultMap">
+	    <result column="artist_name" property="artistName" />
+	</resultMap>
+	
+  	<select id="selectPaintingInfo" resultMap="BaseResultMap">
+		select <include refid="com.paintee.common.repository.mapper.PaintingMapper.Base_Column_List" />,
+			   (select name from TB_USER where user_id = a.artist_id) artist_name
+		  from TB_PAINTING a
+		 where painting_id = #{paintingId}
+  	</select>
+	
+  	<select id="selectPaintingUpdateList" resultMap="BaseResultMap">
+		select a.*, 
+		       (select name from TB_USER where user_id = a.artist_id) artist_name
+		  from (select <include refid="com.paintee.common.repository.mapper.PaintingMapper.Base_Column_List" />
+				  from TB_PAINTING
+				 order by upload_date desc) a
+  	</select>
+
+  	<select id="selectPaintingUpdateListCount" resultType="int">
+		select count(*)
+		  from TB_PAINTING
+	</select>
+
+	<!-- 그림의 구매정보를 업데이트 -->
+  	<update id="updatePaintingPurchaseInfo">
+		update TB_PAINTING
+		   set posted_num = posted_num + #{postedNum},
+			   posted_people_cnt = posted_people_cnt + #{postedPeopleCnt}
+		 where painting_id = #{paintingId}
+  	</update>
+
+  	<select id="sumPostedNum" resultType="int" parameterType="java.lang.String">
+		select COALESCE(SUM(posted_num),0)
+		from TB_PAINTING
+		where artist_id = #{artistId}
+	</select>
+</mapper>

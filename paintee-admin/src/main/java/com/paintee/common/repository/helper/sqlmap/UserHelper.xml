@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paintee.common.repository.helper.UserHelper">
+	
+	<!-- 회원의 구매 정보를 업데이트 -->
+  	<update id="updateUserInfo">
+		update TB_USER 
+		<trim prefix="SET" prefixOverrides=",">
+		    <!-- 서비스 - 임시 오픈 이후에는 삭제해야 함 -->
+		    <if test="serviceCnt != null">
+			   	  ,service_cnt = service_cnt + #{serviceCnt}
+		    </if>	   
+		    <if test="postCnt != null">
+			   	  ,post_cnt = post_cnt + #{postCnt}
+		    </if>	   
+		    <if test="earnTotalMoney != null">
+			   	  ,earn_total_money = earn_total_money + #{earnTotalMoney} 
+		    </if>	   
+		    <if test="earnRewordMoney != null">
+			   	  ,earn_reword_money = earn_reword_money + #{earnRewordMoney}  
+		    </if>	   
+		    <if test="uploadCnt != null">
+			   	  ,upload_cnt = upload_cnt + #{uploadCnt}
+		    </if>	   
+		    <if test="basicAddr != null">
+		          ,basic_addr = #{basicAddr}
+		    </if>	   
+		    <if test="detailAddr != null">
+		          ,detail_addr = #{detailAddr}
+		    </if>	   
+		    <if test="zipcode != null">
+		          ,zipcode = #{zipcode}
+		    </if>	   
+		    <if test="resentSendZipcode != null">
+		          ,resent_send_zipcode = #{resentSendZipcode}
+		    </if>	   
+		    <if test="resentSendBasicAddr != null">
+		          ,resent_send_basic_addr = #{resentSendBasicAddr}
+		    </if>	   
+		    <if test="resentSendDetailAddr != null">
+		          ,resent_Send_Detail_Addr = #{resentSendDetailAddr}
+		    </if>	   
+		    <if test="resentSendCity != null">
+		          ,resent_send_city = #{resentSendCity}
+		    </if>	   
+		    <if test="resentSendName != null">
+		          ,resent_send_name = #{resentSendName}
+		    </if>	   
+		</trim>
+		 where user_id = #{userId}
+  	</update>
+</mapper>

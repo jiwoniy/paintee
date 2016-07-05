@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paintee.common.repository.helper.RewardHelper">
+  
+    <resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.RewardVO" extends="com.paintee.common.repository.mapper.UserMapper.BaseResultMap">
+        <result column="remain_money" property="remainMoney" />
+        <result column="sell_count" property="sellCount" />
+        <result column="request_count" property="requestCount" />
+	</resultMap>
+  
+    <resultMap id="AdminBaseResultMap" type="com.paintee.common.repository.entity.vo.RewardResultVO" extends="com.paintee.common.repository.mapper.RewardMapper.BaseResultMap">
+        <result column="user_name" property="userName" />
+        <result column="bank_name" property="bankName" />
+	</resultMap>
+    
+    <!-- 리워드 요청 사용자의 정보 조회 -->
+  	<select id="selectRewardInfo" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.User">
+	    SELECT a.earn_total_money,
+			   a.earn_reword_money,
+			   a.earn_total_money - a.earn_reword_money AS remain_money,
+			   (SELECT sum(posted_num)
+			      FROM TB_PAINTING
+			     WHERE artist_id = #{userId}) as sell_count,
+			   (SELECT count(*) 
+			      FROM TB_REWARD
+			     WHERE reward_status = 'R'
+			       AND user_id = #{userId}) as request_count
+		  FROM TB_USER a 
+		 where a.user_id = #{userId}
+  	</select>
+  	
+  	<!-- 
+  		관리자 리워드 목록 데이터 조회
+  	 -->
+  	<select id="selectRewardList" resultMap="AdminBaseResultMap" parameterType="com.paintee.common.repository.entity.vo.RewardSearchVO">
+		select a.*, 
+		       (select name from TB_USER where user_id = a.user_id) user_name,
+		       case when a.bank = '99' then direct_input_bank
+		            else (select code_name from TB_CODE where code_group = 'bank' and code_value = a.bank)
+		        end as bank_name
+		  from (select <include refid="com.paintee.common.repository.mapper.RewardMapper.Base_Column_List" />
+				  from TB_REWARD
+				 order by created_date desc) a
+<!-- 				 limit #{startRow}, #{rowPerPage}) a -->
+  	</select>
+
+    <!-- 리워드 전체 카운트 -->
+  	<select id="selectRewardListCount" resultType="int">
+		select count(*)
+		  from TB_REWARD
+	</select>  	
+  	
+    <!-- 리워드 히스토리 정보 조회 -->
+  	<select id="selectRewardHistoryList" resultMap="AdminBaseResultMap" parameterType="com.paintee.common.repository.entity.vo.RewardSearchVO">
+		select a.*, 
+		       (select name from TB_USER where user_id = a.user_id) user_name,
+		       case when a.bank = '99' then direct_input_bank
+		            else (select code_name from TB_CODE where code_group = 'bank' and code_value = a.bank)
+		        end as bank_name
+		  from (select <include refid="com.paintee.common.repository.mapper.RewardMapper.Base_Column_List" />
+				  from TB_REWARD
+				 where user_id = #{userId}  
+				 order by seq desc) a
+  	</select>
+</mapper>

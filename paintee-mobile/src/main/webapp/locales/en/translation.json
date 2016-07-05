@@ -1,0 +1,174 @@
+{
+	"about": 
+	{
+        "overview": {
+			"randingCardTitle": "You can see paintings in Paintee.",
+			"randingCardContents": "Paintee is full of paintings,<br>where you can be an artist,<br>and it is easy to have those as well.",
+			"randingCardTitle2": "You can get any painting you want.",
+			"randingCardContents2": "You can get all paintings in Paintee as a postcard form.<br>Just click 'Post it' button.",
+			"randingCardTitle3": "$2 USD is all you have to pay.",
+			"randingCardContents3": "No additional shipping fee is required.<br>You can send anywhere with $2 USD only.",
+            "randingCardTitle4": "Your painting will become a postcard.",
+			"randingCardContents4": "It will be a real postcard.<br>Only enough size of image is needed"
+		},
+		"post": {
+			"randingCardTitle1": "Keep it, or share it",
+			"randingCardContents1": "You can send the postcard to yourself,<br>or it can be other person.<br>Please enter the exact address and doublecheck it.",
+			"randingCardTitle2": "Share your message.",
+			"randingCardContents2": "Your message will be delivered with the painting.",
+			"randingCardTitle3": "Please wait, it takes a while",
+			"randingCardContents3": "All purchased postcards will be delivered through regular mail.",
+			"randingCardTitle4": "Your support will be a lot to the artists.",
+			"randingCardContents4": "Part of your $2 USD support will be contributed to the artists for the sponsorship."
+		}, 
+		"upload": {
+			"randingCardTitle1": "Your image will become a postcard.",
+			"randingCardContents1": "It will truly be a postcard,<br>which delivers a message to the people in the world<br>with your artwork printed.",
+			"randingCardTitle2": "You can upload only one image for now.",
+			"randingCardContents2": "Your image needs to be sold for five times<br>in order to upload one more image.<br>If your image gets many likes,<br>you can upload more images",
+			"randingCardTitle3": "Enough size of image is needed.",
+			"randingCardContents3": "Enough size of image is needed to make a real postcard.<br>Please prepare an image larger than 1080 x 1920 pixel.",
+			"randingCardTitle4": "25% of selling price will be paid back to you.",
+			"randingCardContents4": "You can get $0.5 USD of rewards per one postcard sold.<br>Collect your reward to get the actual money back."
+		}
+	},
+	"follow": 
+	{
+		"loginexplain": "Images of the artist you are following.",
+		"notloginexplain": "Welcome.<br>Send or receive a beautiful image as a postcard."
+	},
+	"popular": 
+	{
+		"explain": "This is the most popular image.",
+		"content": " people like in Paintee is searched."
+	},
+	"new": 
+	{
+		"explain": "This image is newly uploaded.",
+		"content": " images are in Paintee."
+	},
+	"my": 
+	{
+		"notloginexplain": "Please log-in to check followers' and my images.",	
+		"loginexplain": "These are the images that I have uploaded and posted.",	
+		"login-introduce": "Please introduce yourself.",
+		"cancelStatusPurchase": "Please wait, the postcard is in preparation. If you want to cancel your purchase, please click 'Cancel' button.",	
+		"refundStatusPurchase": "Your refund requirement has been submitted. Please wait.",	
+		"sendStatusPurchase": "Your postcard is being sent. If you received the postcard, 'confirm' please.",
+        "deleteStatusPurchase": "Are you sure want to delete this image?"
+	},
+	"rewardPop": 
+	{
+		"content1": "You can collect rewards every time you post your artworks.<br> Until now, ",	
+		"content2": " times posting. Your total Rewards is ",	
+		"content3": "<br><br><br>",
+		"content4": "If you apply for Rewards now, you can payback ",	
+		"content5": "excluding the commission fee $5 USD.",	
+		"content6": "You can apply for rewards only if you have more than $10 USD of rewards."	
+	},
+	"rewardPop2": 
+	{
+		"content1": "아래 계좌로 지금 받을 수 있는 (영)",	
+		"content2": "에 <br>reward <b> 수수료 (영)",
+		"content3": "를 제외한(영)",	 
+		"content4": "이 입금됩니다.(영)",	
+		"content5": "Please enter your account name and account number correctly."	,
+		"content6": "If incorrect, there will be an error to transfer into your account."	
+	},	
+	"purchasePop1": 
+	{
+		"contents": "Now is the beta test period. We will begin service shortly.<br><br><br><b>Send 3 free postcards till beta test period over.</b><br>Only $2 USD, you can have any images since commercial service.<br><br>Please click ‘Payment’ button to continue.",
+        "alert": "Now is the beta test period. We will begin service shortly.<br><br><br>Only $2 USD, you can have any images since commercial service.<br><br>Please, wait commercial service.",
+		"sender": "sender",
+		"address": "addresses"
+	},	
+	"purchasePop2": 
+	{
+		"contents": "The postcard will be sent soon.<br>But, please wait, it will take a while.<br>All purchased postcards will be delivered through regular mail. We won't be able to guarantee specific delivery date.<br><br><br><b>Please share with your friends.<br>"
+	},	
+	"personal": 
+	{
+		"contents": " uploaded this image."
+	},	
+	"uploadPop":
+	{
+		"successContent": "Image has been uploaded successfully.<br>Please share us your thoughts and feelings regarding this image.",
+		"failContent": "<b>Upload Failed!</b><br>Larger size is required for high quality printing.<br><b>W: 1080px H: 1500px</b><br>",
+		"content1": "As many as you post your artworks,<br>the maximum number of uploading images will be increased.<br>You have posted",
+		"content2": " times. Your maximum number of posting is ",
+		"content3": " <br> You are able to upload",
+		"content4": " more images.<br><br><br>The image should be larger than<br> W: <b>1080px</b> H: <b>1500px</b><br> <br><br><br><br><span style='color:rgb(150,0,0)'>If the unauthorized uploading of copyrighted works of others, you receive a sanction for the post. For more information, please check our <b>Terms & Policy</b> </span>"
+	},
+	"detailPop":
+	{
+		"noData": "Message does not exist about this image.<br>Please leave your message by pressing 'post it' button."
+	},
+	"alert": 
+	{
+		"common" : {
+			"ruleName": "Name should be 4 to 14 characters, including letters and numbers.",
+			"rulePassword": "Password should be 8 to 12 characters, including letters and numbers.",
+			"confirmEmailPass": "Please check your email address and password.",
+			"existName": "This name is already in use.",
+			"existEmail": "This email is already in use.",
+			"differentPassword": "Incorrect password. Please confirm your password again.",
+			"delPainting": "This image is deleted.",
+			"processDelete": "This image is deleted successfully.",
+			"wantDelete": "Are you sure you want to delete?",
+			"notLogin": "Sign in required.",
+			"copyAddress": "Link copied to clipboard. You can paste it by pressing Ctrl+V.",
+			"copyToClipboard": "Copy the link to clipboard by pressing Ctrl+C.",
+			"unkownServerError": "Connection failure.\nPlease wait a while and try again.",
+			"notExistArtist": "Author does not exist.",
+			"notExistPicture": "Image does not exist."
+		},
+		"purchase" : {
+			"limitEnterCount": "Line breaking is limited to 5 times.",
+			"emptySentence": "Please enter a message.",
+			"exceedSentence": "The message is limited to 200 characters.",
+			"emptySenderName": "Please enter a sender's name.",
+			"emptyReceiverName": "Please enter a receiver's name.",
+			"emptyAddress": "Please enter the address.",
+			"emptyCity": "Please enter the city.",
+			"emptyZipcode": "Please enter the postal code.",
+			"inputOnlyNumber": "Please enter numbers only for postal code.",
+			"changeAddress": "Do you want to change your address into the new one when buying a postcard?",
+			"processResend": "Re-sending request is completed.",
+			"processCancel": "Refund request is completed.",
+			"processCancelRefund": "Cancelling refund request is completed.",
+			"processComplete": "Re-sending request is completed.",
+			"finishPurchaseService": "You have turned off free service."
+		},
+		"reward" : {
+			"existRequest": "You have already applied for another reward.",
+			"possibleRequestMoney": "Reward is available from $10 USD.",
+			"emptyBankName": "Please enter the bank name.",
+			"emptyAccountName": "Please enter the account holder.",
+			"emptyAccountNo": "Please enter the account number.",
+			"inputOnlyNumberAccountNo": "Account number should be in numbers only.",
+			"completeProcess": "Processing is completed",
+			"notExistHistory": "No reward history exists.",
+			"cancelReward": "Your request for reward has been cancelled."
+		},
+		"detail" : {
+			"processFollow": " is followed.",
+			"existFollow": " is already followed."
+		},
+		"login" : {
+			"confirmEmailPass": "Please check your email and password.",
+			"resetPassSendMail": "Email for password reset has been sent to your email account.",
+			"confirmEmail": "Please check your email."
+		},
+		"profile" : {
+			"processModify": "Successfully edited."
+		},
+		"signup" : {
+			"processMemberJoin": "You are successfully registered.\nPlease check your email.",
+			"processSocialMemberJoin": "You are successfully registered.",
+			"correctEmailAddr": "Please enter the correct email address."
+		},
+		"upload" : {
+			"choiceFile": "Please select the upload file."
+		}
+	}				
+}

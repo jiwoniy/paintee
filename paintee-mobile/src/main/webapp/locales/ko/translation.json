@@ -1,0 +1,174 @@
+{
+	"about": 
+	{
+		"overview": {
+			"randingCardTitle": "Paintee에서 그림을 만나세요.",
+			"randingCardContents": "Paintee는 그림으로 가득한 곳입니다.<br>여기서는 누구나 작가가 되고,<br>어렵지 않게 그림을 가질 수 있습니다. ",
+			"randingCardTitle2": "어떤 그림이든지 가질 수 있습니다.",
+			"randingCardContents2": "Paintee에 올라온 모든 그림은 실제 엽서로 가질 수 있습니다.<br>Post it 버튼만 눌러보세요.",
+			"randingCardTitle3": "$2 이상이 필요하지 않습니다.",
+			"randingCardContents3": "당신이 어디에 있든, 누구에게 보내든<br>단, $2면 당신의 한마디와 함께 누구에게든 보낼 수 있습니다.",
+            "randingCardTitle4": "당신의 그림이 하나의 엽서가 됩니다.",
+			"randingCardContents4": "정말로 엽서가 됩니다.<br>충분히 큰 사이즈의 그림만 있으면요."
+		},
+		"post": {
+			"randingCardTitle1": "간직하거나, 함께하세요.",
+			"randingCardContents1": "구매한 엽서는 당신이 가질 수도,<br>다른 사람에게 보낼 수 도 있습니다.<br>구매하기전에 받는 사람의 정확한 주소를 입력해 주세요. ",
+			"randingCardTitle2": "당신이 느낀 한마디를 적어주세요.",
+			"randingCardContents2": "엽서에 당신의 한마디가 함께 남겨져 발송됩니다.",
+			"randingCardTitle3": "기다리세요, 조금 더 시간이 걸립니다.",
+			"randingCardContents3": "구매한 엽서는 우편을 통해 배송됩니다.<br>우편은 충분히 빠르지 않습니다. 충분히 기다리세요.",
+			"randingCardTitle4": "작가에게 큰 힘이 되어주세요.",
+			"randingCardContents4": "구매한 $2의 일부는 작가에게 후원금으로 지급됩니다."
+		}, 
+		"upload": {
+			"randingCardTitle1": "당신의 그림이 하나의 엽서가 됩니다.",
+			"randingCardContents1": "정말로 엽서가 됩니다. 그리고 사람들에게 소식을 전해줍니다. 당신이 그린 그림들로요.",
+			"randingCardTitle2": "일단은 하나만 올릴 수 있습니다.",
+			"randingCardContents2": "하나의 그림을 추가로 업로드 하기 위해서, 다섯번의 구매가 필요합니다.<br>사람들이 더 많이 당신의 그림을 좋아할 수록 더 많은 그림을 올릴 수 있습니다.",
+			"randingCardTitle3": "충분히 큰 이미지가 필요합니다.",
+			"randingCardContents3": "실제 엽서를 만들기 위해서 충분히 큰 이미지가 필요합니다. <br>가로 1080px, 세로 1500px 이상의 충분히 큰 이미지를 준비해주세요.",
+			"randingCardTitle4": "그리고 판매 금액의 25%가 당신에게 돌아갑니다.",
+			"randingCardContents4": "엽서가 한번 구매될 때마다,<br>$0.5의 리워드를 얻을 수 있습니다.<br>리워드를 모아 실제로 입금받을 수 있습니다."
+		}
+	},
+	"follow": 
+	{
+		"loginexplain": "가까운 사람들의 그림입니다.",
+		"notloginexplain": "환영합니다.<br>그림을 엽서로 보내거나 받아보세요."
+	},
+	"popular": 
+	{
+		"explain": "가장 인기있는 그림입니다.",
+		"content": "명이 paintee에서 좋아하는 그림을 찾았습니다."
+	},
+	"new": 
+	{
+		"explain": "새로 올라온 그림입니다.",
+		"content": "개의 그림이 paintee에 있습니다."
+	},
+	"my": 
+	{
+		"notloginexplain": "로그인해서 나와 팔로워의 그림을 확인하세요",	
+		"loginexplain": "내가 올리거나 포스트한 그림입니다.",	
+		"login-introduce": "여기에 자신을 소개할 문구를 넣어주세요.",
+		"cancelStatusPurchase": "조금만 기다려주세요, 엽서가 배송준비중입니다. 구매를 취소하려면 Cancel버튼을 이용하세요.",	
+		"refundStatusPurchase": "환불요청이 접수되었습니다. 잠시만 기다려주세요",		
+		"sendStatusPurchase": "엽서가 배송되었습니다. 엽서가 도착하면 확인해주세요.",
+        "deleteStatusPurchase": "정말로 삭제하시겠습니까?"
+	},
+	"rewardPop": 
+	{
+		"content1": "당신의 그림이 post될 때 마다 reward가 쌓입니다.<br> 지금까지 ",	
+		"content2": "회 post된 당신이 얻은 총 Reward는 ",	
+		"content3": "입니다.<br><br><br>",
+		"content4": "지금 Reward를 신청하면 수수료 $5가 제외된 ",	
+		"content5": "을 받을 수 있습니다.",	
+		"content6": "리워드가 $10 이상일 때 리워드를 신청할 수 있습니다."	
+	},
+	"rewardPop2": 
+	{
+		"content1": "아래 계좌로 지금 받을 수 있는 ",	
+		"content2": "에 <br>reward <b>수수료 ",	
+		"content3": "를 제외한",	 
+		"content4": "이 입금됩니다.",	
+		"content5": "계좌명과 계좌번호를 정확하게 입력해주세요."	,
+		"content6": "계좌명이 정확하지 않을 경우, 입금에 장애가 있을 수 있습니다."	
+	},	
+	"purchasePop1": 
+	{
+		"contents": "지금은 beta 운영기간입니다. 곧 정식서비스를 시작합니다.<br><br><br><b>beta 운영기간 중에는 3개까지 무료로 엽서를 구입할 수 있습니다.</b><br>정식 서비스가 시작되면 개수 제한없이 $2에 어떤 그림이든 가질 수 있습니다.<br><br>아래 구매버튼을 눌러 post를 계속하세요.",
+        "alert": "지금은 beta 운영기간입니다. 곧 정식서비스를 시작합니다.<br><br><br><b>정식 서비스가 시작되면 개수 제한없이 $2에 어떤 그림이든 가질 수 있습니다.<br><br>정식 서비스를 기다려주세요.",
+		"sender": "보내는 사람",
+		"address": "받는 사람"
+	},	
+	"purchasePop2": 
+	{
+		"contents": "곧 엽서가 발송됩니다.<br>하지만, 기다리세요, 조금 더 시간이 걸립니다.<br>구매한 엽서는 우편을 통해 배송됩니다. 우편은 충분히 빠르지 않습니다.<br>기다린 만큼 더 큰 기쁨이 될 수 있습니다.<br><br><br><b>Post한 그림을 친구들과 함께 하세요."
+	},	
+	"personal": 
+	{
+		"contents": "님이 업로드한 그림들입니다."
+	},	
+	"uploadPop":
+	{
+		"successContent": "성공적으로 그림이 등록되었습니다.<br>당신의 생각, 당신의 느낌을 그림과 함께 적어주세요.",
+		"failContent": "고화질의 출력을 위해 더 큰 이미지가 필요합니다.<br><b>가로 사이즈 1080px 세로 사이즈 1500px</b><br>이상의 이미지가 필요합니다.",
+		"content1": "당신의 그림이 Post될 때 마다,<br>추가로 업로드할 수 있는 그림의 수가 늘어납니다.<br>지금까지",
+		"content2": "회 Post된 당신은 최대",
+		"content3": "개의 그림을 올릴 수 있고<br> 지금",
+		"content4": "개 의 그림을 더 올릴 수 있습니다.<br><br><br>업로드를 위해서는<br>가로 사이즈 <b>1080px</b> 세로 사이즈 <b>1500px</b><br>이상의 이미지가 필요합니다.<br><br><br><br><span style='color:rgb(150,0,0)'>타인의 저작물을 무단으로 업로드할 경우, 게시물에 대해 재재를 받을 수 있습니다. 자세한 사항은 <b>Terms & Policy</b> 항목을 확인하세요.</span>"
+	},
+	"detailPop":
+	{
+		"noData": "아직 이 그림에 대한 다른 사람들의 한마디가 없습니다.<br>지금 post it 버튼을 눌러 당신의 한마디를 남겨주세요."
+	},
+	"alert": 
+	{
+		"common" : {
+			"ruleName": "이름은 최소 4자 최대 14자 의 영문, 숫자 조합으로 입력하셔야 합니다.",
+			"rulePassword": "비밀번호는 최소 8자 최대 12자 의 문자와 숫자의 조합으로 입력하셔야 합니다.",
+			"confirmEmailPass": "정확하지 않은 이메일 또는 비밀번호입니다.",
+			"existName": "이미 사용중인 이름 입니다.",
+			"existEmail": "이미 사용중인 이메일 입니다.",
+			"differentPassword": "비밀번호와 비밀번호 확인 값이 일치하지 않습니다.",
+			"delPainting": "삭제된 그림 입니다.",
+			"processDelete": "삭제 처리되었습니다.",
+			"wantDelete": "삭제 하시겠습니까?",
+			"notLogin": "로그인 후 가능합니다.",
+			"copyAddress": "주소가 복사되었습니다. Ctrl+V로 붙여 넣기 하세요.",
+			"copyToClipboard": "Ctrl+C를 눌러 클립보드로 복사하세요.",
+			"unkownServerError": "서버에 장애가 발생하였습니다.\n잠시후 다시 이용해주세요.",
+			"notExistArtist": "존재하지 않는 그림작가 입니다.",
+			"notExistPicture": "존재하지 않는 그림 입니다."
+		},
+		"purchase" : {
+			"limitEnterCount": "줄바꿈은 5회까지 가능합니다.",
+			"emptySentence": "한마디를 입력하세요.",
+			"exceedSentence": "한마디는 200자까지 가능합니다.",
+			"emptySenderName": "보내는 사람을 입력하세요.",
+			"emptyReceiverName": "받는 사람을 입력하세요.",
+			"emptyAddress": "주소를 입력하세요.",
+			"emptyCity": "도시명을 입력하세요.",
+			"emptyZipcode": "우편번호를 입력하세요.",
+			"inputOnlyNumber": "우편번호는 숫자만 가능합니다.",
+			"changeAddress": "그림 구매시 변경된 주소로 기존 주소를 바꾸시겠습니까?",
+			"processResend": "재발송 요청이 처리되었습니다.",
+			"processCancel": "환불요청이 처리되었습니다.",
+			"processCancelRefund": "환불요청 취소가 처리되었습니다.",			
+			"processComplete": "재발송 요청이 처리되었습니다.",
+			"finishPurchaseService": "제공된 구매서비스가 종료되었습니다."
+		},
+		"reward" : {
+			"existRequest": "이미 신청중인 리워드가 있습니다.",
+			"possibleRequestMoney": "리워드는 $10부터 신청가능합니다.",
+			"emptyBankName": "은행이름을 입력하세요.",
+			"emptyAccountName": "계좌주를 입력하세요.",
+			"emptyAccountNo": "계좌번호를 입력하세요.",
+			"inputOnlyNumberAccountNo": "정확한 계좌번호를 입력하세요.<br>계좌번호는 -없이 숫자만 입력해주세요.",
+			"completeProcess": "처리되었습니다.",
+			"notExistHistory": "리워드 히스토리가 존재하지 않습니다.",
+			"cancelReward": "리워드 요청이 취소되었습니다."
+		},
+		"detail" : {
+			"processFollow": " 님을 Follow 하였습니다.",
+			"existFollow": " 님은 이미 Follow 되어있습니다."
+		},
+		"login" : {
+			"confirmEmailPass": "정확하지 않은 이메일 또는 비밀번호입니다.",
+			"resetPassSendMail": "비밀번호 초기화 메일이 발송되었습니다.",
+			"confirmEmail": "이메일을 확인하세요."
+		},
+		"profile" : {
+			"processModify": "수정되었습니다."
+		},
+		"signup" : {
+			"processMemberJoin": "회원가입이 정상적으로 처리되었습니다.\n이메일을 확인하세요.",
+			"processSocialMemberJoin": "회원가입이 정상적으로 처리되었습니다.",
+			"correctEmailAddr": "바른 이메일 주소를 입력하셔야 합니다."
+		},
+		"upload" : {
+			"choiceFile": "업로드 파일을 선택하세요."
+		}
+	}				
+}

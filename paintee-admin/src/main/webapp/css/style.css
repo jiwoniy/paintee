@@ -1,0 +1,60 @@
+html, body {height: 100%}
+#wrap {min-height: 100%; margin-bottom: -130px;}
+#footer, #wrap:after {height: 130px;}
+#wrap:after {
+	content: "";
+	display: block
+}
+#footer {
+	background: #efefef;
+}
+.container {
+	position: relative;
+	width: 1270px !important;
+}
+.clear{width:0;height:0;margin:0;padding:0;clear:both;font-size:0;line-height:0}
+.fixbox {
+	width: 100%;
+	height: 60px;
+}
+.tcenter {
+	text-align: center;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+	padding: 14px 8px;
+}
+
+/* select box */
+select { width: 130px; height: 24px; }
+
+/* 테이블 공통 */
+table thead { width:100%; }
+table tbody { height: 580px; width:100%; overflow-y: auto; overflow-x: hidden; display:block; }
+thead tr { display:table; width:100%; }
+thead th { font-size: 15px; font-weight: bold; background: #757575; color: #fff; }
+tbody tr { display:table; width:100%; border-bottom:1px solid #ddd; }
+
+/* upload */
+.table-upload thead th:first-child, .table-upload tbody td:first-child { width:160px; }
+.table-upload thead th:nth-child(3), .table-upload tbody td:nth-child(3) { width:80px; }
+.table-upload thead th:nth-child(4), .table-upload tbody td:nth-child(4) { width:80px; }
+.table-upload thead th:nth-child(5), .table-upload tbody td:nth-child(5) { width:130px; }
+.table-upload thead th:nth-child(6), .table-upload tbody td:nth-child(6) { width:190px; }
+.table-upload thead th:last-child, .table-upload tbody td:last-child { width:180px; }
+			
+/* reward */
+.table-reward thead th:first-child, .table-reward tbody td:first-child { width:150px; }
+.table-reward thead th:nth-child(2), .table-reward tbody td:nth-child(2) { width:150px; }
+.table-reward thead th:nth-child(3), .table-reward tbody td:nth-child(3) { width:200px; }
+.table-reward thead th:nth-child(4), .table-reward tbody td:nth-child(4) { width:150px; }
+.table-reward thead th:nth-child(5), .table-reward tbody td:nth-child(5) { width:110px; }
+.table-reward thead th:nth-child(6), .table-reward tbody td:nth-child(6) { width:110px; }
+.table-reward thead th:nth-child(7), .table-reward tbody td:nth-child(7) { width:180px; }
+			
+/* purchase */
+.table-purchase thead th:first-child, .table-purchase tbody td:first-child { width:180px; }
+.table-purchase thead th:nth-child(2), .table-purchase tbody td:nth-child(2) { width:180px; }
+.table-purchase thead th:nth-child(3), .table-purchase tbody td:nth-child(3) { width:180px; }
+.table-purchase thead th:nth-child(4), .table-purchase tbody td:nth-child(4) { width:180px; }
+.table-purchase thead th:nth-child(5), .table-purchase tbody td:nth-child(5) { width:180px; }
+.table-purchase thead th:nth-child(6), .table-purchase tbody td:nth-child(6) { width:180px; }

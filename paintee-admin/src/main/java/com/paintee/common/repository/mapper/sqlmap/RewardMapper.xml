@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paintee.common.repository.mapper.RewardMapper" >
+  <resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.Reward" >
+    <id column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="direct_input_bank" property="directInputBank" jdbcType="VARCHAR" />
+    <result column="account_no" property="accountNo" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="earm_requested_money" property="earmRequestedMoney" jdbcType="INTEGER" />
+    <result column="earm_requested_commission" property="earmRequestedCommission" jdbcType="INTEGER" />
+    <result column="reward_status" property="rewardStatus" jdbcType="CHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seq, user_id, bank, direct_input_bank, account_no, account_name, earm_requested_money, 
+    earm_requested_commission, reward_status, created_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.RewardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_REWARD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_REWARD
+    where seq = #{seq,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_REWARD
+    where seq = #{seq,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.RewardExample" >
+    delete from TB_REWARD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.paintee.common.repository.entity.Reward" >
+    <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TB_REWARD (user_id, bank, direct_input_bank, 
+      account_no, account_name, earm_requested_money, 
+      earm_requested_commission, reward_status, created_date
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, #{directInputBank,jdbcType=VARCHAR}, 
+      #{accountNo,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{earmRequestedMoney,jdbcType=INTEGER}, 
+      #{earmRequestedCommission,jdbcType=INTEGER}, #{rewardStatus,jdbcType=CHAR}, #{createdDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.Reward" >
+    <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TB_REWARD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="bank != null" >
+        bank,
+      </if>
+      <if test="directInputBank != null" >
+        direct_input_bank,
+      </if>
+      <if test="accountNo != null" >
+        account_no,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="earmRequestedMoney != null" >
+        earm_requested_money,
+      </if>
+      <if test="earmRequestedCommission != null" >
+        earm_requested_commission,
+      </if>
+      <if test="rewardStatus != null" >
+        reward_status,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="directInputBank != null" >
+        #{directInputBank,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNo != null" >
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="earmRequestedMoney != null" >
+        #{earmRequestedMoney,jdbcType=INTEGER},
+      </if>
+      <if test="earmRequestedCommission != null" >
+        #{earmRequestedCommission,jdbcType=INTEGER},
+      </if>
+      <if test="rewardStatus != null" >
+        #{rewardStatus,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paintee.common.repository.entity.RewardExample" resultType="java.lang.Integer" >
+    select count(*) from TB_REWARD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TB_REWARD
+    <set >
+      <if test="record.seq != null" >
+        seq = #{record.seq,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bank != null" >
+        bank = #{record.bank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.directInputBank != null" >
+        direct_input_bank = #{record.directInputBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountNo != null" >
+        account_no = #{record.accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountName != null" >
+        account_name = #{record.accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.earmRequestedMoney != null" >
+        earm_requested_money = #{record.earmRequestedMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.earmRequestedCommission != null" >
+        earm_requested_commission = #{record.earmRequestedCommission,jdbcType=INTEGER},
+      </if>
+      <if test="record.rewardStatus != null" >
+        reward_status = #{record.rewardStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TB_REWARD
+    set seq = #{record.seq,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      bank = #{record.bank,jdbcType=VARCHAR},
+      direct_input_bank = #{record.directInputBank,jdbcType=VARCHAR},
+      account_no = #{record.accountNo,jdbcType=VARCHAR},
+      account_name = #{record.accountName,jdbcType=VARCHAR},
+      earm_requested_money = #{record.earmRequestedMoney,jdbcType=INTEGER},
+      earm_requested_commission = #{record.earmRequestedCommission,jdbcType=INTEGER},
+      reward_status = #{record.rewardStatus,jdbcType=CHAR},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.Reward" >
+    update TB_REWARD
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="directInputBank != null" >
+        direct_input_bank = #{directInputBank,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNo != null" >
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="earmRequestedMoney != null" >
+        earm_requested_money = #{earmRequestedMoney,jdbcType=INTEGER},
+      </if>
+      <if test="earmRequestedCommission != null" >
+        earm_requested_commission = #{earmRequestedCommission,jdbcType=INTEGER},
+      </if>
+      <if test="rewardStatus != null" >
+        reward_status = #{rewardStatus,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where seq = #{seq,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.Reward" >
+    update TB_REWARD
+    set user_id = #{userId,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      direct_input_bank = #{directInputBank,jdbcType=VARCHAR},
+      account_no = #{accountNo,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      earm_requested_money = #{earmRequestedMoney,jdbcType=INTEGER},
+      earm_requested_commission = #{earmRequestedCommission,jdbcType=INTEGER},
+      reward_status = #{rewardStatus,jdbcType=CHAR},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where seq = #{seq,jdbcType=INTEGER}
+  </update>
+</mapper>
