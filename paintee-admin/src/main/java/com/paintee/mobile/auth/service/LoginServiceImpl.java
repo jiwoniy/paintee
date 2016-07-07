@@ -251,6 +251,7 @@ public class LoginServiceImpl implements LoginService {
 
 		User user = new User();
 		user.setPassword(Sha512Encrypt.hash(tempPasswordPlainText));
+		user.setEmail(userLoginVO.getEmail());
 
 		int count = userHelper.updateByExampleSelective(user, userExample);
 
