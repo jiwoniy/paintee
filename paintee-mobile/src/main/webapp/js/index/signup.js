@@ -122,9 +122,21 @@ SignupController.prototype = {
 		param.providerId=providerId;
 		param.providerUserId=userId;
 		param.accessToken = accessToken;
+		
+		// 이름 유효성 검사
+		// username 유효성 검사 (4자~14자)
+		var reg_exp = new RegExp("^[a-zA-Z][a-zA-Z0-9]{3,11}$","g");  
+        var match = reg_exp.exec(param.name); 
 
-		//email, user name 중복 체크
-		controller.checkDuplication(param);
+        if (match == null || param.name.length <  4 || param.name.length > 12) { 
+    		alert($.i18n.t('alert.signup.invalidUserName')); 
+            $("#signup_social_username").focus();
+        }else{
+        	//email, user name 중복 체크
+    		controller.checkDuplication(param);
+        }
+        
+		
 	}
 }
 
