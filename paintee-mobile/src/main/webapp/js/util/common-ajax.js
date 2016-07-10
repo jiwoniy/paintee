@@ -23,7 +23,7 @@ var AjaxCall = {
 						var object = JSON.parse(jqXHR.responseText);
 			
 						if (object.errorNo == 9999) {
-							clearUserInfoCookie();
+							logout();
 						} 
 						
 						alert(object.errorMsg);

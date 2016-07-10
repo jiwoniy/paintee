@@ -18,9 +18,6 @@ LogInController.prototype = {
 	doLoginRes: function(result, status) {
 
 		if(result.errorNo == 0) {
-			// console.log(result);
-
-
 			setUserInfoCookie(result);
 
 			var userAgent = navigator.userAgent;
@@ -50,12 +47,13 @@ LogInController.prototype = {
 	doResetPasswod: function() {
 		var param = {};
 		param.email = this.email;
-
+		
 		var controller = this;
 
 		AjaxCall.call(apiUrl+"/resetpasswd", param, "POST", function(result, status) { controller.doResetPasswodRes(result, status); });
 	},
 	doResetPasswodRes: function(result, status) {
+		
 		if(result.errorNo == 0) {
 			// console.log(result);
 			alert($.i18n.t('alert.login.resetPassSendMail'));
@@ -133,8 +131,9 @@ $(".help_login_btn").click(function(){
 
 //비밀번호 초기화
 $('#resetPasswordBtn').on('click', function() {
-    var resetUserEmaiil = $('#resetUserEmaiil').val();
-    var logInController = new LogInController(resetUserEmaiil, '');
+    var resetUserEmail = $('#resetUserEmail').val();
+    var logInController = new LogInController(resetUserEmail, '');
+    
     logInController.doResetPasswod();
 });
 

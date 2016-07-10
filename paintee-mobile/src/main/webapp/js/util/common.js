@@ -84,6 +84,7 @@ var clearUserInfoCookie = function() {
 	
 };
 var getUserInfoCookie = function() {
+	
 	var cName = 'userInfo=';
 	var cookieData = document.cookie;
 	var start = cookieData.indexOf(cName);
