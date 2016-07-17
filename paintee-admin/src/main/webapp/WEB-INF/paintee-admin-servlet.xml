@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd 
+						http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd 
+						http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+						http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+	<mvc:annotation-driven content-negotiation-manager="cnManager">
+		<mvc:argument-resolvers>
+			<bean class="com.paintee.mobile.support.resolver.UserHandlerMethodArgumentResolver">
+				<property name="loginService" ref="com.paintee.mobile.auth.service.LoginServiceImpl" />
+			</bean>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.paintee.admin,com.paintee.mobile,com.paintee.common">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+
+	<context:property-placeholder properties-ref="config" />
+
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/font-awesome/**" location="/font-awesome/" />
+	<mvc:resources mapping="/fonts/**" location="/fonts/" />
+	<mvc:resources mapping="/img/**" location="/img/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
+
+	<mvc:cors>
+		<mvc:mapping path="/api/**"
+						allowed-origins="*"
+						allowed-methods="GET, PUT, POST, DELETE, OPTIONS"
+						allowed-headers="origin, accept, content-type, X-PAINTEE-HASH"
+						exposed-headers=""
+						allow-credentials="false"
+						max-age="3600" />
+	</mvc:cors>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/api/**" />
+			<mvc:exclude-mapping path="/api/resetpasswd" />
+			<mvc:exclude-mapping path="/api/signup" />
+			<mvc:exclude-mapping path="/api/signup/**" />
+			<mvc:exclude-mapping path="/api/login" />
+			<mvc:exclude-mapping path="/api/login/social" />
+			<mvc:exclude-mapping path="/api/newIndex" />
+			<mvc:exclude-mapping path="/api/popularIndex" />
+			<mvc:exclude-mapping path="/api/painting/**" />
+			<mvc:exclude-mapping path="/api/index/personal" />
+			<mvc:exclude-mapping path="/api/index/personal/**" />
+			<mvc:exclude-mapping path="/api/posted" />
+			<mvc:exclude-mapping path="/api/test" />
+			<mvc:exclude-mapping path="/css/**" />
+			<mvc:exclude-mapping path="/font-awesome/**" />
+			<mvc:exclude-mapping path="/fonts/**" />
+			<mvc:exclude-mapping path="/img/**" />
+			<mvc:exclude-mapping path="/js/**" />
+			<mvc:exclude-mapping path="/favicon.ico" />
+			<bean class="com.paintee.mobile.support.interceptor.TokenInterceptor">
+				<property name="loginService" ref="com.paintee.mobile.auth.service.LoginServiceImpl" />
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<mvc:exclude-mapping path="/css/**" />
+			<mvc:exclude-mapping path="/font-awesome/**" />
+			<mvc:exclude-mapping path="/fonts/**" />
+			<mvc:exclude-mapping path="/img/**" />
+			<mvc:exclude-mapping path="/js/**" />
+			<mvc:exclude-mapping path="/favicon.ico" />
+			<bean class="com.paintee.admin.interceptor.AdminSessionInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- add a bean name view resolver to support the multiple views results based on bean names -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0"/>
+
+	<!-- View Resolver -->
+	<!-- 컨트롤러 처리결과를 보여줄 View 구현체 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1"/>
+		<!-- /WEB-INF/view/뷰이름.jsp 로 들어오도록 prefix 및 suffix 설정 -->
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+		<property name="exposeContextBeansAsAttributes" value="true" />
+	</bean>
+
+	<!-- file upload -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+<!-- 		<property name="maxUploadSize">
+		<value>102400000</value>
+		</property> -->
+		<!--최대 파일 업로드 용량 제한 -->
+        <property name="maxUploadSize" value="999999999" />
+
+        <!--디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+        <property name="maxInMemorySize" value="999999999" />
+        <!-- 파일명 인코딩 -->
+        <property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+    <bean id="cnManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="ignoreAcceptHeader" value="true"/>        
+        <property name="defaultContentType" value="application/json" />
+    </bean>
+
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<util:list list-class="java.util.ArrayList">
+				<ref bean="mappingJackson2HttpMessageConverter"/>
+			</util:list>
+		</property>
+	</bean>
+	<bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<mvc:view-controller path="/admin/login/loginForm" view-name="/admin/login/login" />
+
+	<!-- transaction setting -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

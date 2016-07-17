@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level [%l] - %msg%n" />
+		</Console>
+
+		<RollingFile name="file" fileName="/logs/paintee-admin.log" filePattern="/logs/paintee-admin.%i.%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" /> <!-- 이 용량이 초과되면 아래 DefaultRolloverStrategy 정책만큼 넘버링 할거다. -->
+			</Policies>
+			<DefaultRolloverStrategy max="1000"	fileIndex="min" /><!-- 0부터 1000개 까지만 만들거다 1000개 초과되면 파일이 더생성안된다. -->
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="java.sql" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="egovframework" level="WAREN" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<!-- log SQL with timing information, post execution -->
+		<Logger name="jdbc.sqltiming" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.springframework" level="WARN" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="com.paintee" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<root level="WARN" additivity="false">
+			<appender-ref ref="console" />
+			<!-- <appender-ref ref="file" /> -->
+		</root>
+	</Loggers>
+</Configuration>

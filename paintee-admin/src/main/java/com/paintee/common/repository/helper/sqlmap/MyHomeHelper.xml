@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paintee.common.repository.helper.MyHomeHelper">
+	<resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.MyHomeVO" extends="com.paintee.common.repository.mapper.PaintingMapper.BaseResultMap">
+	    <result column="sentence_name" property="sentenceName" />
+	    <result column="artist_name" property="artistName" />	    
+	    <result column="type" property="type" />	    
+	</resultMap>
+  	
+	<!-- 로그인 사용자가 구매한 그림과 업로드한 그림의 목록을 가져오기 -->
+  	<select id="selectMyHomePaintingList" resultMap="BaseResultMap">
+  	   
+		select a.seq,
+		       a.artist_id, 
+			   (select name from TB_USER where user_id = a.artist_id) artist_name, 
+			   (select name from TB_USER where user_id = a.artist_id) sentence_name, 
+			   a.sentence, 
+			   a.file_group_seq, 
+			   a.upload_date as dateOrder,  
+			   a.painting_id, 
+			   a.posted_num, 
+			   a.painting_status,
+			   a.posted_people_cnt,
+			   'U' as type
+		  from TB_PAINTING a
+		 where a.artist_id = #{artistId}
+		   and a.painting_status in <foreach item="status" collection="paintingStatusList" open="(" close=")" separator=",">
+		    							#{status}
+		                            </foreach>
+		 union all
+		select b.seq,
+		       b.user_id, 
+			   (select name from TB_USER where user_id = a.artist_id) artist_name, 
+		       (select name from TB_USER where user_id = b.user_id) sentence_name,
+			   b.sentence,
+			   a.file_group_seq,
+			   b.purchase_date as dateOrder,  
+			   a.painting_id,
+			   a.posted_num,
+			   b.purchase_status,
+			   a.posted_people_cnt,
+			   'P' as type
+		  from TB_PAINTING a, 
+		       TB_PURCHASE b
+		 where a.painting_id = b.painting_id
+		   and b.purchase_status in <foreach item="status" collection="purchaseStatusList" open="(" close=")" separator=",">
+		    							#{status}
+		                            </foreach>
+		   and b.user_id = #{userId}
+		   <!-- 그림의 원 작가가 자신의 그림을 구매한 경우의 케이스 처리
+		   and b.user_id != a.artist_id
+		 union all
+		select b.seq,
+		       b.user_id, 
+			   (select name from TB_USER where user_id = a.artist_id) artist_name, 
+		       (select name from TB_USER where user_id = b.user_id) sentence_name,
+			   b.sentence,
+			   a.file_group_seq,
+			   b.purchase_date,
+			   a.painting_id,
+			   a.posted_num,
+			   b.purchase_status,
+			   a.posted_people_cnt,
+			   'P' as type
+		  from TB_PAINTING a, 
+		       TB_PURCHASE b
+		 where a.painting_id = b.painting_id
+		   and b.purchase_status in <foreach item="status" collection="purchaseStatusList" open="(" close=")" separator=",">
+		    							#{status}
+		                            </foreach>
+		   and a.painting_status != 'D'                         
+		   and b.user_id = #{userId}
+		   and b.user_id = a.artist_id
+		    -->
+		 order by dateOrder desc
+		 limit #{startRow}, #{rowPerPage}
+  	</select>  	
+  	
+	<!-- My 목록의 홈 정보 조회 -->
+  	<select id="selectMyHomeInfo" resultType="com.paintee.common.repository.entity.vo.MyHomeVO">
+  	     select (select introduce from TB_USER where user_id = #{userId}) as introduce,
+  	            (select count(*) 
+  	               from TB_PAINTING 
+  	              where artist_id = #{userId} 
+  	                and painting_status in <foreach item="status" collection="paintingStatusList" open="(" close=")" separator=",">
+		    									#{status}
+		                            	   </foreach>) as uploadCount,
+  	            (select count(*) 
+  	               from TB_PURCHASE 
+  	              where user_id = #{userId}
+  	                and purchase_status in <foreach item="status" collection="purchaseStatusList" open="(" close=")" separator=",">
+		    								   #{status}
+		                            	   </foreach>) as postCount
+           from dual
+  	</select>    	
+</mapper>

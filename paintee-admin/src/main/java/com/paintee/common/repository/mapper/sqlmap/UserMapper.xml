@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paintee.common.repository.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.User" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="provider_id" property="providerId" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="basic_addr" property="basicAddr" jdbcType="VARCHAR" />
+    <result column="detail_addr" property="detailAddr" jdbcType="VARCHAR" />
+    <result column="zipcode" property="zipcode" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="upload_cnt" property="uploadCnt" jdbcType="INTEGER" />
+    <result column="post_cnt" property="postCnt" jdbcType="INTEGER" />
+    <result column="earn_total_money" property="earnTotalMoney" jdbcType="REAL" />
+    <result column="earn_reword_money" property="earnRewordMoney" jdbcType="REAL" />
+    <result column="resent_send_basic_addr" property="resentSendBasicAddr" jdbcType="VARCHAR" />
+    <result column="resent_send_detail_addr" property="resentSendDetailAddr" jdbcType="VARCHAR" />
+    <result column="resent_send_zipcode" property="resentSendZipcode" jdbcType="VARCHAR" />
+    <result column="resent_send_city" property="resentSendCity" jdbcType="VARCHAR" />
+    <result column="resent_send_location" property="resentSendLocation" jdbcType="VARCHAR" />
+    <result column="resent_send_name" property="resentSendName" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="user_status" property="userStatus" jdbcType="CHAR" />
+    <result column="sns_type" property="snsType" jdbcType="CHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="service_cnt" property="serviceCnt" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, password, email, name, provider_id, introduce, basic_addr, detail_addr, 
+    zipcode, city, location, upload_cnt, post_cnt, earn_total_money, earn_reword_money, 
+    resent_send_basic_addr, resent_send_detail_addr, resent_send_zipcode, resent_send_city, 
+    resent_send_location, resent_send_name, point, user_status, sns_type, created_date, 
+    language, service_cnt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_USER
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_USER
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.UserExample" >
+    delete from TB_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.paintee.common.repository.entity.User" >
+    insert into TB_USER (user_id, password, email, 
+      name, provider_id, introduce, 
+      basic_addr, detail_addr, zipcode, 
+      city, location, upload_cnt, 
+      post_cnt, earn_total_money, earn_reword_money, 
+      resent_send_basic_addr, resent_send_detail_addr, 
+      resent_send_zipcode, resent_send_city, resent_send_location, 
+      resent_send_name, point, user_status, 
+      sns_type, created_date, language, 
+      service_cnt)
+    values (#{userId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{providerId,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, 
+      #{basicAddr,jdbcType=VARCHAR}, #{detailAddr,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{uploadCnt,jdbcType=INTEGER}, 
+      #{postCnt,jdbcType=INTEGER}, #{earnTotalMoney,jdbcType=REAL}, #{earnRewordMoney,jdbcType=REAL}, 
+      #{resentSendBasicAddr,jdbcType=VARCHAR}, #{resentSendDetailAddr,jdbcType=VARCHAR}, 
+      #{resentSendZipcode,jdbcType=VARCHAR}, #{resentSendCity,jdbcType=VARCHAR}, #{resentSendLocation,jdbcType=VARCHAR}, 
+      #{resentSendName,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, #{userStatus,jdbcType=CHAR}, 
+      #{snsType,jdbcType=CHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{language,jdbcType=VARCHAR}, 
+      #{serviceCnt,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.User" >
+    insert into TB_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="providerId != null" >
+        provider_id,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="basicAddr != null" >
+        basic_addr,
+      </if>
+      <if test="detailAddr != null" >
+        detail_addr,
+      </if>
+      <if test="zipcode != null" >
+        zipcode,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="uploadCnt != null" >
+        upload_cnt,
+      </if>
+      <if test="postCnt != null" >
+        post_cnt,
+      </if>
+      <if test="earnTotalMoney != null" >
+        earn_total_money,
+      </if>
+      <if test="earnRewordMoney != null" >
+        earn_reword_money,
+      </if>
+      <if test="resentSendBasicAddr != null" >
+        resent_send_basic_addr,
+      </if>
+      <if test="resentSendDetailAddr != null" >
+        resent_send_detail_addr,
+      </if>
+      <if test="resentSendZipcode != null" >
+        resent_send_zipcode,
+      </if>
+      <if test="resentSendCity != null" >
+        resent_send_city,
+      </if>
+      <if test="resentSendLocation != null" >
+        resent_send_location,
+      </if>
+      <if test="resentSendName != null" >
+        resent_send_name,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
+      <if test="snsType != null" >
+        sns_type,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="serviceCnt != null" >
+        service_cnt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        #{providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="basicAddr != null" >
+        #{basicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddr != null" >
+        #{detailAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadCnt != null" >
+        #{uploadCnt,jdbcType=INTEGER},
+      </if>
+      <if test="postCnt != null" >
+        #{postCnt,jdbcType=INTEGER},
+      </if>
+      <if test="earnTotalMoney != null" >
+        #{earnTotalMoney,jdbcType=REAL},
+      </if>
+      <if test="earnRewordMoney != null" >
+        #{earnRewordMoney,jdbcType=REAL},
+      </if>
+      <if test="resentSendBasicAddr != null" >
+        #{resentSendBasicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendDetailAddr != null" >
+        #{resentSendDetailAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendZipcode != null" >
+        #{resentSendZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendCity != null" >
+        #{resentSendCity,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendLocation != null" >
+        #{resentSendLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendName != null" >
+        #{resentSendName,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=CHAR},
+      </if>
+      <if test="snsType != null" >
+        #{snsType,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCnt != null" >
+        #{serviceCnt,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paintee.common.repository.entity.UserExample" resultType="java.lang.Integer" >
+    select count(*) from TB_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TB_USER
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerId != null" >
+        provider_id = #{record.providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduce != null" >
+        introduce = #{record.introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basicAddr != null" >
+        basic_addr = #{record.basicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailAddr != null" >
+        detail_addr = #{record.detailAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipcode != null" >
+        zipcode = #{record.zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadCnt != null" >
+        upload_cnt = #{record.uploadCnt,jdbcType=INTEGER},
+      </if>
+      <if test="record.postCnt != null" >
+        post_cnt = #{record.postCnt,jdbcType=INTEGER},
+      </if>
+      <if test="record.earnTotalMoney != null" >
+        earn_total_money = #{record.earnTotalMoney,jdbcType=REAL},
+      </if>
+      <if test="record.earnRewordMoney != null" >
+        earn_reword_money = #{record.earnRewordMoney,jdbcType=REAL},
+      </if>
+      <if test="record.resentSendBasicAddr != null" >
+        resent_send_basic_addr = #{record.resentSendBasicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resentSendDetailAddr != null" >
+        resent_send_detail_addr = #{record.resentSendDetailAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resentSendZipcode != null" >
+        resent_send_zipcode = #{record.resentSendZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resentSendCity != null" >
+        resent_send_city = #{record.resentSendCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resentSendLocation != null" >
+        resent_send_location = #{record.resentSendLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resentSendName != null" >
+        resent_send_name = #{record.resentSendName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null" >
+        point = #{record.point,jdbcType=INTEGER},
+      </if>
+      <if test="record.userStatus != null" >
+        user_status = #{record.userStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.snsType != null" >
+        sns_type = #{record.snsType,jdbcType=CHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.language != null" >
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceCnt != null" >
+        service_cnt = #{record.serviceCnt,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TB_USER
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      provider_id = #{record.providerId,jdbcType=VARCHAR},
+      introduce = #{record.introduce,jdbcType=VARCHAR},
+      basic_addr = #{record.basicAddr,jdbcType=VARCHAR},
+      detail_addr = #{record.detailAddr,jdbcType=VARCHAR},
+      zipcode = #{record.zipcode,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      upload_cnt = #{record.uploadCnt,jdbcType=INTEGER},
+      post_cnt = #{record.postCnt,jdbcType=INTEGER},
+      earn_total_money = #{record.earnTotalMoney,jdbcType=REAL},
+      earn_reword_money = #{record.earnRewordMoney,jdbcType=REAL},
+      resent_send_basic_addr = #{record.resentSendBasicAddr,jdbcType=VARCHAR},
+      resent_send_detail_addr = #{record.resentSendDetailAddr,jdbcType=VARCHAR},
+      resent_send_zipcode = #{record.resentSendZipcode,jdbcType=VARCHAR},
+      resent_send_city = #{record.resentSendCity,jdbcType=VARCHAR},
+      resent_send_location = #{record.resentSendLocation,jdbcType=VARCHAR},
+      resent_send_name = #{record.resentSendName,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=INTEGER},
+      user_status = #{record.userStatus,jdbcType=CHAR},
+      sns_type = #{record.snsType,jdbcType=CHAR},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      language = #{record.language,jdbcType=VARCHAR},
+      service_cnt = #{record.serviceCnt,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.User" >
+    update TB_USER
+    <set >
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        provider_id = #{providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="basicAddr != null" >
+        basic_addr = #{basicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddr != null" >
+        detail_addr = #{detailAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        zipcode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadCnt != null" >
+        upload_cnt = #{uploadCnt,jdbcType=INTEGER},
+      </if>
+      <if test="postCnt != null" >
+        post_cnt = #{postCnt,jdbcType=INTEGER},
+      </if>
+      <if test="earnTotalMoney != null" >
+        earn_total_money = #{earnTotalMoney,jdbcType=REAL},
+      </if>
+      <if test="earnRewordMoney != null" >
+        earn_reword_money = #{earnRewordMoney,jdbcType=REAL},
+      </if>
+      <if test="resentSendBasicAddr != null" >
+        resent_send_basic_addr = #{resentSendBasicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendDetailAddr != null" >
+        resent_send_detail_addr = #{resentSendDetailAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendZipcode != null" >
+        resent_send_zipcode = #{resentSendZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendCity != null" >
+        resent_send_city = #{resentSendCity,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendLocation != null" >
+        resent_send_location = #{resentSendLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="resentSendName != null" >
+        resent_send_name = #{resentSendName,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=CHAR},
+      </if>
+      <if test="snsType != null" >
+        sns_type = #{snsType,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCnt != null" >
+        service_cnt = #{serviceCnt,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.User" >
+    update TB_USER
+    set password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      provider_id = #{providerId,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      basic_addr = #{basicAddr,jdbcType=VARCHAR},
+      detail_addr = #{detailAddr,jdbcType=VARCHAR},
+      zipcode = #{zipcode,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      upload_cnt = #{uploadCnt,jdbcType=INTEGER},
+      post_cnt = #{postCnt,jdbcType=INTEGER},
+      earn_total_money = #{earnTotalMoney,jdbcType=REAL},
+      earn_reword_money = #{earnRewordMoney,jdbcType=REAL},
+      resent_send_basic_addr = #{resentSendBasicAddr,jdbcType=VARCHAR},
+      resent_send_detail_addr = #{resentSendDetailAddr,jdbcType=VARCHAR},
+      resent_send_zipcode = #{resentSendZipcode,jdbcType=VARCHAR},
+      resent_send_city = #{resentSendCity,jdbcType=VARCHAR},
+      resent_send_location = #{resentSendLocation,jdbcType=VARCHAR},
+      resent_send_name = #{resentSendName,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      user_status = #{userStatus,jdbcType=CHAR},
+      sns_type = #{snsType,jdbcType=CHAR},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      language = #{language,jdbcType=VARCHAR},
+      service_cnt = #{serviceCnt,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

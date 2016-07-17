@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paintee.common.repository.helper.FollowHelper">
+	<resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.FollowVO" extends="com.paintee.common.repository.mapper.PaintingMapper.BaseResultMap">
+	    <result column="sentence_name" property="sentenceName" />
+	    <result column="follows_name" property="followsName" />
+	    <result column="following_name" property="followingName" />
+	    <result column="follows_count" property="followsCount" />
+	    <result column="following_count" property="followingCount" />
+	    <result column="artist_name" property="artistName" />
+	</resultMap>
+  	
+	<!-- 로그인 사용자가 팔로잉한 사용자가 구매한 그림과 업로드한 그림의 목록을 가져오기 -->
+  	<select id="selectFollowPaintingList" resultMap="BaseResultMap">
+		select a.artist_id, 
+			   (select name from TB_USER where user_id = a.artist_id) artist_name, 
+			   (select name from TB_USER where user_id = a.artist_id) sentence_name, 
+			   a.sentence, 
+			   a.file_group_seq, 
+			   a.upload_date, 
+			   a.painting_id, 
+			   a.posted_num, 
+			   a.painting_status,
+			   a.posted_people_cnt
+		  from TB_PAINTING a
+		 where a.artist_id in (select following from TB_FOLLOW where user_id = #{userId})
+		   and a.painting_status in <foreach item="status" collection="paintingStatusList" open="(" close=")" separator=",">
+		    							#{status}
+		                            </foreach>
+		   and a.private_at = 'N'                        		 
+		 union all
+		select a.artist_id, 
+			   (select name from TB_USER where user_id = a.artist_id) artist_name, 
+		       (select name from TB_USER where user_id = b.user_id) sentence_name,
+			   b.sentence,
+			   a.file_group_seq,
+			   b.purchase_date,
+			   a.painting_id,
+			   a.posted_num,
+			   a.painting_status,
+			   a.posted_people_cnt
+		  from TB_PAINTING a, 
+		       TB_PURCHASE b
+		 where a.painting_id = b.painting_id
+		   and a.private_at = 'N'
+    	   and b.private_at = #{privateAt}
+		   and b.purchase_status in <foreach item="status" collection="purchaseStatusList" open="(" close=")" separator=",">
+		    							#{status}
+		                            </foreach>
+		   and b.user_id in (select following from TB_FOLLOW where user_id = #{userId})
+		 order by upload_date desc
+		 limit #{startRow}, #{rowPerPage}
+  	</select>  	
+  	
+	<!-- 로그인 사용자의 팔로잉한 사용자 카운트와 팔로워의 카운트 -->
+  	<select id="selectFollowCount" resultMap="BaseResultMap">
+  	     select (select count(*) from TB_FOLLOW where user_id = #{userId}) as following_count,
+  	            (select count(*) from TB_FOLLOW where following = #{userId}) as follows_count
+           from dual
+  	</select>    	
+  	
+  	<!-- 로그인한 사용자를 팔로잉한 사용자의 목록을 조회 -->
+  	<select id="selectFollowsList" resultMap="BaseResultMap">
+		select user_id, 
+			   (select name from TB_USER where user_id = a.user_id) follows_name, 
+			   (select count(*)
+				  from TB_FOLLOW
+				 where user_id = #{userId}
+				   and following = a.user_id) follows_count
+		  from TB_FOLLOW a
+		 where following = #{userId}
+  	</select>
+  	
+  	<!-- 로그인한 사용자가 팔로잉한 사용자의 목록을 조회 -->
+  	<select id="selectFollowingList" resultMap="BaseResultMap">
+		SELECT following user_id, 
+			   (select name from TB_USER where user_id = a.following) following_name
+		  FROM TB_FOLLOW a
+		 WHERE user_id = #{userId}
+  	</select>
+  	
+  	<!-- 로그인 사용자의 팔로워를 추가 -->
+  	<insert id="insertFollowByName">
+  	    insert into TB_FOLLOW(user_id, following)
+  	    values(#{userId}, (select user_id from TB_USER where name = #{following}))
+  	</insert>
+  	
+  	<!-- 로그인 사용자의 팔로워를 삭제 -->
+  	<insert id="deleteFollowByName">
+  	    delete from TB_FOLLOW
+  	     where user_id = #{userId}
+  	       and following = (select user_id from TB_USER where name = #{following})
+  	</insert>
+</mapper>

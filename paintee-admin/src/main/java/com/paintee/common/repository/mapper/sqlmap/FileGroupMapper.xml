@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paintee.common.repository.mapper.FileGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.FileGroup" >
+    <id column="seq" property="seq" jdbcType="BIGINT" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seq, group_name, created_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.FileGroupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_FILE_GROUP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_FILE_GROUP
+    where seq = #{seq,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TB_FILE_GROUP
+    where seq = #{seq,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.FileGroupExample" >
+    delete from TB_FILE_GROUP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.paintee.common.repository.entity.FileGroup" >
+    <selectKey resultType="java.lang.Long" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TB_FILE_GROUP (group_name, created_date)
+    values (#{groupName,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.FileGroup" >
+    <selectKey resultType="java.lang.Long" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TB_FILE_GROUP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paintee.common.repository.entity.FileGroupExample" resultType="java.lang.Integer" >
+    select count(*) from TB_FILE_GROUP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TB_FILE_GROUP
+    <set >
+      <if test="record.seq != null" >
+        seq = #{record.seq,jdbcType=BIGINT},
+      </if>
+      <if test="record.groupName != null" >
+        group_name = #{record.groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TB_FILE_GROUP
+    set seq = #{record.seq,jdbcType=BIGINT},
+      group_name = #{record.groupName,jdbcType=VARCHAR},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.FileGroup" >
+    update TB_FILE_GROUP
+    <set >
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where seq = #{seq,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.FileGroup" >
+    update TB_FILE_GROUP
+    set group_name = #{groupName,jdbcType=VARCHAR},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where seq = #{seq,jdbcType=BIGINT}
+  </update>
+</mapper>

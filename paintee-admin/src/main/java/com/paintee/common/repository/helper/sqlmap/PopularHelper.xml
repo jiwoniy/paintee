@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paintee.common.repository.helper.PopularHelper">
+	<resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.PopularVO" extends="com.paintee.common.repository.mapper.PaintingMapper.BaseResultMap">
+	    <result column="artist_name" property="artistName" />
+	</resultMap>
+
+	<!-- 구매일자가 120일 미만인 그림중에서 많이 팔린 순으로 가져오기 -->
+  	<select id="selectPopularPaintingList" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.vo.PaintingSearchVO">
+		select (select name from TB_USER where user_id = a.artist_id) artist_name,
+		       <include refid="com.paintee.common.repository.mapper.PaintingMapper.Base_Column_List" />
+		  from TB_PAINTING a, 
+		       (select painting_id as p_id
+				  from TB_PURCHASE
+				 where to_days(now()) - to_days(purchase_date) &lt;= 120
+				   and purchase_status in <foreach item="status" collection="purchaseStatusList" open="(" close=")" separator=",">
+			   								  #{status}
+			                        	  </foreach>
+		         group by painting_id) b
+		 where a.painting_id = b.p_id
+		   and a.private_at = #{privateAt}
+		   and a.painting_status = #{paintingStatus}
+		 order by posted_num desc 
+		 limit #{startRow}, #{rowPerPage}
+  	</select>
+</mapper>
