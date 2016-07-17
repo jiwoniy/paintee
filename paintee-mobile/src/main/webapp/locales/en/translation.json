@@ -166,7 +166,7 @@
 			"processMemberJoin": "You are successfully registered.\nPlease check your email.",
 			"processSocialMemberJoin": "You are successfully registered.",
 			"correctEmailAddr": "Please enter the correct email address.",
-			"invalidUserName": "Please enter 4-12 digit in English & number"
+			"invalidUserName": "Name should be 4 to 14 characters, including letters and numbers."
 		},
 		"upload" : {
 			"choiceFile": "Please select the upload file."

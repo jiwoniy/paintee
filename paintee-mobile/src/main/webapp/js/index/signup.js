@@ -128,7 +128,7 @@ SignupController.prototype = {
 		var reg_exp = new RegExp("^[a-zA-Z][a-zA-Z0-9]{3,11}$","g");  
         var match = reg_exp.exec(param.name); 
 
-        if (match == null || param.name.length <  4 || param.name.length > 12) { 
+        if (match == null || param.name.length <  4 || param.name.length > 14) {
     		alert($.i18n.t('alert.signup.invalidUserName')); 
             $("#signup_social_username").focus();
         }else{
