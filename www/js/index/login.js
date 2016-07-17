@@ -136,6 +136,7 @@ $('#resetPasswordBtn').on('click', function() {
     var resetUserEmaiil = $('#resetUserEmaiil').val();
     var logInController = new LogInController(resetUserEmaiil, '');
     logInController.doResetPasswod();
+    history.back();
 });
 
 function loginSocialUser(response, providerId) {
