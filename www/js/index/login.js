@@ -102,14 +102,18 @@ function logout() {
 function showLogin(){
 
 	// 히스토리 설정
-	  replaceHistory({"call": "login"});
+    replaceHistory({"call": "login"});
     addHistory({"call": "dummy"});
 
     $(".login_container").show();
 }
 
+$("#userPassword").keyup(function(e){
+    if(e.keyCode == 13) logIn();
+});
+
 $(".login_btn_main").click(function(){
- logIn();
+    logIn();
 });
 $(".login_signup_btn").click(function(){
 	// 히스토리 설정
