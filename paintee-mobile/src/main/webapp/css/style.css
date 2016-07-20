@@ -1268,6 +1268,7 @@ body{
     background-color: hsla(260,60%,50%,1);
     z-index: 40;
     display: none;
+    word-break: keep-all;
 }
 .about_navi{
     width: 700px;
@@ -1361,6 +1362,7 @@ body{
     font-size: 12px;
     font-weight: 300;
     overflow-y: scroll;
+    word-break: break-all;
 }
 .swiper-pagination {
     top: 55px;

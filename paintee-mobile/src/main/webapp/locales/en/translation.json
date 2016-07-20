@@ -77,7 +77,7 @@
 	},	
 	"purchasePop1": 
 	{
-		"contents": "Now is the beta test period. We will begin service soon.<br><br><br><b>Send 3 free postcards per week till beta test period over.</b><br><br>Please click ‘Payment’ button to continue and get free postcard.",
+		"contents": "Now is the beta test period. We will begin service soon.<br><br><br><b>Send 3 free postcards per week till beta test period over.</b><br>Please click ‘Payment’ button to continue and get free postcard.",
         "alert": "Now is the beta test period. We will begin service soon.<br><br><br>Only $2 USD, you can have any images since commercial service.<br><br>Please, wait commercial service.",
 		"sender": "sender",
 		"address": "addresses"
