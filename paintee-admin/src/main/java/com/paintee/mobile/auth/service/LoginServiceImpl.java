@@ -259,10 +259,10 @@ public class LoginServiceImpl implements LoginService {
 			//임시비밀번호 메일 발송
 			ResetPasswordMailVO resetPasswordMailVO = new ResetPasswordMailVO();
 			resetPasswordMailVO.setPassword(tempPasswordPlainText);
-			resetPasswordMailVO.setTitle("SignUp Title");
+			resetPasswordMailVO.setTitle("Reset Your Password");
 			resetPasswordMailVO.setSenderName("paintee");
 	
-			mailService.sendMail(user.getEmail(), "SignUp confirm", htmlContentBuilder.getResetPasswordMail(resetPasswordMailVO));
+			mailService.sendMail(user.getEmail(), "Reset Your Password", htmlContentBuilder.getResetPasswordMail(resetPasswordMailVO));
 		}
 
 		resultMap.put("errorNo", 0);
