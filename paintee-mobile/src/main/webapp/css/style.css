@@ -451,8 +451,8 @@ body{
     line-height: 40px;
     text-align: right;
     color: rgb(200,200,200);
-    opacity: 0.2;
-    cursor: pointer;
+    opacity: 0.1;
+    cursor: default;
 }
 .detail_artist_sentence{
     display: table-cell;

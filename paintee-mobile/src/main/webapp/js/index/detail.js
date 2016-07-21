@@ -151,9 +151,12 @@ DetailStructure.prototype = {
 
         //follow 버튼 이벤트
         if(this.followed) {
-        	this.detailArtistFollow.on('click', function() { alert(artistName + $.i18n.t('alert.detail.existFollow')); });
+        	// this.detailArtistFollow.on('click', function() { alert(artistName + $.i18n.t('alert.detail.existFollow')); });
         } else if(!userInfo || this.artistId != userInfo.userId) {
-        	this.detailArtistFollow.on('click', function() { detailController.artistFollow(picArtistId); });
+        	this.detailArtistFollow.on('click', function(){
+                detailController.artistFollow(picArtistId);
+                $(this).addClass("detail_artist_followed").removeClass("detail_artist_follow");
+            });
         }
         
         var paintingId = this.paintingId;
