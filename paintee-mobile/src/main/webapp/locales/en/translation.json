@@ -103,6 +103,10 @@
 	{
 		"noData": "Message does not exist about this image.<br>Please leave your message by pressing 'post it' button."
 	},
+    "notice":
+    {
+        "closeDetail" : "Swipe down to return to the list."
+    },
 	"alert": 
 	{
 		"common" : {

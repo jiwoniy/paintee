@@ -279,6 +279,7 @@ function initDetail(paintingId, paintingInfo){
 	this.detailSwiper.on("onSetTranslate", function(swiper){
 	     changeMode(swiper);
 	});
+    showNotice("<span data-i18n='notice.closeDetail'><span>");
 }
 
 //디테일화면 css값 설정
@@ -305,6 +306,7 @@ function closeDetail(){
     if(isDetail){
     	history.back();
     	processDetailClose();
+        $(".notice_box").hide();
     }
 }
 

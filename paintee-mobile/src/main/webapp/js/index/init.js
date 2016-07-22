@@ -785,3 +785,14 @@ var imgChecher = setInterval(function(){
         clearInterval(imgChecher);
     })
 }, 500)
+
+/**
+ *  안내문구 표출
+ */
+function showNotice(notice){
+    $(".notice_box").show();
+    $(".notice_box").html(notice);
+    exeTranslation(".notice_container", lang);
+    $(".notice_box").delay(3000).fadeOut(2000);
+}
+$(".notice_box").hide();
