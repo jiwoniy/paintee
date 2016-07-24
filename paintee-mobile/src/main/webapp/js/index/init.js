@@ -245,7 +245,6 @@ Structure.prototype = {
                                 this.listArtist.html(name);
                             },
         setStatus:          function(listData){
-                                console.log(listData.paintingStatus);
                                 if(listData.paintingStatus == "1"){                                                        
                                     this.listStatusBtn.addClass("list_status_preparing")
                                                       .html("preparing")
