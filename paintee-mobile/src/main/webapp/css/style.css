@@ -1534,6 +1534,13 @@ body{
 	-moz-animation:spin 2s linear infinite;
 	animation:spin 2s linear infinite;
 }
+.download_btn_android{
+    width: 188px;
+    height: 56px;
+    padding: 0px;
+    margin: auto;
+    cursor: pointer;
+}
 @-moz-keyframes spin { 100% { 
 	-moz-transform:rotate(360deg); 
 	}
