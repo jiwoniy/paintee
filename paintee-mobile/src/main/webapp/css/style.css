@@ -1631,6 +1631,9 @@ screen and (-o-min-device-pixel-ratio: 1.5) {
         .randing_card_title{
             font-size: 30px;
         }
+        .notice_box{
+            font-size: 11px;
+        }
 }
 @media  screen and (min-devicepixel-ratio: 2.5),
 screen and (-webkit-min-device-pixel-ratio: 2.5),
@@ -1713,6 +1716,9 @@ screen and (-o-min-device-pixel-ratio: 2.5) {
         }
         .randing_card_title{
             font-size: 25px;
+        }
+        .notice_box{
+            font-size: 10px;
         }
 }
 

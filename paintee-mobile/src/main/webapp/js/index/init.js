@@ -245,6 +245,7 @@ Structure.prototype = {
                                 this.listArtist.html(name);
                             },
         setStatus:          function(listData){
+                                console.log(listData.paintingStatus);
                                 if(listData.paintingStatus == "1"){                                                        
                                     this.listStatusBtn.addClass("list_status_preparing")
                                                       .html("preparing")
@@ -252,7 +253,7 @@ Structure.prototype = {
                                                       .click(function(){
                                                             showCancel(this, listData);
                                                       });
-                                } else if(listData.paintingStatus == "2"){                                                     
+                                } else if(listData.paintingStatus == "2" || listData.paintingStatus == "4"){
                                     this.listStatusBtn.addClass("list_status_sended")
                                                       .html("sended")
                                                       .attr("id", "exeBtn" + listData.seq)
@@ -266,19 +267,19 @@ Structure.prototype = {
 					                                  .click(function(){
 							                              showRefund(this, listData);
 							                          });
-                                } else if(listData.paintingStatus == "99"){                                                       
+                                } else if(listData.paintingStatus == "99" || listData.paintingStatus == "5"){
                                     this.listStatusBtn.addClass("list_status_done")
                                     				  .html("delete")
                                                       .attr("id", "exeBtn" + listData.seq)
 					                                  .click(function(){
-							                              showDelete(this, listData);
+							                              showDelete(this, listData, listData.paintingStatus);
 							                          });
                                 } else if(listData.paintingStatus == "N"){
                                 	this.listStatusBtn.addClass("list_status_done")
 					                  				  .html("delete")
                                                       .attr("id", "exeBtn" + listData.seq)
                                                       .click(function(){
-							                              showDelete(this, listData);
+							                              showDelete(this, listData, listData.paintingStatus);
 							                          });
                                 }
                                 
@@ -300,12 +301,14 @@ Structure.prototype = {
                                 	case "1":
                                 	case "2":
                                 	case "3":
+                                    case "4":
+                                    case "5":
                                 	case "99":
                                 	case "N":
                                 		this.container.append(this.listStatusBtn);  
                                 		this.container.append(this.listCancelBtn);  
                                 		this.container.append(this.listRefundBtn);  
-                                		//this.container.append(this.listResendBtn);
+                                		//this.container.append(this.listResendBtn);s
                                 		this.container.append(this.listConfirmBtn);
                                         this.container.append(this.listDeleteBtn);
                                 		this.container.append(this.listStatusStc);
@@ -428,9 +431,14 @@ function showResend(clicked, listData){
     exeTranslation('.main_container', lang);
 }
 
-function showDelete(clicked, listData){
+function showDelete(clicked, listData, status){
     $(clicked).parent().find(".list_delete_btn").fadeIn().one("click", function () {
-        new PurchaseController().delStatusPurchase(listData);
+        if (status == "N"){
+            new PurchaseController().delStatusPainting(listData);
+        }else{
+            new PurchaseController().delStatusPurchase(listData);
+        }
+
    		hideCancel(this);
     });
     // 텍스트 문구 수정 sendStatus 블라블라
