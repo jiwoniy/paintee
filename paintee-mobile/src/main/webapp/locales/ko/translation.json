@@ -136,7 +136,7 @@
 			"emptyCity": "도시명을 입력하세요.",
 			"emptyZipcode": "우편번호를 입력하세요.",
 			"inputOnlyNumber": "우편번호는 숫자만 가능합니다.",
-			"changeAddress": "그림 구매시 변경된 주소로 기존 주소를 바꾸시겠습니까?",
+			"changeAddress": "새로운 주소를 기본 주소지로 설정하시겠습니까?",
 			"processResend": "재발송 요청이 처리되었습니다.",
 			"processCancel": "환불요청이 처리되었습니다.",
 			"processCancelRefund": "환불요청 취소가 처리되었습니다.",			

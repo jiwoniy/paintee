@@ -136,7 +136,7 @@
 			"emptyCity": "Please enter the city.",
 			"emptyZipcode": "Please enter the postal code.",
 			"inputOnlyNumber": "Please enter numbers only for postal code.",
-			"changeAddress": "Do you want to change your address into the new one when buying a postcard?",
+			"changeAddress": "Do you want to set a new address to defalt?",
 			"processResend": "Re-sending request is completed.",
 			"processCancel": "Refund request is completed.",
 			"processCancelRefund": "Cancelling refund request is completed.",
