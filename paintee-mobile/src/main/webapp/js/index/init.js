@@ -507,8 +507,7 @@ function initMenu(userID){
         sideLogin.append($("<div>").addClass("login_btn").html("Log in").css("border-color", "rgb(100,100,100)").click(function(){showLogin()}));
     }else{
         sideLogin.empty()
-//        sideLogin.append($("<div>").addClass("side_menu_login_id").html(userInfo.name)).on("click", function(){showProfile()});
-        sideLogin.append($("<div>").addClass("side_menu_login_id").html(userInfo.name));
+        sideLogin.append($("<div>").addClass("side_menu_login_id").html(userInfo.name)).on("click", function(){showProfile()});
 
         var editBtn = $("<a>").html("edit profile · logout").on("click", function(){showProfile()});
         sideLogin.append(editBtn);
