@@ -373,7 +373,14 @@ function Posted(purchaseSeq, userId, userName, userSentence){
     this.userSentence = userSentence;
 
     this.container   =$("<div>").addClass("detail_posted swiper-slide").html("posted by ").css("background-color", "hsl("+colorDark+")");
-    this.postee      =$("<div>").addClass("detail_postee_btn");
+    this.postee      =$("<div>").addClass("detail_postee_btn").click(function () {
+        	processDetailClose();
+            $(".notice_box").hide();
+        	// 히스토리 설정
+        	replaceHistory({"call": "detailOpen", "paintingId": selectedPaintingId, "colorDark": colorDark, "color": color, "mainIndex": mainSwiper.activeIndex, "index": currentSwiper.activeIndex});
+        	addHistory({"call": "personal"});
+        	showPersonal(userName);
+        });;
     this.sentence    =$("<div>").addClass("detail_posted_sentence").css("width", mainWidth*0.96);
 }
 Posted.prototype = {
