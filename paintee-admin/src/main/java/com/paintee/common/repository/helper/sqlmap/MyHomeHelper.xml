@@ -16,7 +16,7 @@
 			   (select name from TB_USER where user_id = a.artist_id) sentence_name, 
 			   a.sentence, 
 			   a.file_group_seq, 
-			   a.upload_date as dateOrder,  
+			   a.upload_date as upload_date,  
 			   a.painting_id, 
 			   a.posted_num, 
 			   a.painting_status,
@@ -34,7 +34,7 @@
 		       (select name from TB_USER where user_id = b.user_id) sentence_name,
 			   b.sentence,
 			   a.file_group_seq,
-			   b.purchase_date as dateOrder,  
+			   b.purchase_date as upload_date,  					<!--  화면에서 uploaded로 되어 있어서.. -->
 			   a.painting_id,
 			   a.posted_num,
 			   b.purchase_status,
@@ -72,7 +72,7 @@
 		   and b.user_id = #{userId}
 		   and b.user_id = a.artist_id
 		    -->
-		 order by dateOrder desc
+		 order by upload_date desc
 		 limit #{startRow}, #{rowPerPage}
   	</select>  	
   	
