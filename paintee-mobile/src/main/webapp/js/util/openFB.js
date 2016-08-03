@@ -14,18 +14,18 @@ var openFB = (function () {
         logoutURL = 'https://www.facebook.com/logout.php',
 
     // By default we store fbtoken in sessionStorage. This can be overridden in init()
-        tokenStore = window.sessionStorage,
+        tokenStore = window.localStorage,
 
     // The Facebook App Id. Required. Set using init().
         fbAppId,
 
         context = window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")),
-
+        //baseURL = "http://paintee.me/" + context,
         baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
 
     // Default OAuth redirect URL. Can be overriden in init()
         oauthRedirectURL = baseURL + '/oauthcallback.html',
-//         oauthRedirectURL = "https://www.facebook.com/connect/login_success.html",
+        // oauthRedirectURL = 'http://paintee.me' + '/oauthcallback.html',
     // Default Cordova OAuth redirect URL. Can be overriden in init()
         cordovaOAuthRedirectURL = "https://www.facebook.com/connect/login_success.html",
 
@@ -45,11 +45,11 @@ var openFB = (function () {
     // MAKE SURE YOU INCLUDE <script src="cordova.js"></script> IN YOUR index.html, OTHERWISE runningInCordova will always by false.
     // You don't need to (and should not) add the actual cordova.js file to your file system: it will be added automatically
     // by the Cordova build process
+// runningInCordova = true;
+
     document.addEventListener("deviceready", function () {
         runningInCordova = true;
     }, false);
-    
-//    	console.log(baseURL);
 
     /**
      * Initialize the OpenFB module. You must use this function and initialize the module with an appId before you can
@@ -130,8 +130,7 @@ var openFB = (function () {
         // Inappbrowser load start handler: Used when running in Cordova only
         function loginWindow_loadStartHandler(event) {
             var url = event.url;
-            
-//            console.log("lllll");
+
             if (url.indexOf("access_token=") > 0 || url.indexOf("error=") > 0) {
                 // When we get the access token fast, the login window (inappbrowser) is still opening with animation
                 // in the Cordova app, and trying to close it while it's animating generates an exception. Wait a little...
@@ -147,7 +146,7 @@ var openFB = (function () {
         function loginWindow_exitHandler() {
             // Handle the situation where the user closes the login window manually before completing the login process
             if (loginCallback && !loginProcessed) loginCallback({status: 'user_cancelled'});
-            loginWindow.removeEventListener('loadstop', loginWindow_loadStopHandler);
+            //loginWindow.removeEventListener('loadstop', loginWindow_loadStopHandler);
             loginWindow.removeEventListener('exit', loginWindow_exitHandler);
             loginWindow = null;
         }
@@ -158,25 +157,16 @@ var openFB = (function () {
 
         loginCallback = callback;
         loginProcessed = false;
-        
-//        console.log(loginURL);
-//        console.log(redirectURL);
 
         startTime = new Date().getTime();
         loginWindow = window.open(loginURL + '?client_id=' + fbAppId + '&redirect_uri=' + redirectURL +
             '&response_type=token&scope=' + scope, '_blank', 'location=no,clearcache=yes');
 
             //window.open();
-
         // If the app is running in Cordova, listen to URL changes in the InAppBrowser until we get a URL with an access_token or an error
         if (runningInCordova) {
-//        	console.log('runningInCordova');
             loginWindow.addEventListener('loadstart', loginWindow_loadStartHandler);
             loginWindow.addEventListener('exit', loginWindow_exitHandler);
-        }else{
-//        	console.log('norunningInCordova');
-//        	 loginWindow.addEventListener('loadstart', loginWindow_loadStartHandler);
-//             loginWindow.addEventListener('exit', loginWindow_exitHandler);
         }
 
         // Note: if the app is running in the browser the loginWindow dialog will call back by invoking the
@@ -192,8 +182,6 @@ var openFB = (function () {
      */
     function oauthCallback(url) {
 
-//    	console.log('oauthCallback');
-//    	console.log(url);
         // Parse the OAuth data received from Facebook
         var queryString,
             obj;
@@ -219,8 +207,6 @@ var openFB = (function () {
      *
      */
     function logout(callback) {
-    	
-//    	console.log('logout');
         var logoutWindow,
             token = tokenStore.fbAccessToken;
 
@@ -251,33 +237,25 @@ var openFB = (function () {
      *  success: callback function when operation succeeds - Optional
      *  error:   callback function when operation fails - Optional
      */
-    function api(obj) {
+    function api(path, options, callback) {
 
-        var method = obj.method || 'GET',
-            params = obj.params || {},
+        var method = 'GET',
+            options = options||{},
             xhr = new XMLHttpRequest(),
             url;
 
-        params['access_token'] = tokenStore.fbAccessToken;
-        
-        console.log(params['accessToken']);
-        console.log(tokenStore.fbAccessToken);
-        console.log(obj.path);
-        console.log(toQueryString(params));
+        options['access_token'] = tokenStore.fbAccessToken;
+        options['fields'] = 'id,name,email';
 
-//         url = 'https://graph.facebook.com' + obj.path + '?' + toQueryString(params);
-        url = 'https://graph.facebook.com' + obj.path + '?access_token=' + params['accessToken'];
-        
-         console.log('openFBI');
-         console.log(url);
+         url = 'https://graph.facebook.com' + path + '?' + toQueryString(options);
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    if (obj.success) obj.success(JSON.parse(xhr.responseText));
+                    if (callback) callback(JSON.parse(xhr.responseText));
                 } else {
                     var error = xhr.responseText ? JSON.parse(xhr.responseText).error : {message: 'An error has occurred'};
-                    if (obj.error) obj.error(error);
+                    if (callback) callback(error);
                 }
             }
         };

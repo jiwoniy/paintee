@@ -328,8 +328,6 @@ function changeMode(swiper){
 //디테일화면의 스크롤 잠금
 function lockPosted(swiper){
 	
-	console.log("aaaaa");
-	
     postedLock = true;
     hidePosted(swiper);
     swiper.params.freeMode = false;

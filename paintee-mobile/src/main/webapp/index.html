@@ -384,6 +384,54 @@
 	<div class="stopper"></div>
 
     <!--  Scripts-->
+    <!-- 
+	<script src="cordova.js"></script>
+	 -->
+    
+    <script>
+ 	var painteeFB = (function() {
+
+		var runningInCordova = false;
+
+  		document.addEventListener("deviceready", onDeviceReady);
+
+ 		function onDeviceReady() {
+ 		    runningInCordova = true;
+ 		}
+
+ 		function isCordova(){
+ 			return runningInCordova;
+ 		}
+ 		
+ 		function login(callback, options){
+ 			
+ 			if(isCordova()){
+ 				openFB.login(callback, options);
+ 			}else{
+ 				FB.login(callback, options);	
+ 			}
+ 			 
+ 		}
+ 		
+		function api(path, options, callback){
+ 			
+ 			if(isCordova()){
+ 				openFB.api(path, options, callback);
+ 			}else{
+ 				FB.api(path, options, callback);	
+ 			}
+ 			 
+ 		}
+
+
+ 		 return {
+ 			 onDeviceReady : onDeviceReady,
+ 			 isCordova : isCordova,
+ 			 login : login,
+       		 api : api
+ 		 }
+ 	}());
+ 	</script>
     
     <script src="js/jquery/jquery-2.1.1.js"></script>
     <script src="js/swiper.jquery.min.js"></script>
@@ -420,8 +468,8 @@
 	
 	
     <!-- 페이스북 로그인 --> 
-    <script src="js/util/facebook.js"></script>
     <script src="js/util/openFB.js"></script>
+    <script src="js/util/facebook.js"></script>
 	<script src="js/util/spinner.js"></script>
 	
 	

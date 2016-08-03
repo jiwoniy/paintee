@@ -1,4 +1,4 @@
-
+openFB.init({appId: '235488130138448'});
 
 window.fbAsyncInit = function() {
 	FB.init({
@@ -13,8 +13,6 @@ window.fbAsyncInit = function() {
 		//console.log('언제...');
 		//statusChangeCallback(response);
 	});
-
-	openFB.init({appId: '235488130138448'});
 	
 	/*
 	function statusChangeCallback(response) {
@@ -60,8 +58,6 @@ window.fbAsyncInit = function() {
 	//
 	// These three cases are handled in the callback function.
 };
-
-
 
 //Load the SDK asynchronously
 (function(d, s, id) {

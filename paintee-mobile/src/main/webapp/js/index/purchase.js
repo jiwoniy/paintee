@@ -313,17 +313,19 @@ function initPayment(serviceCnt){
     $(".payment_box").empty();
     var payment = new Payment();
     payment.setTitle("Payment");
+    console.log(serviceCnt);
     if (serviceCnt <= 0) {
          var contents = "<span class='reward_money'>" + serviceCnt + "/3</span><br>"
                      + "<span data-i18n='[html]purchasePop1.alert'></span>"
         payment.setContents(contents);
-        payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='/ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div>");
+        payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div>");
         payment.buildPayment();
     }else{
         var contents = "<span class='reward_money'>" + serviceCnt + "/3</span><br>"
                      + "<span data-i18n='[html]purchasePop1.contents'></span>"
         payment.setContents(contents);
-        payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='/ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='/ico/payment.png'></div>");
+        console.log('test');
+        payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/payment.png'></div>");
         payment.buildPayment();
         $(".payment_btn").click(function(){
                 purchaseController.addPurchase(serviceCnt);
@@ -565,7 +567,7 @@ function completePayment(result){
     payment.contents.append(payment.sociconFacebook.css("color", "rgb(80,80,80)"));
     payment.contents.append(payment.sociconTwitter.css("color", "rgb(80,80,80)"));
     payment.contents.append(payment.sociconUrl.css("color", "rgb(80,80,80)"));
-    payment.setBottom("<div class='popup_btn payment_btn'><div class='purchase_btn_text'>Go to my history </div><img class='icon' src='/ico/person_black.png'></div>");
+    payment.setBottom("<div class='popup_btn payment_btn'><div class='purchase_btn_text'>Go to my history </div><img class='icon' src='ico/person_black.png'></div>");
     payment.buildPayment();
     $(".payment_btn").click(function(){
 		

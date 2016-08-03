@@ -141,7 +141,6 @@ function setProfilePostUI(type) {
 	
 	if (type == 'Korea') {
 		// 기본 주소 선택시 
-		console.log('test');
 		$("[name=profileCity]").attr("disabled", "disabled");
         $("[name=profileCity]").addClass("input_disable")
 		$("[name=profileBasicAddr]").attr("readOnly", "readOnly");

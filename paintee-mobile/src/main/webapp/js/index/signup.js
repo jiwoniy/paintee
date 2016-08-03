@@ -148,7 +148,7 @@ function registSocialUser(response, providerId) {
 	
 	if (response.status === 'connected') {
 		
-		FB.api('/me', {fields: 'email,name'}, function(response) {
+		painteeFB.api('/me', {fields: 'email,name'}, function(response) {
 		
 		 	signupSocialAuthResponse.email = response.email;
 		 	showUsername();
@@ -186,7 +186,7 @@ $('#signup_btn').on("click", function() { new SignupController().doSignup(); });
 
 $('#signup_facebook_btn').on('click', function() {
 	//openFB.login(function(response) {
-	  FB.login(function(response) {
+	painteeFB.login(function(response) {
 		 registSocialUser(response, "FACEBOOK")
 	 }, {scope: 'email,user_likes'});
 });

@@ -146,11 +146,25 @@ var expireTime = response.authResponse.expiresIn;
 var userId = response.authResponse.userID;
 var providerId = providerId;
 
-
 	if (response.status === 'connected') {
-		FB.api('/me', {fields: 'email,name'}, function(response) {
+		
+		painteeFB.api('/me', {fields: 'email,name'}, function(response) {
 			new LogInController().doSocialLogin(response.email, response.name, accessToken, expireTime, userId, providerId);
 		});
+//		FB.api('/me', {fields: 'email,name'}, function(response) {
+//			new LogInController().doSocialLogin(response.email, response.name, accessToken, expireTime, userId, providerId);
+//		});
+//		openFB.api({
+//			 path: '/me',
+//			 params: {
+//       				"access_token": accessToken,
+//						"fields":"name,email,gender,user_likes"
+//			 }
+//			 ,success: function(response) {
+//					 new LogInController().doSocialLogin(response.email, response.name, accessToken, expireTime, userId, providerId);
+//			 }
+//
+//		 });
 	} else if (response.status === 'not_authorized') {
 		// The person is logged into Facebook, but not your app.
 		// console.log('Please log into this app.');
@@ -162,8 +176,11 @@ var providerId = providerId;
 }
 
 $('#login_facebook_btn').on('click', function() {
- 
-	 FB.login(function(response) {
+	painteeFB.login(function(response) {
 		loginSocialUser(response, "FACEBOOK")
 	}, {scope: 'email,user_likes'});
+	
+//	 FB.login(function(response) {
+//		loginSocialUser(response, "FACEBOOK")
+//	}, {scope: 'email,user_likes'});
 });
