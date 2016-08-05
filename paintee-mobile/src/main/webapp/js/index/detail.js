@@ -332,6 +332,7 @@ function changeMode(swiper){
     }else if(translate<postedLockBreakpoint){
         if(postedLock){
             unlockPosted(swiper);
+            $(".notice_box").hide();
         }
         callPosted(swiper);
     }
