@@ -1269,6 +1269,7 @@ body{
     z-index: 40;
     display: none;
     word-break: keep-all;
+    overflow: hidden;
 }
 .about_navi{
     width: 700px;
@@ -1499,6 +1500,7 @@ body{
     margin-top: 10px;
     font-size: 12px;
     max-width: 90%;
+    overflow: hidden;
 }
 .splash{
     width: 100%;
@@ -1510,6 +1512,7 @@ body{
     text-align: center;
     background-color: hsla(260,60%,50%,1);
     vertical-align: middle;
+    overflow: hidden;
 }
 .splash_box{
     position: absolute;
