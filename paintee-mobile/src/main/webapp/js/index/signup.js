@@ -181,7 +181,7 @@ function checkSignupUsername() {
 	new SignupController().validFacebookSignup(signupSocialAuthResponse.email, username, accessToken, expireTime, userId, signupSocialProviderId);
 }
 
-$("#signupUserName").keyup(function(e){ new SignupController().doSignup(); });
+$("#signupUserName").keyup(function(e){ if(e.keyCode == 13) logIn(); });
 $('#signup_btn').on("click", function() { new SignupController().doSignup(); });
 
 $('#signup_facebook_btn').on('click', function() {
