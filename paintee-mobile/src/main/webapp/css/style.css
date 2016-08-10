@@ -1748,3 +1748,32 @@ screen and (-o-min-device-pixel-ratio: 2.5) {
         display: block;
     }
 }
+
+/* ios 상단 여백을 위한 수정 */
+/* ios app 포팅시에만 아래 주석 해제 */
+/*
+.return_btn{
+    top: 20px;
+}
+.account_close_btn{
+    top: 20px;
+}
+.side_menu_btn{
+    top: 20px;
+}
+.side_menu_close{
+    top: 20px;
+}
+.about_navi{
+    top: 40px;
+}
+.swiper-pagination {
+    top: 70px;
+}
+.home_btn{
+    opacity: 0;
+}
+.home_prev{
+    top: 20px;
+}
+*/
