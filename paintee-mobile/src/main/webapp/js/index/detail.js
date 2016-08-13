@@ -32,10 +32,16 @@ function DetailStructure(paintingId, paintingInfo){
                                     detailSwiper.setWrapperTranslate(postedLockBreakpoint);
                                     detailSwiper.unlockSwipes();
                                 },
+                                click:function(){
+                                    detailSwiper.wrapper.css("transition-duration", "300ms");
+                                    detailSwiper.setWrapperTranslate(postedLockBreakpoint);
+                                    detailSwiper.unlockSwipes();
+                                },
                                 swipeDown:function(){
                                     if(postedLock) closeDetail();
                                 },
-                                threshold:10
+                                threshold:10,
+                                fallbackToMouseEvents: true
                             });
     this.detailCloseIcon    =$("<img src='ico/close.png'>").addClass("icon").addClass("detail_margin_close");
     this.detailMarginIcon   =$("<img src='ico/keyboard_arrow_up_black.png'>").addClass("icon").addClass("detail_margin_guide");

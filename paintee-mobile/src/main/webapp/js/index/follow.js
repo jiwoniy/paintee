@@ -215,6 +215,9 @@ function setFollowHome(result) {
 	delete content1;
 	delete content2;
 	$("#menu_follow").removeClass("side_menu_major_inactive");
+
+    // follow의 맨앞에 공지사항 적용
+    addNotice("지금 post it을 누르세요.<br>beta 테스트 기간동에는 누구나 일주일에 3개의<br>무료 엽서를 보낼 수 있습니다.");
 	
 	// 다국어 변경 적용
 	exeTranslation('.main_container', lang);

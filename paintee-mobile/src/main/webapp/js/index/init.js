@@ -219,7 +219,6 @@ Structure.prototype = {
                                 		}else if(window.devicePixelRatio>2){
                                 			this.listPainting.attr("data-srcset", getImageUrls(fileId, 3));
                                 		}
-                                		
                                 	}
                                 }
                             	
@@ -234,7 +233,13 @@ Structure.prototype = {
                                         replaceHistory({"call": "detailPop"});
                                         addHistory({"call": "dummy"});
                                     },
-                                    threshold:10
+                                    click:function(){
+                                        loadDetail(paintingId, color, colorDark);
+                                        replaceHistory({"call": "detailPop"});
+                                        addHistory({"call": "dummy"});
+                                    },
+                                    threshold:10,
+                                    fallbackToMouseEvents: true
                                 });
                             },
         setColor:           function(color){
@@ -282,7 +287,24 @@ Structure.prototype = {
 							                          });
                                 }
                                 
-        },                            
+        },
+        setNotice:          function(sentence, link){
+                                this.listInfoSentence.html(sentence);
+                                this.listPostBtn = "";
+                                this.listInfoPosted.empty().html("Notice from Paintee").css("font-family", "Merriweather").css("font-weight", "700").css("font-style", "italic");
+                                this.listArtist.html("NOTICE").css("font-style", "italic");
+                                if(mainWidth<729){
+                                    this.listPainting.css({"width": mainWidth*0.8, "height": mainWidth*10/9});
+                                }else{
+                                    this.listPainting.css({"width": "648px", "height": "900px"});
+                                }
+                                if(link){
+                                    this.listPainting.click(function(){
+                                        window.open(link, '_blank');
+                                    })
+                                }
+                                this.listPainting.attr("src", "images/notice.jpg");
+                            },
         buildStructure:     function(type, listData){
                                 this.listInfoRow_1.append(this.listInfoSentence);
                                 this.listInfo.append(this.listInfoRow_1);
@@ -353,6 +375,18 @@ function addPainting(swiper, currentIndex, type, listData){
     
     swiper.appendSlide(newSlide.buildStructure(type, listData));
     delete newSlide;    
+}
+
+// follow 목록에 공지사항을 추가
+function addNotice(sentence, link){
+    var data = {
+		index: followSwiper.slides.length,
+	};
+	var newSlide = new Structure(data);
+    newSlide.setColor("hsl(200,60%,20%)");
+    newSlide.setNotice(sentence, link);
+    followSwiper.appendSlide(newSlide.buildStructure("follow"));
+    delete newSlide;
 }
 
 var targetTimer;
