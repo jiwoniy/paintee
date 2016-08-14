@@ -685,12 +685,12 @@ function toggleFullScreen() {
 function setBox(){
     if(boxStatus=="upload" || boxStatus=="uploadPop"){
         if(mainHeight>=400 && mainWidth >= 288){
-            $(".popup_box").height(mainHeight*0.8);
-            $(".popup_box").width($(".popup_box").height()*0.72);
+            $(".upload_box").height(mainHeight*0.8);
+            $(".upload_box").width($(".upload_box").height()*0.72);
 
-            if($(".popup_box").width()>mainWidth*0.8){
-                $(".popup_box").width(mainWidth*0.8);
-                $(".popup_box").height(mainWidth*10/9);
+            if($(".upload_box").width()>mainWidth*0.8){
+                $(".upload_box").width(mainWidth*0.8);
+                $(".upload_box").height(mainWidth*10/9);
             }
         }    
     }else if(boxStatus=="about"){
