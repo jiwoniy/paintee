@@ -694,10 +694,10 @@ function setBox(){
             }
         }    
     }else if(boxStatus=="about"){
-        $(".about_wrapper").width(mainWidth*5);
+        $(".about_wrapper").width(mainWidth*6);
         $(".about_card").width(mainWidth);
         $(".about_navi").css("left", (mainWidth/2)-(aboutIndex*140)-70);
-        $(".randing_card_policy_contents").height(mainHeight-200)
+        $(".randing_card_p_contents").height(mainHeight-200)
     }
 }
 
@@ -798,7 +798,7 @@ function dataReload(loadPages) {
  */
 $(".side_menu_lang_select").change(function(event) {
 	lang = $(this).val();
-	exeTranslation(".main_container", lang);
+	exeTranslation("body", lang);
 	if (userID) {
 		AjaxCall.call(apiUrl + "/user/me", 
 			{"language": lang}, 

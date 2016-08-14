@@ -1284,7 +1284,7 @@ a{
     overflow: hidden;
 }
 .about_navi{
-    width: 700px;
+    width: 840px;
     height: auto;
     position: absolute;
     top: 20px;
@@ -1361,14 +1361,14 @@ a{
     margin-top: 10px;
     color: rgba(255,255,255,0.8);
 }
-.randing_card_policy_title{
+.randing_card_p_title{
     width: 100%;
     margin-top: 70px;
     text-align: center;
     font-family: 'Merriweather', serif;
     font-size: 12px;
 }
-.randing_card_policy_contents{
+.randing_card_p_contents{
     box-sizing: border-box;
     padding: 5%;
     width: 100%;

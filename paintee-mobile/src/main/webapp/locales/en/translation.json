@@ -30,7 +30,10 @@
 			"randingCardContents3": "Enough size of image is needed to make a real postcard.<br>Please prepare an image larger than 1080 x 1920 pixel.",
 			"randingCardTitle4": "25% of selling price will be paid back to you.",
 			"randingCardContents4": "You can get $0.5 USD of rewards per one postcard sold.<br>Collect your reward to get the actual money back."
-		}
+		},
+        "contact":{
+            "explain":"Do not hesitate to contact us<br>We'll get back to you as soon as possible."
+        }
 	},
 	"follow": 
 	{
