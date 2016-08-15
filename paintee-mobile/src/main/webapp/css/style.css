@@ -845,7 +845,7 @@ a{
     box-sizing: border-box;
     width: 100%;
     height: 200px;
-    background-color: rgba(240,240,240,0.9);
+    background-color: rgba(200,200,200,0.9);
     border: 0;
     padding: 10px;
     font-family: "Roboto", sans-serif;
@@ -855,6 +855,13 @@ a{
 }
 .upload_icon{
     font-size: 100px;
+}
+.upload_preview{
+    position: absolute;
+    z-index: -10;
+}
+.upload_box_preview{
+    background-color: rgba(255,255,255,0.5);
 }
 .reward_money{
     font-size: 30px;
@@ -1517,6 +1524,20 @@ a{
     text-align: right;
     background-color: rgba(250,250,250,0.2);
     cursor: pointer;
+}
+.crop_return_btn{
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 5px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 5px;
+    color: white;
+    font-size: 24px;
 }
 .notice_container{
     width: 100%;

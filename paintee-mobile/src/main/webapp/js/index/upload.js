@@ -83,8 +83,8 @@ function checkPainteeFile(file) {
 //				alert($.i18n.t('uploadPop.failContent'));
 //				resetUpload();
 			} else {
-				successUpload();
-//				$('.painting_preview').append('<img src="'+ this.src +'" width="120px" height="150px"/>');
+				showCrop(image.src, width, height)
+                // successUpload();
 			}
 		};
 
@@ -120,12 +120,7 @@ function createPainting() {
 
 	formData.append("sentence", sentence);
 	formData.append("artistId", userInfo.userId);
-
-	if($('#painting_private').is(":checked")) {
-		formData.append("privateAt", 'Y');
-	} else {
-		formData.append("privateAt", 'N');
-	}
+	formData.append("privateAt", 'N');
 
 	/* 4.3 수정 */
 	$("#update_painting_sentence_btn").html("<div class='purchase_btn_text'>wait </div><img src='spinner.png' class='spinner'>");
@@ -170,6 +165,7 @@ function resetUpload() {
 }
 function initUpload(postedCount, doTotaluploadCount, uploadedCount){
     $(".upload_box").empty();
+    $(".upload_box").removeClass("upload_box_preview");
     var upload = new Upload();
     upload.setTitle("Upload Painting");
 //    upload.setContents("당신의 그림이 Post될 때 마다,<br>추가로 업로드할 수 있는 그림의 수가 늘어납니다.<br>지금까지 253회 Post된 당신은 최대 50개의 그림을 올릴 수 있고<br> 지금 <span class='reward_money'>7</span>개 의 그림을 더 올릴 수 있습니다.<br><br><br>업로드를 위해서는<br>가로 사이즈 <b>1080px</b> 세로 사이즈 <b>1440px</b><br>이상의 이미지가 필요합니다.");
@@ -208,6 +204,7 @@ function initUpload(postedCount, doTotaluploadCount, uploadedCount){
 
 function failUpload(){
 	$(".upload_box").empty();
+    $(".upload_box").removeClass("upload_box_preview");
 
 	var uploadFail = new Upload();
 	uploadFail.setTitle("Upload Painting");
@@ -227,16 +224,21 @@ function failUpload(){
 
 function successUpload() {
     $(".upload_box").empty();
+    $(".upload_box").addClass("upload_box_preview");
+    if(cropedPreview){
+        $(cropedPreview).addClass("upload_preview");
+        $(".upload_box").append(cropedPreview);
+    }
 
     var uploadSuccess = new Upload();
 
     uploadSuccess.setTitle("Upload Painting");
-    uploadSuccess.setContents('<span data-i18n="[html]uploadPop.successContent"></span><br><div class="upload_sentence"><span class="character_counter"><span id="paintingSentenceCount">0</span>/200</span><textarea id="painting_sentence_text" name="painting_sentence_text" class="upload_sentence_textarea" length="200"></textarea><input id="painting_private" name="painting_private" type="checkbox"> private</div>');
+    uploadSuccess.setContents('<span data-i18n="[html]uploadPop.successContent"></span><br><div class="upload_sentence"><span class="character_counter"><span id="paintingSentenceCount">0</span>/200</span><textarea id="painting_sentence_text" name="painting_sentence_text" class="upload_sentence_textarea" length="200"></textarea>');
     uploadSuccess.setBottom("<div class='popup_cancle_btn upload_btn uploadFileBox'><img class='icon' src='ico/folder.png'><label for='painteeFile' class='upload_btn_text'>Select image file </label></div><div id='update_painting_sentence_btn' class='popup_btn upload_btn'><div class='purchase_btn_text'>Done </div><img class='icon' src='/ico/done.png'></div>");
     uploadSuccess.buildUpload();
 
 	//미리보기 생성
-	var previewFile = document.querySelector('input[name=painteeFile]').files[0];
+/*	var previewFile = document.querySelector('input[name=painteeFile]').files[0];
 	if (previewFile) {
 		var previewReader = new FileReader();
 
@@ -267,7 +269,7 @@ function successUpload() {
 				failUpload();
 			};
 		};
-	}
+	}*/
 
 	//구매시의 한마디 
 	$("[name=painting_sentence_text]").keyup(function () {
@@ -298,7 +300,7 @@ function successUpload() {
 			alert($.i18n.t('alert.upload.choiceFile'));
 			return;
 		}
-
+        $(".upload_box").removeClass("upload_box_preview");
 		createPainting();
 	});
 
@@ -312,14 +314,29 @@ function successUpload() {
  *  이미지 crop 화면 시작
  *  src : 이미지 주소
  *  originalWidth/originalHeight : 원본 이미지 크기
+ *  croped.x: 이미지가 잘리기 시작하는 left 시작점
+ *  croped.y: 이미지가 잘리기 시작하는 top 시작점
+ *  croped.width: croped.x로부터 잘려지게될 사이즈
+ *  croped.height: croped.y로부터 잘려지게될 사이즈
  */
 
 var cropper;
 var croped;
+var cropedPreview;
 
-function initCrop(src, originalWidth, originalHeight){
+function showCrop(src, originalWidth, originalHeight){
     $("#crop_original_image").attr("src", src);
-
+    var loadChecher = setInterval(function(){
+        if(!$("#crop_original_image")[0].complete){
+            return false;
+        }else{
+            clearInterval(loadChecher);
+            initCrop(src, originalWidth, originalHeight)
+        }
+    }, 500);
+    $(".crop_container").show();
+}
+function initCrop(src, originalWidth, originalHeight){
     var cropBox = {
         width: 648,
         height: 900,
@@ -371,15 +388,21 @@ function initCrop(src, originalWidth, originalHeight){
             }
         }
     });
-
-
-    $(".crop_container").show();
 }
 $(".crop_confirm_btn").click(function(){
     croped = cropper.getData();
+    cropedPreview = cropper.getCroppedCanvas({
+        width: $(".upload_box").width(),
+        height: $(".upload_box").height()
+    });
+    $(".crop_container").hide();
+    cropper.destroy();
     console.dir(croped);
+    successUpload();
 })
 $(".crop_return_btn").click(function(){
     $(".crop_container").hide();
     cropper.destroy();
 })
+
+// checkPainteeFile -> initCrop -> successUpload (preview 수정) -> createPainting (cropCenter 수정)
