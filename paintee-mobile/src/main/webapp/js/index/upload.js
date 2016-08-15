@@ -308,51 +308,78 @@ function successUpload() {
     exeTranslation('.base_position', lang);
 }
 
-/*
-function updatePaintingSentence(paintingSeq) {
-	var sentence = $('#painting_sentence_text').val();
+/**
+ *  이미지 crop 화면 시작
+ *  src : 이미지 주소
+ *  originalWidth/originalHeight : 원본 이미지 크기
+ */
 
-	if ($("[name=painting_sentence_text]").val().trim().length == 0) {
-		alert($.i18n.t('alert.purchase.emptySentence'));
-		$("[name=painting_sentence_text]").focus();
-		return ;
-	}
+var cropper;
+var croped;
 
-	if (getCharCount($("[name=painting_sentence_text]").val()) > 200) {
-		alert($.i18n.t('alert.purchase.exceedSentence'));
-		$("[name=painting_sentence_text]").focus();
-		return ;
-	}
+function initCrop(src, originalWidth, originalHeight){
+    $("#crop_original_image").attr("src", src);
 
-	var enter = getEnterCount($("[name=painting_sentence_text]"));
-	if (enter > 5) {
-		alert($.i18n.t('alert.purchase.limitEnterCount'));
-		$("[name=painting_sentence_text]").focus();
-		return ;
-	}
+    var cropBox = {
+        width: 648,
+        height: 900,
+        top: 20,
+        left: 200
+    };
 
-	var param = {};
-	param.sentence = sentence;
-	param.artistId = userInfo.userId;
+    cropBox.height  = mainHeight*0.8;
+    cropBox.width   = cropBox.height*0.72;
+    if(cropBox.width>mainWidth*0.8){
+        cropBox.width   = mainWidth*0.8;
+        cropBox.height  = mainWidth*10/9;
+    }
+    cropBox.top     = (mainHeight-cropBox.height)/2;
+    cropBox.left    = (mainWidth-cropBox.width)/2;
 
-	if($('#painting_private').is(":checked")) {
-		param.privateAt = 'Y';
-	} else {
-		param.privateAt = 'N';
-	}
+    var cropCanvas = {
+        width: originalWidth*cropBox.width/1080,
+        height: originalHeight*cropBox.height/1500,
+        top: 0,
+        left: 0
+    };
+    cropCanvas.top     = (mainHeight-cropCanvas.height)/2;
+    cropCanvas.left    = (mainWidth-cropCanvas.width)/2;
 
-	AjaxCall.call(apiUrl+"/painting/"+paintingSeq, param, "PUT", updatePaintingSentenceRes);
+    var original = $("#crop_original_image")[0];
+    var originalRatio = cropBox.width/1080;
+    console.log(originalRatio);
+
+    cropper = new Cropper(original, {
+        viewMode:1,
+        dragMode:'move',
+        background:false,
+        cropBoxMovable:false,
+        cropBoxResizable:false,
+        zoomable:true,
+        toggleDragModeOnDblclick:false,
+        responsive: false,
+        aspectRatio:18/25,
+        ready: function(){
+            this.cropper.setCanvasData(cropCanvas);
+            this.cropper.setCropBoxData(cropBox);
+            //console.log(this.cropper.getCropBoxData());
+            console.log(this.cropper.getCanvasData());
+        },
+        zoom: function(e){
+            if(e.detail.ratio>originalRatio){
+                e.preventDefault();
+            }
+        }
+    });
+
+
+    $(".crop_container").show();
 }
-function updatePaintingSentenceRes(result, status) {
-	if(result.errorNo == 0) {
-		dataReload(["initMy();", "initFollow();", "initNew();"]);
-		selectMenu(3);
-		$(".popup_container").hide();
-		$(".upload_box").empty();
-
-		boxStatus = "clickedCloseBtn";
-		closePopup(); 
-	} else {
-		alert('error');
-	}
-}*/
+$(".crop_confirm_btn").click(function(){
+    croped = cropper.getData();
+    console.dir(croped);
+})
+$(".crop_return_btn").click(function(){
+    $(".crop_container").hide();
+    cropper.destroy();
+})

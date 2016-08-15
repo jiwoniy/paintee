@@ -16,6 +16,7 @@
     <!-- CSS  -->
     <link href="css/swiper.css" type="text/css" rel="stylesheet"/>
     <link href="css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="css/cropper.min.css" type="text/css" rel="stylesheet"/>
     <link href="css/popup.css" type="text/css" rel="stylesheet"/>
     <link href="css/search.css" type="text/css" rel="stylesheet"/>
     <link rel="shortcut icon" href="icon/favicon.ico" /> 
@@ -227,7 +228,6 @@
             <div class="profile_btn" id="profileUpdateBtn"> Update profile <img class="icon" src="ico/done.png"></div>
         </div>
     </div>
-        
     </div>
     
     <!--  로그인화면  -->
@@ -356,7 +356,7 @@
             </div>
             <div class="about_card about_card_policy">
                 <div class="randing_card_policy_title randing_card_p_title">
-                    <div style="font-size: 3em;">Terms of Use</div>
+                    <div style="font-size: 2.5em;">Terms of Use</div>
                     This document was written in Korean.
                 </div>
                 <div class="randing_card_policy_contents randing_card_p_contents">
@@ -364,7 +364,7 @@
             </div>
             <div class="about_card about_card_privacy">
                 <div class="randing_card_privacy_title randing_card_p_title">
-                    <div style="font-size: 3em;">Privacy Policy</div>
+                    <div style="font-size: 2.5em;">Privacy Policy</div>
                     This document was written in Korean.
                 </div>
                 <div class="randing_card_privacy_contents randing_card_p_contents">
@@ -386,6 +386,15 @@
 		</div>
 		<div class="return_btn" style="z-index:50;"><img class="icon" src="ico/close.png"></div>
     </div>
+    </div>
+
+    <!--  이미지 크롭 테스트  -->
+    <div class="crop_container">
+        <img id="crop_original_image">
+        <div class="crop_return_btn return_btn"><img class="icon" src="ico/close.png"></div>
+        <div class="crop_confirm_btn"><span style="vertical-align:top">crop the image </span><img class="icon" src="ico/fullscreen.png"></div>
+	</div>
+
     <!--  안내문구 표시  -->
     <div class="notice_container">
         <div class="notice_box"></div>
@@ -455,6 +464,7 @@
     <script src="js/jquery/jquery-2.1.1.js"></script>
     <script src="js/swiper.jquery.min.js"></script>
     <script src="js/jquery.touchSwipe.min.js"></script>
+    <script src="js/cropper.min.js"></script>
     
 	<!-- 다국어 지원 라이브러리 -->
 	<script src="js/jquery/i18next.min.js"></script>
