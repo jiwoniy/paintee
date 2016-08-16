@@ -136,10 +136,31 @@ public class ImgScalrWrapper {
 			int y = (bufferedImage.getHeight()-height)/2;
 
 			BufferedImage doneImage = Scalr.crop(bufferedImage, x, y, width, height, Scalr.OP_ANTIALIAS);
-			writeImage(doneImage, resultFile, imageWritersByFormatName, 1);
+
+			writeImage(doneImage, resultFile, imageWritersByFormatName, 1);
+		}
+	}
+    public void cropCustom(File sourceFile, File resultFile, String imageWritersByFormatName, int x, int y, int width, int height) throws IOException {
+		BufferedImage bufferedImage = ImageIO.read(sourceFile);
+
+		int count = 0;
+		if(bufferedImage.getWidth() >= width) {
+			count++;
+		}
+		if(bufferedImage.getHeight() >= height) {
+			count++;
+		}
+
+		if(count > 0) {
+			BufferedImage doneImage = Scalr.crop(bufferedImage, x, y, width, height, Scalr.OP_ANTIALIAS);
+
+			writeImage(doneImage, resultFile, imageWritersByFormatName, 1);
 		}
 	}
 	public void cropCenter(File sourceFile, File resultFile, int width, int height) throws IOException {
+		cropCenter(sourceFile, resultFile, "PNG", width, height);
+	}
+	public void cropCustom(File sourceFile, File resultFile, int x, int y, int width, int height) throws IOException {
 		cropCenter(sourceFile, resultFile, "PNG", width, height);
 	}
 
