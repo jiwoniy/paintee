@@ -325,6 +325,8 @@ var croped;
 var cropedPreview;
 
 function showCrop(src, originalWidth, originalHeight){
+    $(".stopper").show();
+    $("#crop_original_image").removeAttr("src");
     $("#crop_original_image").attr("src", src);
     var loadChecher = setInterval(function(){
         if(!$("#crop_original_image")[0].complete){
@@ -379,8 +381,7 @@ function initCrop(src, originalWidth, originalHeight){
         ready: function(){
             this.cropper.setCanvasData(cropCanvas);
             this.cropper.setCropBoxData(cropBox);
-            //console.log(this.cropper.getCropBoxData());
-            console.log(this.cropper.getCanvasData());
+            $(".stopper").hide();
         },
         zoom: function(e){
             if(e.detail.ratio>originalRatio){
