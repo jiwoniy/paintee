@@ -853,9 +853,9 @@
             // 팝업 레이어를 감추는 함수.
 
             closePopUpLayer = function() {
+                postPopOn = false;
             	background.remove();
                 layer.remove();
-               
             };
 
             // 닫기 단추를 누르면 팝업 레이어를 감추도록 설정한다.

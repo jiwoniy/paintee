@@ -693,8 +693,8 @@ a{
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     color: rgb(30,30,30);
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 .purchase_input2{
     box-sizing: border-box;
@@ -705,8 +705,8 @@ a{
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     color: rgb(30,30,30);
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 .purchase_input3{
     box-sizing: border-box;
@@ -717,7 +717,7 @@ a{
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     color: rgb(30,30,30);
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-left: 1%;
 }
 .purchase_button{
@@ -753,6 +753,9 @@ a{
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     color: rgb(30,30,30);
+}
+.purchase_col_check{
+    float: left;
 }
 .sentence_textarea{
     box-sizing: border-box;

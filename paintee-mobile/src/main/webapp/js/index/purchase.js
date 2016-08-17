@@ -153,6 +153,7 @@ function callback(searchModule){
 
     }
 };
+var postPopOn = false;
 
 function setPostUI(type) {
 	if (type == 'Korea') {
@@ -162,10 +163,11 @@ function setPostUI(type) {
 		$("[name=receiverZipcode]").attr("readOnly", "readOnly");
 		$("[name=receiverBasicAddr]").attr("readOnly", "readOnly");
 		$("[name=receiverBasicAddr]").focus(function () {
-			
-			$(function() { $("[name=receiverBasicAddr]").postcodifyPopUp(); });
-//			execDaumPostcode('purchase', 'receiverZipcode', 'receiverBasicAddr')
-			});
+			if(!postPopOn){
+                postPopOn = true;
+                $(function() { $("[name=receiverBasicAddr]").postcodifyPopUp(); });
+    //			execDaumPostcode('purchase', 'receiverZipcode', 'receiverBasicAddr')
+            }});
 	} else {
 		// 주소에 설정된 이벤트 삭제
 		$("[name=receiverBasicAddr]").off();
@@ -267,16 +269,16 @@ function validPurchase() {
 		return false;
 	}
 	var change = false;
-	if (purchaseController.basicAddr != $("[name=receiverBasicAddr]").val().trim()) {
-		change = true;
-	}
-	if (purchaseController.detailAddr != $("[name=receiverDetailAddr]").val().trim()) {
-		change = true;
-	}
+    if($("[name=checkBasicAddr]").prop("checked")){
+        if (purchaseController.basicAddr != $("[name=receiverBasicAddr]").val().trim()) {
+            change = true;
+        }
+        if (purchaseController.detailAddr != $("[name=receiverDetailAddr]").val().trim()) {
+            change = true;
+        }
+    }
 	if (change) {
-		if (confirm($.i18n.t('alert.purchase.changeAddress'))) {
 			purchaseController.changeAddr = "Y";
-		}
 	}
 	return true;
 }
@@ -313,7 +315,6 @@ function initPayment(serviceCnt){
     $(".payment_box").empty();
     var payment = new Payment();
     payment.setTitle("Payment");
-    console.log(serviceCnt);
     if (serviceCnt <= 0) {
          var contents = "<span class='reward_money'>" + serviceCnt + "/3</span><br>"
                      + "<span data-i18n='[html]purchasePop1.alert'></span>"
@@ -324,7 +325,6 @@ function initPayment(serviceCnt){
         var contents = "<span class='reward_money'>" + serviceCnt + "/3</span><br>"
                      + "<span data-i18n='[html]purchasePop1.contents'></span>"
         payment.setContents(contents);
-        console.log('test');
         payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/payment.png'></div>");
         payment.buildPayment();
         $(".payment_btn").click(function(){
