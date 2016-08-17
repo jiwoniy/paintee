@@ -45,4 +45,44 @@ public class PaintingCreateVO extends Painting {
 	public void setPainteeFile(MultipartFile painteeFile) {
 		this.painteeFile = painteeFile;
 	}
+	
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getxWidth() {
+		return xWidth;
+	}
+
+	public void setxWidth(int xWidth) {
+		this.xWidth = xWidth;
+	}
+
+	public int getyWidth() {
+		return yWidth;
+	}
+
+	public void setyWidth(int yWidth) {
+		this.yWidth = yWidth;
+	}
+
+	private int x;
+    
+    private int y;
+    
+    private int xWidth;
+    
+    private int yWidth;
 }
