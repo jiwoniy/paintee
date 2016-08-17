@@ -87,11 +87,12 @@ public class PaintingRestController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		MultipartFile painteeFile = paintingCreateVO.getPainteeFile();
+
 		FileInfo fileInfo = null;
 
 		//첨부파일 업로드시
 		if (painteeFile != null && !painteeFile.isEmpty()) {
-			fileInfo = fileInfoGenerator.makePainteeFileInfo(painteeFile, null, null);
+			fileInfo = fileInfoGenerator.makePainteeFileInfo(painteeFile, null, null, paintingCreateVO);
 			logger.debug("fileInfo:{}", fileInfo);
 		}
 

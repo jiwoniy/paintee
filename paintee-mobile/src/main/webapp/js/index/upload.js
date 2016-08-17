@@ -121,7 +121,12 @@ function createPainting() {
 	formData.append("sentence", sentence);
 	formData.append("artistId", userInfo.userId);
 	formData.append("privateAt", 'N');
-
+	
+	formData.append("x", parseInt(croped.x,10));
+	formData.append("y", parseInt(croped.y,10));
+	formData.append("xWidth", parseInt(croped.width,10));
+	formData.append("yWidth", parseInt(croped.height,10));
+	
 	/* 4.3 수정 */
 	$("#update_painting_sentence_btn").html("<div class='purchase_btn_text'>wait </div><img src='spinner.png' class='spinner'>");
 	$(".stopper").show();
@@ -366,8 +371,7 @@ function initCrop(src, originalWidth, originalHeight){
 
     var original = $("#crop_original_image")[0];
     var originalRatio = cropBox.width/1080;
-    console.log(originalRatio);
-
+    
     cropper = new Cropper(original, {
         viewMode:1,
         dragMode:'move',
@@ -398,7 +402,6 @@ $(".crop_confirm_btn").click(function(){
     });
     $(".crop_container").hide();
     cropper.destroy();
-    console.dir(croped);
     successUpload();
 })
 $(".crop_return_btn").click(function(){

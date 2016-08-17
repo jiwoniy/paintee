@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.paintee.common.aws.s3.AWSS3Helper;
 import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.util.ImgScalrWrapper;
+import com.paintee.mobile.painting.controller.PaintingCreateVO;
 
 /**
 @class FileInfoGenerator
@@ -221,7 +222,7 @@ public class FileInfoGenerator {
 	 @return
 	 @throws Exception 
 	*/
-	public FileInfo makePainteeFileInfo(MultipartFile multipartFile, String middlePath, String displayName) throws Exception {
+	public FileInfo makePainteeFileInfo(MultipartFile multipartFile, String middlePath, String displayName, PaintingCreateVO paintingCreateVO) throws Exception {
 		Date today = new Date();
 
 		//crop image file path
@@ -258,12 +259,14 @@ public class FileInfoGenerator {
 
 			//원본파일 생성
 			originalFile = new File(fullPath.toString()+"_ori");
+		
 			FileCopyUtils.copy(multipartFile.getBytes(), originalFile);
 
 			//crop 이미지 생성
 			cropImageFile = new File(fullPath.toString());
-			imgScalrWrapper.cropCenter(originalFile, cropImageFile, "jpeg", 1080, 1500);
-//			imgScalrWrapper.cropCenter(originalFile, cropImageFile, 1080, 1500, ImageWriteParam.MODE_DISABLED);
+			
+			//imgScalrWrapper.cropCenter(originalFile, cropImageFile, "jpeg", 1080, 1500);
+			imgScalrWrapper.cropCustom(originalFile, cropImageFile, "jpeg", paintingCreateVO.getX(), paintingCreateVO.getY(), 1080, 1500);
 
 			fileInfo.setSize(cropImageFile.length());
 
