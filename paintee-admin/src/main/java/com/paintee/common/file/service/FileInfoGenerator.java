@@ -263,10 +263,12 @@ public class FileInfoGenerator {
 			FileCopyUtils.copy(multipartFile.getBytes(), originalFile);
 
 			//crop 이미지 생성
-			cropImageFile = new File(fullPath.toString());
+			cropImageFilePre = new File(fullPath.toString());
+            cropImageFile = new File(fullPath.toString());
 			
 			//imgScalrWrapper.cropCenter(originalFile, cropImageFile, "jpeg", 1080, 1500);
-			imgScalrWrapper.cropCustom(originalFile, cropImageFile, "jpeg", paintingCreateVO.getX(), paintingCreateVO.getY(), 1080, 1500);
+			imgScalrWrapper.cropCustom(originalFile, cropImageFilePre, "jpeg", paintingCreateVO.getX(), paintingCreateVO.getY(), paintingCreateVO.getWidth(), paintingCreateVO.getHeight());
+            imgScalrWrapper.resize(cropImageFilePre, cropImageFile, "jpeg", 1080, 1500);
 
 			fileInfo.setSize(cropImageFile.length());
 
@@ -313,6 +315,9 @@ public class FileInfoGenerator {
 		} finally {
 			if(originalFile != null) {
 				originalFile.delete();
+			}
+            if(cropImageFilePre != null) {
+				cropImageFilePre.delete();
 			}
 			if(cropImageFile != null) {
 				cropImageFile.delete();
