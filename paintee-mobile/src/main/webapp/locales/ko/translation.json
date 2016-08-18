@@ -37,7 +37,7 @@
 	},
 	"follow": 
 	{
-		"loginexplain": "가까운 사람들의 그림입니다.",
+		"loginexplain": "follow하는 사람들의 그림입니다.<br>더 많은 그림을 찾아 작가를 follow 해보세요.",
 		"notloginexplain": "환영합니다.<br>그림을 엽서로 보내거나 받아보세요."
 	},
 	"popular": 

@@ -206,7 +206,7 @@ function setFollowHome(result) {
 				   });
 	
 	followHome.setTitle("Follow");
-	followHome.setExplain("<span data-i18n='follow.loginexplain'><span>");
+	followHome.setExplain("<span data-i18n='[html]follow.loginexplain'><span>");
 	followHome.setContents(content1);
 	followHome.setContents(content2);
 	followHome.hidePrev();
