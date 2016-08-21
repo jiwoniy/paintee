@@ -496,25 +496,37 @@ function mainLock(mainSwiper){
         color = "190,60%,50%";
         colorDark = "200,60%,20%";
         if(isPersonal){hidePersonal()};
-        if(StatusBar){StatusBar.backgroundColorByHexString("#33b3cc")};
+        if(painteeFB.isCordova()){
+        	if(StatusBar){StatusBar.backgroundColorByHexString("#33b3cc")};
+        }
+        
     }else if(mainSwiper.activeIndex==1){
         mainSwiper.unlockSwipes();
         color = "330,60%,50%";
         colorDark = "330,60%,20%";
         if(isPersonal){hidePersonal()};
-        if(StatusBar){StatusBar.backgroundColorByHexString("#cc3380")};
+        if(painteeFB.isCordova()){
+        	if(StatusBar){StatusBar.backgroundColorByHexString("#cc3380")};
+        }
+        
     }else if(mainSwiper.activeIndex==2){
         mainSwiper.unlockSwipes();
         color = "80,60%,45%";
         colorDark = "90,60%,20%";
         if(isPersonal){hidePersonal()};
-        if(StatusBar){StatusBar.backgroundColorByHexString("#8ab82e")};
+        if(painteeFB.isCordova()){
+        	if(StatusBar){StatusBar.backgroundColorByHexString("#8ab82e")};
+        }
+        
     }else if(mainSwiper.activeIndex==3){
         mainSwiper.lockSwipeToNext();
         color = "250,60%,50%";
         colorDark = "250,60%,20%";
         if(isPersonal){hidePersonal()};
-        if(StatusBar){StatusBar.backgroundColorByHexString("#4c33cc")};
+        if(painteeFB.isCordova()){
+        	if(StatusBar){StatusBar.backgroundColorByHexString("#4c33cc")};
+        }
+        
     }
     currentSwiper="";
 };
