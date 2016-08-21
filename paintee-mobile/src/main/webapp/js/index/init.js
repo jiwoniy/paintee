@@ -833,7 +833,10 @@ var imgChecher = setInterval(function(){
             $(".splash").fadeOut(1000);
         }
         clearInterval(imgChecher);
-        if(StatusBar){StatusBar.backgroundColorByHexString("#33b3cc")};
+        if(painteeFB.isCordova()){
+        	if(StatusBar){StatusBar.backgroundColorByHexString("#33b3cc")};
+        }
+        
     })
 }, 500)
 

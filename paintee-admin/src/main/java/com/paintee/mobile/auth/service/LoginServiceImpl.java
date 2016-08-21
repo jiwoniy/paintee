@@ -14,6 +14,7 @@
 */
 package com.paintee.mobile.auth.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -92,7 +93,15 @@ public class LoginServiceImpl implements LoginService {
 		where.andEmailEqualTo(userLoginVO.getEmail());
 		where.andPasswordEqualTo(Sha512Encrypt.hash(userLoginVO.getPassword()));
 		where.andProviderIdEqualTo("PAINTEE");
-		where.andUserStatusEqualTo("N");
+		
+		//where.andUserStatusEqualTo("N");
+		
+		// N인 경우와 T인 경우 둘다 조건에 넣어주고
+		ArrayList<String> statusList = new ArrayList<String>();
+		statusList.add("T");
+		statusList.add("N");
+		
+		// T인경우에 대한 메세지를 뿌려줘야 함.
 
 		List<User> userList = userHelper.selectByExample(userExamplem);
 
@@ -100,29 +109,34 @@ public class LoginServiceImpl implements LoginService {
 			resultMap.put("errorNo", 404);
 		} else {
 			User userInfo = userList.get(0);
+			
+			// e-mail에 Confirm안한 사용자 - 임의로 erroNo는 777
+			if("T".equals(userInfo.getUserStatus())){
+				resultMap.put("errorNo", 777);
+			}else{
+				DateTime toDate = new DateTime();
+				DateTime expireDate = toDate.plusDays(expireDay);
 
-			DateTime toDate = new DateTime();
-			DateTime expireDate = toDate.plusDays(expireDay);
+				String loginWord = userInfo.getUserId()+userLoginVO.getAccessGubun()+expireDate.getMillis();
 
-			String loginWord = userInfo.getUserId()+userLoginVO.getAccessGubun()+expireDate.getMillis();
+				Login login = new Login();
+				login.setUserId(userInfo.getUserId());
+				login.setAccessGubun(userLoginVO.getAccessGubun());
+				login.setHash(Sha512Encrypt.hash(loginWord));
+				login.setExpireDate(expireDate.toDate());
 
-			Login login = new Login();
-			login.setUserId(userInfo.getUserId());
-			login.setAccessGubun(userLoginVO.getAccessGubun());
-			login.setHash(Sha512Encrypt.hash(loginWord));
-			login.setExpireDate(expireDate.toDate());
+				loginHelper.insert(login);
+				logger.debug("login:"+login);
 
-			loginHelper.insert(login);
-			logger.debug("login:"+login);
-
-			resultMap.put("errorNo", 0);
-			resultMap.put("email", userInfo.getEmail());
-			resultMap.put("name", userInfo.getName());
-			resultMap.put("userId", userInfo.getUserId());
-			resultMap.put("location", userInfo.getLocation());
-			resultMap.put("language", userInfo.getLanguage());
-			resultMap.put("providerId", userInfo.getProviderId());
-			resultMap.put("hash", login.getHash());
+				resultMap.put("errorNo", 0);
+				resultMap.put("email", userInfo.getEmail());
+				resultMap.put("name", userInfo.getName());
+				resultMap.put("userId", userInfo.getUserId());
+				resultMap.put("location", userInfo.getLocation());
+				resultMap.put("language", userInfo.getLanguage());
+				resultMap.put("providerId", userInfo.getProviderId());
+				resultMap.put("hash", login.getHash());
+			}			
 		}
 
 		return resultMap;
@@ -148,7 +162,8 @@ public class LoginServiceImpl implements LoginService {
 		List<User> userList = userHelper.selectByExample(userExamplem);
 
 		if(userList == null || userList.size() == 0) {
-			resultMap.put("errorNo", 404);
+			// errorNo 재정의 필요 임시로 일단...
+			resultMap.put("errorNo", 777);
 		} else {
 			User userInfo = userList.get(0);
 

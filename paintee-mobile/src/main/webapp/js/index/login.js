@@ -28,6 +28,9 @@ LogInController.prototype = {
 		} else if(result.errorNo == 401 || result.errorNo == 402 || result.errorNo == 404) {
 //			alert('이메일과 비밀번호를 확인하세요.');
 			alert($.i18n.t('alert.login.confirmEmailPass'));
+		} else if(result.errorNo == 777) {
+			// e-mail confirm안한 사용자
+			alert($.i18n.t('alert.login.confirmEmail'));
 		}
 	},
 	doSocialLogin: function(email, name, accessToken, expireTime, userId, providerId) {
