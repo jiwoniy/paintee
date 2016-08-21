@@ -56,8 +56,14 @@ var lang = "ko";
 function setSideMenu() {
 	// 사이드 메뉴 활성화 및 비활성화 설정
 	if (!userID) {
-		$("#menu_upload").addClass("side_menu_minor_inactive").click(sideOff);
-		$("#menu_reward").addClass("side_menu_minor_inactive").click(sideOff);
+		$("#menu_upload").addClass("side_menu_minor_inactive").click(function(){
+            sideOff();
+            showLogin();
+        });
+		$("#menu_reward").addClass("side_menu_minor_inactive").click(function(){
+            sideOff();
+            showLogin();
+        });
 	}
 	else {
 		$("#menu_upload").click(function(){
@@ -827,6 +833,7 @@ var imgChecher = setInterval(function(){
             $(".splash").fadeOut(1000);
         }
         clearInterval(imgChecher);
+        if(StatusBar){StatusBar.backgroundColorByHexString("#33b3cc")};
     })
 }, 500)
 
@@ -837,6 +844,6 @@ function showNotice(notice){
     $(".notice_box").show();
     $(".notice_box").html(notice);
     exeTranslation(".notice_container", lang);
-    $(".notice_box").delay(3000).fadeOut(2000);
+    $(".notice_box").delay(2000).fadeOut(2000);
 }
 $(".notice_box").hide();
