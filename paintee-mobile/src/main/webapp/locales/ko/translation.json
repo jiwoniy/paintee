@@ -170,7 +170,8 @@
 			"processModify": "수정되었습니다."
 		},
 		"signup" : {
-			"processMemberJoin": "회원가입이 정상적으로 처리되었습니다.\n이메일을 확인하여 회원가입을 완료해주세요.",
+			"processMemberJoin1": "감사합니다. ",
+            "processMemberJoin2": "로 회원가입 확인 메일이 발송되었습니다.\n이메일을 확인하여 회원가입을 완료해주세요.",
 			"processSocialMemberJoin": "회원가입이 정상적으로 처리되었습니다.",
 			"correctEmailAddr": "올바른 이메일 주소를 입력하셔야 합니다.",
 			"invalidUserName": "username은 최소 4자 최대 14자의 영문 또는 숫자로만 입력하셔야 합니다."

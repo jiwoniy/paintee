@@ -170,7 +170,8 @@
 			"processModify": "Successfully edited."
 		},
 		"signup" : {
-			"processMemberJoin": "You are successfully registered.\nPlease check your email.",
+			"processMemberJoin1": "Thanks! We send confirm e-mail to ",
+            "processMemberJoin2": "/n Please check your email.",
 			"processSocialMemberJoin": "You are successfully registered.",
 			"correctEmailAddr": "Please enter the correct email address.",
 			"invalidUserName": "Name should be 4 to 14 characters, which only contain letters or numbers."

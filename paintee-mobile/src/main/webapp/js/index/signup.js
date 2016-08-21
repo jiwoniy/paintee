@@ -26,7 +26,7 @@ SignupController.prototype = {
 		if(result.errorNo == 0) {
 
 			if(result.providerId == 'PAINTEE') {
-				alert($.i18n.t('alert.signup.processMemberJoin'));
+				alert($.i18n.t('alert.signup.processMemberJoin1')+result.email+$.i18n.t('alert.signup.processMemberJoin2'));
 //				alert('회원가입이 정상적으로 처리되었습니다.\n이메일을 확인하세요.');
 			} else if(result.providerId == 'FACEBOOK') {
 				setUserInfoCookie(result);
@@ -181,7 +181,7 @@ function checkSignupUsername() {
 	new SignupController().validFacebookSignup(signupSocialAuthResponse.email, username, accessToken, expireTime, userId, signupSocialProviderId);
 }
 
-$("#signupUserName").keyup(function(e){ if(e.keyCode == 13) logIn(); });
+$("#signupUserName").keyup(function(e){ if(e.keyCode == 13) new SignupController().doSignup(); });
 $('#signup_btn').on("click", function() { new SignupController().doSignup(); });
 
 $('#signup_facebook_btn').on('click', function() {
