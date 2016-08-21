@@ -53,6 +53,7 @@ SignupController.prototype = {
 			if($('#signupUserPassword').val() != $('#signupConfirmPassord').val()) {
 				alert($.i18n.t('alert.common.differentPassword'));
 //				alert("비밀번호와 비밀번화 확인 값이 일치하지 않습니다.");
+                result = false;
 			} else {
 				result = chkPassword($('#signupUserPassword').val());
 
