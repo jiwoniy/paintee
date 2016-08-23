@@ -265,7 +265,7 @@ Structure.prototype = {
                                                       });
                                 } else if(listData.paintingStatus == "2" || listData.paintingStatus == "4"){
                                     this.listStatusBtn.addClass("list_status_sended")
-                                                      .html("sended")
+                                                      .html("sent")
                                                       .attr("id", "exeBtn" + listData.seq)
                                                       .click(function(){
 						                                  showResend(this, listData);
