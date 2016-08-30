@@ -62,8 +62,17 @@
 
 @font-face {
   font-family: 'Pacifico';
-  src: url('../fonts/Pacifico.eot');
-  src: url('../fonts/Pacifico.eot?#iefix') format('embedded-opentype');
+  src: url('../fonts/NanumMyeongjo.eot');
+  src: url('../fonts/NanumMyeongjo.eot?#iefix') format('embedded-opentype');
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumMyeongjo';
+  src: url('../fonts/NanumMyeongjo.eot');
+  src: url('../fonts/NanumMyeongjo.woff') format('woff'),
+       url('../fonts/NanumMyeongjo.ttf') format('truetype'),
+       url('../fonts/NanumMyeongjo.eot?#iefix') format('embedded-opentype');
   font-style: normal;
 }

@@ -159,7 +159,7 @@
 		},
 		"detail" : {
 			"processFollow": " is followed.",
-			"existFollow": " is already followed."
+			"existFollow": " If you want to cancel follow, please check follow list."
 		},
 		"login" : {
 			"confirmEmailPass": "Please check your email and password.",

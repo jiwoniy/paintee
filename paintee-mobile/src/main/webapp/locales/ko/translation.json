@@ -159,7 +159,7 @@
 		},
 		"detail" : {
 			"processFollow": " 님을 Follow 하였습니다.",
-			"existFollow": " 님은 이미 Follow 되어있습니다."
+			"existFollow": "Follow를 취소하려면 Follow 목록을 확인하세요."
 		},
 		"login" : {
 			"confirmEmailPass": "정확하지 않은 이메일 또는 비밀번호입니다.",
