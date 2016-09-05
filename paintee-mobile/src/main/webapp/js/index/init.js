@@ -768,6 +768,7 @@ function closePopup() {
 		// boxStatus payment
 		if (divClass.indexOf('payment_container') > -1) {
 			// 구매 정보 초기화
+            closePurchaseStep01();
 			resetPurchase();
 			purchaseStatus = "";
 			openPopupContainer.hide();

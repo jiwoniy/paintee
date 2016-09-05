@@ -410,19 +410,6 @@ a{
     font-size: 12px;
     z-index: 21;
 }
-.detail_margin{
-    background-color: rgba(0,0,0, 0);
-    text-align: center;
-    color: rgba(30,30,30,0.5);
-}
-.detail_margin_close{
-    position: absolute;
-    top: -24px;
-}
-.detail_margin_guide{
-    position: absolute;
-    bottom: 0px;
-}
 .detail_artist{
     position: absolute;
     top: 0px;
@@ -624,58 +611,90 @@ a{
 }
 .purchase_container{
     position: relative;
+    top: 0px;
+    left: 0px;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.6);
     overflow-x: hidden;
     overflow-y: scroll;
     z-index: 30;
+    transition: top 500ms;
     display: none;
 }
 .purchase_box{
     position: relative;
-    top: 10%;
-    width: 900px;
-    height: 400px;
+    bottom: 0px;
+    width: 90%;
+    max-width: 684px;
+    top: 0px;
     background-color: rgb(255,255,255);
     overflow: hidden;
-    transition: left 500ms;
+    margin: auto;
     box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.5);
 }
-.purchase_box_left{
+.purchase_box_sentence{
     box-sizing: border-box;
-    width: 450px;
+    width: 100%;
     float: left;
-    height: 400px;
     color: rgb(80,80,80);
 }
-.purchase_box_right{
+.purchase_box_sentence_in{
     box-sizing: border-box;
-    width: 450px;
-    float: left;
-    height: 400px;
-    color: rgb(80,80,80);
+    width: 100%;
+    height: 220px;
+    padding: 10px;
 }
-.purchase_box_top{
+.purchase_box_select{
     box-sizing: border-box;
-    font-family: 'Merriweather', serif;
     width: 100%;
     height: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 20px;
+    float: left;
+    color: rgb(80,80,80);
 }
-.purchase_box_middle{
+.purchase_box_address{
     box-sizing: border-box;
     width: 100%;
-    padding: 20px;
+    float: left;
+    height: 350px;
+    color: rgb(80,80,80);
+    padding: 10px;
 }
-.purchase_box_bottom{
+.purchase_box_preview{
     position: absolute;
-    width: inherit;
-    height: 50px;
-    bottom: 0px;
+    top: 0px;
+    left: 0px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 180px;
+    padding: 10px;
+    font-family: 'NanumMyeongjo', sans-serif;
+    font-weight: 300;
+    text-align: center;
+    color: rgb(30,30,30);
+    opacity: 0;
 }
+.purchase_box_artist{
+    font-family: 'Merriweather', serif;
+    font-size: 8px;
+    font-weight: 300;
+    color: rgb(80,80,80);
+    padding-left: 20px;
+}
+.purchase_box_divider{
+    font-family: 'Roboto', sans-serif;
+    font-size: 8px;
+    font-weight: 300;
+    color: rgb(120,120,120);
+    padding-left: 20px;
+}
+/*.purchase_box_bottom{
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    float: left;
+    color: rgb(80,80,80);
+}*/
 .purchase_like_btn{
     position: absolute;
     left: 0px;
@@ -693,19 +712,34 @@ a{
     cursor: pointer;
     display: none;
 }
-.purchase_next_btn{
-    position: absolute;
+.purchase_done_btn{
     right: 0px;
     text-align: right;
     padding: 10px;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
-    display: none;
+}
+.purchase_my_btn{
+    right: 0px;
+    text-align: right;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+}
+.purchase_address_btn{
+    right: 0px;
+    text-align: right;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
 }
 .purchase_pay_btn{
     position: absolute;
     right: 0px;
+    bottom: 0px;
     text-align: right;
     padding: 10px;
     font-size: 14px;
@@ -811,18 +845,31 @@ a{
 }
 .purchase_col_check{
     float: left;
+    font-size: 12px;
 }
 .sentence_textarea{
     box-sizing: border-box;
     width: 100%;
-    height: 200px;
-    background-color: rgb(240,240,240);
+    height: 180px;
+    /*background-color: rgb(240,240,240);*/
     border: 0;
     padding: 10px;
-    font-family: "Roboto", sans-serif;
+    font-family: 'NanumMyeongjo', sans-serif;
     font-weight: 300;
+    text-align: center;
     color: rgb(30,30,30);
     resize: none;
+}
+.sentence_textarea:focus{
+    outline: none;
+}
+.character_counter{
+    padding-left: 10px;
+    opacity: 0;
+}
+.line_counter{
+    color: darkred;
+    font-size: 12px;
 }
 .popup_container{
     position: relative;

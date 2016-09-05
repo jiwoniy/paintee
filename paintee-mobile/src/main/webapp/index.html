@@ -92,7 +92,6 @@
             </div>
         </div>
         <div class="modal"></div>
-        <!--<div id="fullscreen_btn"><img class="icon" src="ico/fullscreen.png"></div>-->
     </div>
     
     <!--  상세화면  -->
@@ -104,18 +103,15 @@
     <!--   구매 화면   -->
     <div class="purchase_container">
         <div class="purchase_box">
-            <div class="purchase_box_left">
-                <div class="purchase_box_top">your message</div>
-                <div class="purchase_box_middle" style="text-align: right">
+            <div class="purchase_box_sentence">
+                <div class="purchase_box_sentence_in" style="text-align: left">
+                    <textarea name="sentence" class="sentence_textarea" length="200"></textarea>
                     <span class="character_counter"><span id="pSentenceCount">0</span>/200</span>
-                    <textarea name="sentence" class="sentence_textarea" placeholder="Your message will be delivered with the painting." length="200"></textarea>
-                    <input type="checkbox" id="privateAt" name="privateAt"> Private
-                </div>
-                <div class="purchase_box_bottom">
-                    <div class="purchase_next_btn"><div class="purchase_btn_text">address </div><img class="icon" src="ico/keyboard_arrow_right_black.png"></div>
+                    <span class="line_counter"></span>
+<!--                    <input type="checkbox" id="privateAt" name="privateAt" style="text-align: right"> Private-->
                 </div>
             </div>
-            <div class="purchase_box_right">
+<!--            <div class="purchase_box_right">
                 <div class="purchase_box_top">address</div>
                 <div class="purchase_box_middle">
                     <div class="purchase_col_title" data-i18n='purchasePop1.sender'>sender</div>
@@ -148,7 +144,7 @@
                     <div class="purchase_prev_btn"><img class="icon" src="ico/keyboard_arrow_left_black.png"><div class="purchase_btn_text"> message</div></div>
                     <div class="purchase_pay_btn"><div class="purchase_btn_text">Payment </div><img class="icon" src="ico/payment.png"></div>
                 </div>
-            </div>
+            </div>-->
 	        <div id="layer" style="display:none;position:absolute;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 				<img src="http://i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 			</div>
@@ -490,7 +486,7 @@
     <script src="js/index/popular.js"></script>
     <script src="js/index/new.js"></script>
     <script src="js/index/personal.js"></script>
-    <script src="js/index/purchase.js"></script>
+    <script src="js/index/purchase2.js"></script>
     <script src="js/index/login.js"></script>
     <script src="js/index/reward.js"></script>
     <script src="js/index/signup.js"></script>
