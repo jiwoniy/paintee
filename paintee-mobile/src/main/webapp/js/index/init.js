@@ -91,8 +91,12 @@ function setSideMenu() {
 }
 
 //var imageUrl="http://localhost/paintee-admin";
-var imageUrl="http://paintee.me/paintee-admin";
+var imageUrl=window.location.protocol+"//paintee.me/paintee-admin";
 var apiUrl = imageUrl + "/api";
+
+//console.log(navigator.userAgent);
+//console.log(navigator);
+
 
 setWidth();
 
