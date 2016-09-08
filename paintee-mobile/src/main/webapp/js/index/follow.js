@@ -11,7 +11,11 @@ var followSwiper = new Swiper('.swiper_container_follow', {
 	mousewheelControl : true,
 	scrollbar : '.swiper-scrollbar-follow',
 	scrollbarHide : true,
-    lazyLoading: true,
+    freeMode: true,
+    freeModeMomentumRatio: 0.2,
+    freeModeMomentumBounceRatio: 5,
+    freeModeSticky: true,
+    lazyLoading: false,
     lazyLoadingInPrevNext: true,
     lazyLoadingInPrevNextAmount: 3
 });

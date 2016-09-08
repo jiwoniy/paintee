@@ -9,9 +9,13 @@ var mySwiper = new Swiper('.swiper_container_my', {
     centeredSlides: true,
     spaceBetween: mainWidth*0.05,
     mousewheelControl : true,
+    freeMode: true,
+    freeModeMomentumRatio: 0.2,
+    freeModeMomentumBounceRatio: 5,
+    freeModeSticky: true,
     scrollbar: '.swiper-scrollbar-my',
     scrollbarHide: true,
-    lazyLoading: true,
+    lazyLoading: false,
     lazyLoadingInPrevNext: true,
     lazyLoadingInPrevNextAmount: 3    
 })

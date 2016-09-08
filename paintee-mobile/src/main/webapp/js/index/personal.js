@@ -57,10 +57,14 @@ Personal.prototype = {
                             centeredSlides: true,
                             spaceBetween: mainWidth*0.05,
                             mousewheelControl : true,
+                            freeMode: true,
+                            freeModeMomentumRatio: 0.2,
+                            freeModeMomentumBounceRatio: 5,
+                            freeModeSticky: true,
                             scrollbar: '.swiper-scrollbar-personal',
                             scrollbarHide: true,
                             preloadImages: false,
-                            lazyLoading: true,
+                            lazyLoading: false,
                             lazyLoadingInPrevNext: true,
                             lazyLoadingInPrevNextAmount: 3                            
                         })
@@ -87,7 +91,7 @@ function setPersonal(result) {
     var introduce = (result.personal.introduce) ? result.personal.introduce : personal.username+"<span data-i18n='personal.contents'>님이 업로드한 그림들입니다.</span>";
     personalHome.setExplain(introduce);
     var contents1 = $("<div>").addClass("follow_artist").html("<br><br><img style='width:12px; height: 12px' class='icon' src='ico/star_white.png'> <span id='personalFollow'>follow artist</span>");
-    var contents2 = $("<div>").addClass("detail_artist_bottom").html("Share to <img class='icon social_img' id='personal-facebook' src='ico/social_facebook_white.png'><img class='icon social_img' id='personal-twitter' src='ico/social_twitter_white.png'><img class='icon social_img' id='personal-url' src='ico/social_url_white.png'>");  // 수정부분
+    var contents2 = $("<div>").addClass("share_artist").html("Share to <img class='icon social_img' id='personal-facebook' src='ico/social_facebook_white.png'><img class='icon social_img' id='personal-twitter' src='ico/social_twitter_white.png'><img class='icon social_img' id='personal-url' src='ico/social_url_white.png'>");  // 수정부분
     
     personalHome.hideNext();
     personalHome.setContents(contents1);
