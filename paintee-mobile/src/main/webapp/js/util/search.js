@@ -893,16 +893,16 @@
     // 무료 API 경로 설정.
 
     info.freeAPI = {
-        defaultUrl : "http://api.poesis.kr/post/search.php",
-        backupUrl : "http://api.poesis.co.kr/post/search.php"
+        defaultUrl : window.location.protocol+"//api.poesis.kr/post/search.php",
+        backupUrl : window.location.protocol+"//api.poesis.co.kr/post/search.php"
     };
 
     // 지도 링크 설정.
 
     info.mapProviders = {
-        daum : "http://map.daum.net/?map_type=TYPE_MAP&urlLevel=3&q=$JUSO",
-        naver : "http://map.naver.com/?mapMode=0&dlevel=12&query=$JUSO",
-        google : "http://www.google.com/maps/place/" + encodeURIComponent("대한민국") + "+$JUSO"
+        daum : window.location.protocol+"//map.daum.net/?map_type=TYPE_MAP&urlLevel=3&q=$JUSO",
+        naver : window.location.protocol+"//map.naver.com/?mapMode=0&dlevel=12&query=$JUSO",
+        google : window.location.protocol+"//www.google.com/maps/place/" + encodeURIComponent("대한민국") + "+$JUSO"
     };
 
     // 언어 설정.
