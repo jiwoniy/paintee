@@ -313,7 +313,7 @@ function setDetailLayout(){
     $(".detail_margin").css("height", mainHeight-100);
     $(".detail_artist").css("height", mainHeight-50);
     $(".detail_artist_sentence").css("width", mainWidth);
-    $(".detail_container").hide();
+    $(".detail_container").css("opacity", 0).css("z-index", 5);
 }
 
 //디테일화면 닫기
@@ -328,12 +328,12 @@ function closeDetail(){
 // 댓글 화면 표시
 function showPostee(){
     $(".notice_box").hide();
-    $(".detail_container").fadeIn(600);
+    $(".detail_container").css("opacity", 1).css("z-index", 20);
     detailSwiper.update();
     detailSwiper.slideTo(0);
 }
 function hidePostee(){
-    $(".detail_container").fadeOut(600);
+    $(".detail_container").css("opacity", 0).css("z-index", 5);
 }
 
 function processDetailClose() {
