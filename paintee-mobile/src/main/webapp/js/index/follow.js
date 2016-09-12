@@ -11,7 +11,7 @@ var followSwiper = new Swiper('.swiper_container_follow', {
 	mousewheelControl : true,
 	scrollbar : '.swiper-scrollbar-follow',
 	scrollbarHide : true,
-    freeMode: true,
+    freeMode: false,
     freeModeMomentumRatio: 0.2,
     freeModeMomentumBounceRatio: 5,
     freeModeSticky: true,
@@ -181,7 +181,7 @@ function initFollow() {
 		welcome.setExplain("<span data-i18n='[html]follow.notloginexplain'></span><br><br><br>");
         welcome.setContents(logInBtn);
         if(!painteeFB.isCordova()){
-            welcome.setAdd("<a href='https://play.google.com/store/apps/details?id=com.paintee1.pnt' target='_blank'><img class='download_btn_android' src='ico/download_btn_play.png'></a>");
+            welcome.setAdd("<a href='https://play.google.com/store/apps/details?id=com.paintee1.pnt' target='_blank'><img class='download_btn_android' src='ico/download_btn_play.png'></a><a href='https://itunes.apple.com/ph/app/paintee-your-painting/id1146256092?mt=8' target='_blank'><img class='download_btn_android' src='ico/download_btn_ios.png'></a>");
         }
 		welcome.hidePrev();
 		followSwiper.appendSlide(welcome.buildStructure());

@@ -57,7 +57,7 @@ Personal.prototype = {
                             centeredSlides: true,
                             spaceBetween: mainWidth*0.05,
                             mousewheelControl : true,
-                            freeMode: true,
+                            freeMode: false,
                             freeModeMomentumRatio: 0.2,
                             freeModeMomentumBounceRatio: 5,
                             freeModeSticky: true,
