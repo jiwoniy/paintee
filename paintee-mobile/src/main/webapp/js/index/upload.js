@@ -338,7 +338,7 @@ function showCrop(src, originalWidth, originalHeight){
             return false;
         }else{
             clearInterval(loadChecher);
-            initCrop(src, originalWidth, originalHeight)
+            initCrop(src, originalWidth, originalHeight);
         }
     }, 500);
     $(".crop_container").show();
@@ -371,7 +371,7 @@ function initCrop(src, originalWidth, originalHeight){
 
     var original = $("#crop_original_image")[0];
     var originalRatio = cropBox.width/1080;
-    
+
     cropper = new Cropper(original, {
         viewMode:1,
         dragMode:'move',
@@ -383,6 +383,13 @@ function initCrop(src, originalWidth, originalHeight){
         responsive: false,
         aspectRatio:18/25,
         ready: function(){
+            if(this.cropper.getImageData().rotate>0){
+                cropCanvas.width = cropCanvas.width+cropCanvas.height;
+                cropCanvas.height = cropCanvas.width-cropCanvas.height
+                cropCanvas.width = cropCanvas.width-cropCanvas.height;
+                cropCanvas.top = (mainHeight-cropCanvas.height)/2;
+                cropCanvas.left = (mainWidth-cropCanvas.width)/2;
+            }
             this.cropper.setCanvasData(cropCanvas);
             this.cropper.setCropBoxData(cropBox);
             $(".stopper").hide();
