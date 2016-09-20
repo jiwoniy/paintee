@@ -1,6 +1,9 @@
 var baseUploadCount = 5;
 var doUploadCount = 0;
 var onceAboutUpload = true;
+var sourceWidth;
+var sourceHeight;
+
 
 //업로드화면
 function upload(){
@@ -231,7 +234,6 @@ function successUpload() {
     $(".upload_box").empty();
     $(".upload_box").addClass("upload_box_preview");
     if(cropedPreview){
-        $(cropedPreview).addClass("upload_preview");
         $(".upload_box").append(cropedPreview);
     }
 
@@ -372,6 +374,10 @@ function initCrop(src, originalWidth, originalHeight){
     var original = $("#crop_original_image")[0];
     var originalRatio = cropBox.width/1080;
 
+    sourceWidth = originalWidth;
+    sourceHeight = originalHeight;
+    previewRatio = originalRatio;
+
     cropper = new Cropper(original, {
         viewMode:1,
         dragMode:'move',
@@ -395,18 +401,54 @@ function initCrop(src, originalWidth, originalHeight){
             $(".stopper").hide();
         },
         zoom: function(e){
+            console.log(e.detail.ratio);
             if(e.detail.ratio>originalRatio){
                 e.preventDefault();
             }
         }
     });
 }
+
 $(".crop_confirm_btn").click(function(){
     croped = cropper.getData();
-    cropedPreview = cropper.getCroppedCanvas({
+    console.log(croped);
+/*    cropedPreview = cropper.getCroppedCanvas({
+        width: $(".upload_box").width(),
+        height: $(".upload_box").height()
+    });*/
+    cropedPreview = $("<div>").addClass("upload_preview").css({
         width: $(".upload_box").width(),
         height: $(".upload_box").height()
     });
+
+    var previewRatio=$(".upload_box").width()/croped.width;
+    console.log("ratio : " + previewRatio);
+    console.log("width : " + sourceWidth*previewRatio);
+    console.log("height : " + sourceHeight*previewRatio);
+    console.log("left : " + croped.x*previewRatio);
+    console.log("top : " + croped.y*previewRatio);
+
+    cropedImg = $("<img>").attr("src", $("#crop_original_image").attr("src"));
+
+    if(croped.rotate==90){
+        cropedImg.css("transform-origin", "0px 0px");
+        cropedImg.css("transform", "rotate("+croped.rotate+"deg)");
+        cropedImg.css({
+            width: sourceWidth*previewRatio,
+            height: sourceHeight*previewRatio,
+            left: -(croped.x*previewRatio)+sourceHeight*previewRatio,
+            top: -(croped.y*previewRatio)
+        });
+    }else{
+        cropedImg.css({
+            width: sourceWidth*previewRatio,
+            height: sourceHeight*previewRatio,
+            left: -(croped.x*previewRatio),
+            top: -(croped.y*previewRatio)
+        });
+    }
+
+    cropedPreview.append(cropedImg);
     $(".crop_container").hide();
     cropper.destroy();
     successUpload();
