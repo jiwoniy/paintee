@@ -1497,7 +1497,7 @@ a{
 .list_status_btn{
     position: absolute;
     right: 2%;
-    bottom: 60px;
+    bottom: 10px;
     height: 30px;
     width: 120px;
     border-radius: 10px;
@@ -1510,7 +1510,7 @@ a{
 .list_cancel_btn{
     position: absolute;
     right: 2%;
-    bottom: 60px;
+    bottom: 10px;
     height: 30px;
     width: 120px;
     border-radius: 10px;
@@ -1527,7 +1527,7 @@ a{
 .list_refund_btn{
     position: absolute;
     right: 2%;
-    bottom: 60px;
+    bottom: 10px;
     height: 30px;
     width: 120px;
     border-radius: 10px;
@@ -1544,7 +1544,7 @@ a{
 .list_resend_btn{
     position: absolute;
     right: 140px;
-    bottom: 60px;
+    bottom: 10px;
     height: 30px;
     width: 120px;
     border-radius: 10px;
@@ -1561,7 +1561,7 @@ a{
 .list_confirm_btn{
     position: absolute;
     right: 2%;
-    bottom: 60px;
+    bottom: 10px;
     height: 30px;
     width: 120px;
     border-radius: 10px;
@@ -1578,7 +1578,7 @@ a{
 .list_delete_btn{
     position: absolute;
     right: 2%;
-    bottom: 60px;
+    bottom: 10px;
     height: 30px;
     width: 120px;
     border-radius: 10px;
@@ -1595,7 +1595,7 @@ a{
 .list_status_sentence{
     position: absolute;
     left: 0px;
-    bottom: 50px;
+    bottom: 0px;
     width: 100%;
     height: 100px;
     padding: 5px;
