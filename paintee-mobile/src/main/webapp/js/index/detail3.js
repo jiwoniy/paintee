@@ -72,6 +72,7 @@ function DetailStructure(paintingId, paintingInfo){
 
     this.detailPostBtn      =$("<div>").addClass("detail_post_btn").html("post it").click(function(){purchase(paintingId)});
     // this.detailScroll       =$("<div>").addClass("swiper-scrollbar").addClass("swiper-scrollbar-detail");
+    this.detailPagenation   =$("<div>").addClass("swiper-pagination").addClass("detail_pagination");
     this.closeBtn          =$("<div>").addClass("close_btn").html("<img class='icon' src='ico/close.png' />").click(function(){
                                 hidePostee();
                                 closeDetail();
@@ -153,12 +154,12 @@ DetailStructure.prototype = {
         this.detailContainer.append(this.wrapper);
         this.detailContainer.append(this.detailArtist);
         this.detailContainer.append(this.closeBtn);
+        this.detailContainer.append(this.detailPagenation);
 
         this.detail.append(this.detailBgContainer);
         this.detail.append(this.detailBgBottom);
         this.detail.append(this.detailContainer);
         this.detail.append(this.detailPostBtn);
-        // this.detail.append(this.detailScroll);
 
         var detailController = new DetailController();
 
@@ -287,6 +288,8 @@ function initDetail(paintingId, paintingInfo){
             slideShadows : false
         },
         mousewheelControl : true,
+        pagination: '.detail_pagination',
+        paginationClickable: true
 	     //scrollbar: '.swiper-scrollbar-detail',
 	     //scrollbarHide: true
 	});
@@ -456,11 +459,11 @@ function addPosted(swiper, postedInfo) {
 	swiper.appendSlide(postedObj[swiper.slides.length-initPostedSlideCnt]);
 }
 
-//Detail화면의 댓글 무한스크롤 (10개씩 추가)
+//Detail화면의 댓글 무한스크롤 (50개씩 추가)
 function callPosted(swiper){
 	var isPostedEnd;
 
-	var rowPerPage = 5;
+	var rowPerPage = 50;
 	var detailPostedCnt = swiper.slides.length - initPostedSlideCnt;
 
 	if(detailPostedCnt == 0 || detailPostedCnt == ((swiper.activeIndex+1) - initPostedSlideCnt)) {//현재 화면에 출력된 slide 중 가장 마지막 slide 호출시 rowPerPage 만큼 데이터를 요청한다.

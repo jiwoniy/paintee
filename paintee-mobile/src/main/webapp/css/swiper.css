@@ -167,6 +167,7 @@
 .swiper-pagination-bullet {
   width: 4px;
   height: 4px;
+  margin: 2px;
   display: inline-block;
   border-radius: 100%;
   background: #000;

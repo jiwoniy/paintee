@@ -850,6 +850,7 @@ var imgChecher = setInterval(function(){
             $(".splash").fadeOut(1000);
         }
         clearInterval(imgChecher);
+        setWidth();
         if(painteeFB.isCordova()){
         	if(StatusBar){StatusBar.backgroundColorByHexString("#33b3cc")};
         }

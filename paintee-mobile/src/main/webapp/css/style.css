@@ -362,7 +362,7 @@ a{
     color: white;
     z-index: 10;
 }
-.swiper-pagination {
+.swiper-pagination-about {
     top: 10px;
     left: 0;
     width: 100%;
@@ -1491,7 +1491,7 @@ a{
     overflow-y: scroll;
     word-break: break-all;
 }
-.swiper-pagination {
+.swiper-pagination-about {
     top: 55px;
 }
 .list_status_btn{
@@ -1919,31 +1919,3 @@ screen and (-o-min-device-pixel-ratio: 2.5) {
     }
 }
 
-/* ios 상단 여백을 위한 수정 */
-/* ios app 포팅시에만 아래 주석 해제 */
-/*
-.return_btn{
-    top: 20px;
-}
-.account_close_btn{
-    top: 20px;
-}
-.side_menu_btn{
-    top: 20px;
-}
-.side_menu_close{
-    top: 20px;
-}
-.about_navi{
-    top: 40px;
-}
-.swiper-pagination {
-    top: 70px;
-}
-.home_btn{
-    opacity: 0;
-}
-.home_prev{
-    top: 20px;
-}
-*/

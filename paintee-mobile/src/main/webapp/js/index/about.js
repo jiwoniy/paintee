@@ -29,7 +29,7 @@ About.prototype = {
                     this.parallax.css("background-image", url);
     },
     setPagination : function(type){
-                    this.pagination.addClass("swiper-pagination-"+type);
+                    this.pagination.addClass("swiper-pagination-about").addClass("swiper-pagination-"+type);
     },
     addCard     : function(title, contents){
                     var newCard = new Card();
