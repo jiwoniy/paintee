@@ -553,7 +553,7 @@ function listLock(swiper){
         mainSwiper.lockSwipes();
         swiper.enableMousewheelControl();
         $(".swiper-scrollbar").show();
-        $(".home_btn").show()
+//        $(".home_btn").show()
         if(!fullImage){$(".bottom_bar").css("opacity", 1)};
         currentSwiper=swiper;
     }

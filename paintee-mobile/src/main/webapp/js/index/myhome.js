@@ -34,6 +34,13 @@ mySwiper.on("onSlideChangeStart", function(swiper) {
 // list 상태에서 mode container 스와이프 방지 && 마우스휠 해제/설정 && 페이지네이션 show/hide
 mySwiper.on("onTransitionEnd", function(swiper){listLock(swiper)});
 
+mySwiper.on("onSlideNextStart", function(swiper) {
+    $(swiper.container).find(".home_btn").hide()
+});
+mySwiper.on("onSlidePrevStart", function(swiper) {
+    $(swiper.container).find(".home_btn").show()
+});
+
 // side menu에 이벤트 설정
 $("#menu_my").click(function(){
     selectMenu(3);

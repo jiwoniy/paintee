@@ -34,6 +34,12 @@ popularSwiper.on("onSlideChangeStart", function(swiper){
 popularSwiper.on("onTransitionEnd", function(swiper){
 	listLock(swiper);
 });
+popularSwiper.on("onSlideNextStart", function(swiper) {
+    $(swiper.container).find(".home_btn").hide()
+});
+popularSwiper.on("onSlidePrevStart", function(swiper) {
+    $(swiper.container).find(".home_btn").show()
+});
 
 //side menu에 이벤트 설정
 $("#menu_popular").on('click', function(){

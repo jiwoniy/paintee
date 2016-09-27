@@ -35,6 +35,12 @@ followSwiper.on("onSlideChangeStart", function(swiper) {
 followSwiper.on("onTransitionEnd", function(swiper) {
 	listLock(swiper)
 });
+followSwiper.on("onSlideNextStart", function(swiper) {
+    $(swiper.container).find(".home_btn").hide()
+});
+followSwiper.on("onSlidePrevStart", function(swiper) {
+    $(swiper.container).find(".home_btn").show()
+});
 
 // side menu에 이벤트 설정
 $("#menu_follow").click(function() {
