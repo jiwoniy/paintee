@@ -5,17 +5,20 @@ var purchaseSentenceBox = $(".purchase_box_sentence");
 var purchaseStructure;
 
 function Purchase(){
-    this.doneBox  = $("<div>").addClass("purchase_box_select").height(50);
+    this.doneBox  = $("<div>").addClass("purchase_box_select");
     this.doneIcon   = $("<img>").addClass("icon").attr("src", "ico/done.png");
-    this.doneBtn    = $("<div>").addClass("purchase_done_btn").append($("<div>").addClass("purchase_btn_text").html("done ")).click(function(){showChoose()});
+    this.doneBtn    = $("<div>").addClass("purchase_done_btn").append($("<div>").addClass("purchase_btn_text").html("done ")).click(function(){
+                            alert($.i18n.t('alert.notyet'));
+                            showPost();
+                        });
 
-    this.chooseBox    = $("<div>").addClass("purchase_box_select").height(100);
-    this.putIcon    = $("<img>").addClass("icon").attr("src", "ico/like_black.png");
-    this.putBtn     = $("<div>").addClass("purchase_my_btn").append($("<div>").addClass("purchase_btn_text").html("put on my ")).click(function(){alert($.i18n.t('alert.notyet'))});
+    this.postBox    = $("<div>").addClass("purchase_box_select");
     this.sendIcon   = $("<img>").addClass("icon").attr("src", "ico/mail_black.png");
-    this.sendBtn    = $("<div>").addClass("purchase_address_btn").append($("<div>").addClass("purchase_btn_text").html("send a postcard ").click(function(){showAddress()}));
+    this.sendBtn    = $("<div>").addClass("purchase_address_btn").append($("<div>").addClass("purchase_btn_text").html("send a postcard ")).click(function(){
+                            showAddress()
+                        });
 
-    this.divider        = $("<div>").addClass("purchase_box_select").height(50);
+    this.divider        = $("<div>").addClass("purchase_box_select");
     this.dividerArtist  = $("<div>").addClass("purchase_box_artist");
     this.dividerSentence = $("<div>").addClass("purchase_box_divider").append("Published by Paintee co., Seoul, Korea | http://paintee.me");
 
@@ -48,13 +51,10 @@ Purchase.prototype = {
 
         return this.doneBox;
     },
-    buildChoose   : function(){
-        this.putBtn.append(this.putIcon);
+    buildPost   : function(){
         this.sendBtn.append(this.sendIcon);
-        this.chooseBox.append(this.putBtn)
-        this.chooseBox.append(this.sendBtn);
-
-        return this.chooseBox;
+        this.postBox.append(this.sendBtn);
+        return this.postBox;
     },
     buildDivider : function(){
         this.dividerArtist.html("painted by <b>"+purchaseController.artistName+"</b>");
@@ -78,7 +78,7 @@ Purchase.prototype = {
 }
 
 // 구매화면으로 이동
-function purchase(paintingId, artistName) {
+function purchase(paintingId, artistName, type) {
 
 	if (userID == "") {
 		showLogin();
@@ -87,61 +87,25 @@ function purchase(paintingId, artistName) {
 	this.paintingId = paintingId;
     this.artistName = artistName;
 
-    initPurchasePop();
-
-	// 구매 팝업 정보 조회
-	//purchaseController = new PurchaseController(paintingId, artistName);
-	//purchaseController.purchasePopInfo();
+    initPurchasePop(type);
 }
 
-/*function initPurchasePop(result) {
-	replaceHistory({"call": "purchasePop"});
-    addHistory({"call": "purchaseStep1"});
-
-	purchaseController.basicAddr  = result.user.basicAddr;
-	purchaseController.detailAddr = result.user.detailAddr;
-
-    purchaseStructure = new Purchase();
-    showChoose();
-	$(".purchase_container").show();
-
-    // 주소설정...
-    $("[name=senderName]").val(userInfo.name);
-    $("[name=location]").val(result.user.location ? result.user.location : 'Korea');
-    $("[name=receiverBasicAddr]").val(result.user.basicAddr);
-    $("[name=receiverDetailAddr]").val(result.user.detailAddr);
-    $("[name=receiverZipcode]").val(result.user.zipcode);
-
-    // 기존 설정된 이벤트 제거
-    $(".purchase_pay_btn").off("click");
-    $(".purchase_pay_btn" ).click(function() {
-    	payment(result.user.serviceCnt);
-    });
-
-    // 우편번호 입력박스 키이벤트 등록
-    $("[name=receiverZipcode]").keydown(function (event) {
-    	limitNumber(event);
-    })
-    .keyup(function (event) {
-    	limitNumber(event);
-    });
-    purchaseStatus = "choose";
-    setWidth();
-
-    // 다국어 처리
-    exeTranslation('.base_position', lang);
-    $(".sentence_textarea").attr("placeholder", $.i18n.t('purchasePop1.sentence'))
-}*/
-
-function initPurchasePop() {
+function initPurchasePop(type) {
 	replaceHistory({"call": "purchasePop"});
     addHistory({"call": "purchaseStep1"});
 
     purchaseStructure = new Purchase();
-    showChoose();
+    purchaseStatus = type;
+
+    if(purchaseStatus=="post"){
+        showPost();
+    }else if(purchaseStatus=="comment"){
+        showComment();
+    }
+
 	$(".purchase_container").show();
 
-    purchaseStatus = "choose";
+
     setWidth();
 
     // 다국어 처리
@@ -183,11 +147,12 @@ function initPurchaseAddress(result){
 }
 
 function setPurchase(){
-    if(purchaseStatus=="sentence"){
+    if(purchaseStatus=="comment"){
         purchaseBox.css("top", mainHeight-250);
         purchaseBox.animate({top: mainHeight-270}, 200);
-    }else if(purchaseStatus=="choose"){
-        purchaseBox.css("top", mainHeight-320);
+    }else if(purchaseStatus=="post"){
+        purchaseBox.css("top", mainHeight-250);
+        purchaseBox.animate({top: mainHeight-270}, 200);
     }else if(purchaseStatus=="address"){
         if(mainHeight>=660){
             purchaseBox.css("top", mainHeight-620);
@@ -200,10 +165,17 @@ function setPurchase(){
 $(".sentence_textarea").focusin(function(){$(".character_counter").css("opacity", 1)});
 $(".sentence_textarea").focusout(function(){$(".character_counter").css("opacity", 0)});
 
-function showChoose(){
-    purchaseStatus="choose";
+function showPost(){
+    purchaseStatus="post";
     purchaseBox.find(".purchase_box_select").remove();
-    purchaseBox.append(purchaseStructure.buildChoose());
+    purchaseBox.append(purchaseStructure.buildPost());
+    setPurchase();
+};
+
+function showComment(){
+    purchaseStatus="comment";
+    purchaseBox.find(".purchase_box_select").remove();
+    purchaseBox.append(purchaseStructure.buildDone());
     setPurchase();
 };
 
@@ -520,7 +492,8 @@ PurchaseController.prototype = {
 		$(".stopper").hide();
 
 		// 기존 입력 내용 지우기
-		resetPurchase();
+//		resetPurchase();
+        closePurchaseStep01();
 		completePayment(result);
     	dataReload(["initMy();", "initPopular();"]);
 	},

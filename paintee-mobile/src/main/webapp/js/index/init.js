@@ -160,7 +160,6 @@ function Structure(data) {
         this.listInfoPosted     =$("<div>").addClass("list_info_posted");
         this.listInfoDate       =$("<div>").addClass("list_info_date");
 
-//        this.listPainting       =$("<div>").addClass("list_painting").attr("index", this.index); // img 태그로 수정
         // mobile 기기의 pixel ratio를 반영한 가변 이미지 반영
          this.listPainting       =$("<img>").addClass("list_painting").attr("index", this.index);
 
@@ -171,7 +170,7 @@ function Structure(data) {
 						        	addHistory({"call": "personal"});
         							showPersonal(data.artistName)
         						});
-        this.listPostBtn        =$("<div>").addClass("list_post_btn").html("post it")
+/*        this.listPostBtn        =$("<div>").addClass("list_post_btn").html("post it")
                                            .click( function() {
                                         	   		   if (data.paintingStatus == "D") {
                                         	   			   alert($.i18n.t('alert.common.delPainting'));
@@ -179,7 +178,30 @@ function Structure(data) {
                                         	   		   }
                                         	           purchase(data.paintingId, data.artistName);
                                         	       }
-                                           );
+                                           );*/
+        this.listBtn            =$("<div>").addClass("list_btn");
+        this.likeSeq            =$("<div>").addClass("like_sequence");
+        this.likeSeqCir         =$("<div>").addClass("like_sequence_circle");
+        this.listBtnLike        =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like")
+                                            .click(function(){riseBubble(this);});
+        this.listBtnLiked       =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked")
+                                            .click(function(){dropBubble(this)});
+        this.listBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("list_btn_comment")
+                                            .click(function(){
+                                                   if (data.paintingStatus == "D") {
+                                                       alert($.i18n.t('alert.common.delPainting'));
+                                                       return;
+                                                   }
+                                                   purchase(data.paintingId, data.artistName, "comment");
+                                            });
+        this.listBtnPost        =$("<img>").attr("src", "ico/post.png").addClass("list_btn_icon").addClass("list_btn_post")
+                                            .click(function() {
+                                                   if (data.paintingStatus == "D") {
+                                                       alert($.i18n.t('alert.common.delPainting'));
+                                                       return;
+                                                   }
+                                                   purchase(data.paintingId, data.artistName, "post");
+                                            });
         this.listStatusBtn      =$("<div>").addClass("list_status_btn");                 
         this.listStatusStc      =$("<div>").addClass("list_status_sentence");            
         this.listCancelBtn      =$("<div>").addClass("list_cancel_btn").html("Cancel");  
@@ -192,9 +214,15 @@ Structure.prototype = {
         setSentence:        function(sentence, wrighter){
                                 this.listInfoSentence.html(convertToBr(sentence)+"<br><br> <span class='list_info_sentence_wrighter'> by <b>"+wrighter+"</b></span>");
                             },
-        setPostedNumber:    function(postedByPeople){
-                                this.listInfoPosted.html("<span class='list_info_posted_num'>"+postedByPeople+"</span> people already posted it")
-                            }, 
+        setLikedNumber:    function(likedNum){
+                            this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num'>"+likedNum+"</div>")
+                        },
+        setCommentedNumber: function(commentedNum){
+                            this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'>"+commentedNum+"</div>")
+                        },
+        setPostedNumber:    function(postedNum){
+                            this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/post.png'><div class='list_info_posted_num'>"+postedNum+"</div>")
+                        },
         setDate:            function(date){
                                 this.listInfoDate.html(date)
                             },
@@ -254,7 +282,6 @@ Structure.prototype = {
                             },
         setColor:           function(color){
                                 this.bottom.css("background-color", color);
-                                this.listPostBtn.css("color", color);
                             },
         setArtist:          function(name){
                                 this.listArtist.html(name);
@@ -325,7 +352,15 @@ Structure.prototype = {
                                 this.container.append(this.listPainting);
                                 this.container.append(this.bottom);
                                 this.container.append(this.listArtist);
-                                this.container.append(this.listPostBtn);
+//                                this.container.append(this.listPostBtn);
+                                this.listBtn.append(this.listBtnPost);
+                                this.listBtn.append(this.listBtnComment);
+                                this.listBtn.append(this.listBtnLike);
+
+                                this.likeSeq.append(this.likeSeqCir);
+                                this.listBtn.append(this.likeSeq);
+
+                                this.container.append(this.listBtn);
                                 // 마이페이지의 그림 하단의 상태표시 버튼
                                 if (type == "my") {
                                 	switch(listData.paintingStatus) {
@@ -367,7 +402,8 @@ function addPainting(swiper, currentIndex, type, listData){
 	}
 	var newSlide = new Structure(data);
     newSlide.setSentence((listData.paintingStatus == "B") ? "It was blind by the administrator." : listData.sentence, listData.sentenceName ? listData.sentenceName : listData.artistName);
-    //newSlide.setPostedNumber(listData.postedPeopleCnt);
+    newSlide.setLikedNumber(0);
+    newSlide.setCommentedNumber(0);
     newSlide.setPostedNumber(listData.postedNum);
     newSlide.setDate(toEngDateStr(listData.uploadDate));
     newSlide.setArtist(listData.artistName);
@@ -461,10 +497,6 @@ function showRefund(clicked, listData){
 }
 
 function showResend(clicked, listData){
-/*    $(clicked).parent().find(".list_resend_btn").fadeIn().one("click", function () {
-   		new PurchaseController().resendPurchase(listData); 
-   		hideCancel(this);
-    });*/
     $(clicked).parent().find(".list_confirm_btn").fadeIn().click(function(){
     	new PurchaseController().completePurchase(listData); 
     	hideCancel(this)
@@ -553,7 +585,6 @@ function listLock(swiper){
         mainSwiper.lockSwipes();
         swiper.enableMousewheelControl();
         $(".swiper-scrollbar").show();
-//        $(".home_btn").show()
         if(!fullImage){$(".bottom_bar").css("opacity", 1)};
         currentSwiper=swiper;
     }
@@ -646,8 +677,12 @@ function setWidth() {
         setPurchase();
     }
     setBox();
+    setStatusPosition();
+}
+
+function setStatusPosition(){
     if($(".list_artist_btn").position()){
-        var fullBreakpoint = mainHeight-$(".list_painting").position().top-$(".list_painting").height()
+        var fullBreakpoint = mainHeight-$(".list_painting").position().top-$(".list_painting").height();
         if(fullBreakpoint <= 50){
             fullImage = false;
             $(".list_status_btn").removeAttr("style");
@@ -868,3 +903,73 @@ function showNotice(notice){
     $(".notice_box").delay(2000).fadeOut(2000);
 }
 $(".notice_box").hide();
+
+
+// 좋아요 애니메이션
+
+function riseBubble(bubble){
+    var listBtnLiked =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked").click(function(){dropBubble(this)});
+    var likeSeqCir  =$("<div>").addClass("like_sequence_circle");
+
+    $(bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
+    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
+    $(bubble).replaceWith(listBtnLiked);
+}
+
+function dropBubble(bubble){
+    var listBtnLike =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like").click(function(){riseBubble(this)});
+    var likeSeqCir  =$("<div>").addClass("like_sequence_circle");
+
+    $(bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
+    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
+    $(bubble).replaceWith(listBtnLike);
+}
+
+// 좋아요 전체 목록 보기
+function showLikes(){
+	// 히스토리 설정
+	replaceHistory({"call": "followPop"});
+    addHistory({"call": "dummy"});
+
+	setBox();
+	$(".people_container").show();
+	$(".people_box").empty();
+	var people = new People();
+	people.setTitle("Likes");
+	people.buildUpload();
+
+}
+
+function addLikes(name, isfriend) {
+	var adder = new Follows();
+	$(adder.build(name, isfriend)).appendTo($(".people_contents"));
+	delete adder;
+}
+
+function Likes() {
+	this.likes = $("<div>").addClass("people_list");
+	this.name = $("<div>").addClass("people_list_name");
+	this.btn = $("<div>").addClass("people_list_add")
+			             .html("<div class='people_list_btn_text'> </div><img class='icon' src='ico/add_black.png'>");
+	this.freind = $("<div>").addClass("people_list_add")
+			                .html("<div class='people_list_btn_text'> </div><img class='icon img_transparent' src='ico/done.png'>");
+	this.build = function(name, isfriend) {
+		$(this.name).html(name).click(function () {
+			history.back();
+			showPersonal(name);
+		});;
+		$(this.likes).append(this.name);
+		if (isfriend) {
+			$(this.likes).append(this.freind);
+		} else {
+			$(this.likes).append(this.btn);
+		}
+		var btn = this.btn;
+		this.btn.click(function () {
+			popName = "followPop";
+			new FollowController().addFollow(btn, name);
+		});
+
+		return this.follows;
+	}
+}

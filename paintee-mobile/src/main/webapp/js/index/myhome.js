@@ -110,6 +110,7 @@ function initMy(){
     }
 	// 다국어 변경 적용
 	exeTranslation('.main_container', lang);
+    setStatusPosition();
 }
 
 function setMyHome(result) {

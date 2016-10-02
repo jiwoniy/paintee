@@ -32,6 +32,7 @@ function DetailStructure(paintingId, paintingInfo){
                                 fallbackToMouseEvents: true
                             });
     this.detailBgBottom     =$("<div>").addClass("detail_bg_bottom");
+
     this.detailContainer    =$("<div>").addClass("detail_container").addClass("swiper_container_detail");
     this.wrapper            =$("<div>").addClass("swiper-wrapper");
 
@@ -45,10 +46,7 @@ function DetailStructure(paintingId, paintingInfo){
                                 threshold:10,
                                 fallbackToMouseEvents: true
                             });
-    this.detailArtistTop    =$("<div>").addClass("detail_artist_top");
     this.detailArtistBtn    =$("<div>").addClass("detail_artist_btn");
-    this.detailBgArtistBtn     =$("<div>").addClass("detail_artist_btn");
-
     this.followed = paintingInfo.followed;
 
     if(paintingInfo.followed || (userInfo && this.artistId == userInfo.userId)) {
@@ -57,21 +55,36 @@ function DetailStructure(paintingId, paintingInfo){
     	this.detailArtistFollow =$("<div>").addClass("detail_artist_follow");
     }
 
-    this.detailArtistSentence=$("<div>").addClass("detail_artist_sentence").addClass("swiper-slide");
-    this.detailArtistDate   =$("<div>").addClass("detail_artist_date");
-    this.detailPosted       =$("<div>").addClass("detail_posted swiper-slide");
+    this.detailArtistTop    =$("<div>").addClass("detail_artist_top");
+    this.detailLikeNum      =$("<div>").addClass("detail_count_num");
+    this.detailCommentNum   =$("<div>").addClass("detail_count_num");
+    this.detailPostNum      =$("<div>").addClass("detail_count_num");
 
     this.detailArtistBottom =$("<div>").addClass("detail_artist_bottom").html("Share to ");
     this.sociconFacebook =$("<img id='detail_fac_share' src='ico/social_facebook_white.png'>").addClass("icon").addClass("social_img");
     this.sociconTwitter  =$("<img id='detail_twi_share' src='ico/social_twitter_white.png'>").addClass("icon").addClass("social_img");
     this.urlCopyIcon     =$("<img id='detail_url_copy' src='ico/social_url_white.png'>").addClass("icon").addClass("social_img");
 
-    this.detailPostbar      =$("<div>").addClass("detail_postbar");
-    this.detailPostbarPostnum=$("<div>").addClass("detail_postbar_postnum");
-    this.detailPostbarPostedNum=$("<span>").addClass("list_info_posted_num");
+    this.detailArtistSentence=$("<div>").addClass("detail_artist_sentence").addClass("swiper-slide");
+    this.detailArtistDate   =$("<div>").addClass("detail_artist_date");
+    this.detailPosted       =$("<div>").addClass("detail_posted swiper-slide");
 
-    this.detailPostBtn      =$("<div>").addClass("detail_post_btn").html("post it").click(function(){purchase(paintingId)});
-    // this.detailScroll       =$("<div>").addClass("swiper-scrollbar").addClass("swiper-scrollbar-detail");
+    this.detailBtn            =$("<div>").addClass("detail_btn");
+
+    this.likeSeq              =$("<div>").addClass("like_sequence");
+    this.likeSeqCir           =$("<div>").addClass("like_sequence_circle");
+    this.detailBtnLike        =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like")
+                                        .click(function(){riseBubble(this);});
+    this.detailBtnLiked       =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked")
+                                            .click(function(){dropBubble(this)});
+    this.detailBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("detail_btn_comment")
+                                        .click(function(){
+                                               purchase(paintingId, paintingInfo.artistName, "comment");
+                                        });
+    this.detailBtnPost        =$("<img>").attr("src", "ico/post.png").addClass("list_btn_icon").addClass("detail_btn_post")
+                                        .click(function() {
+                                               purchase(paintingId, paintingInfo.artistName, "post");
+                                        });
     this.detailPagenation   =$("<div>").addClass("swiper-pagination").addClass("detail_pagination");
     this.closeBtn          =$("<div>").addClass("close_btn").html("<img class='icon' src='ico/close.png' />").click(function(){
                                 hidePostee();
@@ -96,15 +109,7 @@ DetailStructure.prototype = {
     	var colorDark  = this.colorDark;
 
         this.detailArtistBtn.html(artistName);
-        this.detailBgArtistBtn.html(artistName);
         this.detailArtistBtn.click(function () {
-        	processDetailClose();
-        	// 히스토리 설정
-        	replaceHistory({"call": "detailOpen", "paintingId": paintingId, "colorDark": colorDark, "color": color, "mainIndex": mainSwiper.activeIndex, "index": currentSwiper.activeIndex});
-        	addHistory({"call": "personal"});
-        	showPersonal(artistName);
-        });
-        this.detailBgArtistBtn.click(function () {
         	processDetailClose();
         	// 히스토리 설정
         	replaceHistory({"call": "detailOpen", "paintingId": paintingId, "colorDark": colorDark, "color": color, "mainIndex": mainSwiper.activeIndex, "index": currentSwiper.activeIndex});
@@ -121,8 +126,15 @@ DetailStructure.prototype = {
     setDate     : function(uploadDate){
         this.detailArtistDate.html(uploadDate);
     },
+    setLikedNum: function(likedNum){
+        this.detailLikeNum.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num list_info_likes_num'>"+likedNum+" likes</div>")
+        .click(function(){showLikes()});
+    },
+    setCommentedNum: function(commentedNum){
+        this.detailCommentNum.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'>"+commentedNum+" comments</div>");
+    },
     setPostedNum: function(postedNum){
-        this.detailPostbarPostedNum.html(postedNum);
+        this.detailPostNum.append("<img class='list_info_posted_ico' src='ico/post.png'><div class='list_info_posted_num'>"+postedNum+" posts</div>");
     },
     buildDetail : function(){
         this.setBG(this.fileId);
@@ -130,24 +142,25 @@ DetailStructure.prototype = {
         this.setFollow(this.artistId);
         this.setSentence(this.artistSentence);
         this.setDate(this.uploadDate);
+        this.setLikedNum(0);
+        this.setCommentedNum(0);
         this.setPostedNum(this.postedNum);
 
         this.detailBgContainer.append(this.detailBgImg);
-
-        this.detailPostbarPostnum.append(this.detailPostbarPostedNum).append(" people already posted it");
-        this.detailPostbar.append(this.detailPostbarPostnum);
-
         this.detailBgBottom.append(this.detailArtistBtn);
         this.detailBgBottom.append(this.detailArtistFollow);
 
-        this.detailArtistSentence.append(this.detailArtistDate);
+        this.detailArtistTop.append(this.detailLikeNum);
+        this.detailArtistTop.append(this.detailCommentNum);
+        this.detailArtistTop.append(this.detailPostNum);
+
         this.detailArtistBottom.append(this.sociconFacebook);
         this.detailArtistBottom.append(this.sociconTwitter);
         this.detailArtistBottom.append(this.urlCopyIcon);
         this.detailArtist.append(this.detailArtistTop);
         this.detailArtist.append(this.detailArtistBottom);
-        this.detailArtist.append(this.detailPostbar);
 
+        this.detailArtistSentence.append(this.detailArtistDate);
         this.detailPosted.append(this.detailArtistSentence);
         this.wrapper.append(this.detailPosted);
 
@@ -156,10 +169,16 @@ DetailStructure.prototype = {
         this.detailContainer.append(this.closeBtn);
         this.detailContainer.append(this.detailPagenation);
 
+        this.detailBtn.append(this.detailBtnPost);
+        this.detailBtn.append(this.detailBtnComment);
+        this.detailBtn.append(this.detailBtnLike);
+        this.likeSeq.append(this.likeSeqCir);
+        this.detailBtn.append(this.likeSeq);
+
         this.detail.append(this.detailBgContainer);
         this.detail.append(this.detailBgBottom);
         this.detail.append(this.detailContainer);
-        this.detail.append(this.detailPostBtn);
+        this.detail.append(this.detailBtn);
 
         var detailController = new DetailController();
 
