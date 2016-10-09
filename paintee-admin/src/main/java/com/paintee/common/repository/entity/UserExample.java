@@ -1924,6 +1924,66 @@ public class UserExample {
             addCriterion("service_cnt not between", value1, value2, "serviceCnt");
             return (Criteria) this;
         }
+
+        public Criteria andLikeCntIsNull() {
+            addCriterion("like_cnt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntIsNotNull() {
+            addCriterion("like_cnt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntEqualTo(Integer value) {
+            addCriterion("like_cnt =", value, "likeCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntNotEqualTo(Integer value) {
+            addCriterion("like_cnt <>", value, "likeCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntGreaterThan(Integer value) {
+            addCriterion("like_cnt >", value, "likeCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntGreaterThanOrEqualTo(Integer value) {
+            addCriterion("like_cnt >=", value, "likeCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntLessThan(Integer value) {
+            addCriterion("like_cnt <", value, "likeCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntLessThanOrEqualTo(Integer value) {
+            addCriterion("like_cnt <=", value, "likeCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntIn(List<Integer> values) {
+            addCriterion("like_cnt in", values, "likeCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntNotIn(List<Integer> values) {
+            addCriterion("like_cnt not in", values, "likeCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntBetween(Integer value1, Integer value2) {
+            addCriterion("like_cnt between", value1, value2, "likeCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeCntNotBetween(Integer value1, Integer value2) {
+            addCriterion("like_cnt not between", value1, value2, "likeCnt");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

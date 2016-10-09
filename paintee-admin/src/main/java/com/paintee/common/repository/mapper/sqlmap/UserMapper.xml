@@ -29,6 +29,7 @@
     <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
     <result column="language" property="language" jdbcType="VARCHAR" />
     <result column="service_cnt" property="serviceCnt" jdbcType="INTEGER" />
+    <result column="like_cnt" property="likeCnt" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -93,7 +94,7 @@
     zipcode, city, location, upload_cnt, post_cnt, earn_total_money, earn_reword_money, 
     resent_send_basic_addr, resent_send_detail_addr, resent_send_zipcode, resent_send_city, 
     resent_send_location, resent_send_name, point, user_status, sns_type, created_date, 
-    language, service_cnt
+    language, service_cnt, like_cnt
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.UserExample" >
     select
@@ -136,7 +137,7 @@
       resent_send_zipcode, resent_send_city, resent_send_location, 
       resent_send_name, point, user_status, 
       sns_type, created_date, language, 
-      service_cnt)
+      service_cnt, like_cnt)
     values (#{userId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{providerId,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, 
       #{basicAddr,jdbcType=VARCHAR}, #{detailAddr,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, 
@@ -146,7 +147,7 @@
       #{resentSendZipcode,jdbcType=VARCHAR}, #{resentSendCity,jdbcType=VARCHAR}, #{resentSendLocation,jdbcType=VARCHAR}, 
       #{resentSendName,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, #{userStatus,jdbcType=CHAR}, 
       #{snsType,jdbcType=CHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{language,jdbcType=VARCHAR}, 
-      #{serviceCnt,jdbcType=INTEGER})
+      #{serviceCnt,jdbcType=INTEGER}, #{likeCnt,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.User" >
     insert into TB_USER
@@ -232,6 +233,9 @@
       <if test="serviceCnt != null" >
         service_cnt,
       </if>
+      <if test="likeCnt != null" >
+        like_cnt,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -314,6 +318,9 @@
       </if>
       <if test="serviceCnt != null" >
         #{serviceCnt,jdbcType=INTEGER},
+      </if>
+      <if test="likeCnt != null" >
+        #{likeCnt,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -407,6 +414,9 @@
       <if test="record.serviceCnt != null" >
         service_cnt = #{record.serviceCnt,jdbcType=INTEGER},
       </if>
+      <if test="record.likeCnt != null" >
+        like_cnt = #{record.likeCnt,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -440,7 +450,8 @@
       sns_type = #{record.snsType,jdbcType=CHAR},
       created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       language = #{record.language,jdbcType=VARCHAR},
-      service_cnt = #{record.serviceCnt,jdbcType=INTEGER}
+      service_cnt = #{record.serviceCnt,jdbcType=INTEGER},
+      like_cnt = #{record.likeCnt,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -526,6 +537,9 @@
       <if test="serviceCnt != null" >
         service_cnt = #{serviceCnt,jdbcType=INTEGER},
       </if>
+      <if test="likeCnt != null" >
+        like_cnt = #{likeCnt,jdbcType=INTEGER},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
@@ -556,7 +570,8 @@
       sns_type = #{snsType,jdbcType=CHAR},
       created_date = #{createdDate,jdbcType=TIMESTAMP},
       language = #{language,jdbcType=VARCHAR},
-      service_cnt = #{serviceCnt,jdbcType=INTEGER}
+      service_cnt = #{serviceCnt,jdbcType=INTEGER},
+      like_cnt = #{likeCnt,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

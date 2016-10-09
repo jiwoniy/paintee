@@ -58,6 +58,8 @@ public class User extends BaseEntity {
 
     private Integer serviceCnt;
 
+    private Integer likeCnt;
+
     public String getUserId() {
         return userId;
     }
@@ -272,5 +274,13 @@ public class User extends BaseEntity {
 
     public void setServiceCnt(Integer serviceCnt) {
         this.serviceCnt = serviceCnt;
+    }
+
+    public Integer getLikeCnt() {
+        return likeCnt;
+    }
+
+    public void setLikeCnt(Integer likeCnt) {
+        this.likeCnt = likeCnt;
     }
 }
