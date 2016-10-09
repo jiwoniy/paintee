@@ -26,9 +26,15 @@ public class User extends BaseEntity {
 
     private String location;
 
+    private String language;
+
     private Integer uploadCnt;
 
     private Integer postCnt;
+
+    private Integer commentCnt;
+
+    private Integer likeCnt;
 
     private Float earnTotalMoney;
 
@@ -54,11 +60,7 @@ public class User extends BaseEntity {
 
     private Date createdDate;
 
-    private String language;
-
     private Integer serviceCnt;
-
-    private Integer likeCnt;
 
     public String getUserId() {
         return userId;
@@ -148,6 +150,14 @@ public class User extends BaseEntity {
         this.location = location;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     public Integer getUploadCnt() {
         return uploadCnt;
     }
@@ -162,6 +172,22 @@ public class User extends BaseEntity {
 
     public void setPostCnt(Integer postCnt) {
         this.postCnt = postCnt;
+    }
+
+    public Integer getCommentCnt() {
+        return commentCnt;
+    }
+
+    public void setCommentCnt(Integer commentCnt) {
+        this.commentCnt = commentCnt;
+    }
+
+    public Integer getLikeCnt() {
+        return likeCnt;
+    }
+
+    public void setLikeCnt(Integer likeCnt) {
+        this.likeCnt = likeCnt;
     }
 
     public Float getEarnTotalMoney() {
@@ -260,27 +286,11 @@ public class User extends BaseEntity {
         this.createdDate = createdDate;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public Integer getServiceCnt() {
         return serviceCnt;
     }
 
     public void setServiceCnt(Integer serviceCnt) {
         this.serviceCnt = serviceCnt;
-    }
-
-    public Integer getLikeCnt() {
-        return likeCnt;
-    }
-
-    public void setLikeCnt(Integer likeCnt) {
-        this.likeCnt = likeCnt;
     }
 }
