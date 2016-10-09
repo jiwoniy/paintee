@@ -101,12 +101,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.paintee.common.repository.entity.CommentPainting" >
+    <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into tb_comment_painting (seq, painting_id, user_id, 
       sentence, created_date)
     values (#{seq,jdbcType=INTEGER}, #{paintingId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
       #{sentence,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.CommentPainting" >
+    <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into tb_comment_painting
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="seq != null" >
