@@ -13,6 +13,7 @@ create table TB_USER (
 	language varchar(8) comment '언어',
 	upload_cnt int default 0 comment 'Upload 한 전체 숫자',
 	post_cnt int default 0 comment 'Post 한 전체 숫자',
+	comment_cnt int default 0 comment 'Comment 한 전체 숫자',
 	earn_total_money float default 0 comment '수익의 전체 금액',
 	earn_reword_money float default 0  comment '리워드로 받은 전체 금액',
 	resent_send_basic_addr varchar(200) comment '최근 보낸 기본 주소',
@@ -97,6 +98,14 @@ create table TB_POPULAR_PAINTING (
     painting_id varchar(64) comment '그림의 고유 ID',
     purchase_count int comment '그림 구매 숫자'
 ) COMMENT = '인기 페인팅';
+
+create table TB_COMMENT_PAINTING (
+	seq int primary key auto_increment comment '코멘트한 페인팅 고유 번호',
+    painting_id varchar(64) comment '그림의 고유 ID',
+	user_id varchar(64) comment '코멘트한 사람의 id', 
+    sentence varchar(600) comment '그림 소갯말',
+    created_date datetime default now() comment '생성일자'
+) COMMENT = '사용자가 코멘트한 페인팅';
 
 create table TB_LOGIN (
 	seq int primary key auto_increment comment '로그인 구분 고유 번호',
