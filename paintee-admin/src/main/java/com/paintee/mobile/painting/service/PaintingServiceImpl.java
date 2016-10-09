@@ -31,11 +31,13 @@ import com.paintee.common.file.service.FileService;
 import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.repository.entity.FollowExample;
 import com.paintee.common.repository.entity.Painting;
+import com.paintee.common.repository.entity.PaintingLike;
 import com.paintee.common.repository.entity.User;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.common.repository.helper.FollowHelper;
 import com.paintee.common.repository.helper.PaintingHelper;
 import com.paintee.common.repository.helper.UserHelper;
+import com.paintee.common.repository.mapper.PaintingLikeMapper;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
 
 /**
@@ -68,6 +70,9 @@ public class PaintingServiceImpl implements PaintingService {
 
 	@Autowired
 	private FollowHelper followHelper;
+
+	@Autowired
+	private PaintingLikeMapper paintingMapper;
 
 	public PaintingVO getPaintingInfo(String paintingId, LoginedUserVO loginedUserVO) throws Exception {
 		/*
@@ -158,13 +163,28 @@ public class PaintingServiceImpl implements PaintingService {
 	*/
 	public boolean updatePainting(Painting painting) {
 		boolean result = false;
-
 		int count = paintingHelper.updateByPrimaryKeySelective(painting);
-
 		if(count > 0) {
 			result = true;
 		}
-
 		return result;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.paintee.mobile.painting.service.PaintingService#addPaintingLike(com.paintee.common.repository.entity.PaintingLike)
+	 */
+	@Override
+	public boolean addPaintingLike(PaintingLike paintingLike) {
+		return paintingMapper.insert(paintingLike) > 0 ? true : false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.paintee.mobile.painting.service.PaintingService#deletePaintingLike(com.paintee.common.repository.entity.PaintingLike)
+	 */
+	@Override
+	public boolean cancelPaintingLike(PaintingLike paintingLike) {
+		return paintingMapper.deleteByPrimaryKey(paintingLike) > 0 ? true : false;
+	}
+
+
 }

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.paintee.common.repository.entity.vo.PaintingSearchVO;
 import com.paintee.mobile.news.service.NewPaintingService;
+import com.paintee.mobile.support.obejct.LoginedUserVO;
 
 /**
 @class NewPaintingRestController
@@ -59,14 +60,19 @@ public class NewPaintingRestController {
 	 @throws Exception 
 	*/
 	@RequestMapping(value="/api/newIndex", method={RequestMethod.GET})
-	public Map<String, Object> index(@RequestParam(name="startRow", required=false, defaultValue="0") Integer startRow) throws Exception {
+	public Map<String, Object> index(@RequestParam(name="startRow", required=false, defaultValue="0") Integer startRow, LoginedUserVO loginedUserVO) throws Exception {
 		// 데이터 조건 설정
 		PaintingSearchVO search = new PaintingSearchVO();
 		search.setStartRow(startRow);
 		search.setRowPerPage(5);
 		search.setPaintingStatus("N"); // 그림의 상태가 정상인 것만 조회
 		search.setPrivateAt("N"); // 공개된 그림만 조회
-		
+		// 로그인한 사용자의 그림의 좋아요 카운트를 확인한다.
+		if (loginedUserVO != null) {
+			search.setUserId(loginedUserVO.getUserId());
+		} else {
+			search.setUserId("00000");
+		}
 		return newPaintingService.getNewPatingInfo(search);
 	}
 }

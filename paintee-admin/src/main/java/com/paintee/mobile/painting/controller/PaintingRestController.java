@@ -32,6 +32,7 @@ import com.paintee.common.file.service.FileInfoGenerator;
 import com.paintee.common.repository.entity.CommentPainting;
 import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.repository.entity.Painting;
+import com.paintee.common.repository.entity.PaintingLike;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.mobile.painting.service.PaintingService;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
@@ -164,4 +165,53 @@ public class PaintingRestController {
 
 		return resultMap;
 	}
+
+	/**
+	@fn addPaintingLike
+	@brief 함수 간략한 설명 : 옆서 그림 좋아요 추가
+	@remark
+	- 함수의 상세 설명 : 옆서 그림 등록
+	@param testVO
+	@return
+	@throws Exception 
+	*/
+	@RequestMapping(value="/api/painting/like", method={RequestMethod.POST})
+	public Map<String, Object> addPaintingLike(@RequestBody PaintingLike paintingLike, LoginedUserVO loginedUserVO) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		paintingLike.setUserId(loginedUserVO.getUserId());
+		boolean result = paintingService.addPaintingLike(paintingLike);
+		if(result) {
+			resultMap.put("errorMsg", "");
+			resultMap.put("errorNo", 0);
+		} else {
+			resultMap.put("errorNo", 500);
+		}
+		return resultMap;
+	}	
+	
+	/**
+	 @fn deletePaintingLike
+	 @brief 함수 간략한 설명 : 옆서 그림 좋아요 취소
+	 @remark
+	 - 함수의 상세 설명 : 옆서 그림 등록
+	 @param testVO
+	 @return
+	 @throws Exception 
+	 */
+	@RequestMapping(value="/api/painting/{paintingId}/like", method={RequestMethod.DELETE})
+	public Map<String, Object> deletePaintingLike(@PathVariable String paintingId, @RequestBody PaintingLike paintingLike, LoginedUserVO loginedUserVO) throws Exception {
+		System.out.println("deletePaintingLike ::: " + paintingId);
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		paintingLike.setUserId(loginedUserVO.getUserId());
+		paintingLike.setPaintingId(paintingId);
+		boolean result = paintingService.cancelPaintingLike(paintingLike);
+		if(result) {
+			resultMap.put("errorMsg", "");
+			resultMap.put("errorNo", 0);
+		} else {
+			resultMap.put("errorNo", 500);
+		}
+		return resultMap;
+	}	
 }

@@ -18,6 +18,7 @@ import java.util.Map;
 
 import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.repository.entity.Painting;
+import com.paintee.common.repository.entity.PaintingLike;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
 
@@ -36,6 +37,10 @@ com.paintee.mobile.painting.service \n
  @section 상세설명
  - 그림에 대한 service
 */
+/**
+ * @author Administrator
+ *
+ */
 public interface PaintingService {
 	/**
 	 @fn getPaintingInfo
@@ -70,4 +75,24 @@ public interface PaintingService {
 	 @return 
 	*/
 	public boolean updatePainting(Painting painting);
+	
+	/**
+	 @fn addPaintingLike
+	 @brief 함수 간략한 설명 : 그림 좋아요 추가
+	 @remark
+	 - 함수의 상세 설명 : 그림 좋아요 정보를 등록한다.
+	 @param painting
+	 @return 
+	*/
+	public boolean addPaintingLike(PaintingLike paintingLike);
+	
+	/**
+	 @fn deletePaintingLike
+	 @brief 함수 간략한 설명 : 그림 좋아요 삭제
+	 @remark
+	 - 함수의 상세 설명 : 그림 좋아요 정보를 삭제한다.
+	 @param painting
+	 @return 
+	 */
+	public boolean cancelPaintingLike(PaintingLike paintingLike);
 }

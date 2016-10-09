@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.paintee.common.repository.entity.vo.PaintingSearchVO;
 import com.paintee.mobile.popular.service.PopularService;
+import com.paintee.mobile.support.obejct.LoginedUserVO;
 
 /**
 @class PopularRestController
@@ -61,7 +62,7 @@ public class PopularRestController {
 	 @throws Exception 
 	*/
 	@RequestMapping(value="/api/popularIndex", method={RequestMethod.GET})
-	public Map<String, Object> index(@RequestParam(name="startRow", required=false, defaultValue="0") Integer startRow) throws Exception {
+	public Map<String, Object> index(@RequestParam(name="startRow", required=false, defaultValue="0") Integer startRow, LoginedUserVO loginedUserVO) throws Exception {
 		
 		// 데이터 조건 설정
 		PaintingSearchVO search = new PaintingSearchVO();
@@ -78,6 +79,13 @@ public class PopularRestController {
 		purchaseStatusList.add("5");  // 재발송처리
 		purchaseStatusList.add("99");  // 완료
 		search.setPurchaseStatusList(purchaseStatusList);
+		
+		// 로그인한 사용자의 그림의 좋아요 카운트를 확인한다.
+		if (loginedUserVO != null) {
+			search.setUserId(loginedUserVO.getUserId());
+		} else {
+			search.setUserId("00000");
+		}
 		
 		return popularService.getPopularInfo(search);
 	}

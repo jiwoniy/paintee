@@ -90,8 +90,8 @@ function setSideMenu() {
 	}
 }
 
-//var imageUrl="http://localhost/paintee-admin";
-var imageUrl=window.location.protocol+"//paintee.me/paintee-admin";
+var imageUrl="http://localhost:8000/paintee-admin";
+//var imageUrl=window.location.protocol+"//paintee.me/paintee-admin";
 var apiUrl = imageUrl + "/api";
 
 //console.log(navigator.userAgent);
@@ -183,9 +183,9 @@ function Structure(data) {
         this.likeSeq            =$("<div>").addClass("like_sequence");
         this.likeSeqCir         =$("<div>").addClass("like_sequence_circle");
         this.listBtnLike        =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like")
-                                            .click(function(){riseBubble(this);});
+                                            .click(function(){riseBubble(this, data.paintingId);});
         this.listBtnLiked       =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked")
-                                            .click(function(){dropBubble(this)});
+                                            .click(function(){dropBubble(this, data.paintingId)});
         this.listBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("list_btn_comment")
                                             .click(function(){
                                                    if (data.paintingStatus == "D") {
@@ -355,7 +355,11 @@ Structure.prototype = {
 //                                this.container.append(this.listPostBtn);
                                 this.listBtn.append(this.listBtnPost);
                                 this.listBtn.append(this.listBtnComment);
-                                this.listBtn.append(this.listBtnLike);
+                                if (listData.likeCnt == 0) {
+                                	this.listBtn.append(this.listBtnLike);
+                                } else {
+                                	this.listBtn.append(this.listBtnLiked);
+                                }
 
                                 this.likeSeq.append(this.likeSeqCir);
                                 this.listBtn.append(this.likeSeq);
@@ -904,72 +908,3 @@ function showNotice(notice){
 }
 $(".notice_box").hide();
 
-
-// 좋아요 애니메이션
-
-function riseBubble(bubble){
-    var listBtnLiked =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked").click(function(){dropBubble(this)});
-    var likeSeqCir  =$("<div>").addClass("like_sequence_circle");
-
-    $(bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
-    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
-    $(bubble).replaceWith(listBtnLiked);
-}
-
-function dropBubble(bubble){
-    var listBtnLike =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like").click(function(){riseBubble(this)});
-    var likeSeqCir  =$("<div>").addClass("like_sequence_circle");
-
-    $(bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
-    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
-    $(bubble).replaceWith(listBtnLike);
-}
-
-// 좋아요 전체 목록 보기
-function showLikes(){
-	// 히스토리 설정
-	replaceHistory({"call": "followPop"});
-    addHistory({"call": "dummy"});
-
-	setBox();
-	$(".people_container").show();
-	$(".people_box").empty();
-	var people = new People();
-	people.setTitle("Likes");
-	people.buildUpload();
-
-}
-
-function addLikes(name, isfriend) {
-	var adder = new Follows();
-	$(adder.build(name, isfriend)).appendTo($(".people_contents"));
-	delete adder;
-}
-
-function Likes() {
-	this.likes = $("<div>").addClass("people_list");
-	this.name = $("<div>").addClass("people_list_name");
-	this.btn = $("<div>").addClass("people_list_add")
-			             .html("<div class='people_list_btn_text'> </div><img class='icon' src='ico/add_black.png'>");
-	this.freind = $("<div>").addClass("people_list_add")
-			                .html("<div class='people_list_btn_text'> </div><img class='icon img_transparent' src='ico/done.png'>");
-	this.build = function(name, isfriend) {
-		$(this.name).html(name).click(function () {
-			history.back();
-			showPersonal(name);
-		});;
-		$(this.likes).append(this.name);
-		if (isfriend) {
-			$(this.likes).append(this.freind);
-		} else {
-			$(this.likes).append(this.btn);
-		}
-		var btn = this.btn;
-		this.btn.click(function () {
-			popName = "followPop";
-			new FollowController().addFollow(btn, name);
-		});
-
-		return this.follows;
-	}
-}

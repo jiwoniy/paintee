@@ -35,11 +35,14 @@ com.paintee.common.repository.entity.vo \n
 public class NewPaintingVO extends Painting {
 	private String artistName;
 	private String fileId;
+	/**
+	 * 그림의 로그인한 사용자의 좋아요 카운트
+	 */
+	private Integer likeCnt;   
 	
 	public String getArtistName() {
 		return artistName;
 	}
-
 	public void setArtistName(String artistName) {
 		this.artistName = artistName;
 	}
@@ -50,5 +53,13 @@ public class NewPaintingVO extends Painting {
 
 	public void setFileId(String fileId) {
 		this.fileId = fileId;
+	}
+
+	public Integer getLikeCnt() {
+		return likeCnt;
+	}
+
+	public void setLikeCnt(Integer likeCnt) {
+		this.likeCnt = likeCnt;
 	}
 }

@@ -56,6 +56,11 @@ public class PaintingSearchVO extends PagingVO {
      */
 	private FileInfo fileInfo;
 	
+	/**
+    @brief 사용자 아이디
+	 */
+	private String userId;
+	
 	public String getPaintingStatus() {
 		return paintingStatus;
 	}
@@ -79,5 +84,11 @@ public class PaintingSearchVO extends PagingVO {
 	}
 	public void setFileInfo(FileInfo fileInfo) {
 		this.fileInfo = fileInfo;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }
