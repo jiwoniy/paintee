@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.paintee.common.file.service.FileInfoGenerator;
+import com.paintee.common.repository.entity.CommentPainting;
 import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.repository.entity.Painting;
 import com.paintee.common.repository.entity.vo.PaintingVO;
@@ -137,6 +138,29 @@ public class PaintingRestController {
 		} else {
 			resultMap.put("errorNo", 405);
 		}
+
+		return resultMap;
+	}
+
+	/**
+	 @fn createPainting
+	 @brief 함수 간략한 설명 : 옆서 그림에 대한 코멘트 작성
+	 @remark
+	 - 함수의 상세 설명 : 옆서 그림에 대한 코멘트 작성
+	 @param testVO
+	 @return
+	 @throws Exception 
+	*/
+	@RequestMapping(value="/api/painting/{paintingId}/comment", method={RequestMethod.POST})
+	public Map<String, Object> createComment(@PathVariable String paintingId, @RequestBody CommentPainting commentPainting, LoginedUserVO loginedUserVO) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		commentPainting.setPaintingId(paintingId);
+
+		resultMap.put("commentPainting", commentPainting);
+
+		resultMap.put("errorMsg", "");
+		resultMap.put("errorNo", 0);
 
 		return resultMap;
 	}

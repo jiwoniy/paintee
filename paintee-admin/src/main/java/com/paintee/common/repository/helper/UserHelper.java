@@ -43,4 +43,14 @@ public interface UserHelper extends UserMapper {
 	 @return 
 	*/
 	public void updateUserInfo(User user);
+
+	/**
+	 @fn updateCommentCntByUserId
+	 @brief 함수 간략한 설명 : 회원의 코멘트 카운트를 1 증가 시킨다.
+	 @remark
+	 - 함수의 상세 설명 : 회원의 코멘트 카운트를 1 증가 시킨다.
+	 @param user
+	 @return 
+	*/
+	public void updateCommentCntByUserId(User user);
 }

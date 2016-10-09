@@ -49,4 +49,11 @@
 		</trim>
 		 where user_id = #{userId}
   	</update>
+
+	<!-- 회원의 comment count 증가 -->
+  	<update id="updateCommentCntByUserId" parameterType="com.paintee.common.repository.entity.User">
+		update TB_USER 
+		set comment_cnt = comment_cnt+1
+		where user_id = #{userId}
+  	</update>
 </mapper>
