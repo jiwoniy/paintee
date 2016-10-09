@@ -245,6 +245,7 @@ public class FileInfoGenerator {
 
 		File originalFile = null;
 		File cropImageFile = null;
+		File cropImageFilePre = null;
 		File thumbnailFile1 = null;
 		File thumbnailFile2 = null;
 
@@ -267,7 +268,7 @@ public class FileInfoGenerator {
             cropImageFile = new File(fullPath.toString());
 			
 			//imgScalrWrapper.cropCenter(originalFile, cropImageFile, "jpeg", 1080, 1500);
-			imgScalrWrapper.cropCustom(originalFile, cropImageFilePre, "jpeg", paintingCreateVO.getX(), paintingCreateVO.getY(), paintingCreateVO.getWidth(), paintingCreateVO.getHeight());
+			imgScalrWrapper.cropCustom(originalFile, cropImageFilePre, "jpeg", paintingCreateVO.getX(), paintingCreateVO.getY(), paintingCreateVO.getxWidth(), paintingCreateVO.getyWidth());
             imgScalrWrapper.resize(cropImageFilePre, cropImageFile, "jpeg", 1080, 1500);
 
 			fileInfo.setSize(cropImageFile.length());
@@ -289,7 +290,7 @@ public class FileInfoGenerator {
 			thumbnailFile2 = new File(fullPath.toString());
 
 			imgScalrWrapper.resize(cropImageFile, thumbnailFile2, "jpeg", 360, 500);
-
+/*
 			//생성된 파일들을 aws 로 전송
 			StringBuilder awsPath = new StringBuilder();
 
@@ -309,25 +310,26 @@ public class FileInfoGenerator {
 			awsPath.append(filePath);
 			awsPath.append(newId).append("_3");
 			awsS3Helper.putObject(bucketName, awsPath.toString(), thumbnailFile2);
+*/
 		} catch (IOException e) {
 			logger.error("exception [{}]", e);
 			throw e;
 		} finally {
-			if(originalFile != null) {
-				originalFile.delete();
-			}
-            if(cropImageFilePre != null) {
-				cropImageFilePre.delete();
-			}
-			if(cropImageFile != null) {
-				cropImageFile.delete();
-			}
-			if(thumbnailFile1 != null) {
-				thumbnailFile1.delete();
-			}
-			if(thumbnailFile2 != null) {
-				thumbnailFile2.delete();
-			}
+//			if(originalFile != null) {
+//				originalFile.delete();
+//			}
+//            if(cropImageFilePre != null) {
+//				cropImageFilePre.delete();
+//			}
+//			if(cropImageFile != null) {
+//				cropImageFile.delete();
+//			}
+//			if(thumbnailFile1 != null) {
+//				thumbnailFile1.delete();
+//			}
+//			if(thumbnailFile2 != null) {
+//				thumbnailFile2.delete();
+//			}
 		}
 
 		return fileInfo;
