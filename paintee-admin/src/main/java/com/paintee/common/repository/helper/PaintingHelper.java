@@ -17,6 +17,7 @@ package com.paintee.common.repository.helper;
 import java.util.List;
 
 import com.paintee.common.repository.entity.Painting;
+import com.paintee.common.repository.entity.User;
 import com.paintee.common.repository.entity.vo.PaintingSearchVO;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.common.repository.mapper.PaintingMapper;
@@ -86,4 +87,14 @@ public interface PaintingHelper extends PaintingMapper {
 	 @return 
 	*/
 	public Integer sumPostedNum(String artistId);
+
+	/**
+	 @fn updateCommentCntByPaintingId
+	 @brief 함수 간략한 설명 : 그림의 코멘트 카운트를 1 증가 시킨다.
+	 @remark
+	 - 함수의 상세 설명 : 그림의 코멘트 카운트를 1 증가 시킨다.
+	 @param paintingId
+	 @return 
+	*/
+	public void updateCommentCntByPaintingId(String paintingId);
 }

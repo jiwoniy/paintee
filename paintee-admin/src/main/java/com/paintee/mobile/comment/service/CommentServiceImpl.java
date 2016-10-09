@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.paintee.common.repository.entity.CommentPainting;
 import com.paintee.common.repository.entity.User;
 import com.paintee.common.repository.helper.CommentPaintingHelper;
+import com.paintee.common.repository.helper.PaintingHelper;
 import com.paintee.common.repository.helper.UserHelper;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
 
@@ -47,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
 	private CommentPaintingHelper commentPaintingHelper;
 	
 	@Autowired
-	private UserHelper userHelper;
+	private PaintingHelper paintingHelper;
 
 	/* (non-Javadoc)
 	 * @see com.paintee.mobile.comment.service.CommentService#createCommentPainting(com.paintee.common.repository.entity.CommentPainting, com.paintee.mobile.support.obejct.LoginedUserVO)
@@ -59,10 +60,7 @@ public class CommentServiceImpl implements CommentService {
 
 		commentPaintingHelper.insert(commentPainting);
 
-		User updateCommentCount = new User();
-		updateCommentCount.setUserId(loginedUserVO.getUserId());
-
-		userHelper.updateByPrimaryKeySelective(updateCommentCount);
+		paintingHelper.updateCommentCntByPaintingId(commentPainting.getPaintingId());
 
 		return commentPainting;
 	}
