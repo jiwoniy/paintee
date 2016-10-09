@@ -18,6 +18,8 @@ public class Painting extends BaseEntity {
 
     private Integer postedNum;
 
+    private Integer commentCnt;
+
     private Integer postedPeopleCnt;
 
     private String originalSize;
@@ -88,6 +90,14 @@ public class Painting extends BaseEntity {
 
     public void setPostedNum(Integer postedNum) {
         this.postedNum = postedNum;
+    }
+
+    public Integer getCommentCnt() {
+        return commentCnt;
+    }
+
+    public void setCommentCnt(Integer commentCnt) {
+        this.commentCnt = commentCnt;
     }
 
     public Integer getPostedPeopleCnt() {

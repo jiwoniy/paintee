@@ -17,4 +17,4 @@ create table TB_COMMENT_PAINTING (
     created_date datetime default now() comment '생성일자'
 ) COMMENT = '사용자가 코멘트한 페인팅';
 
-ALTER TABLE tb_user ADD comment_cnt INT DEFAULT '0' COMMENT 'Comment 한 전체 숫자' AFTER post_cnt;
+ALTER TABLE tb_painting ADD comment_cnt INT DEFAULT '0' COMMENT 'Comment 한 전체 숫자' AFTER posted_num;

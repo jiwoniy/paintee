@@ -32,8 +32,6 @@ public class User extends BaseEntity {
 
     private Integer postCnt;
 
-    private Integer commentCnt;
-
     private Integer likeCnt;
 
     private Float earnTotalMoney;
@@ -172,14 +170,6 @@ public class User extends BaseEntity {
 
     public void setPostCnt(Integer postCnt) {
         this.postCnt = postCnt;
-    }
-
-    public Integer getCommentCnt() {
-        return commentCnt;
-    }
-
-    public void setCommentCnt(Integer commentCnt) {
-        this.commentCnt = commentCnt;
     }
 
     public Integer getLikeCnt() {

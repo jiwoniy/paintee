@@ -565,6 +565,66 @@ public class PaintingExample {
             return (Criteria) this;
         }
 
+        public Criteria andCommentCntIsNull() {
+            addCriterion("comment_cnt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntIsNotNull() {
+            addCriterion("comment_cnt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntEqualTo(Integer value) {
+            addCriterion("comment_cnt =", value, "commentCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntNotEqualTo(Integer value) {
+            addCriterion("comment_cnt <>", value, "commentCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntGreaterThan(Integer value) {
+            addCriterion("comment_cnt >", value, "commentCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntGreaterThanOrEqualTo(Integer value) {
+            addCriterion("comment_cnt >=", value, "commentCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntLessThan(Integer value) {
+            addCriterion("comment_cnt <", value, "commentCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntLessThanOrEqualTo(Integer value) {
+            addCriterion("comment_cnt <=", value, "commentCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntIn(List<Integer> values) {
+            addCriterion("comment_cnt in", values, "commentCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntNotIn(List<Integer> values) {
+            addCriterion("comment_cnt not in", values, "commentCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntBetween(Integer value1, Integer value2) {
+            addCriterion("comment_cnt between", value1, value2, "commentCnt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCntNotBetween(Integer value1, Integer value2) {
+            addCriterion("comment_cnt not between", value1, value2, "commentCnt");
+            return (Criteria) this;
+        }
+
         public Criteria andPostedPeopleCntIsNull() {
             addCriterion("posted_people_cnt is null");
             return (Criteria) this;

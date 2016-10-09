@@ -9,6 +9,7 @@
     <result column="sentence" property="sentence" jdbcType="VARCHAR" />
     <result column="location" property="location" jdbcType="VARCHAR" />
     <result column="posted_num" property="postedNum" jdbcType="INTEGER" />
+    <result column="comment_cnt" property="commentCnt" jdbcType="INTEGER" />
     <result column="posted_people_cnt" property="postedPeopleCnt" jdbcType="INTEGER" />
     <result column="original_size" property="originalSize" jdbcType="VARCHAR" />
     <result column="view_cnt" property="viewCnt" jdbcType="INTEGER" />
@@ -77,9 +78,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    seq, painting_id, upload_date, artist_id, sentence, location, posted_num, posted_people_cnt, 
-    original_size, view_cnt, share_cnt, file_group_seq, painting_status, private_at, 
-    created_date
+    seq, painting_id, upload_date, artist_id, sentence, location, posted_num, comment_cnt, 
+    posted_people_cnt, original_size, view_cnt, share_cnt, file_group_seq, painting_status, 
+    private_at, created_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.PaintingExample" >
     select
@@ -88,7 +89,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from TB_PAINTING
+    from tb_painting
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -99,15 +100,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from TB_PAINTING
+    from tb_painting
     where seq = #{seq,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from TB_PAINTING
+    delete from tb_painting
     where seq = #{seq,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.PaintingExample" >
-    delete from TB_PAINTING
+    delete from tb_painting
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -116,22 +117,24 @@
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into TB_PAINTING (painting_id, upload_date, artist_id, 
+    insert into tb_painting (painting_id, upload_date, artist_id, 
       sentence, location, posted_num, 
-      posted_people_cnt, original_size, view_cnt, 
-      share_cnt, file_group_seq, painting_status, 
-      private_at, created_date)
+      comment_cnt, posted_people_cnt, original_size, 
+      view_cnt, share_cnt, file_group_seq, 
+      painting_status, private_at, created_date
+      )
     values (#{paintingId,jdbcType=VARCHAR}, #{uploadDate,jdbcType=TIMESTAMP}, #{artistId,jdbcType=VARCHAR}, 
       #{sentence,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{postedNum,jdbcType=INTEGER}, 
-      #{postedPeopleCnt,jdbcType=INTEGER}, #{originalSize,jdbcType=VARCHAR}, #{viewCnt,jdbcType=INTEGER}, 
-      #{shareCnt,jdbcType=INTEGER}, #{fileGroupSeq,jdbcType=BIGINT}, #{paintingStatus,jdbcType=CHAR}, 
-      #{privateAt,jdbcType=CHAR}, #{createdDate,jdbcType=TIMESTAMP})
+      #{commentCnt,jdbcType=INTEGER}, #{postedPeopleCnt,jdbcType=INTEGER}, #{originalSize,jdbcType=VARCHAR}, 
+      #{viewCnt,jdbcType=INTEGER}, #{shareCnt,jdbcType=INTEGER}, #{fileGroupSeq,jdbcType=BIGINT}, 
+      #{paintingStatus,jdbcType=CHAR}, #{privateAt,jdbcType=CHAR}, #{createdDate,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.Painting" >
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into TB_PAINTING
+    insert into tb_painting
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="paintingId != null" >
         painting_id,
@@ -150,6 +153,9 @@
       </if>
       <if test="postedNum != null" >
         posted_num,
+      </if>
+      <if test="commentCnt != null" >
+        comment_cnt,
       </if>
       <if test="postedPeopleCnt != null" >
         posted_people_cnt,
@@ -195,6 +201,9 @@
       <if test="postedNum != null" >
         #{postedNum,jdbcType=INTEGER},
       </if>
+      <if test="commentCnt != null" >
+        #{commentCnt,jdbcType=INTEGER},
+      </if>
       <if test="postedPeopleCnt != null" >
         #{postedPeopleCnt,jdbcType=INTEGER},
       </if>
@@ -222,13 +231,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.paintee.common.repository.entity.PaintingExample" resultType="java.lang.Integer" >
-    select count(*) from TB_PAINTING
+    select count(*) from tb_painting
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update TB_PAINTING
+    update tb_painting
     <set >
       <if test="record.seq != null" >
         seq = #{record.seq,jdbcType=INTEGER},
@@ -250,6 +259,9 @@
       </if>
       <if test="record.postedNum != null" >
         posted_num = #{record.postedNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentCnt != null" >
+        comment_cnt = #{record.commentCnt,jdbcType=INTEGER},
       </if>
       <if test="record.postedPeopleCnt != null" >
         posted_people_cnt = #{record.postedPeopleCnt,jdbcType=INTEGER},
@@ -281,7 +293,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update TB_PAINTING
+    update tb_painting
     set seq = #{record.seq,jdbcType=INTEGER},
       painting_id = #{record.paintingId,jdbcType=VARCHAR},
       upload_date = #{record.uploadDate,jdbcType=TIMESTAMP},
@@ -289,6 +301,7 @@
       sentence = #{record.sentence,jdbcType=VARCHAR},
       location = #{record.location,jdbcType=VARCHAR},
       posted_num = #{record.postedNum,jdbcType=INTEGER},
+      comment_cnt = #{record.commentCnt,jdbcType=INTEGER},
       posted_people_cnt = #{record.postedPeopleCnt,jdbcType=INTEGER},
       original_size = #{record.originalSize,jdbcType=VARCHAR},
       view_cnt = #{record.viewCnt,jdbcType=INTEGER},
@@ -302,7 +315,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.Painting" >
-    update TB_PAINTING
+    update tb_painting
     <set >
       <if test="paintingId != null" >
         painting_id = #{paintingId,jdbcType=VARCHAR},
@@ -321,6 +334,9 @@
       </if>
       <if test="postedNum != null" >
         posted_num = #{postedNum,jdbcType=INTEGER},
+      </if>
+      <if test="commentCnt != null" >
+        comment_cnt = #{commentCnt,jdbcType=INTEGER},
       </if>
       <if test="postedPeopleCnt != null" >
         posted_people_cnt = #{postedPeopleCnt,jdbcType=INTEGER},
@@ -350,13 +366,14 @@
     where seq = #{seq,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.Painting" >
-    update TB_PAINTING
+    update tb_painting
     set painting_id = #{paintingId,jdbcType=VARCHAR},
       upload_date = #{uploadDate,jdbcType=TIMESTAMP},
       artist_id = #{artistId,jdbcType=VARCHAR},
       sentence = #{sentence,jdbcType=VARCHAR},
       location = #{location,jdbcType=VARCHAR},
       posted_num = #{postedNum,jdbcType=INTEGER},
+      comment_cnt = #{commentCnt,jdbcType=INTEGER},
       posted_people_cnt = #{postedPeopleCnt,jdbcType=INTEGER},
       original_size = #{originalSize,jdbcType=VARCHAR},
       view_cnt = #{viewCnt,jdbcType=INTEGER},
