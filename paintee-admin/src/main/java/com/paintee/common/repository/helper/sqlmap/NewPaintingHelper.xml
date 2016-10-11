@@ -4,13 +4,15 @@
 	<resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.NewPaintingVO" extends="com.paintee.common.repository.mapper.PaintingMapper.BaseResultMap">
 	    <result column="artist_name" property="artistName" />
 	    <result column="like_cnt" property="likeCnt" />
+	    <result column="login_like_cnt" property="loginLikeCnt" />
 	</resultMap>
   
 	<!-- 최신 등록일 순으로 가져오기 : 최대 100개만(화면에서 조작함) --> 
   	<select id="selectNewPaintingList" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.vo.PaintingSearchVO">
 		select a.*, 
 		       (select name from TB_USER where user_id = a.artist_id) artist_name,
-		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) like_cnt
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt
 		  from (select <include refid="com.paintee.common.repository.mapper.PaintingMapper.Base_Column_List" />
 				  from TB_PAINTING 
 				 where private_at = #{privateAt}

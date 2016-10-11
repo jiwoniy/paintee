@@ -34,6 +34,7 @@ import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.repository.entity.Painting;
 import com.paintee.common.repository.entity.PaintingLike;
 import com.paintee.common.repository.entity.vo.PaintingVO;
+import com.paintee.common.repository.entity.vo.UserVO;
 import com.paintee.mobile.painting.service.PaintingService;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
 
@@ -176,7 +177,8 @@ public class PaintingRestController {
 	@throws Exception 
 	*/
 	@RequestMapping(value="/api/painting/like", method={RequestMethod.POST})
-	public Map<String, Object> addPaintingLike(@RequestBody PaintingLike paintingLike, LoginedUserVO loginedUserVO) throws Exception {
+	public Map<String, Object> addPaintingLike(@RequestBody PaintingLike paintingLike, UserVO userVO, LoginedUserVO loginedUserVO) throws Exception {
+		System.out.println("addPaintingLike userVO ::: " + userVO);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		paintingLike.setUserId(loginedUserVO.getUserId());
 		boolean result = paintingService.addPaintingLike(paintingLike);
@@ -199,8 +201,9 @@ public class PaintingRestController {
 	 @throws Exception 
 	 */
 	@RequestMapping(value="/api/painting/{paintingId}/like", method={RequestMethod.DELETE})
-	public Map<String, Object> deletePaintingLike(@PathVariable String paintingId, @RequestBody PaintingLike paintingLike, LoginedUserVO loginedUserVO) throws Exception {
+	public Map<String, Object> deletePaintingLike(@PathVariable String paintingId, UserVO userVO, @RequestBody PaintingLike paintingLike, LoginedUserVO loginedUserVO) throws Exception {
 		System.out.println("deletePaintingLike ::: " + paintingId);
+		System.out.println("deletePaintingLike userVO ::: " + userVO);
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		paintingLike.setUserId(loginedUserVO.getUserId());

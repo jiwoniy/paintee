@@ -3,14 +3,14 @@
 /**
  * 좋아요 선택 시 호출되는 함수
  */
-function riseBubble(bubble, paintingId){
+function riseBubble(bubble, paintingId, artistId){
 	
-	var controller = new PaintingLikeController(bubble, paintingId);
+	var controller = new PaintingLikeController(bubble, paintingId, artistId);
 	controller.addPaintingLike();
 }
 
-function dropBubble(bubble, paintingId){
-	var controller = new PaintingLikeController(bubble, paintingId);
+function dropBubble(bubble, paintingId, artistId){
+	var controller = new PaintingLikeController(bubble, paintingId, artistId);
 	controller.cancelPaintingLike();
 }
 
@@ -63,30 +63,33 @@ function Likes() {
 	}
 }
 
-function PaintingLikeController(bubble, paintingId) {
+function PaintingLikeController(bubble, paintingId, artistId) {
 	this.bubble = bubble;
 	this.paintingId = paintingId;
+	this.artistId = artistId;
 }
 
 PaintingLikeController.prototype = {
 	addPaintingLike: function () {
 		var controller = this;
 		var data = {
-			paintingId: this.paintingId
+			paintingId: this.paintingId,
+			userId: controller.artistId
 		};
 		
-		AjaxCall.call(apiUrl + "/painting/like", 
-			data, 
-			"POST", 
-			function (result) {
-				controller.addPaintingLikeRes(result);			
-			}
+		AjaxCall.call(
+				apiUrl + "/painting/like",
+				data, 
+				"POST", 
+				function (result) {
+					controller.addPaintingLikeRes(result);			
+				}
 		);
 	},
 	addPaintingLikeRes: function (result) {
 		var controller = this;
 		// 기존 입력 내용 지우기
-	    var listBtnLiked =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked").click(function(){dropBubble(this, controller.paintingId)});
+	    var listBtnLiked =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked").click(function(){dropBubble(this, controller.paintingId, controller.artistId)});
 	    var likeSeqCir  =$("<div>").addClass("like_sequence_circle");
 
 	    $(this.bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
@@ -96,7 +99,7 @@ PaintingLikeController.prototype = {
 	},
 	cancelPaintingLike: function () {
 		var controller = this;
-		var data = {};
+		var data = {"userId": controller.artistId};
 		
 		AjaxCall.call(apiUrl + "/painting/" + controller.paintingId + "/like", 
 			data, 
@@ -107,9 +110,8 @@ PaintingLikeController.prototype = {
 		);
 	},
 	cancelPaintingLikeRes: function (result) {
-		console.dir(result);
 		var controller = this;
-	    var listBtnLike =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like").click(function(){riseBubble(this, controller.paintingId)});
+	    var listBtnLike =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like").click(function(){riseBubble(this, controller.paintingId, controller.artistId)});
 	    var likeSeqCir  =$("<div>").addClass("like_sequence_circle");
 	    $(this.bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
 	    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});

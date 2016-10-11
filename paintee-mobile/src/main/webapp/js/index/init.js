@@ -183,9 +183,9 @@ function Structure(data) {
         this.likeSeq            =$("<div>").addClass("like_sequence");
         this.likeSeqCir         =$("<div>").addClass("like_sequence_circle");
         this.listBtnLike        =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like")
-                                            .click(function(){riseBubble(this, data.paintingId);});
+                                            .click(function(){riseBubble(this, data.paintingId, data.artistId);});
         this.listBtnLiked       =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked")
-                                            .click(function(){dropBubble(this, data.paintingId)});
+                                            .click(function(){dropBubble(this, data.paintingId, data.artistId)});
         this.listBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("list_btn_comment")
                                             .click(function(){
                                                    if (data.paintingStatus == "D") {
@@ -355,7 +355,7 @@ Structure.prototype = {
 //                                this.container.append(this.listPostBtn);
                                 this.listBtn.append(this.listBtnPost);
                                 this.listBtn.append(this.listBtnComment);
-                                if (listData.likeCnt == 0) {
+                                if (listData.loginLikeCnt == 0) {
                                 	this.listBtn.append(this.listBtnLike);
                                 } else {
                                 	this.listBtn.append(this.listBtnLiked);
@@ -396,7 +396,9 @@ function addPainting(swiper, currentIndex, type, listData){
 	var data = {
 		index: swiper.slides.length,
 		paintingId: listData.paintingId,
-		artistName: listData.artistName
+		artistName: listData.artistName,
+		artistId: listData.artistId,
+		likeCnt: listData.likeCnt
 	};
 
 	// 업로드된 그림일 경우 U, 구매된 그림일 경우 P
@@ -406,7 +408,7 @@ function addPainting(swiper, currentIndex, type, listData){
 	}
 	var newSlide = new Structure(data);
     newSlide.setSentence((listData.paintingStatus == "B") ? "It was blind by the administrator." : listData.sentence, listData.sentenceName ? listData.sentenceName : listData.artistName);
-    newSlide.setLikedNumber(0);
+    newSlide.setLikedNumber(listData.likeCnt);
     newSlide.setCommentedNumber(0);
     newSlide.setPostedNumber(listData.postedNum);
     newSlide.setDate(toEngDateStr(listData.uploadDate));
