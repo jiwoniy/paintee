@@ -13,7 +13,7 @@ function DetailStructure(paintingId, paintingInfo){
     this.color          = paintingInfo.color;
 
     this.commentCnt     = paintingInfo.commentCnt;
-    this.likedCnt       = paintingInfo.likedCnt;
+    this.likeCnt       = paintingInfo.likeCnt;
     this.liked          = paintingInfo.liked > 0?true:false;
 
     this.detail             =$(".detail");
@@ -152,7 +152,7 @@ DetailStructure.prototype = {
         this.setFollow(this.artistId);
         this.setSentence(this.artistSentence);
         this.setDate(this.uploadDate);
-        this.setLikedNum(this.likedCnt);
+        this.setLikedNum(this.likeCnt);
         this.setCommentedNum(this.commentCnt);
         this.setPostedNum(this.postedNum);
 
