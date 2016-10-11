@@ -214,8 +214,8 @@ Structure.prototype = {
         setSentence:        function(sentence, wrighter){
                                 this.listInfoSentence.html(convertToBr(sentence)+"<br><br> <span class='list_info_sentence_wrighter'> by <b>"+wrighter+"</b></span>");
                             },
-        setLikedNumber:    function(likedNum){
-                            this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num'>"+likedNum+"</div>")
+        setLikedNumber:    function(paintingId, likedNum){
+                            this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num'><span id='like_" + paintingId + "'>"+likedNum+"</span></div>")
                         },
         setCommentedNumber: function(commentedNum){
                             this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'>"+commentedNum+"</div>")
@@ -408,7 +408,7 @@ function addPainting(swiper, currentIndex, type, listData){
 	}
 	var newSlide = new Structure(data);
     newSlide.setSentence((listData.paintingStatus == "B") ? "It was blind by the administrator." : listData.sentence, listData.sentenceName ? listData.sentenceName : listData.artistName);
-    newSlide.setLikedNumber(listData.likeCnt);
+    newSlide.setLikedNumber(listData.paintingId, listData.likeCnt);
     newSlide.setCommentedNumber(0);
     newSlide.setPostedNumber(listData.postedNum);
     newSlide.setDate(toEngDateStr(listData.uploadDate));

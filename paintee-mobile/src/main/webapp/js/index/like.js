@@ -96,6 +96,7 @@ PaintingLikeController.prototype = {
 	    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
 	    $(this.bubble).replaceWith(listBtnLiked);
 	    
+	    $("#like_" + controller.paintingId).html(parseInt($("#like_" + controller.paintingId).html()) + 1);
 	},
 	cancelPaintingLike: function () {
 		var controller = this;
@@ -116,6 +117,7 @@ PaintingLikeController.prototype = {
 	    $(this.bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
 	    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
 	    $(this.bubble).replaceWith(listBtnLike);
+	    $("#like_" + controller.paintingId).html(parseInt($("#like_" + controller.paintingId).html()) - 1);
 	    
 	}
 };
