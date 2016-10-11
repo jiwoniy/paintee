@@ -16,9 +16,9 @@ package com.paintee.common.repository.helper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.paintee.common.repository.entity.Painting;
-import com.paintee.common.repository.entity.User;
-import com.paintee.common.repository.entity.vo.PaintingSearchVO;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.common.repository.mapper.PaintingMapper;
 
@@ -53,10 +53,11 @@ public interface PaintingHelper extends PaintingMapper {
 	 @brief 함수 간략한 설명 : 그림 아이디에 해당하는 그림 정보를 조회
 	 @remark
 	 - 함수의 상세 설명 : 그림 아이디에 해당하는 그림 정보를 조회
-	 @param search
+	 @param paintingId
+	 @param userId
 	 @return 
 	*/
-	public PaintingVO selectPaintingInfo(String paintingId);
+	public PaintingVO selectPaintingInfo(@Param("paintingId") String paintingId, @Param("userId") String userId);
 	
 	/**
 	 @fn selectPaintingUpdateList

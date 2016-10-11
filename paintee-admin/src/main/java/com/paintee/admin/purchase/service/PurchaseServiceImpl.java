@@ -94,7 +94,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 		// 파일을 다운받기 위해서 파일정보 조회
 		for (PurchaseVO purchase : list) {
-			PaintingVO painting =  paintingHelper.selectPaintingInfo(purchase.getPaintingId());
+			PaintingVO painting =  paintingHelper.selectPaintingInfo(purchase.getPaintingId(), null);
 			
 			FileInfoExample fileInfoExample = new FileInfoExample();
 			FileInfoExample.Criteria fileWhere = fileInfoExample.createCriteria();
@@ -143,7 +143,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		// 발송
 		case "2":
 			// 회원 테이블 정보 추가 - 수익 전체 금액(earn_total_money)
-			PaintingVO pInfo = paintingHelper.selectPaintingInfo(paintingId);
+			PaintingVO pInfo = paintingHelper.selectPaintingInfo(paintingId, null);
 			user = new User();
 			// 구매한 그림의 작가에게 수익금액 쌓기
 			user.setUserId(pInfo.getArtistId());

@@ -39,6 +39,7 @@ public class PaintingVO extends Painting {
 	private FileInfo fileInfo;
 	private Boolean followed;
 	private Integer likeCnt;
+	private Integer liked;
 
 	public String getArtistName() {
 		return artistName;
@@ -61,7 +62,10 @@ public class PaintingVO extends Painting {
 	public Integer getLikeCnt() {
 		return likeCnt;
 	}
-	public void setLikeCnt(Integer likeCnt) {
-		this.likeCnt = likeCnt;
+	public Integer getLiked() {
+		return liked;
+	}
+	public void setLiked(Integer liked) {
+		this.liked = liked;
 	}
 }

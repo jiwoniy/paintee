@@ -81,10 +81,14 @@ public class PaintingServiceImpl implements PaintingService {
 		pWhere.andPaintingIdEqualTo(paintingId);
 		Painting painting = paintingHelper.selectByExample(example).get(0);
 		*/
-		
+		String userId = null;
+		if(loginedUserVO != null) {
+			userId = loginedUserVO.getUserId();
+		}
+
 		logger.debug("paintingId ::: " + paintingId);
-		PaintingVO painting = paintingHelper.selectPaintingInfo(paintingId);
-		
+		PaintingVO painting = paintingHelper.selectPaintingInfo(paintingId, userId);
+
 		//파일정보 조회
 		List<FileInfo> fileInfoList = fileService.getFileInfoList(painting.getFileGroupSeq());
 

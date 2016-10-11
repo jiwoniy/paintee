@@ -2,7 +2,7 @@
 //function DetailStructure(paintingId, fileId, artistName, artistId, artistSentence, uploadDate, postedNum){
 function DetailStructure(paintingId, paintingInfo){
     this.paintingId     = paintingId;
-    this.fileId         = paintingInfo.fileInfo.id;
+    this.fileId          = paintingInfo.fileInfo.id;
     this.artistName     = paintingInfo.artistName;
     this.artistId       = paintingInfo.artistId;
     this.artistSentence = convertToBr(paintingInfo.sentence);
@@ -11,6 +11,10 @@ function DetailStructure(paintingId, paintingInfo){
     // 히스토리 사용 부분 추가
     this.colorDark      = paintingInfo.colorDark;
     this.color          = paintingInfo.color;
+
+    this.commentCnt     = paintingInfo.commentCnt;
+    this.likedCnt       = paintingInfo.likedCnt;
+    this.liked          = paintingInfo.liked > 0?true:false;
 
     this.detail             =$(".detail");
 
@@ -73,10 +77,16 @@ function DetailStructure(paintingId, paintingInfo){
 
     this.likeSeq              =$("<div>").addClass("like_sequence");
     this.likeSeqCir           =$("<div>").addClass("like_sequence_circle");
+    
     this.detailBtnLike        =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like")
-                                        .click(function(){riseBubble(this);});
+                                        .click(function(){
+                                        		riseBubble(this, paintingId);
+                                        });
     this.detailBtnLiked       =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked")
-                                            .click(function(){dropBubble(this)});
+                                            .click(function(){
+                                            	dropBubble(this, paintingId);
+                                           });
+    
     this.detailBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("detail_btn_comment")
                                         .click(function(){
                                                purchase(paintingId, paintingInfo.artistName, "comment");
@@ -142,8 +152,8 @@ DetailStructure.prototype = {
         this.setFollow(this.artistId);
         this.setSentence(this.artistSentence);
         this.setDate(this.uploadDate);
-        this.setLikedNum(0);
-        this.setCommentedNum(0);
+        this.setLikedNum(this.likedCnt);
+        this.setCommentedNum(this.commentCnt);
         this.setPostedNum(this.postedNum);
 
         this.detailBgContainer.append(this.detailBgImg);
@@ -171,7 +181,14 @@ DetailStructure.prototype = {
 
         this.detailBtn.append(this.detailBtnPost);
         this.detailBtn.append(this.detailBtnComment);
-        this.detailBtn.append(this.detailBtnLike);
+
+        console.log(this.liked);
+        if(this.liked) {
+        	this.detailBtn.append(this.detailBtnLiked);
+        } else {
+        	this.detailBtn.append(this.detailBtnLike);
+        }
+
         this.likeSeq.append(this.likeSeqCir);
         this.detailBtn.append(this.likeSeq);
 

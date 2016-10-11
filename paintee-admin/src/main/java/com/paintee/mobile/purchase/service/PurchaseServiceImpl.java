@@ -138,7 +138,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 		// 구매 후 공유를 할 수 있게 하기 위해 그림 정보를 가져온다.
 		Map<String, Object> resultMap = new HashMap<>();
-		PaintingVO pInfo = paintingHelper.selectPaintingInfo(paintingId);
+		PaintingVO pInfo = paintingHelper.selectPaintingInfo(paintingId, userId);
 		
 		//파일정보 조회
 		FileInfoExample fileInfoExample = new FileInfoExample();

@@ -87,4 +87,15 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		logger.info("afterCompletion executed");
 	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @return
+	 */
+	private boolean excludeUri(String uri) {
+		boolean isExclude = false;
+
+		return isExclude;
+	}
 }
