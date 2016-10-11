@@ -4,7 +4,6 @@
  * 좋아요 선택 시 호출되는 함수
  */
 function riseBubble(bubble, paintingId, artistId){
-	
 	var controller = new PaintingLikeController(bubble, paintingId, artistId);
 	controller.addPaintingLike();
 }
@@ -15,7 +14,7 @@ function dropBubble(bubble, paintingId, artistId){
 }
 
 // 좋아요 전체 목록 보기
-function showLikes(){
+function showLikes(paintingId){
 	// 히스토리 설정
 	replaceHistory({"call": "followPop"});
     addHistory({"call": "dummy"});
@@ -27,6 +26,7 @@ function showLikes(){
 	people.setTitle("Likes");
 	people.buildUpload();
 
+	new PaintingLikeController(null, paintingId).getLikeUserList();
 }
 
 function addLikes(name, isfriend) {
@@ -119,5 +119,28 @@ PaintingLikeController.prototype = {
 	    $(this.bubble).replaceWith(listBtnLike);
 	    $("#like_" + controller.paintingId).html(parseInt($("#like_" + controller.paintingId).html()) - 1);
 	    
-	}
+	},
+	//해당 그림을 좋아요 한 사람 목록 요청 AJAX
+	getLikeUserList : function() {
+		var controller = this;
+		AjaxCall.call(
+			apiUrl + "/painting/" + controller.paintingId + "/like/users",
+			null,
+			"GET", 
+			function(result) {
+				controller.getLikeUserListRes(result);
+			}
+		);
+	},
+	// 해당 그림을 좋아요 한 사람 목록 요청 후 처리 함수
+	getLikeUserListRes : function(result) {
+		for ( var index in result.list) {
+			var isFriend = false;
+			if(result.list[index].friend > 0) {
+				isFriend = true;
+			}
+
+			addLikes(result.list[index].userName, isFriend);
+		}
+	},
 };

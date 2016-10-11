@@ -19,6 +19,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.paintee.common.repository.entity.Painting;
+import com.paintee.common.repository.entity.vo.LikeUserVO;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.common.repository.mapper.PaintingMapper;
 
@@ -98,4 +99,14 @@ public interface PaintingHelper extends PaintingMapper {
 	 @return 
 	*/
 	public void updateCommentCntByPaintingId(String paintingId);
+
+	/**
+	 @fn selectLikeUserList
+	 @brief 함수 간략한 설명 : 그림을 좋아요 한 사용자 목록
+	 @remark
+	 - 함수의 상세 설명 : 그림을 좋아요 한 사용자 목록
+	 @param paintingId
+	 @return 
+	*/
+	public List<LikeUserVO> selectLikeUserList(String paintingId);
 }

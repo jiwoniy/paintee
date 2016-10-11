@@ -137,8 +137,11 @@ DetailStructure.prototype = {
         this.detailArtistDate.html(uploadDate);
     },
     setLikedNum: function(likedNum){
+    	var paintingId = this.paintingId;
         this.detailLikeNum.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num list_info_likes_num'>"+likedNum+" likes</div>")
-        .click(function(){showLikes()});
+        .click(function(){
+        		showLikes(paintingId)
+        });
     },
     setCommentedNum: function(commentedNum){
         this.detailCommentNum.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'>"+commentedNum+" comments</div>");

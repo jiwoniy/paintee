@@ -15,6 +15,7 @@
 package com.paintee.mobile.painting.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ import com.paintee.common.file.service.FileInfoGenerator;
 import com.paintee.common.repository.entity.CommentPainting;
 import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.repository.entity.Painting;
+import com.paintee.common.repository.entity.vo.LikeUserVO;
 import com.paintee.common.repository.entity.vo.PaintingLikeVO;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.mobile.painting.service.PaintingService;
@@ -211,5 +213,24 @@ public class PaintingRestController {
 			resultMap.put("errorNo", 500);
 		}
 		return resultMap;
-	}	
+	}
+
+	/**
+	 * 해당 그림을 좋아요 한 사람의 목록
+	 * 
+	 * @param loginedUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value={"/api/painting/{paintingId}/like/users"}, method=RequestMethod.GET)
+	public Map<String, Object> likeUserList(@PathVariable String paintingId, LoginedUserVO loginedUserVO) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+
+		List<LikeUserVO> list = paintingService.getLikeUserList(paintingId, loginedUserVO.getUserId());
+		resultMap.put("list", list);
+		resultMap.put("errorNo", 0);
+		resultMap.put("errorMsg", "");
+		
+		return resultMap;
+	}
 }

@@ -14,10 +14,12 @@
 */
 package com.paintee.mobile.painting.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.repository.entity.Painting;
+import com.paintee.common.repository.entity.vo.LikeUserVO;
 import com.paintee.common.repository.entity.vo.PaintingLikeVO;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
@@ -95,4 +97,15 @@ public interface PaintingService {
 	 @return 
 	 */
 	public boolean cancelPaintingLike(PaintingLikeVO paintingLike);
+
+	/**
+	 @fn getLikeUserList
+	 @brief 함수 간략한 설명 : 그림을 좋아요 한 사용자 목록
+	 @remark
+	 - 함수의 상세 설명 : 그림을 좋아요 한 사용자 목록
+	 @param painting
+	 @param userId
+	 @return 
+	 */
+	public List<LikeUserVO> getLikeUserList(String paintingId, String userId);
 }

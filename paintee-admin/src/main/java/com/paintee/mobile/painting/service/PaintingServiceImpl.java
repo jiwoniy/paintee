@@ -30,14 +30,14 @@ import com.paintee.common.file.service.FileService;
 import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.repository.entity.FollowExample;
 import com.paintee.common.repository.entity.Painting;
-import com.paintee.common.repository.entity.PaintingLike;
 import com.paintee.common.repository.entity.User;
+import com.paintee.common.repository.entity.vo.LikeUserVO;
 import com.paintee.common.repository.entity.vo.PaintingLikeVO;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.common.repository.helper.FollowHelper;
 import com.paintee.common.repository.helper.PaintingHelper;
+import com.paintee.common.repository.helper.PaintingLikeHelper;
 import com.paintee.common.repository.helper.UserHelper;
-import com.paintee.common.repository.mapper.PaintingLikeMapper;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
 
 /**
@@ -72,7 +72,7 @@ public class PaintingServiceImpl implements PaintingService {
 	private FollowHelper followHelper;
 
 	@Autowired
-	private PaintingLikeMapper paintingMapper;
+	private PaintingLikeHelper paintingLikeHelper;
 
 	public PaintingVO getPaintingInfo(String paintingId, LoginedUserVO loginedUserVO) throws Exception {
 		/*
@@ -179,7 +179,7 @@ public class PaintingServiceImpl implements PaintingService {
 	 */
 	@Override
 	public boolean addPaintingLike(PaintingLikeVO paintingLikeVO) {
-		int iCnt = paintingMapper.insert(paintingLikeVO);
+		int iCnt = paintingLikeHelper.insert(paintingLikeVO);
 		User user = new User();
 		user.setUserId(paintingLikeVO.getArtistId());
 		user.setLikeCnt(1);
@@ -193,7 +193,7 @@ public class PaintingServiceImpl implements PaintingService {
 	 */
 	@Override
 	public boolean cancelPaintingLike(PaintingLikeVO paintingLikeVO) {
-		int iCnt = paintingMapper.deleteByPrimaryKey(paintingLikeVO);
+		int iCnt = paintingLikeHelper.deleteByPrimaryKey(paintingLikeVO);
 		User user = new User();
 		user.setUserId(paintingLikeVO.getArtistId());
 		user.setLikeCnt(-1);
@@ -202,5 +202,11 @@ public class PaintingServiceImpl implements PaintingService {
 		return iCnt != 0 ? true : false;
 	}
 
-
+	/* (non-Javadoc)
+	 * @see com.paintee.mobile.painting.service.PaintingService#getLikeUserList(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public List<LikeUserVO> getLikeUserList(String paintingId, String userId) {
+		return paintingLikeHelper.selectLikeUserList(paintingId, userId);
+	}
 }
