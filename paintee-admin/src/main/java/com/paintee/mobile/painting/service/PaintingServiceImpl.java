@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,7 @@ import com.paintee.common.repository.entity.FollowExample;
 import com.paintee.common.repository.entity.Painting;
 import com.paintee.common.repository.entity.PaintingLike;
 import com.paintee.common.repository.entity.User;
+import com.paintee.common.repository.entity.vo.PaintingLikeVO;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.common.repository.helper.FollowHelper;
 import com.paintee.common.repository.helper.PaintingHelper;
@@ -174,16 +174,28 @@ public class PaintingServiceImpl implements PaintingService {
 	 * @see com.paintee.mobile.painting.service.PaintingService#addPaintingLike(com.paintee.common.repository.entity.PaintingLike)
 	 */
 	@Override
-	public boolean addPaintingLike(PaintingLike paintingLike) {
-		return paintingMapper.insert(paintingLike) > 0 ? true : false;
+	public boolean addPaintingLike(PaintingLikeVO paintingLikeVO) {
+		int iCnt = paintingMapper.insert(paintingLikeVO);
+		User user = new User();
+		user.setUserId(paintingLikeVO.getArtistId());
+		user.setLikeCnt(1);
+		userHelper.updateUserInfo(user);
+		
+		return iCnt != 0 ? true : false;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.paintee.mobile.painting.service.PaintingService#deletePaintingLike(com.paintee.common.repository.entity.PaintingLike)
 	 */
 	@Override
-	public boolean cancelPaintingLike(PaintingLike paintingLike) {
-		return paintingMapper.deleteByPrimaryKey(paintingLike) > 0 ? true : false;
+	public boolean cancelPaintingLike(PaintingLikeVO paintingLikeVO) {
+		int iCnt = paintingMapper.deleteByPrimaryKey(paintingLikeVO);
+		User user = new User();
+		user.setUserId(paintingLikeVO.getArtistId());
+		user.setLikeCnt(-1);
+		userHelper.updateUserInfo(user);
+		
+		return iCnt != 0 ? true : false;
 	}
 
 

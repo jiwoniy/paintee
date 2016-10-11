@@ -74,7 +74,7 @@ PaintingLikeController.prototype = {
 		var controller = this;
 		var data = {
 			paintingId: this.paintingId,
-			userId: controller.artistId
+			artistId: controller.artistId
 		};
 		
 		AjaxCall.call(
@@ -100,7 +100,7 @@ PaintingLikeController.prototype = {
 	},
 	cancelPaintingLike: function () {
 		var controller = this;
-		var data = {"userId": controller.artistId};
+		var data = {"artistId": controller.artistId};
 		
 		AjaxCall.call(apiUrl + "/painting/" + controller.paintingId + "/like", 
 			data, 

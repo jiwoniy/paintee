@@ -18,7 +18,7 @@ import java.util.Map;
 
 import com.paintee.common.repository.entity.FileInfo;
 import com.paintee.common.repository.entity.Painting;
-import com.paintee.common.repository.entity.PaintingLike;
+import com.paintee.common.repository.entity.vo.PaintingLikeVO;
 import com.paintee.common.repository.entity.vo.PaintingVO;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
 
@@ -84,7 +84,7 @@ public interface PaintingService {
 	 @param painting
 	 @return 
 	*/
-	public boolean addPaintingLike(PaintingLike paintingLike);
+	public boolean addPaintingLike(PaintingLikeVO paintingLike);
 	
 	/**
 	 @fn deletePaintingLike
@@ -94,5 +94,5 @@ public interface PaintingService {
 	 @param painting
 	 @return 
 	 */
-	public boolean cancelPaintingLike(PaintingLike paintingLike);
+	public boolean cancelPaintingLike(PaintingLikeVO paintingLike);
 }

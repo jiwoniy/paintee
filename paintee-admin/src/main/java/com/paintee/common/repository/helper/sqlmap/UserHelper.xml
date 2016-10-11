@@ -46,6 +46,9 @@
 		    <if test="resentSendName != null">
 		          ,resent_send_name = #{resentSendName}
 		    </if>	   
+		    <if test="likeCnt != null">
+			   	  ,like_cnt = like_cnt + #{likeCnt}
+		    </if>
 		</trim>
 		 where user_id = #{userId}
   	</update>
