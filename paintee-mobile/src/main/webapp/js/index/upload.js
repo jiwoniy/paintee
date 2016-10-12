@@ -12,19 +12,19 @@ function upload(){
 		return ;
 	}
 
-    postedInfo();
+    likeInfo();
 }
-function postedInfo() {
-	AjaxCall.call(apiUrl+"/user/me/postedCountInfo", null, "GET", postedInfoRes);
+function likeInfo() {
+	AjaxCall.call(apiUrl+"/user/me/likedCountInfo", null, "GET", likeInfoRes);
 }
-function postedInfoRes(result, status) {
+function likeInfoRes(result, status) {
 	if(result.errorNo == 0) {
-		var postedCount = parseInt(result.postedCount, 10);
+		var likeCount = parseInt(result.likeCount, 10);
 		var uploadedCount = parseInt(result.uploadedCount, 10);
 		var doTotaluploadCount = 1;
 
-		if(postedCount >= baseUploadCount) {
-			doTotaluploadCount = Math.floor(postedCount/baseUploadCount) + 1;
+		if(likeCount >= baseUploadCount) {
+			doTotaluploadCount = Math.floor(likeCount/baseUploadCount) + 1;
 		}
 
 		doUploadCount = doTotaluploadCount - uploadedCount;
@@ -32,7 +32,7 @@ function postedInfoRes(result, status) {
 		boxStatus = "upload"
 		$(".upload_container").show();
 
-		initUpload(postedCount, doTotaluploadCount, uploadedCount);
+		initUpload(likeCount, doTotaluploadCount, uploadedCount);
 		setBox();
 
 		replaceHistory({"call": "uploadPop"});
@@ -171,14 +171,14 @@ function resetUpload() {
 		}
 	});
 }
-function initUpload(postedCount, doTotaluploadCount, uploadedCount){
+function initUpload(likeCount, doTotaluploadCount, uploadedCount){
     $(".upload_box").empty();
     $(".upload_box").removeClass("upload_box_preview");
     var upload = new Upload();
     upload.setTitle("Upload Painting");
 //    upload.setContents("당신의 그림이 Post될 때 마다,<br>추가로 업로드할 수 있는 그림의 수가 늘어납니다.<br>지금까지 253회 Post된 당신은 최대 50개의 그림을 올릴 수 있고<br> 지금 <span class='reward_money'>7</span>개 의 그림을 더 올릴 수 있습니다.<br><br><br>업로드를 위해서는<br>가로 사이즈 <b>1080px</b> 세로 사이즈 <b>1440px</b><br>이상의 이미지가 필요합니다.");
     var content = "<span data-i18n='[html]uploadPop.content1'></span>" + 
-                  postedCount + 
+                  likeCount + 
                   "<span data-i18n='[html]uploadPop.content2'></span>" + 
                   doTotaluploadCount + 
                   "<span data-i18n='[html]uploadPop.content3'></span><span class='reward_money'>" + 
@@ -187,7 +187,7 @@ function initUpload(postedCount, doTotaluploadCount, uploadedCount){
     // "<br><br><br><br><span style='color:rgb(150,0,0)'>타인의 저작물을 무단으로 업로드할 경우, 게시물에 대해 재재를 받을 수 있습니다. 자세한 사항은 <b>Terms & Policy</b> 항목을 확인하세요.</span>";
     
     upload.setContents(content);
-//    upload.setContents("<span data-i18n='[html]uploadPop.content1'></span>"+postedCount+"<span data-i18n='[html]uploadPop.content2'></span>"+doTotaluploadCount+"<span data-i18n='[html]uploadPop.content3'></span><span class='reward_money'>"+doUploadCount+"</span><span data-i18n='[html]uploadPop.content4'></span>");
+//    upload.setContents("<span data-i18n='[html]uploadPop.content1'></span>"+likeCount+"<span data-i18n='[html]uploadPop.content2'></span>"+doTotaluploadCount+"<span data-i18n='[html]uploadPop.content3'></span><span class='reward_money'>"+doUploadCount+"</span><span data-i18n='[html]uploadPop.content4'></span>");
     
     
     upload.setBottom("<div class='popup_btn upload_btn uploadFileBox'></div>");

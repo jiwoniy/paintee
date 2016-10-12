@@ -75,4 +75,14 @@ public interface UserService {
 	 @return 
 	*/
 	public Map<String, Object> postedCountInfo(LoginedUserVO loginedUserVO);
+
+	/**
+	 @fn likedCountInfo
+	 @brief 함수 간략한 설명 : 로그인 사용자가 좋아요한 개수 조회
+	 @remark
+	 - 함수의 상세 설명 : 로그인 사용자가 좋아요한 개수 조회
+	 @param loginedUserVO
+	 @return 
+	*/
+	public Map<String, Object> likedCountInfo(LoginedUserVO loginedUserVO);
 }

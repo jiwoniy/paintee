@@ -167,4 +167,22 @@ public class UserRestController {
 
 		return resultMap;
 	}
+
+	/**
+	 @fn postedInfo
+	 @brief 함수 간략한 설명 : 로그인 사용자가 좋아요한 개수 조회
+	 @remark
+	 - 함수의 상세 설명 : 로그인 사용자가 좋아요한 개수 조회
+	 @param loginedUserVO
+	 @return
+	 @throws Exception 
+	*/
+	@RequestMapping(value="/api/user/me/likedCountInfo", method={RequestMethod.GET})
+	public Map<String, Object> likedCountInfo(LoginedUserVO loginedUserVO) throws Exception {
+		Map<String, Object> resultMap = userService.likedCountInfo(loginedUserVO);
+
+		resultMap.put("errorNo", 0);
+
+		return resultMap;
+	}
 }

@@ -49,6 +49,15 @@
 		where artist_id = #{artistId}
 	</select>
 
+  	<select id="countPaintingLike" resultType="int" parameterType="java.lang.String">
+		select count(tpl.painting_id) likeCnt
+		from TB_PAINTING tp
+			inner join TB_PAINTING_LIKE tpl
+			on tp.painting_id = tpl.painting_id
+			<!-- and tp.painting_status = 'N' -->
+		where artist_id = #{artistId}
+	</select>
+
 	<!-- 그림의 comment count 증가 -->
   	<update id="updateCommentCntByPaintingId">
 		update TB_PAINTING 

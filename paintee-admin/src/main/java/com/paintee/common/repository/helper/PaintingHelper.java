@@ -89,6 +89,16 @@ public interface PaintingHelper extends PaintingMapper {
 	 @return 
 	*/
 	public Integer sumPostedNum(String artistId);
+	
+	/**
+	 @fn sumPostedNum
+	 @brief 함수 간략한 설명 : 사용자의 옆서가 post 된 개수 조회
+	 @remark
+	 - 함수의 상세 설명 : 사용자의 옆서가 post 된 개수 조회
+	 @param artistId
+	 @return 
+	*/
+	public Integer countPaintingLike(String artistId);
 
 	/**
 	 @fn updateCommentCntByPaintingId

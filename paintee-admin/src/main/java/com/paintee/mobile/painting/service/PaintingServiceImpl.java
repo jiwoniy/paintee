@@ -181,7 +181,7 @@ public class PaintingServiceImpl implements PaintingService {
 	public boolean addPaintingLike(PaintingLikeVO paintingLikeVO) {
 		int iCnt = paintingLikeHelper.insert(paintingLikeVO);
 		User user = new User();
-		user.setUserId(paintingLikeVO.getArtistId());
+		user.setUserId(paintingLikeVO.getUserId());
 		user.setLikeCnt(1);
 		userHelper.updateUserInfo(user);
 		
@@ -195,7 +195,7 @@ public class PaintingServiceImpl implements PaintingService {
 	public boolean cancelPaintingLike(PaintingLikeVO paintingLikeVO) {
 		int iCnt = paintingLikeHelper.deleteByPrimaryKey(paintingLikeVO);
 		User user = new User();
-		user.setUserId(paintingLikeVO.getArtistId());
+		user.setUserId(paintingLikeVO.getUserId());
 		user.setLikeCnt(-1);
 		userHelper.updateUserInfo(user);
 		

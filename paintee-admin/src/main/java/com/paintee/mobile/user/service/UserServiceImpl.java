@@ -161,4 +161,21 @@ public class UserServiceImpl implements UserService {
 
 		return resultMap;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.paintee.mobile.user.service.UserService#likedCountInfo(com.paintee.mobile.support.obejct.LoginedUserVO)
+	 */
+	public Map<String, Object> likedCountInfo(LoginedUserVO loginedUserVO) {
+		Map<String, Object> resultMap = new HashMap<>();
+
+		int likeCount = paintingHelper.countPaintingLike(loginedUserVO.getUserId());
+
+		User user = userHelper.selectByPrimaryKey(loginedUserVO.getUserId());
+		int uploadedCount = user.getUploadCnt();
+
+		resultMap.put("likeCount", likeCount);
+		resultMap.put("uploadedCount", uploadedCount);
+
+		return resultMap;
+	}
 }
