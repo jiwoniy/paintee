@@ -4,23 +4,25 @@
 	<resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.PopularVO" extends="com.paintee.common.repository.mapper.PaintingMapper.BaseResultMap">
 	    <result column="artist_name" property="artistName" />
 	    <result column="like_cnt" property="likeCnt" />
+	    <result column="login_like_cnt" property="loginLikeCnt" />	   
 	</resultMap>
 
 	<!-- 구매일자가 120일 미만인 그림중에서 많이 팔린 순으로 가져오기 -->
   	<select id="selectPopularPaintingList" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.vo.PaintingSearchVO">
 		select (select name from TB_USER where user_id = a.artist_id) artist_name,
-		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) like_cnt,		
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt,		
 		       <include refid="com.paintee.common.repository.mapper.PaintingMapper.Base_Column_List" />
 		  from TB_PAINTING a, 
 		       (select painting_id as p_id,
-		               count(*) painting_count
+		               count(*) like_count
 				  from TB_PAINTING_LIKE
 				 where to_days(now()) - to_days(created_date) &lt;= 30
 		       ) b
 		 where a.painting_id = b.p_id
 		   and a.private_at = #{privateAt}
 		   and a.painting_status = #{paintingStatus}
-		 order by painting_count desc 
+		 order by b.like_count desc 
 		 limit #{startRow}, #{rowPerPage}
   	</select>
 </mapper>

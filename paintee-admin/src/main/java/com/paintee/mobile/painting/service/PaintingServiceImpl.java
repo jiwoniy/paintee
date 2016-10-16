@@ -179,7 +179,7 @@ public class PaintingServiceImpl implements PaintingService {
 	 */
 	@Override
 	public boolean addPaintingLike(PaintingLikeVO paintingLikeVO) {
-		int iCnt = paintingLikeHelper.insert(paintingLikeVO);
+		int iCnt = paintingLikeHelper.insertSelective(paintingLikeVO);
 		User user = new User();
 		user.setUserId(paintingLikeVO.getUserId());
 		user.setLikeCnt(1);

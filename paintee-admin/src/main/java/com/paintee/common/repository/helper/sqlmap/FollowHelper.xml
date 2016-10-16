@@ -8,6 +8,8 @@
 	    <result column="follows_count" property="followsCount" />
 	    <result column="following_count" property="followingCount" />
 	    <result column="artist_name" property="artistName" />
+	    <result column="like_cnt" property="likeCnt" />
+	    <result column="login_like_cnt" property="loginLikeCnt" />	    
 	</resultMap>
   	
 	<!-- 로그인 사용자가 팔로잉한 사용자가 구매한 그림과 업로드한 그림의 목록을 가져오기 -->
@@ -21,7 +23,9 @@
 			   a.painting_id, 
 			   a.posted_num, 
 			   a.painting_status,
-			   a.posted_people_cnt
+			   a.posted_people_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt			   
 		  from TB_PAINTING a
 		 where a.artist_id in (select following from TB_FOLLOW where user_id = #{userId})
 		   and a.painting_status in <foreach item="status" collection="paintingStatusList" open="(" close=")" separator=",">
@@ -38,7 +42,9 @@
 			   a.painting_id,
 			   a.posted_num,
 			   a.painting_status,
-			   a.posted_people_cnt
+			   a.posted_people_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt	
 		  from TB_PAINTING a, 
 		       TB_PURCHASE b
 		 where a.painting_id = b.painting_id

@@ -179,7 +179,7 @@ function Structure(data) {
                                         	           purchase(data.paintingId, data.artistName);
                                         	       }
                                            );*/
-        this.listBtn            =$("<div>").addClass("list_btn");
+        this.listBtn            =$("<div>", {"data-likeId": data.paintingId}).addClass("list_btn");
         this.likeSeq            =$("<div>").addClass("like_sequence");
         this.likeSeqCir         =$("<div>").addClass("like_sequence_circle");
         this.listBtnLike        =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like")
@@ -215,7 +215,7 @@ Structure.prototype = {
                                 this.listInfoSentence.html(convertToBr(sentence)+"<br><br> <span class='list_info_sentence_wrighter'> by <b>"+wrighter+"</b></span>");
                             },
         setLikedNumber:    function(paintingId, likedNum){
-                            this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num'><span id='like_" + paintingId + "'>"+likedNum+"</span></div>")
+                            this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num'><span data-like='like_" + paintingId + "'>"+likedNum+"</span></div>")
                         },
         setCommentedNumber: function(commentedNum){
                             this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'>"+commentedNum+"</div>")
