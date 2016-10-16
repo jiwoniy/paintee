@@ -122,7 +122,7 @@ function setMyHome(result) {
     var content1 =
         $("<div>").attr("id", "uploadBtn").addClass("home_btn_my").html("uploaded ").append($("<b>").html(" " + result.my.uploadCount))
     var content2 =
-        $("<div>").attr("id", "postBtn").addClass("home_btn_my").html("posted ").append($("<b>").html(" " + result.my.postCount))
+        $("<div>").attr("id", "postBtn").addClass("home_btn_my").html("posted ").append($("<b>").html(" " + (result.my.postCount + result.my.commentCount)))
     content1.click(function(){
     	btnToggle(this);
     	new MyHomeController().getHomeInfo(0);

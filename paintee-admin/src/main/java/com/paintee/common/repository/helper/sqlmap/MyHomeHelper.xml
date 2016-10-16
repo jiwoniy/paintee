@@ -118,7 +118,10 @@
   	              where user_id = #{userId}
   	                and purchase_status in <foreach item="status" collection="purchaseStatusList" open="(" close=")" separator=",">
 		    								   #{status}
-		                            	   </foreach>) as postCount
+		                            	   </foreach>) as postCount,
+  	            (select count(*) 
+  	               from TB_COMMENT_PAINTING 
+  	              where user_id = #{userId} ) as commentCount		                            	   
            from dual
   	</select>    	
 </mapper>

@@ -38,6 +38,7 @@ public class MyHomeVO extends PaintingVO {
 	private String introduce;
 	private Integer uploadCount;
 	private Integer postCount;
+	private Integer commentCount;
 	/**
 	 * 그림의 로그인한 사용자의 좋아요 카운트
 	 */
@@ -112,4 +113,13 @@ public class MyHomeVO extends PaintingVO {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public Integer getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(Integer commentCount) {
+		this.commentCount = commentCount;
+	}
+	
 }
