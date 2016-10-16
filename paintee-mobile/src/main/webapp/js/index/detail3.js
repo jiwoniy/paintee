@@ -407,14 +407,18 @@ function changeMode(swiper){
 }
 
 //Detail화면의 댓글 구조
-function Posted(purchaseSeq, userId, userName, userSentence){
+function Posted(purchaseSeq, userId, userName, userSentence, sentenceType){
     this.purchaseSeq =purchaseSeq;
     this.userId = userId;
     this.userName = userName;
     this.userSentence = userSentence;
 
     this.container   =$("<div>").addClass("detail_posted swiper-slide");
-    this.postedby    =$("<div>").addClass("detail_postedby").html("posted by ");
+    if(sentenceType == "comment") {
+    	this.postedby    =$("<div>").addClass("detail_postedby").html("commented by ");
+    } else {
+    	this.postedby    =$("<div>").addClass("detail_postedby").html("posted by ");
+    }
     this.postee      =$("<div>").addClass("detail_postee_btn").click(function () {
         	processDetailClose();
             $(".notice_box").hide();
@@ -467,7 +471,8 @@ PostedController.prototype = {
 				purchaseSeq: "",
 				userId: "",
 				userName: "",
-				sentence: $.i18n.t('detailPop.noData')
+				sentence: $.i18n.t('detailPop.noData'),
+				sentenceType: ""
 			};
 			addPosted(this.swiper, postedInfo);
 		} else {
@@ -481,7 +486,7 @@ PostedController.prototype = {
 }
 
 function addPosted(swiper, postedInfo) {
-	var newPosted = new Posted(postedInfo.purchaseSeq, postedInfo.userId, postedInfo.userName, convertToBr(postedInfo.sentence));
+	var newPosted = new Posted(postedInfo.purchaseSeq, postedInfo.userId, postedInfo.userName, convertToBr(postedInfo.sentence), postedInfo.sentenceType);
 	postedObj[swiper.slides.length-initPostedSlideCnt] = newPosted.buildPosted();
 
 	if(postedInfo.purchaseSeq == "" && postedInfo.userId == "" && postedInfo.userName == "") {

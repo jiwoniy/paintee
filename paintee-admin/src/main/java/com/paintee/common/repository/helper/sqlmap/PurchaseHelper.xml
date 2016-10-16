@@ -7,10 +7,15 @@
 	</resultMap>
 	
 	<!-- 구매와 연관된 정보 조회 : 상세화면 구매자 목록 정보 -->
-  	<select id="selectPostedList" resultMap="com.paintee.common.repository.mapper.PurchaseMapper.BaseResultMap" parameterType="com.paintee.common.repository.entity.vo.PostedSearchVO">
+  	<select id="selectPostedList" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.vo.PostedSearchVO">
   		SELECT
-  			<include refid="com.paintee.common.repository.mapper.PurchaseMapper.Base_Column_List" />
-  		FROM TB_PURCHASE
+		    tp.seq
+		    , tp.user_id
+		    , tp.sentence
+		    , 'purchase' AS sentenceType
+		    , tp.created_date
+		    , (select name from TB_USER where user_id = tp.user_id) user_name
+  		FROM TB_PURCHASE tp
 		<trim prefix="WHERE" prefixOverrides="AND|OR ">
 			<if test = "paintingId != null and paintingId != ''">
 				AND painting_id = #{paintingId}
@@ -28,6 +33,16 @@
 				AND private_at = #{privateAt}
 			</if>
 		</trim>
+		UNION ALL
+		SELECT
+		    tcp.seq
+		    , tcp.user_id
+		    , tcp.sentence
+		    , 'comment' AS sentenceType
+		    , tcp.created_date
+		    , (select name from TB_USER where user_id = tcp.user_id) user_name
+		FROM TB_COMMENT_PAINTING tcp
+		WHERE tcp.painting_id = #{paintingId}
   		ORDER BY created_date DESC
   		LIMIT #{startRow}, #{rowPerPage}
   	</select>

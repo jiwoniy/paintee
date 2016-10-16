@@ -710,7 +710,8 @@ CommentController.prototype = {
 		);
 	},
 	addCommentRes: function (result) {
-		dataReload(["initMy();", "initFollow();", "initPopular();", "initNew();"]);
-		alert($.i18n.t('alert.common.processInsert'));
+		dataReload(["initMy();"]);
+		alert($.i18n.t('alert.comment.processInsert'));
+		closePurchaseStep01();
 	}
 }

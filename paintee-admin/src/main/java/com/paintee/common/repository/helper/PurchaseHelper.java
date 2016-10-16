@@ -16,7 +16,6 @@ package com.paintee.common.repository.helper;
 
 import java.util.List;
 
-import com.paintee.common.repository.entity.Purchase;
 import com.paintee.common.repository.entity.vo.PostedSearchVO;
 import com.paintee.common.repository.entity.vo.PurchaseSearchVO;
 import com.paintee.common.repository.entity.vo.PurchaseVO;
@@ -46,7 +45,7 @@ public interface PurchaseHelper extends PurchaseMapper {
 	 @param postedSearchVO
 	 @return 
 	*/
-	public List<Purchase> selectPostedList(PostedSearchVO postedSearchVO);
+	public List<PurchaseVO> selectPostedList(PostedSearchVO postedSearchVO);
 	
 	/**
 	 @fn selectPurchaseList

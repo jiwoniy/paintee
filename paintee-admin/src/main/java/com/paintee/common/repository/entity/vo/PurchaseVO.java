@@ -36,6 +36,7 @@ com.paintee.common.repository.entity.vo \n
 public class PurchaseVO extends Purchase {
 	
 	private String userName;
+	private String sentenceType;
 	private FileInfo fileInfo;
 	
 	public String getUserName() {
@@ -43,6 +44,12 @@ public class PurchaseVO extends Purchase {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getSentenceType() {
+		return sentenceType;
+	}
+	public void setSentenceType(String sentenceType) {
+		this.sentenceType = sentenceType;
 	}
 	public FileInfo getFileInfo() {
 		return fileInfo;
