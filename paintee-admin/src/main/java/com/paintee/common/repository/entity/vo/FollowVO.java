@@ -14,8 +14,6 @@
 */
 package com.paintee.common.repository.entity.vo;
 
-import com.paintee.common.repository.entity.Painting;
-
 /**
 @class FollowVO
 com.paintee.common.repository.entity.vo \n
@@ -32,7 +30,7 @@ com.paintee.common.repository.entity.vo \n
  - 상세설명 은 여기에 기입해 주세요.
  -# 여기는 리스트로 표시됩니다.
 */
-public class FollowVO extends Painting {
+public class FollowVO extends PaintingVO {
 	
 	private String sentenceName;
 	private String fileId;
@@ -41,6 +39,10 @@ public class FollowVO extends Painting {
 	private String followsName;
 	private String followingName;
 	private String artistName;
+	/**
+	 * 그림의 로그인한 사용자의 좋아요 카운트
+	 */
+	private Integer loginLikeCnt; 
 	
 	public String getSentenceName() {
 		return sentenceName;
@@ -96,6 +98,14 @@ public class FollowVO extends Painting {
 
 	public void setArtistName(String artistName) {
 		this.artistName = artistName;
+	}
+
+	public Integer getLoginLikeCnt() {
+		return loginLikeCnt;
+	}
+
+	public void setLoginLikeCnt(Integer loginLikeCnt) {
+		this.loginLikeCnt = loginLikeCnt;
 	}
 	
 }

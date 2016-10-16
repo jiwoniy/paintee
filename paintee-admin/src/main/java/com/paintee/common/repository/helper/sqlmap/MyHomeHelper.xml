@@ -5,6 +5,8 @@
 	    <result column="sentence_name" property="sentenceName" />
 	    <result column="artist_name" property="artistName" />	    
 	    <result column="type" property="type" />	    
+	    <result column="like_cnt" property="likeCnt" />
+	    <result column="login_like_cnt" property="loginLikeCnt" />	    
 	</resultMap>
   	
 	<!-- 로그인 사용자가 구매한 그림과 업로드한 그림의 목록을 가져오기 -->
@@ -21,6 +23,8 @@
 			   a.posted_num, 
 			   a.painting_status,
 			   a.posted_people_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt,			   
 			   'U' as type
 		  from TB_PAINTING a
 		 where a.artist_id = #{artistId}
@@ -39,6 +43,8 @@
 			   a.posted_num,
 			   b.purchase_status,
 			   a.posted_people_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt,			   
 			   'P' as type
 		  from TB_PAINTING a, 
 		       TB_PURCHASE b

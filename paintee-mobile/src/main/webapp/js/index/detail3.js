@@ -80,11 +80,11 @@ function DetailStructure(paintingId, paintingInfo){
     
     this.detailBtnLike        =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like")
                                         .click(function(){
-                                        		riseBubble(this, paintingId);
+                                        		riseBubble(this, paintingId, paintingInfo.artistId);
                                         });
     this.detailBtnLiked       =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked")
                                             .click(function(){
-                                            	dropBubble(this, paintingId);
+                                            	dropBubble(this, paintingId, paintingInfo.artistId);
                                            });
     
     this.detailBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("detail_btn_comment")

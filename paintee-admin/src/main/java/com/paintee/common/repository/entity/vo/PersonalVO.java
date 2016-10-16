@@ -32,7 +32,7 @@ com.paintee.common.repository.entity.vo \n
  - 상세설명 은 여기에 기입해 주세요.
  -# 여기는 리스트로 표시됩니다.
 */
-public class PersonalVO extends Painting {
+public class PersonalVO extends PaintingVO {
 	
 	private String fileId;
 	private Integer uploadCount;
@@ -40,6 +40,10 @@ public class PersonalVO extends Painting {
 	private String introduce;
 	private Integer followCnt;
 	private String artistId;
+	/**
+	 * 그림의 로그인한 사용자의 좋아요 카운트
+	 */
+	private Integer loginLikeCnt;  
 	
 	public String getFileId() {
 		return fileId;
@@ -88,4 +92,13 @@ public class PersonalVO extends Painting {
 	public void setArtistId(String artistId) {
 		this.artistId = artistId;
 	}
+
+	public Integer getLoginLikeCnt() {
+		return loginLikeCnt;
+	}
+
+	public void setLoginLikeCnt(Integer loginLikeCnt) {
+		this.loginLikeCnt = loginLikeCnt;
+	}
+	
 }

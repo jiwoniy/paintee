@@ -4,11 +4,19 @@
  * 좋아요 선택 시 호출되는 함수
  */
 function riseBubble(bubble, paintingId, artistId){
+	if (!userInfo) {
+		alert($.i18n.t('alert.common.notLogin'));
+		return;
+	}
 	var controller = new PaintingLikeController(bubble, paintingId, artistId);
 	controller.addPaintingLike();
 }
 
 function dropBubble(bubble, paintingId, artistId){
+	if (!userInfo) {
+		alert($.i18n.t('alert.common.notLogin'));
+		return;
+	}	
 	var controller = new PaintingLikeController(bubble, paintingId, artistId);
 	controller.cancelPaintingLike();
 }
@@ -89,14 +97,17 @@ PaintingLikeController.prototype = {
 	addPaintingLikeRes: function (result) {
 		var controller = this;
 		// 기존 입력 내용 지우기
-	    var listBtnLiked =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked").click(function(){dropBubble(this, controller.paintingId, controller.artistId)});
-	    var likeSeqCir  =$("<div>").addClass("like_sequence_circle");
+	    var listBtnLiked = $("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked").click(function(){dropBubble(this, controller.paintingId, controller.artistId)});
+	    var likeSeqCir  = $("<div>").addClass("like_sequence_circle");
 
 	    $(this.bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
 	    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
+	    // 다른 목록의 대상자 처리를 위해
+	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_like").replaceWith(listBtnLiked);
+	    // 해당 이벤트 발생 대상자 처리를 위해
 	    $(this.bubble).replaceWith(listBtnLiked);
-	    
-	    $("#like_" + controller.paintingId).html(parseInt($("#like_" + controller.paintingId).html()) + 1);
+	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) + 1);
+	    //dataReload(["initPopular();"]);
 	},
 	cancelPaintingLike: function () {
 		var controller = this;
@@ -116,9 +127,12 @@ PaintingLikeController.prototype = {
 	    var likeSeqCir  =$("<div>").addClass("like_sequence_circle");
 	    $(this.bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
 	    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
+	    // 다른 목록의 대상자 처리를 위해
+	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_liked").replaceWith(listBtnLike);
+	    // 해당 이벤트 발생 대상자 처리를 위해
 	    $(this.bubble).replaceWith(listBtnLike);
-	    $("#like_" + controller.paintingId).html(parseInt($("#like_" + controller.paintingId).html()) - 1);
-	    
+	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) - 1);
+	    // dataReload(["initPopular();"]);
 	},
 	//해당 그림을 좋아요 한 사람 목록 요청 AJAX
 	getLikeUserList : function() {
