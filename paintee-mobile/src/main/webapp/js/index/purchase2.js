@@ -701,6 +701,10 @@ CommentController.prototype = {
 			alert($.i18n.t('alert.common.notLogin'));
 			return;
 		}
+
+		// 구매입력 항목 체크
+		if (!validComment()) { return false; }
+
 		var controller = this;
 		var data = {
 				sentence: $("[name=sentence]").val()
@@ -719,4 +723,26 @@ CommentController.prototype = {
 		$("[data-comment='" + this.paintingId + "']").html(parseInt($("[data-comment='" + this.paintingId + "']").html()) + 1);
 		closePurchaseStep01();
 	}
+}
+
+function validComment() {
+	if ($("[name=sentence]").val().trim().length == 0) {
+		alert($.i18n.t('alert.purchase.emptySentence'));
+		$("[name=sentence]").focus();
+		return false;
+	}
+
+	if (getCharCount($("[name=sentence]").val()) > 200) {
+		alert($.i18n.t('alert.purchase.exceedSentence'));
+		$("[name=sentence]").focus();
+		return false;
+	}
+
+	var enter = getEnterCount($("[name=sentence]"));
+	if (enter > 5) {
+		alert($.i18n.t('alert.purchase.limitEnterCount'));
+		$("[name=sentence]").focus();
+		return false;
+	}
+	return true;
 }
