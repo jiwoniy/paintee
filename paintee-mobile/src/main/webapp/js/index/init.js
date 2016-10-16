@@ -217,8 +217,8 @@ Structure.prototype = {
         setLikedNumber:    function(paintingId, likedNum){
                             this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num'><span data-like='like_" + paintingId + "'>"+likedNum+"</span></div>")
                         },
-        setCommentedNumber: function(commentedNum){
-                            this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'>"+commentedNum+"</div>")
+        setCommentedNumber: function(paintingId, commentedNum){
+                            this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'><span data-comment='" + paintingId + "'>" + commentedNum + "</span></div>")
                         },
         setPostedNumber:    function(postedNum){
                             this.listInfoPosted.append("<img class='list_info_posted_ico' src='ico/post.png'><div class='list_info_posted_num'>"+postedNum+"</div>")
@@ -398,7 +398,8 @@ function addPainting(swiper, currentIndex, type, listData){
 		paintingId: listData.paintingId,
 		artistName: listData.artistName,
 		artistId: listData.artistId,
-		likeCnt: listData.likeCnt
+		likeCnt: listData.likeCnt,
+		commentCnt: listData.commentCnt
 	};
 
 	// 업로드된 그림일 경우 U, 구매된 그림일 경우 P
@@ -409,7 +410,7 @@ function addPainting(swiper, currentIndex, type, listData){
 	var newSlide = new Structure(data);
     newSlide.setSentence((listData.paintingStatus == "B") ? "It was blind by the administrator." : listData.sentence, listData.sentenceName ? listData.sentenceName : listData.artistName);
     newSlide.setLikedNumber(listData.paintingId, listData.likeCnt);
-    newSlide.setCommentedNumber(0);
+    newSlide.setCommentedNumber(listData.paintingId, listData.commentCnt);
     newSlide.setPostedNumber(listData.postedNum);
     newSlide.setDate(toEngDateStr(listData.uploadDate));
     newSlide.setArtist(listData.artistName);

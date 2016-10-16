@@ -697,6 +697,10 @@ function CommentController(paintingId) {
 
 CommentController.prototype = {
 	addComment: function () {
+		if (!userInfo) {
+			alert($.i18n.t('alert.common.notLogin'));
+			return;
+		}
 		var controller = this;
 		var data = {
 				sentence: $("[name=sentence]").val()
@@ -712,6 +716,7 @@ CommentController.prototype = {
 	addCommentRes: function (result) {
 		dataReload(["initMy();"]);
 		alert($.i18n.t('alert.comment.processInsert'));
+		$("[data-comment='" + this.paintingId + "']").html(parseInt($("[data-comment='" + this.paintingId + "']").html()) + 1);
 		closePurchaseStep01();
 	}
 }

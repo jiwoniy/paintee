@@ -128,7 +128,8 @@
 			"copyToClipboard": "Copy the link to clipboard by pressing Ctrl+C.",
 			"unkownServerError": "Connection failure.\nPlease wait a while and try again.",
 			"notExistArtist": "Author does not exist.",
-			"notExistPicture": "Image does not exist."
+			"notExistPicture": "Image does not exist.",
+			"processInsert": "successfully completed"
 		},
 		"purchase" : {
 			"limitEnterCount": "Line breaking is limited to 5 times.",
@@ -179,9 +180,6 @@
 		},
 		"upload" : {
 			"choiceFile": "Please select the upload file."
-		},
-		"comment" : {
-			"processInsert": "코멘트를 등록하였습니다."
 		},
         "notyet" : "This function is not yet available"
 	}				

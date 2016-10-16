@@ -21,6 +21,7 @@
 			   a.upload_date as upload_date,  
 			   a.painting_id, 
 			   a.posted_num, 
+   			   a.comment_cnt, 
 			   a.painting_status,
 			   a.posted_people_cnt,
 		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
@@ -41,6 +42,7 @@
 			   b.purchase_date as upload_date,  					<!--  화면에서 uploaded로 되어 있어서.. -->
 			   a.painting_id,
 			   a.posted_num,
+			   a.comment_cnt, 
 			   b.purchase_status,
 			   a.posted_people_cnt,
 		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
