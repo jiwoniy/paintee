@@ -181,6 +181,9 @@
 		"upload" : {
 			"choiceFile": "Please select the upload file."
 		},
+-		"comment" : {
+-			"processInsert": "코멘트를 등록하였습니다."
+ 		},
         "notyet" : "This function is not yet available"
 	}				
 }

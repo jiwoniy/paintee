@@ -55,6 +55,26 @@
 		    							#{status}
 		                            </foreach>
 		   and b.user_id = #{userId}
+		 union all
+		select b.seq,
+		       b.user_id, 
+			   (select name from TB_USER where user_id = a.artist_id) artist_name, 
+		       (select name from TB_USER where user_id = b.user_id) sentence_name,
+			   b.sentence,
+			   a.file_group_seq,
+			   b.created_date as upload_date,  					<!--  화면에서 uploaded로 되어 있어서.. -->
+			   a.painting_id,
+			   a.posted_num,
+			   a.comment_cnt, 
+			   '' AS purchase_status,
+			   a.posted_people_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
+		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt,			   
+			   'P' as type
+		  from TB_PAINTING a, 
+		       TB_COMMENT_PAINTING b
+		 where a.painting_id = b.painting_id
+		   and b.user_id = #{userId}
 		   <!-- 그림의 원 작가가 자신의 그림을 구매한 경우의 케이스 처리
 		   and b.user_id != a.artist_id
 		 union all
