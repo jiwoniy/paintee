@@ -8,8 +8,7 @@ function Purchase(){
     this.doneBox  = $("<div>").addClass("purchase_box_select");
     this.doneIcon   = $("<img>").addClass("icon").attr("src", "ico/done.png");
     this.doneBtn    = $("<div>").addClass("purchase_done_btn").append($("<div>").addClass("purchase_btn_text").html("done ")).click(function(){
-                            alert($.i18n.t('alert.notyet'));
-                            showPost();
+                            new CommentController(paintingId).addComment();
                         });
 
     this.postBox    = $("<div>").addClass("purchase_box_select");
@@ -690,4 +689,28 @@ function completePayment(result){
 
     // 다국어 처리
     exeTranslation('.base_position', lang);
+}
+
+function CommentController(paintingId) {
+	this.paintingId = paintingId;
+}
+
+CommentController.prototype = {
+	addComment: function () {
+		var controller = this;
+		var data = {
+				sentence: $("[name=sentence]").val()
+			};
+		AjaxCall.call(apiUrl + "/painting/"+controller.paintingId+"/comment",
+			data,
+			"POST",
+			function (result) {
+				controller.addCommentRes(result);
+			}
+		);
+	},
+	addCommentRes: function (result) {
+		dataReload(["initMy();", "initFollow();", "initPopular();", "initNew();"]);
+		alert($.i18n.t('alert.common.processInsert'));
+	}
 }

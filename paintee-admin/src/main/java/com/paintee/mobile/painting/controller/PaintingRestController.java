@@ -36,6 +36,7 @@ import com.paintee.common.repository.entity.Painting;
 import com.paintee.common.repository.entity.vo.LikeUserVO;
 import com.paintee.common.repository.entity.vo.PaintingLikeVO;
 import com.paintee.common.repository.entity.vo.PaintingVO;
+import com.paintee.mobile.comment.service.CommentService;
 import com.paintee.mobile.painting.service.PaintingService;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
 
@@ -63,6 +64,9 @@ public class PaintingRestController {
 
 	@Autowired
 	private FileInfoGenerator fileInfoGenerator;
+
+	@Autowired
+	private CommentService commentService;
 
 	/**
 	 @fn detailPainting
@@ -159,6 +163,8 @@ public class PaintingRestController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		commentPainting.setPaintingId(paintingId);
+
+		commentPainting = commentService.createCommentPainting(commentPainting, loginedUserVO);
 
 		resultMap.put("commentPainting", commentPainting);
 
