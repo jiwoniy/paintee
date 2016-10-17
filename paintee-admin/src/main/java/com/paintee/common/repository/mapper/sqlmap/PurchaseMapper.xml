@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paintee.common.repository.mapper.PurchaseMapper" >
+  <resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.Purchase" >
+    <id column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="painting_id" property="paintingId" jdbcType="VARCHAR" />
+    <result column="purchase_date" property="purchaseDate" jdbcType="TIMESTAMP" />
+    <result column="sentence" property="sentence" jdbcType="VARCHAR" />
+    <result column="private_at" property="privateAt" jdbcType="CHAR" />
+    <result column="receiver_basic_addr" property="receiverBasicAddr" jdbcType="VARCHAR" />
+    <result column="receiver_detail_addr" property="receiverDetailAddr" jdbcType="VARCHAR" />
+    <result column="receiver_zipcode" property="receiverZipcode" jdbcType="VARCHAR" />
+    <result column="receiver_city" property="receiverCity" jdbcType="VARCHAR" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="sender_addr" property="senderAddr" jdbcType="VARCHAR" />
+    <result column="sender_name" property="senderName" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="purchase_status" property="purchaseStatus" jdbcType="VARCHAR" />
+    <result column="status_update_date" property="statusUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seq, user_id, painting_id, purchase_date, sentence, private_at, receiver_basic_addr, 
+    receiver_detail_addr, receiver_zipcode, receiver_city, receiver_name, sender_addr, 
+    sender_name, location, purchase_status, status_update_date, created_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.PurchaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_PURCHASE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_PURCHASE
+    where seq = #{seq,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_PURCHASE
+    where seq = #{seq,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.PurchaseExample" >
+    delete from TB_PURCHASE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.paintee.common.repository.entity.Purchase" >
+    <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TB_PURCHASE (user_id, painting_id, purchase_date, 
+      sentence, private_at, receiver_basic_addr, 
+      receiver_detail_addr, receiver_zipcode, receiver_city, 
+      receiver_name, sender_addr, sender_name, 
+      location, purchase_status, status_update_date, 
+      created_date)
+    values (#{userId,jdbcType=VARCHAR}, #{paintingId,jdbcType=VARCHAR}, #{purchaseDate,jdbcType=TIMESTAMP}, 
+      #{sentence,jdbcType=VARCHAR}, #{privateAt,jdbcType=CHAR}, #{receiverBasicAddr,jdbcType=VARCHAR}, 
+      #{receiverDetailAddr,jdbcType=VARCHAR}, #{receiverZipcode,jdbcType=VARCHAR}, #{receiverCity,jdbcType=VARCHAR}, 
+      #{receiverName,jdbcType=VARCHAR}, #{senderAddr,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{purchaseStatus,jdbcType=VARCHAR}, #{statusUpdateDate,jdbcType=TIMESTAMP}, 
+      #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.Purchase" >
+    <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TB_PURCHASE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="paintingId != null" >
+        painting_id,
+      </if>
+      <if test="purchaseDate != null" >
+        purchase_date,
+      </if>
+      <if test="sentence != null" >
+        sentence,
+      </if>
+      <if test="privateAt != null" >
+        private_at,
+      </if>
+      <if test="receiverBasicAddr != null" >
+        receiver_basic_addr,
+      </if>
+      <if test="receiverDetailAddr != null" >
+        receiver_detail_addr,
+      </if>
+      <if test="receiverZipcode != null" >
+        receiver_zipcode,
+      </if>
+      <if test="receiverCity != null" >
+        receiver_city,
+      </if>
+      <if test="receiverName != null" >
+        receiver_name,
+      </if>
+      <if test="senderAddr != null" >
+        sender_addr,
+      </if>
+      <if test="senderName != null" >
+        sender_name,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="purchaseStatus != null" >
+        purchase_status,
+      </if>
+      <if test="statusUpdateDate != null" >
+        status_update_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="paintingId != null" >
+        #{paintingId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseDate != null" >
+        #{purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sentence != null" >
+        #{sentence,jdbcType=VARCHAR},
+      </if>
+      <if test="privateAt != null" >
+        #{privateAt,jdbcType=CHAR},
+      </if>
+      <if test="receiverBasicAddr != null" >
+        #{receiverBasicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverDetailAddr != null" >
+        #{receiverDetailAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverZipcode != null" >
+        #{receiverZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverCity != null" >
+        #{receiverCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderAddr != null" >
+        #{senderAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="senderName != null" >
+        #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseStatus != null" >
+        #{purchaseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="statusUpdateDate != null" >
+        #{statusUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paintee.common.repository.entity.PurchaseExample" resultType="java.lang.Integer" >
+    select count(*) from TB_PURCHASE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TB_PURCHASE
+    <set >
+      <if test="record.seq != null" >
+        seq = #{record.seq,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paintingId != null" >
+        painting_id = #{record.paintingId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseDate != null" >
+        purchase_date = #{record.purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sentence != null" >
+        sentence = #{record.sentence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.privateAt != null" >
+        private_at = #{record.privateAt,jdbcType=CHAR},
+      </if>
+      <if test="record.receiverBasicAddr != null" >
+        receiver_basic_addr = #{record.receiverBasicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverDetailAddr != null" >
+        receiver_detail_addr = #{record.receiverDetailAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverZipcode != null" >
+        receiver_zipcode = #{record.receiverZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverCity != null" >
+        receiver_city = #{record.receiverCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverName != null" >
+        receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderAddr != null" >
+        sender_addr = #{record.senderAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderName != null" >
+        sender_name = #{record.senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseStatus != null" >
+        purchase_status = #{record.purchaseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.statusUpdateDate != null" >
+        status_update_date = #{record.statusUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TB_PURCHASE
+    set seq = #{record.seq,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      painting_id = #{record.paintingId,jdbcType=VARCHAR},
+      purchase_date = #{record.purchaseDate,jdbcType=TIMESTAMP},
+      sentence = #{record.sentence,jdbcType=VARCHAR},
+      private_at = #{record.privateAt,jdbcType=CHAR},
+      receiver_basic_addr = #{record.receiverBasicAddr,jdbcType=VARCHAR},
+      receiver_detail_addr = #{record.receiverDetailAddr,jdbcType=VARCHAR},
+      receiver_zipcode = #{record.receiverZipcode,jdbcType=VARCHAR},
+      receiver_city = #{record.receiverCity,jdbcType=VARCHAR},
+      receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      sender_addr = #{record.senderAddr,jdbcType=VARCHAR},
+      sender_name = #{record.senderName,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      purchase_status = #{record.purchaseStatus,jdbcType=VARCHAR},
+      status_update_date = #{record.statusUpdateDate,jdbcType=TIMESTAMP},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.Purchase" >
+    update TB_PURCHASE
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="paintingId != null" >
+        painting_id = #{paintingId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseDate != null" >
+        purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sentence != null" >
+        sentence = #{sentence,jdbcType=VARCHAR},
+      </if>
+      <if test="privateAt != null" >
+        private_at = #{privateAt,jdbcType=CHAR},
+      </if>
+      <if test="receiverBasicAddr != null" >
+        receiver_basic_addr = #{receiverBasicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverDetailAddr != null" >
+        receiver_detail_addr = #{receiverDetailAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverZipcode != null" >
+        receiver_zipcode = #{receiverZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverCity != null" >
+        receiver_city = #{receiverCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderAddr != null" >
+        sender_addr = #{senderAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="senderName != null" >
+        sender_name = #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseStatus != null" >
+        purchase_status = #{purchaseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="statusUpdateDate != null" >
+        status_update_date = #{statusUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where seq = #{seq,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.Purchase" >
+    update TB_PURCHASE
+    set user_id = #{userId,jdbcType=VARCHAR},
+      painting_id = #{paintingId,jdbcType=VARCHAR},
+      purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+      sentence = #{sentence,jdbcType=VARCHAR},
+      private_at = #{privateAt,jdbcType=CHAR},
+      receiver_basic_addr = #{receiverBasicAddr,jdbcType=VARCHAR},
+      receiver_detail_addr = #{receiverDetailAddr,jdbcType=VARCHAR},
+      receiver_zipcode = #{receiverZipcode,jdbcType=VARCHAR},
+      receiver_city = #{receiverCity,jdbcType=VARCHAR},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      sender_addr = #{senderAddr,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      purchase_status = #{purchaseStatus,jdbcType=VARCHAR},
+      status_update_date = #{statusUpdateDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where seq = #{seq,jdbcType=INTEGER}
+  </update>
+</mapper>

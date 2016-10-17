@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd 
+						http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd 
+						http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+						http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+	<!-- transaction setting -->
+	<tx:annotation-driven />
+
+	<util:properties id="config" location="classpath:config.properties" />
+	<util:properties id="properties" location="classpath:paintee-admin-repository.properties" />
+ 	<context:property-placeholder properties-ref="properties"/>
+ 
+	<!-- mybatis Setting -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="maxWait" value="${jdbc.maxWait}" />
+		<property name="maxIdle" value="${jdbc.maxIdle}" />
+		<property name="minIdle" value="${jdbc.minIdle}" />
+		<property name="testOnBorrow" value="${jdbc.testOnBorrow}" />
+		<property name="testOnReturn" value="${jdbc.testOnReturn}" />
+		<property name="validationQuery" value="${jdbc.validationQuery}" />
+		<property name="testWhileIdle" value="${jdbc.testWhileIdle}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
+		<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />
+		<property name="removeAbandoned" value="${jdbc.removeAbandoned}" />			
+	</bean>
+
+	<!-- mybatis scan setting -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="classpath*:com.paintee.common.repository.entity" />
+		<property name="mapperLocations" value="classpath*:com/paintee/common/repository/**/*.xml" />
+		<property name="configLocation" value="classpath:mybatis-config-paintee-admin-repository.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.paintee.common.repository" />
+	</bean>
+
+	<!-- SET default mail properties -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}"/>
+		<property name="port" value="${mail.port}"/>
+		<property name="protocol" value="${mail.protocol}" />
+		<property name="username" value="${mail.username}"/>
+		<property name="password" value="${mail.password}"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">${mail.transport.protocol}</prop>
+				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+				<prop key="mail.smtp.ssl.enable">${mail.smtp.ssl.enable}</prop>
+				<prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</prop>
+				<prop key="mail.debug">${mail.debug}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- set up default amazon s3 client from amazon aws sdk -->
+	<bean id="amazonS3Client" class="com.amazonaws.services.s3.AmazonS3Client">
+		<constructor-arg>
+			<bean class="com.amazonaws.auth.BasicAWSCredentials">
+				<constructor-arg name="accessKey" value="${aws.s3.accessKey}"/>
+				<constructor-arg name="secretKey" value="${aws.s3.sceretKey}"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+</beans>

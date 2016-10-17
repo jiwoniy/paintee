@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paintee.common.repository.mapper.CodeMapper" >
+  <resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.Code" >
+    <id column="code_group" property="codeGroup" jdbcType="VARCHAR" />
+    <id column="code_value" property="codeValue" jdbcType="VARCHAR" />
+    <result column="code_name" property="codeName" jdbcType="VARCHAR" />
+    <result column="use_yn" property="useYn" jdbcType="CHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    code_group, code_value, code_name, use_yn, created_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.CodeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_CODE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.CodeKey" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_CODE
+    where code_group = #{codeGroup,jdbcType=VARCHAR}
+      and code_value = #{codeValue,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.paintee.common.repository.entity.CodeKey" >
+    delete from TB_CODE
+    where code_group = #{codeGroup,jdbcType=VARCHAR}
+      and code_value = #{codeValue,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.CodeExample" >
+    delete from TB_CODE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.paintee.common.repository.entity.Code" >
+    insert into TB_CODE (code_group, code_value, code_name, 
+      use_yn, created_date)
+    values (#{codeGroup,jdbcType=VARCHAR}, #{codeValue,jdbcType=VARCHAR}, #{codeName,jdbcType=VARCHAR}, 
+      #{useYn,jdbcType=CHAR}, #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.Code" >
+    insert into TB_CODE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codeGroup != null" >
+        code_group,
+      </if>
+      <if test="codeValue != null" >
+        code_value,
+      </if>
+      <if test="codeName != null" >
+        code_name,
+      </if>
+      <if test="useYn != null" >
+        use_yn,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codeGroup != null" >
+        #{codeGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="codeValue != null" >
+        #{codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null" >
+        #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null" >
+        #{useYn,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paintee.common.repository.entity.CodeExample" resultType="java.lang.Integer" >
+    select count(*) from TB_CODE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TB_CODE
+    <set >
+      <if test="record.codeGroup != null" >
+        code_group = #{record.codeGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeValue != null" >
+        code_value = #{record.codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeName != null" >
+        code_name = #{record.codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null" >
+        use_yn = #{record.useYn,jdbcType=CHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TB_CODE
+    set code_group = #{record.codeGroup,jdbcType=VARCHAR},
+      code_value = #{record.codeValue,jdbcType=VARCHAR},
+      code_name = #{record.codeName,jdbcType=VARCHAR},
+      use_yn = #{record.useYn,jdbcType=CHAR},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.Code" >
+    update TB_CODE
+    <set >
+      <if test="codeName != null" >
+        code_name = #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null" >
+        use_yn = #{useYn,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where code_group = #{codeGroup,jdbcType=VARCHAR}
+      and code_value = #{codeValue,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.Code" >
+    update TB_CODE
+    set code_name = #{codeName,jdbcType=VARCHAR},
+      use_yn = #{useYn,jdbcType=CHAR},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where code_group = #{codeGroup,jdbcType=VARCHAR}
+      and code_value = #{codeValue,jdbcType=VARCHAR}
+  </update>
+</mapper>

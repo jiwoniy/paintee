@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'noto';
+    src: url('../fonts/notokr-light.eot');
+    src: url('../fonts/notokr-light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/notokr-light.woff') format('woff'),
+         url('../fonts/notokr-light.ttf') format('truetype'),
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto';
+    src: url('../fonts/notokr-demilight.eot');
+    src: url('../fonts/notokr-demilight.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/notokr-demilight.woff') format('woff'),
+         url('../fonts/notokr-demilight.ttf') format('truetype'),
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto';
+    src: url('../fonts/notokr-regular.eot');
+    src: url('../fonts/notokr-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/notokr-regular.woff') format('woff'),
+         url('../fonts/notokr-regular.ttf') format('truetype'),
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto';
+    src: url('../fonts/notokr-bold.eot');
+    src: url('../fonts/notokr-bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/notokr-bold.woff') format('woff'),
+         url('../fonts/notokr-bold.ttf') format('truetype'),
+    font-weight: 700;
+    font-style: normal;
+}
