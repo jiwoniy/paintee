@@ -143,7 +143,8 @@ function createPaintingRes(result, status) {
 	if(result.errorNo == 0) {
 		dataReload(["initMy();", "initFollow();", "initNew();"]);
 
-		selectMenu(3);
+        // [tuesday] mainSwiper 순서 하나씩 미룸
+		selectMenu(4);
 		$(".popup_container").hide();
 		$(".upload_box").empty();
 

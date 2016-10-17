@@ -33,7 +33,8 @@ function showPersonal(username, paintingId){
     personal.swiper.on("onSetTranslate", function(swiper, translate){swipeToMenu(swiper, translate)});
       
     initPersonal(paintingId);
-    selectMenu(4);
+    // [tuesday] mainSwiper 순서 하나씩 미룸
+    selectMenu(5);
 }
 
 /**
@@ -41,7 +42,8 @@ function showPersonal(username, paintingId){
  */
 function hidePersonal(){
     isPersonal = false;
-    mainSwiper.removeSlide(4);
+    // [tuesday] mainSwiper 순서 하나씩 미룸
+    mainSwiper.removeSlide(5);
     personal = "";
 }
 
@@ -70,7 +72,7 @@ Personal.prototype = {
                             scrollbar: '.swiper-scrollbar-personal',
                             scrollbarHide: true,
                             preloadImages: false,
-                            lazyLoading: false,
+                            lazyLoading: true,
                             lazyLoadingInPrevNext: true,
                             lazyLoadingInPrevNextAmount: 3                            
                         })

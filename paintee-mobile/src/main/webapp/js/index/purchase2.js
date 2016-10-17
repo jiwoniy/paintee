@@ -399,7 +399,21 @@ function initPayment(serviceCnt){
     $(".payment_box").empty();
     var payment = new Payment();
     payment.setTitle("Payment");
-    if (serviceCnt <= 0) {
+
+    // [tuesday] 이 단계에서 해당 그림이 무료기간 내의 tuesday 그림이면서 && 아직 사용자가 무료로 구매한 적이 없는 그림인지 확인
+    // 현재는 임의로 무조건 false
+    var  validTuesday = false;
+    if(validTuesday){
+        var contents = "<span data-i18n='[html]purchasePop1.tuesday'></span>"
+        payment.setContents(contents);
+        payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/payment.png'></div>");
+        payment.buildPayment();
+        $(".payment_btn").click(function(){
+                // [tuesday] 임시로 serviceCnt가 감소하지 않게 처리 필요
+                purchaseController.addPurchase(serviceCnt+1);
+                showPurchaseSpinner();
+        })
+    }else if (serviceCnt <= 0) {
          var contents = "<span class='reward_money'>" + serviceCnt + "/3</span><br>"
                      + "<span data-i18n='[html]purchasePop1.alert'></span>"
         payment.setContents(contents);
@@ -669,8 +683,8 @@ function completePayment(result){
 		    });
 		    isDetail = false;
 		}
-
-        selectMenu(3);
+        // [tuesday] mainSwiper 순서 하나씩 미룸
+        selectMenu(4);
         mySwiper.slideTo(1);
     });
 
