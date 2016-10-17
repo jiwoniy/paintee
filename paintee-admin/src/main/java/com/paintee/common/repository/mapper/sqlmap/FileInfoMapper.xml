@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paintee.common.repository.mapper.FileInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.FileInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="file_group_seq" property="fileGroupSeq" jdbcType="BIGINT" />
+    <result column="content_type" property="contentType" jdbcType="VARCHAR" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="ori_name" property="oriName" jdbcType="VARCHAR" />
+    <result column="display_name" property="displayName" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="last_modified_date" property="lastModifiedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, file_group_seq, content_type, extension, name, ori_name, display_name, path, 
+    size, created_date, last_modified_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.FileInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_FILE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_FILE_INFO
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_FILE_INFO
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.FileInfoExample" >
+    delete from TB_FILE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.paintee.common.repository.entity.FileInfo" >
+    insert into TB_FILE_INFO (id, file_group_seq, content_type, 
+      extension, name, ori_name, 
+      display_name, path, size, 
+      created_date, last_modified_date)
+    values (#{id,jdbcType=VARCHAR}, #{fileGroupSeq,jdbcType=BIGINT}, #{contentType,jdbcType=VARCHAR}, 
+      #{extension,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{oriName,jdbcType=VARCHAR}, 
+      #{displayName,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{size,jdbcType=BIGINT}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{lastModifiedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.FileInfo" >
+    insert into TB_FILE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fileGroupSeq != null" >
+        file_group_seq,
+      </if>
+      <if test="contentType != null" >
+        content_type,
+      </if>
+      <if test="extension != null" >
+        extension,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="oriName != null" >
+        ori_name,
+      </if>
+      <if test="displayName != null" >
+        display_name,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="lastModifiedDate != null" >
+        last_modified_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fileGroupSeq != null" >
+        #{fileGroupSeq,jdbcType=BIGINT},
+      </if>
+      <if test="contentType != null" >
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="extension != null" >
+        #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="oriName != null" >
+        #{oriName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null" >
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedDate != null" >
+        #{lastModifiedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paintee.common.repository.entity.FileInfoExample" resultType="java.lang.Integer" >
+    select count(*) from TB_FILE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TB_FILE_INFO
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileGroupSeq != null" >
+        file_group_seq = #{record.fileGroupSeq,jdbcType=BIGINT},
+      </if>
+      <if test="record.contentType != null" >
+        content_type = #{record.contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extension != null" >
+        extension = #{record.extension,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oriName != null" >
+        ori_name = #{record.oriName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.displayName != null" >
+        display_name = #{record.displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null" >
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null" >
+        size = #{record.size,jdbcType=BIGINT},
+      </if>
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedDate != null" >
+        last_modified_date = #{record.lastModifiedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TB_FILE_INFO
+    set id = #{record.id,jdbcType=VARCHAR},
+      file_group_seq = #{record.fileGroupSeq,jdbcType=BIGINT},
+      content_type = #{record.contentType,jdbcType=VARCHAR},
+      extension = #{record.extension,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      ori_name = #{record.oriName,jdbcType=VARCHAR},
+      display_name = #{record.displayName,jdbcType=VARCHAR},
+      path = #{record.path,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=BIGINT},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      last_modified_date = #{record.lastModifiedDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.FileInfo" >
+    update TB_FILE_INFO
+    <set >
+      <if test="fileGroupSeq != null" >
+        file_group_seq = #{fileGroupSeq,jdbcType=BIGINT},
+      </if>
+      <if test="contentType != null" >
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="extension != null" >
+        extension = #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="oriName != null" >
+        ori_name = #{oriName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null" >
+        display_name = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=BIGINT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedDate != null" >
+        last_modified_date = #{lastModifiedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.FileInfo" >
+    update TB_FILE_INFO
+    set file_group_seq = #{fileGroupSeq,jdbcType=BIGINT},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      extension = #{extension,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      ori_name = #{oriName,jdbcType=VARCHAR},
+      display_name = #{displayName,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      size = #{size,jdbcType=BIGINT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      last_modified_date = #{lastModifiedDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

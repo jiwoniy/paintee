@@ -1,0 +1,109 @@
+﻿insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a1', '테스트1',  1,  now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4801',  23,  1, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a2', '테스트2',  2,  now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4802',  0,  0, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a3', '테스트3',  3,  now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4803',  0,  0, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a4', '테스트4',  4,  now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4804',  1,  1, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a5', '테스트5',  5,  now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4805',  1,  1, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a6', '테스트6',  6,  now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4806',  0,  0, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a7', '테스트7',  7,  now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4807',  2,  1, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a8', '테스트8',  8,  now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4808',  0,  0, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a9', '테스트9',  9,  now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4809',  2,  1, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256a0', '테스트10', 10, now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4810',  1,  1, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256aa', '테스트11', 11, now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4811',  2,  2, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256ab', '테스트12', 12, now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4812',  2,  2, 'N');
+insert into TB_PAINTING(private_at, artist_id, sentence, file_group_seq, upload_date, painting_id, posted_num, posted_people_cnt, painting_status) values('N', 'f98377b9-e250-48ce-9d01-c48016256ac', '테스트13', 13, now(), 'b0645fc6-a7bb-4f61-a133-d29ae45c4813',  1,  1, 'N');
+
+
+insert into TB_PURCHASE(user_id, painting_id, purchase_date, sentence, private_at, purchase_status) values 
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-01', '%Y-%m-%d'), '테스트 중입니다0', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-02', '%Y-%m-%d'), '테스트 중입니다1', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다2', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다3', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다4', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다5', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다6', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다7', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다8', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다9', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다10', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다11', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다12', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다13', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다14', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다15', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다16', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다17', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다18', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다19', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다20', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다21', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4801', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다22', 'N', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4804', STR_TO_DATE('2016-03-04', '%Y-%m-%d'), '테스트 중입니다23', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a1', 'b0645fc6-a7bb-4f61-a133-d29ae45c4805', STR_TO_DATE('2016-03-01', '%Y-%m-%d'), '테스트 중입니다24', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a2', 'b0645fc6-a7bb-4f61-a133-d29ae45c4807', STR_TO_DATE('2016-03-01', '%Y-%m-%d'), '테스트 중입니다25', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a2', 'b0645fc6-a7bb-4f61-a133-d29ae45c4807', STR_TO_DATE('2016-03-02', '%Y-%m-%d'), '테스트 중입니다26', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a3', 'b0645fc6-a7bb-4f61-a133-d29ae45c4809', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다27', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a3', 'b0645fc6-a7bb-4f61-a133-d29ae45c4809', STR_TO_DATE('2016-03-04', '%Y-%m-%d'), '테스트 중입니다28', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a4', 'b0645fc6-a7bb-4f61-a133-d29ae45c4810', STR_TO_DATE('2016-03-01', '%Y-%m-%d'), '테스트 중입니다29', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a2', 'b0645fc6-a7bb-4f61-a133-d29ae45c4811', STR_TO_DATE('2016-03-01', '%Y-%m-%d'), '테스트 중입니다30', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a2', 'b0645fc6-a7bb-4f61-a133-d29ae45c4812', STR_TO_DATE('2016-03-02', '%Y-%m-%d'), '테스트 중입니다31', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a3', 'b0645fc6-a7bb-4f61-a133-d29ae45c4813', STR_TO_DATE('2016-03-03', '%Y-%m-%d'), '테스트 중입니다32', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a3', 'b0645fc6-a7bb-4f61-a133-d29ae45c4811', STR_TO_DATE('2016-03-04', '%Y-%m-%d'), '테스트 중입니다33', 'Y', 'S'),
+('f98377b9-e250-48ce-9d01-c48016256a4', 'b0645fc6-a7bb-4f61-a133-d29ae45c4812', STR_TO_DATE('2016-03-01', '%Y-%m-%d'), '테스트 중입니다34', 'Y', 'S');
+
+
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (1,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (2,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (3,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (4,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (5,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (6,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (7,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (8,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (9,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (11,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (12,'TB_FILE_INFO', now());
+insert into `TB_FILE_GROUP`(`seq`,`group_name`,`created_date`) values (13,'TB_FILE_INFO', now());
+
+
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4801', 1,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4801','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4802', 2,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4802','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4803', 3,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4803','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4804', 4,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4804','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4805', 5,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4805','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4806', 6,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4806','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4807', 7,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4807','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4808', 8,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4808','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4809', 9,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4809','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4810', 10,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4810','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4811', 11,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4811','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4812', 12,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4812','futurico.png','ddd','2016/03/02/',1734, now(), now());
+insert into `TB_FILE_INFO`(`id`,`file_group_seq`,`content_type`,`extension`,`name`,`ori_name`,`display_name`,`path`,`size`,`created_date`,`last_modified_date`) values ('c0645fc6-a7bb-4f61-a133-d29ae45c4813', 13,'image/png','png','c0645fc6-a7bb-4f61-a133-d29ae45c4813','futurico.png','ddd','2016/03/02/',1734, now(), now());
+
+--password 는 1111이다.
+insert into `TB_USER`(`user_id`, `language`, `provider_id`, `password`,`email`, `name`,`user_status`,`created_date`) values 
+('f98377b9-e250-48ce-9d01-c48016256d1','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','test@a.com','아무개','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a1','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','aa@a.com','a01','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a2','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','ab@a.com','a02','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a3','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','ac@a.com','a03','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a4','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','ad@a.com','a04','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a5','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','ae@a.com','a05','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a6','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','af@a.com','a06','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a7','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','ag@a.com','a07','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a8','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','ah@a.com','a08','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a9','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','ai@a.com','a09','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256a0','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','aj@a.com','a10','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256aa','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','ak@a.com','a11','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256ab','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','al@a.com','a12','N','2016-03-06 14:33:45'),
+('f98377b9-e250-48ce-9d01-c48016256ac','ko','PAINTEE','33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e','am@a.com','a13','N','2016-03-06 14:33:45');
+
+insert into TB_CODE(code_group, code_value, code_name) values('bank', '0', 'direct input');
+insert into TB_CODE(code_group, code_value, code_name) values('bank', '1', 'City Bank');
+insert into TB_CODE(code_group, code_value, code_name) values('bank', '2', 'Kb Bank');
+insert into TB_CODE(code_group, code_value, code_name) values('purchaseStatus', '1', '요청');
+insert into TB_CODE(code_group, code_value, code_name) values('purchaseStatus', '2', '발송');
+insert into TB_CODE(code_group, code_value, code_name) values('purchaseStatus', '3', '환불요청');
+insert into TB_CODE(code_group, code_value, code_name) values('purchaseStatus', '4', '재발송요청');
+insert into TB_CODE(code_group, code_value, code_name) values('purchaseStatus', '5', '재발송처리');
+insert into TB_CODE(code_group, code_value, code_name) values('purchaseStatus', '6', '환불처리');
+insert into TB_CODE(code_group, code_value, code_name) values('purchaseStatus', '7', '삭제');
+insert into TB_CODE(code_group, code_value, code_name) values('purchaseStatus', '99', '완료');
