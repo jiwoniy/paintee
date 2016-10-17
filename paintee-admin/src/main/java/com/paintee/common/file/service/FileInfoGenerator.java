@@ -290,7 +290,7 @@ public class FileInfoGenerator {
 			thumbnailFile2 = new File(fullPath.toString());
 
 			imgScalrWrapper.resize(cropImageFile, thumbnailFile2, "jpeg", 360, 500);
-/*
+
 			//생성된 파일들을 aws 로 전송
 			StringBuilder awsPath = new StringBuilder();
 
@@ -310,26 +310,26 @@ public class FileInfoGenerator {
 			awsPath.append(filePath);
 			awsPath.append(newId).append("_3");
 			awsS3Helper.putObject(bucketName, awsPath.toString(), thumbnailFile2);
-*/
+
 		} catch (IOException e) {
 			logger.error("exception [{}]", e);
 			throw e;
 		} finally {
-//			if(originalFile != null) {
-//				originalFile.delete();
-//			}
-//            if(cropImageFilePre != null) {
-//				cropImageFilePre.delete();
-//			}
-//			if(cropImageFile != null) {
-//				cropImageFile.delete();
-//			}
-//			if(thumbnailFile1 != null) {
-//				thumbnailFile1.delete();
-//			}
-//			if(thumbnailFile2 != null) {
-//				thumbnailFile2.delete();
-//			}
+			if(originalFile != null) {
+				originalFile.delete();
+			}
+            if(cropImageFilePre != null) {
+				cropImageFilePre.delete();
+			}
+			if(cropImageFile != null) {
+				cropImageFile.delete();
+			}
+			if(thumbnailFile1 != null) {
+				thumbnailFile1.delete();
+			}
+			if(thumbnailFile2 != null) {
+				thumbnailFile2.delete();
+			}
 		}
 
 		return fileInfo;
