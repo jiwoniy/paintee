@@ -14,7 +14,7 @@ create table TB_COMMENT_PAINTING (
     painting_id varchar(64) comment '그림의 고유 ID',
 	user_id varchar(64) comment '코멘트한 사람의 id', 
     sentence varchar(600) comment '그림 소갯말',
-    created_date datetime default now() comment '생성일자'
+    created_date datetime default now() comment '등록일시'
 ) COMMENT = '사용자가 코멘트한 페인팅';
 
 ALTER TABLE tb_painting ADD comment_cnt INT DEFAULT '0' COMMENT 'Comment 한 전체 숫자' AFTER posted_num;
@@ -22,10 +22,10 @@ ALTER TABLE tb_painting ADD comment_cnt INT DEFAULT '0' COMMENT 'Comment 한 전
 CREATE TABLE TB_TUESDAY_PAINTING (
    seq INT primary key  AUTO_INCREMENT COMMENT '화요의그림 고유번호',
    title VARCHAR(100) COMMENT '제목',
-   comment VARCHAR(255) COMMENT '코멘트',
-   painting_id VARCHAR(64) COMMENT '그림 고유번',
+   comment VARCHAR(1300) COMMENT '코멘트',
+   painting_id VARCHAR(64) COMMENT '그림 고유번호',
    start_date DATETIME COMMENT '게시 시작일',
    end_date DATETIME COMMENT '게시 종료일',
-   create_date DATETIME COMMENT '등록일',
+   create_date DATETIME COMMENT '등록일시',
    create_id VARCHAR(64) COMMENT '등록자 아이디'
 ) COMMENT = '화요의 그림';
