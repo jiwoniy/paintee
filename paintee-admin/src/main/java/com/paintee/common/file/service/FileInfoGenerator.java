@@ -291,45 +291,45 @@ public class FileInfoGenerator {
 
 			imgScalrWrapper.resize(cropImageFile, thumbnailFile2, "jpeg", 360, 500);
 
-			//생성된 파일들을 aws 로 전송
-			StringBuilder awsPath = new StringBuilder();
-
-			//crop image
-			awsPath.append(filePath);
-			awsPath.append(newId);
-			awsS3Helper.putObject(bucketName, awsPath.toString(), cropImageFile);
-
-			//thumbnail1
-			awsPath.delete(0, awsPath.length());
-			awsPath.append(filePath);
-			awsPath.append(newId).append("_2");
-			awsS3Helper.putObject(bucketName, awsPath.toString(), thumbnailFile1);
-
-			//thumbnail2
-			awsPath.delete(0, awsPath.length());
-			awsPath.append(filePath);
-			awsPath.append(newId).append("_3");
-			awsS3Helper.putObject(bucketName, awsPath.toString(), thumbnailFile2);
+//			//생성된 파일들을 aws 로 전송
+//			StringBuilder awsPath = new StringBuilder();
+//
+//			//crop image
+//			awsPath.append(filePath);
+//			awsPath.append(newId);
+//			awsS3Helper.putObject(bucketName, awsPath.toString(), cropImageFile);
+//
+//			//thumbnail1
+//			awsPath.delete(0, awsPath.length());
+//			awsPath.append(filePath);
+//			awsPath.append(newId).append("_2");
+//			awsS3Helper.putObject(bucketName, awsPath.toString(), thumbnailFile1);
+//
+//			//thumbnail2
+//			awsPath.delete(0, awsPath.length());
+//			awsPath.append(filePath);
+//			awsPath.append(newId).append("_3");
+//			awsS3Helper.putObject(bucketName, awsPath.toString(), thumbnailFile2);
 
 		} catch (IOException e) {
 			logger.error("exception [{}]", e);
 			throw e;
 		} finally {
-			if(originalFile != null) {
-				originalFile.delete();
-			}
-            if(cropImageFilePre != null) {
-				cropImageFilePre.delete();
-			}
-			if(cropImageFile != null) {
-				cropImageFile.delete();
-			}
-			if(thumbnailFile1 != null) {
-				thumbnailFile1.delete();
-			}
-			if(thumbnailFile2 != null) {
-				thumbnailFile2.delete();
-			}
+//			if(originalFile != null) {
+//				originalFile.delete();
+//			}
+//            if(cropImageFilePre != null) {
+//				cropImageFilePre.delete();
+//			}
+//			if(cropImageFile != null) {
+//				cropImageFile.delete();
+//			}
+//			if(thumbnailFile1 != null) {
+//				thumbnailFile1.delete();
+//			}
+//			if(thumbnailFile2 != null) {
+//				thumbnailFile2.delete();
+//			}
 		}
 
 		return fileInfo;

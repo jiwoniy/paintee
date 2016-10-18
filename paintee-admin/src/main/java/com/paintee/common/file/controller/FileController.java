@@ -50,8 +50,8 @@ com.paintee.common.file.controller \n
  @section 상세설명
  - 첨부파일 관련 공통 controller
 */
-@Controller("com.paintee.common.file.controller.FileController")
-@RequestMapping(value = "/cmm")
+//@Controller("com.paintee.common.file.controller.FileController")
+//@RequestMapping(value = "/cmm")
 public class FileController {
 	private final static Logger logger = LoggerFactory.getLogger(FileController.class);
 
