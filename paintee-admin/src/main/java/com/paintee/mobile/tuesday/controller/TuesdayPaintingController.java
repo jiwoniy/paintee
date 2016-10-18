@@ -1,9 +1,5 @@
 package com.paintee.mobile.tuesday.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.paintee.mobile.tuesday.service.TuesdayService;
+import com.paintee.common.repository.entity.TuesdayPainting;
+import com.paintee.mobile.tuesday.service.TuesdayPaintinService;
 
 /**
-@class TuesdayController
-com.paintee.mobile.tuesday.controller.TuesdayController \n
-   ㄴ TestController.java
+@class TuesdayPaintingController
+com.paintee.mobile.tuesday.controller.TuesdayPaintingController \n
+   ㄴ TuesdayPaintingController.java
  @section 클래스작성정보
     |    항  목       |      내  용       |
     | :-------------: | -------------   |
@@ -28,16 +25,16 @@ com.paintee.mobile.tuesday.controller.TuesdayController \n
  @section 상세설명
  - 화요의 그림 api
 */
-@RestController(value="com.paintee.mobile.tuesday.controller.TuesdayController")
-public class TuesdayController {
-	private final static Logger logger = LoggerFactory.getLogger(TuesdayController.class);
+@RestController(value="com.paintee.mobile.tuesday.controller.TuesdayPaintingController")
+public class TuesdayPaintingController {
+	private final static Logger logger = LoggerFactory.getLogger(TuesdayPaintingController.class);
 
 	@Autowired
-	private TuesdayService tuesdayService;
+	private TuesdayPaintinService tuesdayService;
 
 	@RequestMapping(value="/api/tuesday", method={RequestMethod.GET})
-	public Map<String, Object> getTuesdayData() throws Exception {
+	public TuesdayPainting getTuesdayData() throws Exception {
 
-		return null;
+		return tuesdayService.getTuesdayData();
 	}
 }
