@@ -74,6 +74,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		if(isEffective) {
 			return super.preHandle(request, response, handler);
 		} else {
+//			세션만료 예외처리 수정
 			throw new UnauthorizedException("9999", "Do not logined.");
 		}
 	}

@@ -79,6 +79,9 @@ function checkPainteeFile(file) {
 		image.onload = function() {
 			var width = this.width;
 			var height = this.height;
+			
+//			console.log("width : " + width);
+//			console.log("height : " + height);
 
 			//이미지 이면서 1080x1500 인 이미지
 			if(!fileType.match(/image\//) || width < 1080 || height < 1500) {
@@ -130,6 +133,9 @@ function createPainting() {
 	formData.append("xWidth", parseInt(croped.width,10));
 	formData.append("yWidth", parseInt(croped.height,10));
 	
+	// 2016-10-04 : ..가로/세로 Problem
+	formData.append("rotate", parseInt(croped.rotate,10));
+	
 	/* 4.3 수정 */
 	$("#update_painting_sentence_btn").html("<div class='purchase_btn_text'>wait </div><img src='spinner.png' class='spinner'>");
 	$(".stopper").show();
@@ -177,6 +183,7 @@ function initUpload(likeCount, doTotaluploadCount, uploadedCount){
     $(".upload_box").removeClass("upload_box_preview");
     var upload = new Upload();
     upload.setTitle("Upload Painting");
+    
 //    upload.setContents("당신의 그림이 Post될 때 마다,<br>추가로 업로드할 수 있는 그림의 수가 늘어납니다.<br>지금까지 253회 Post된 당신은 최대 50개의 그림을 올릴 수 있고<br> 지금 <span class='reward_money'>7</span>개 의 그림을 더 올릴 수 있습니다.<br><br><br>업로드를 위해서는<br>가로 사이즈 <b>1080px</b> 세로 사이즈 <b>1440px</b><br>이상의 이미지가 필요합니다.");
     var content = "<span data-i18n='[html]uploadPop.content1'></span>" + 
                   "<div class='upload_count'>♥ " + likeCount + "</div>" +
@@ -193,7 +200,7 @@ function initUpload(likeCount, doTotaluploadCount, uploadedCount){
     
     upload.setBottom("<div class='popup_btn upload_btn uploadFileBox'></div>");
     upload.buildUpload();
-
+    
     if(doUploadCount > 0) {
         resetUpload();
     }
@@ -220,6 +227,8 @@ function failUpload(){
 	uploadFail.setContents('<span data-i18n="[html]uploadPop.failContent" style="color:rgb(150,0,0)"></span>');
 	uploadFail.setBottom("<div class='popup_btn upload_btn uploadFileBox'><label for='painteeFile' class='upload_btn_text'>Select image file </label><img class='icon' src='ico/folder.png'><input type='file' id='painteeFile' name='painteeFile' title='' class='upload-input-hidden' /></div>");
 	uploadFail.buildUpload();
+	
+//	console.log(doUploadCount);
 
     if(doUploadCount > 0) {
         resetUpload();
@@ -353,6 +362,9 @@ function initCrop(src, originalWidth, originalHeight){
         top: 20,
         left: 200
     };
+    
+//    console.log("originalWidth : " + originalWidth);
+//    console.log("originalHeight : " + originalHeight);
 
     cropBox.height  = mainHeight*0.8;
     cropBox.width   = cropBox.height*0.72;
@@ -402,7 +414,7 @@ function initCrop(src, originalWidth, originalHeight){
             $(".stopper").hide();
         },
         zoom: function(e){
-            console.log(e.detail.ratio);
+//            console.log(e.detail.ratio);
             if(e.detail.ratio>originalRatio){
                 e.preventDefault();
             }
@@ -412,7 +424,7 @@ function initCrop(src, originalWidth, originalHeight){
 
 $(".crop_confirm_btn").click(function(){
     croped = cropper.getData();
-    console.log(croped);
+//    console.log(croped);
 /*    cropedPreview = cropper.getCroppedCanvas({
         width: $(".upload_box").width(),
         height: $(".upload_box").height()
@@ -423,14 +435,19 @@ $(".crop_confirm_btn").click(function(){
     });
 
     var previewRatio=$(".upload_box").width()/croped.width;
-    console.log("ratio : " + previewRatio);
-    console.log("width : " + sourceWidth*previewRatio);
-    console.log("height : " + sourceHeight*previewRatio);
-    console.log("left : " + croped.x*previewRatio);
-    console.log("top : " + croped.y*previewRatio);
+//    console.log(sourceWidth);
+//    console.log(sourceHeight);
+//    console.log("ratio : " + previewRatio);
+//    console.log("width : " + sourceWidth*previewRatio);
+//    console.log("height : " + sourceHeight*previewRatio);
+//    console.log("left : " + croped.x*previewRatio);
+//    console.log("top : " + croped.y*previewRatio);
+//    console.log("croped.rotate : " + croped.rotate);
 
     cropedImg = $("<img>").attr("src", $("#crop_original_image").attr("src"));
 
+//    console.log("rotate : " + croped.rotate);
+    
     if(croped.rotate==90){
         cropedImg.css("transform-origin", "0px 0px");
         cropedImg.css("transform", "rotate("+croped.rotate+"deg)");
