@@ -103,7 +103,7 @@ PaintingLikeController.prototype = {
 	    $(this.bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
 	    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
 	    // 다른 목록의 대상자 처리를 위해
-	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_like").replaceWith(listBtnLiked);
+	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_like, div.tue_btn > img.list_btn_like").replaceWith(listBtnLiked);
 	    // 해당 이벤트 발생 대상자 처리를 위해
 	    $(this.bubble).replaceWith(listBtnLiked);
 	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) + 1);
@@ -128,7 +128,7 @@ PaintingLikeController.prototype = {
 	    $(this.bubble).parent().find(".like_sequence").show().find(".like_sequence_circle")
 	    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
 	    // 다른 목록의 대상자 처리를 위해
-	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_liked").replaceWith(listBtnLike);
+	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_liked, div.tue_btn > img.list_btn_liked").replaceWith(listBtnLike);
 	    // 해당 이벤트 발생 대상자 처리를 위해
 	    $(this.bubble).replaceWith(listBtnLike);
 	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) - 1);

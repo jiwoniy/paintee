@@ -56,15 +56,18 @@ window.addEventListener("popstate", function(e) {
 
 			switch (e.state.mainIndex) {
 			case 0:
-				currentSwiper = followSwiper;
+				currentSwiper = tueSwiper;
 				break;
 			case 1:
-				currentSwiper = popularSwiper;
+				currentSwiper = followSwiper;
 				break;
 			case 2:
-				currentSwiper = newSwiper;
+				currentSwiper = popularSwiper;
 				break;
 			case 3:
+				currentSwiper = newSwiper;
+				break;
+			case 4:
 				currentSwiper = mySwiper;
 				break;
 			}
@@ -80,16 +83,16 @@ window.addEventListener("popstate", function(e) {
 		else if (e.state.call == "detailOpen") {
 			hidePersonal();
 			switch (e.state.mainIndex) {
-			case 0:
+			case 1:
 				currentSwiper = followSwiper;
 				break;
-			case 1:
+			case 2:
 				currentSwiper = popularSwiper;
 				break;
-			case 2:
+			case 3:
 				currentSwiper = newSwiper;
 				break;
-			case 3:
+			case 4:
 				currentSwiper = mySwiper;
 				break;
 			}

@@ -1,16 +1,20 @@
 package com.paintee.mobile.tuesday.service;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paintee.common.repository.entity.TuesdayPainting;
-import com.paintee.common.repository.entity.TuesdayPaintingExample;
-import com.paintee.common.repository.mapper.TuesdayPaintingMapper;
+import com.paintee.common.repository.entity.FileInfo;
+import com.paintee.common.repository.entity.FileInfoExample;
+import com.paintee.common.repository.entity.vo.TuesdayPaintingSearchVO;
+import com.paintee.common.repository.entity.vo.TuesdayPaintingVO;
+import com.paintee.common.repository.helper.FileInfoHelper;
+import com.paintee.common.repository.helper.TuesdayPaintingHelper;
 
 /**
 @class TuesdayController
@@ -32,15 +36,20 @@ public class TuesdayPaintingServiceImpl implements TuesdayPaintinService {
 	private final static Logger logger = LoggerFactory.getLogger(TuesdayPaintingServiceImpl.class);
 
 	@Autowired
-	private TuesdayPaintingMapper tuesdayPaintingMapper;
-
+	private TuesdayPaintingHelper tuesdayPaintingHelper;
+	
+	/**
+	@brief 업로드된 그림의 파일 정보를 관리하는 헬퍼객체
+	 */
+	@Autowired
+	private FileInfoHelper fileInfoHelper;	
+	
 	/**
 	 @fn 
 	 @brief (Override method) 함수 간략한 설명 : 화요의 그림 데이터 조회
 	 @remark
 	 - 오버라이드 함수의 상세 설명 : 화요의 그림 데이터 조회
 	 @see com.paintee.mobile.tuesday.service.TuesdayPaintinService#getTuesdayData()
-	*/
 	@Override
 	public TuesdayPainting getTuesdayData() {
 		TuesdayPainting tuesdayPainting = null;
@@ -61,4 +70,39 @@ public class TuesdayPaintingServiceImpl implements TuesdayPaintinService {
 
 		return tuesdayPainting;
 	}
+	 */
+	
+	/**
+	 @fn 
+	 @brief (Override method) 함수 간략한 설명 : 화요의 그림 데이터 조회
+	 @remark
+	 - 오버라이드 함수의 상세 설명 : 화요의 그림 데이터 조회
+	 @see com.paintee.mobile.tuesday.service.TuesdayPaintinService#getTuesdayData()
+	@Override
+	*/
+	@Override
+	public Map<String, Object> getTuesdayData(TuesdayPaintingSearchVO search) {
+		
+		List<TuesdayPaintingVO> list = tuesdayPaintingHelper.selectTuesdayPaintingList(search);
+		logger.debug("list ::: {}", list);
+		
+		// 파일정보 조회
+		for (TuesdayPaintingVO tuesdayPainting : list) {
+			FileInfoExample fileInfoExample = new FileInfoExample();
+			FileInfoExample.Criteria fileWhere = fileInfoExample.createCriteria();
+			fileWhere.andFileGroupSeqEqualTo(tuesdayPainting.getFileGroupSeq());
+	
+			List<FileInfo> fileInfoList = fileInfoHelper.selectByExample(fileInfoExample);
+	
+			if(fileInfoList != null && fileInfoList.size() > 0) {
+				FileInfo fileInfo = fileInfoList.get(0);
+				tuesdayPainting.setFileId(fileInfo.getId());
+			}
+		}
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("list", list);
+		return result;
+	}
+
 }

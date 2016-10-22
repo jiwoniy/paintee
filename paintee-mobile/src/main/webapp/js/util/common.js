@@ -128,13 +128,40 @@ Date.prototype.timestampToFullDate = function () {
 	return year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day) + " " + (hour < 10 ? "0" + hour : hour) + ":" + (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);
 };
 
+/**
+ * 해당 날짜의 월 주차 구하기
+ */
+Date.prototype.weekCountOfMonth = function () {
+    var year  = this.getFullYear();
+    var month = this.getMonth();
+    
+    // 현재 해당 월 1일에 대한 요일
+    var beginDay = new Date(year, month, 1).getDay();
+    
+    // 현재의 날짜
+    var sDate = this.getDate();
+    
+    var week = 1;
+    var day = 7;
+    while (true) {
+    	if (sDate - (day - beginDay) <= 0) break;
+    	week++;
+    	day += 7;
+    }
+	return week;
+};
+
+Date.prototype.convertEngMonth = function () {
+	var engName = ['Jan', 'Feb', "Mar", 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	return engName[this.getMonth()];
+};
+
 Number.prototype.toDateFormat = function () {
 	var date = new Date(this);
 	var year = date.getFullYear();
 	var month = date.getMonth() + 1;
 	var day = date.getDate();
 
-	year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
 	return year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
 };
 

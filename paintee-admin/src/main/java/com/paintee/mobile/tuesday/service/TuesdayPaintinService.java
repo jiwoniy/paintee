@@ -1,6 +1,8 @@
 package com.paintee.mobile.tuesday.service;
 
-import com.paintee.common.repository.entity.TuesdayPainting;
+import java.util.Map;
+
+import com.paintee.common.repository.entity.vo.TuesdayPaintingSearchVO;
 
 /**
 @class TuesdayController
@@ -25,5 +27,5 @@ public interface TuesdayPaintinService {
 	 - 함수의 상세 설명 : 화요의 그림 데이터 조회
 	 @return 
 	*/
-	public TuesdayPainting getTuesdayData();
+	public Map<String, Object> getTuesdayData(TuesdayPaintingSearchVO search);
 }

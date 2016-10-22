@@ -6,7 +6,7 @@ $(document).ready(function () {
 });
 
 // 만약 화요의 그림을 구매했다면 follow 화면으로 이동, 그렇지 않다면 화요의 그림부터 시작
-mainSwiper.slideTo(1, 0);
+mainSwiper.slideTo(0, 0);
 
 // tuesday container(목록) 시작
 var tueSwiper = new Swiper('.swiper_container_tuesday', {
@@ -65,9 +65,9 @@ function Tuesday(data){
         this.expalin    =$("<div>").addClass("tue_explain");
         this.tueBtn            =$("<div>").addClass("tue_btn");
         this.listBtnLike        =$("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like")
-                                            .click(function(){riseBubble(this);});
+                                            .click(function(){riseBubble(this, data.paintingId, data.artistId);});
         this.listBtnLiked       =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked")
-                                            .click(function(){dropBubble(this)});
+                                            .click(function(){dropBubble(this, data.paintingId, data.artistId)});
         this.listBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("list_btn_comment");
         this.listBtnPost        =$("<img>").attr("src", "ico/post.png").addClass("list_btn_icon").addClass("list_btn_post").click(function() {
                                                    if (data.paintingStatus == "D") {
@@ -119,13 +119,17 @@ Tuesday.prototype = {
 
                         },
         // 현재 게시 기간이면 무료 구매버튼 표시, 아니면 일반 구매버튼 표시
-        setPost:        function(free){
+        setPost:        function(free, listData){
                             if(free){
                                 this.listBtnPost.attr("src", "ico/post_free.png");
                             }
                             this.tueBtn.append(this.listBtnPost);
                             this.tueBtn.append(this.listBtnComment);
-                            this.tueBtn.append(this.listBtnLike);
+                            if (listData.loginLikeCnt == 0) {
+                            	this.tueBtn.append(this.listBtnLike);
+                            } else {
+                            	this.tueBtn.append(this.listBtnLiked);
+                            }                            
         },
         setSentenceBox: function(){
                             this.sentenceBox.append(this.sentenceInput);
@@ -189,25 +193,32 @@ function toggleTueBg(thum){
 
 function addTuesday(swiper, currentIndex, type, listData){
 	if (!listData) {return;}
+	
+	console.log("listData", listData);
 	var data = {
 		index: swiper.slides.length,
 		paintingId: listData.paintingId,
-		artistName: listData.artistName
+		artistName: listData.artistName,
+		artistName: listData.artistId,
+		likeCnt: listData.likeCnt
 	};
 
     // free는 임의로 첫번째 인덱스에만 true가 되도록 설정된 상태입니다. 실제로는 게시기간을 확인해서 게시기간 이내만 free가 되도록 수정되어야 합니다.
-    var free = (data.index<1) ? true : false;
+	var free = (toDate(new Date().getTime()) <= toDate(listData.endDate)) ? true : false;
 
 	var newSlide = new Tuesday(data);
 
     // 각각의 슬라이드의 내용을 설정합니다.
     // 이미지 주소/추천평/week/작가이름이 tuesday 목록에서 불러온 값으로 설정되게 해주세요.
     newSlide.setImage(getImageUrls(listData.fileId));
-    newSlide.setComment("여기에는 관리자가 작성한 추천평이 나옵니다. <br> 추천평은 400자 이내로 작성할 수 있습니다.");
-    newSlide.setWeek("1st", "Oct");
+    newSlide.setComment(listData.comment);
+//    newSlide.setWeek("1st", "Oct");
+    var startDate = new Date(listData.startDate);
+    newSlide.setWeek(startDate.weekCountOfMonth() + "st", startDate.convertEngMonth());
     // 게시기간이 시작되는 날짜를 기준으로 [월] [몇번째주] 로 표시됩니다.
+    
     newSlide.setExplain(free);
-    newSlide.setPost(free);
+    newSlide.setPost(free, listData);
     newSlide.setArtist(listData.artistName);
 
     tueSwiper.appendSlide(newSlide.buildStructure());
@@ -228,7 +239,7 @@ TuesdayController.prototype = {
 	getListData: function (startRow) {
 		this.startRow = startRow;
 		var controller = this;
-		AjaxCall.call(apiUrl + "/popularIndex?startRow=" + startRow,
+		AjaxCall.call(apiUrl + "/tuesday?startRow=" + startRow,
 			null,
 			"GET",
 			function (result) {
