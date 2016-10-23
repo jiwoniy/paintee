@@ -138,13 +138,13 @@ DetailStructure.prototype = {
     },
     setLikedNum: function(likedNum){
     	var paintingId = this.paintingId;
-        this.detailLikeNum.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num list_info_likes_num'>"+likedNum+" likes</div>")
+        this.detailLikeNum.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num list_info_detail_comment_num'><span id='detail_likes_num'>"+likedNum+"</span> likes</div>")
         .click(function(){
         		showLikes(paintingId)
         });
     },
     setCommentedNum: function(commentedNum){
-        this.detailCommentNum.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'>"+commentedNum+" comments</div>");
+        this.detailCommentNum.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'><span id='detail_comment_num'>"+commentedNum+"</span> comments</div>");
     },
     setPostedNum: function(postedNum){
         this.detailPostNum.append("<img class='list_info_posted_ico' src='ico/post.png'><div class='list_info_posted_num'>"+postedNum+" posts</div>");
@@ -533,5 +533,17 @@ function refreshDetailPosted() {
 		}
 	}
 
+	var postNum = parseInt($('#detail_comment_num').html(), 10);
+	postNum += 1;
+
+	$('#detail_comment_num').html(postNum);
+
 	callPosted(thisDetailSwiper);
+}
+
+function processDetailLikesNum(value) {
+	var likesNum = parseInt($('#detail_likes_num').html(), 10);
+	likesNum += value;
+
+	$('#detail_likes_num').html(likesNum);
 }

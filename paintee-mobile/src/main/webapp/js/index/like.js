@@ -108,6 +108,8 @@ PaintingLikeController.prototype = {
 	    $(this.bubble).replaceWith(listBtnLiked);
 	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) + 1);
 	    //dataReload(["initPopular();"]);
+
+	    processDetailLikesNum(1);
 	},
 	cancelPaintingLike: function () {
 		var controller = this;
@@ -133,6 +135,8 @@ PaintingLikeController.prototype = {
 	    $(this.bubble).replaceWith(listBtnLike);
 	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) - 1);
 	    // dataReload(["initPopular();"]);
+
+	    processDetailLikesNum(-1);
 	},
 	//해당 그림을 좋아요 한 사람 목록 요청 AJAX
 	getLikeUserList : function() {
