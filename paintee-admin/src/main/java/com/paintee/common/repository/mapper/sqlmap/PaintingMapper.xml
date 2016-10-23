@@ -89,7 +89,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from tb_painting
+    from TB_PAINTING
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -100,15 +100,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from tb_painting
+    from TB_PAINTING
     where seq = #{seq,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_painting
+    delete from TB_PAINTING
     where seq = #{seq,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.PaintingExample" >
-    delete from tb_painting
+    delete from TB_PAINTING
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -117,7 +117,7 @@
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tb_painting (painting_id, upload_date, artist_id, 
+    insert into TB_PAINTING (painting_id, upload_date, artist_id, 
       sentence, location, posted_num, 
       comment_cnt, posted_people_cnt, original_size, 
       view_cnt, share_cnt, file_group_seq, 
@@ -134,7 +134,7 @@
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tb_painting
+    insert into TB_PAINTING
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="paintingId != null" >
         painting_id,
@@ -231,13 +231,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.paintee.common.repository.entity.PaintingExample" resultType="java.lang.Integer" >
-    select count(*) from tb_painting
+    select count(*) from TB_PAINTING
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_painting
+    update TB_PAINTING
     <set >
       <if test="record.seq != null" >
         seq = #{record.seq,jdbcType=INTEGER},
@@ -293,7 +293,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_painting
+    update TB_PAINTING
     set seq = #{record.seq,jdbcType=INTEGER},
       painting_id = #{record.paintingId,jdbcType=VARCHAR},
       upload_date = #{record.uploadDate,jdbcType=TIMESTAMP},
@@ -315,7 +315,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.Painting" >
-    update tb_painting
+    update TB_PAINTING
     <set >
       <if test="paintingId != null" >
         painting_id = #{paintingId,jdbcType=VARCHAR},
@@ -366,7 +366,7 @@
     where seq = #{seq,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.Painting" >
-    update tb_painting
+    update TB_PAINTING
     set painting_id = #{paintingId,jdbcType=VARCHAR},
       upload_date = #{uploadDate,jdbcType=TIMESTAMP},
       artist_id = #{artistId,jdbcType=VARCHAR},
