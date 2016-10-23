@@ -192,7 +192,7 @@ function Structure(data) {
                                                        alert($.i18n.t('alert.common.delPainting'));
                                                        return;
                                                    }
-                                                   purchase(data.paintingId, data.artistName, "comment");
+                                                   purchase(data.paintingId, data.artistName, "comment", "CASH");
                                             });
         this.listBtnPost        =$("<img>").attr("src", "ico/post.png").addClass("list_btn_icon").addClass("list_btn_post")
                                             .click(function() {
@@ -200,7 +200,7 @@ function Structure(data) {
                                                        alert($.i18n.t('alert.common.delPainting'));
                                                        return;
                                                    }
-                                                   purchase(data.paintingId, data.artistName, "post");
+                                                   purchase(data.paintingId, data.artistName, "post", "CASH");
                                             });
         this.listStatusBtn      =$("<div>").addClass("list_status_btn");                 
         this.listStatusStc      =$("<div>").addClass("list_status_sentence");            

@@ -8,6 +8,8 @@
 	    <result column="comment" property="comment" />	    
 	    <result column="start_date" property="startDate" />	    
 	    <result column="end_date" property="endDate" />	    
+	    <result column="post_yn" property="postYn" />	    
+	    <result column="tuesday_seq" property="tuesdaySeq" />	    
 	</resultMap>
   	
 	<!--  -->
@@ -25,12 +27,26 @@
 		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt,
 		       b.comment, 
 		       b.start_date,	
-		       b.end_date	
+		       b.end_date,
+		       case when (select count(painting_id) from TB_PURCHASE where painting_id = a.painting_id and purchase_type = 'TUSEDAY') > 0
+			       then 'Y'
+			       else 'N'
+			       end AS post_yn,
+			   b.seq AS tuesday_seq
 		  from TB_PAINTING a, 
 		       TB_TUESDAY_PAINTING b
 		 where a.painting_id = b.painting_id
 		   and a.private_at = 'N'
 		 order by b.end_date desc
 		 limit #{startRow}, #{rowPerPage}
-  	</select>  	
+  	</select>
+
+	<!-- 해당 그림이 오늘 일자에 무료 화요의 그림인지 확인및 정보를 조회한다. -->
+  	<select id="selectFreeTuesdayPaintingByPaintingId" parameterType="String" resultType="com.paintee.common.repository.entity.TuesdayPainting">
+		select 
+			<include refid="com.paintee.common.repository.mapper.TuesdayPaintingMapper.Base_Column_List" />
+		from TB_TUESDAY_PAINTING
+		where painting_id = #{paintingId}
+		and NOW() between DATE_FORMAT(start_date, '%Y-%m-%d 00:00:00') and DATE_FORMAT(end_date, '%Y-%m-%d 23:59:59')
+  	</select>
 </mapper>

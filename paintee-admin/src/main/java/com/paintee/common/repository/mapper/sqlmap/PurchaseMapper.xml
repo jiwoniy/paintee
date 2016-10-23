@@ -6,6 +6,8 @@
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="painting_id" property="paintingId" jdbcType="VARCHAR" />
     <result column="purchase_date" property="purchaseDate" jdbcType="TIMESTAMP" />
+    <result column="purchase_type" property="purchaseType" jdbcType="VARCHAR" />
+    <result column="tuesday_seq" property="tuesdaySeq" jdbcType="INTEGER" />
     <result column="sentence" property="sentence" jdbcType="VARCHAR" />
     <result column="private_at" property="privateAt" jdbcType="CHAR" />
     <result column="receiver_basic_addr" property="receiverBasicAddr" jdbcType="VARCHAR" />
@@ -79,9 +81,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    seq, user_id, painting_id, purchase_date, sentence, private_at, receiver_basic_addr, 
-    receiver_detail_addr, receiver_zipcode, receiver_city, receiver_name, sender_addr, 
-    sender_name, location, purchase_status, status_update_date, created_date
+    seq, user_id, painting_id, purchase_date, purchase_type, tuesday_seq, sentence, private_at, 
+    receiver_basic_addr, receiver_detail_addr, receiver_zipcode, receiver_city, receiver_name, 
+    sender_addr, sender_name, location, purchase_status, status_update_date, created_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.PurchaseExample" >
     select
@@ -90,7 +92,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from TB_PURCHASE
+    from tb_purchase
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -101,15 +103,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from TB_PURCHASE
+    from tb_purchase
     where seq = #{seq,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from TB_PURCHASE
+    delete from tb_purchase
     where seq = #{seq,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.PurchaseExample" >
-    delete from TB_PURCHASE
+    delete from tb_purchase
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -118,24 +120,26 @@
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into TB_PURCHASE (user_id, painting_id, purchase_date, 
-      sentence, private_at, receiver_basic_addr, 
-      receiver_detail_addr, receiver_zipcode, receiver_city, 
-      receiver_name, sender_addr, sender_name, 
-      location, purchase_status, status_update_date, 
-      created_date)
+    insert into tb_purchase (user_id, painting_id, purchase_date, 
+      purchase_type, tuesday_seq, sentence, 
+      private_at, receiver_basic_addr, receiver_detail_addr, 
+      receiver_zipcode, receiver_city, receiver_name, 
+      sender_addr, sender_name, location, 
+      purchase_status, status_update_date, created_date
+      )
     values (#{userId,jdbcType=VARCHAR}, #{paintingId,jdbcType=VARCHAR}, #{purchaseDate,jdbcType=TIMESTAMP}, 
-      #{sentence,jdbcType=VARCHAR}, #{privateAt,jdbcType=CHAR}, #{receiverBasicAddr,jdbcType=VARCHAR}, 
-      #{receiverDetailAddr,jdbcType=VARCHAR}, #{receiverZipcode,jdbcType=VARCHAR}, #{receiverCity,jdbcType=VARCHAR}, 
-      #{receiverName,jdbcType=VARCHAR}, #{senderAddr,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, 
-      #{location,jdbcType=VARCHAR}, #{purchaseStatus,jdbcType=VARCHAR}, #{statusUpdateDate,jdbcType=TIMESTAMP}, 
-      #{createdDate,jdbcType=TIMESTAMP})
+      #{purchaseType,jdbcType=VARCHAR}, #{tuesdaySeq,jdbcType=INTEGER}, #{sentence,jdbcType=VARCHAR}, 
+      #{privateAt,jdbcType=CHAR}, #{receiverBasicAddr,jdbcType=VARCHAR}, #{receiverDetailAddr,jdbcType=VARCHAR}, 
+      #{receiverZipcode,jdbcType=VARCHAR}, #{receiverCity,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, 
+      #{senderAddr,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{purchaseStatus,jdbcType=VARCHAR}, #{statusUpdateDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.Purchase" >
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into TB_PURCHASE
+    insert into tb_purchase
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         user_id,
@@ -145,6 +149,12 @@
       </if>
       <if test="purchaseDate != null" >
         purchase_date,
+      </if>
+      <if test="purchaseType != null" >
+        purchase_type,
+      </if>
+      <if test="tuesdaySeq != null" >
+        tuesday_seq,
       </if>
       <if test="sentence != null" >
         sentence,
@@ -196,6 +206,12 @@
       <if test="purchaseDate != null" >
         #{purchaseDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="purchaseType != null" >
+        #{purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="tuesdaySeq != null" >
+        #{tuesdaySeq,jdbcType=INTEGER},
+      </if>
       <if test="sentence != null" >
         #{sentence,jdbcType=VARCHAR},
       </if>
@@ -238,13 +254,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.paintee.common.repository.entity.PurchaseExample" resultType="java.lang.Integer" >
-    select count(*) from TB_PURCHASE
+    select count(*) from tb_purchase
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update TB_PURCHASE
+    update tb_purchase
     <set >
       <if test="record.seq != null" >
         seq = #{record.seq,jdbcType=INTEGER},
@@ -257,6 +273,12 @@
       </if>
       <if test="record.purchaseDate != null" >
         purchase_date = #{record.purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.purchaseType != null" >
+        purchase_type = #{record.purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tuesdaySeq != null" >
+        tuesday_seq = #{record.tuesdaySeq,jdbcType=INTEGER},
       </if>
       <if test="record.sentence != null" >
         sentence = #{record.sentence,jdbcType=VARCHAR},
@@ -303,11 +325,13 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update TB_PURCHASE
+    update tb_purchase
     set seq = #{record.seq,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=VARCHAR},
       painting_id = #{record.paintingId,jdbcType=VARCHAR},
       purchase_date = #{record.purchaseDate,jdbcType=TIMESTAMP},
+      purchase_type = #{record.purchaseType,jdbcType=VARCHAR},
+      tuesday_seq = #{record.tuesdaySeq,jdbcType=INTEGER},
       sentence = #{record.sentence,jdbcType=VARCHAR},
       private_at = #{record.privateAt,jdbcType=CHAR},
       receiver_basic_addr = #{record.receiverBasicAddr,jdbcType=VARCHAR},
@@ -326,7 +350,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.Purchase" >
-    update TB_PURCHASE
+    update tb_purchase
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
@@ -336,6 +360,12 @@
       </if>
       <if test="purchaseDate != null" >
         purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purchaseType != null" >
+        purchase_type = #{purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="tuesdaySeq != null" >
+        tuesday_seq = #{tuesdaySeq,jdbcType=INTEGER},
       </if>
       <if test="sentence != null" >
         sentence = #{sentence,jdbcType=VARCHAR},
@@ -380,10 +410,12 @@
     where seq = #{seq,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.Purchase" >
-    update TB_PURCHASE
+    update tb_purchase
     set user_id = #{userId,jdbcType=VARCHAR},
       painting_id = #{paintingId,jdbcType=VARCHAR},
       purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+      purchase_type = #{purchaseType,jdbcType=VARCHAR},
+      tuesday_seq = #{tuesdaySeq,jdbcType=INTEGER},
       sentence = #{sentence,jdbcType=VARCHAR},
       private_at = #{privateAt,jdbcType=CHAR},
       receiver_basic_addr = #{receiverBasicAddr,jdbcType=VARCHAR},

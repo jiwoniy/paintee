@@ -152,7 +152,9 @@
 			"processCancel": "Refund request is completed.",
 			"processCancelRefund": "Cancelling refund request is completed.",
 			"processComplete": "Re-sending request is completed.",
-			"finishPurchaseService": "You have turned off free service."
+			"finishPurchaseService": "You have turned off free service.",
+			"notFreeTuesdayPaint": "유료 화요의 그림이 아닙니다.",
+			"alreadyPostedTuesdayPaint": "이미 무료로 화요의 그림을 구입하셨습니다."
 		},
 		"reward" : {
 			"existRequest": "You have already applied for another reward.",

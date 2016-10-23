@@ -152,7 +152,9 @@
 			"processCancel": "환불요청이 처리되었습니다.",
 			"processCancelRefund": "환불요청 취소가 처리되었습니다.",			
 			"processComplete": "재발송 요청이 처리되었습니다.",
-			"finishPurchaseService": "제공된 구매서비스가 종료되었습니다."
+			"finishPurchaseService": "제공된 구매서비스가 종료되었습니다.",
+			"notFreeTuesdayPaint": "유료 화요의 그림이 아닙니다.",
+			"alreadyPostedTuesdayPaint": "이미 무료로 화요의 그림을 구입하셨습니다."
 		},
 		"reward" : {
 			"existRequest": "이미 신청중인 리워드가 있습니다.",

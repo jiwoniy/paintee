@@ -89,11 +89,11 @@ function DetailStructure(paintingId, paintingInfo){
     
     this.detailBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("detail_btn_comment")
                                         .click(function(){
-                                               purchase(paintingId, paintingInfo.artistName, "comment");
+                                               purchase(paintingId, paintingInfo.artistName, "comment", "CASH");
                                         });
     this.detailBtnPost        =$("<img>").attr("src", "ico/post.png").addClass("list_btn_icon").addClass("detail_btn_post")
                                         .click(function() {
-                                               purchase(paintingId, paintingInfo.artistName, "post");
+                                               purchase(paintingId, paintingInfo.artistName, "post", "CASH");
                                         });
     this.detailPagenation   =$("<div>").addClass("swiper-pagination").addClass("detail_pagination");
     this.closeBtn          =$("<div>").addClass("close_btn").html("<img class='icon' src='ico/close.png' />").click(function(){

@@ -68,13 +68,25 @@ function Tuesday(data){
                                             .click(function(){riseBubble(this, data.paintingId, data.artistId);});
         this.listBtnLiked       =$("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked")
                                             .click(function(){dropBubble(this, data.paintingId, data.artistId)});
-        this.listBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("list_btn_comment");
+        this.listBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("list_btn_comment").click(function(){
+								            	purchase(data.paintingId, data.artistName, "comment", "TUESDAY");
+								        	});
         this.listBtnPost        =$("<img>").attr("src", "ico/post.png").addClass("list_btn_icon").addClass("list_btn_post").click(function() {
-                                                   if (data.paintingStatus == "D") {
-                                                       alert($.i18n.t('alert.common.delPainting'));
-                                                       return;
-                                                   }
-                                                   purchase(data.paintingId, data.artistName, "post");
+
+												if (data.paintingStatus == "D") {
+												alert($.i18n.t('alert.common.delPainting'));
+												    return;
+												}
+												console.log("data.postYn:"+data.postYn);
+												if(checkFreePaint(data.startDate, data.endDate) && data.postYn == 'N') {
+													console.log(data);
+													console.log("TUESDAY");
+													purchase(data.paintingId, data.artistName, "post", "TUESDAY");
+												} else {
+													console.log(data);
+													console.log("CASH");
+													purchase(data.paintingId, data.artistName, "post", "CASH");
+												}
                                             });
         this.next       =$("<div>").addClass("home_next").html('<img class="icon" src="ico/keyboard_arrow_up.png">').click(function(){mainSwiper.slideNext()});
 }
@@ -147,6 +159,29 @@ Tuesday.prototype = {
                         }
 }
 
+function checkFreePaint(pStartDate, pEndDate) {
+	var isFree = false;
+
+	var startDate = pStartDate.split(" ")[0];
+	var startDateArr = startDate.split('-');
+
+	var endDate = pEndDate.split(" ")[0];
+	var endDateArr = endDate.split('-');
+
+	var todayDate =new Date()
+
+
+	var startDateCompare = new Date(startDateArr[0], startDateArr[1], startDateArr[2]);
+    var endDateCompare = new Date(endDateArr[0], endDateArr[1], endDateArr[2]);
+    var todayDateCompare = new Date(todayDate.getFullYear(), todayDate.getMonth()+1, todayDate.getDate());
+
+    if(startDateCompare.getTime() <= todayDateCompare.getTime() && todayDateCompare.getTime() <= endDateCompare.getTime()) {
+    	isFree = true;
+    }
+
+    return isFree;
+}
+
 function initTuesday(){
     var controller = new TuesdayController();
     controller.getListData(0);
@@ -193,14 +228,17 @@ function toggleTueBg(thum){
 
 function addTuesday(swiper, currentIndex, type, listData){
 	if (!listData) {return;}
-	
-	console.log("listData", listData);
+
 	var data = {
 		index: swiper.slides.length,
 		paintingId: listData.paintingId,
 		artistName: listData.artistName,
-		artistName: listData.artistId,
-		likeCnt: listData.likeCnt
+		artistId: listData.artistId,
+		startDate: listData.startDate,
+		endDate: listData.endDate,
+		likeCnt: listData.likeCnt,
+		postYn: listData.postYn,
+		tuesdaySeq: listData.tuesdaySeq
 	};
 
     // free는 임의로 첫번째 인덱스에만 true가 되도록 설정된 상태입니다. 실제로는 게시기간을 확인해서 게시기간 이내만 free가 되도록 수정되어야 합니다.

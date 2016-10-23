@@ -32,7 +32,7 @@ com.paintee.common.repository.entity.vo \n
 */
 public class TuesdayPaintingVO extends PaintingVO {
 	
-    private Integer seq;
+    private Integer tuesdaySeq;
 
     private String title;
 
@@ -45,7 +45,9 @@ public class TuesdayPaintingVO extends PaintingVO {
 	private String startDate;
 
 	private String endDate;
-	
+
+	private String postYn;
+
 	/**
 	 * 그림의 로그인한 사용자의 좋아요 카운트
 	 */
@@ -69,12 +71,12 @@ public class TuesdayPaintingVO extends PaintingVO {
 		this.loginLikeCnt = loginLikeCnt;
 	}
 
-	public Integer getSeq() {
-		return seq;
+	public Integer getTuesdaySeq() {
+		return tuesdaySeq;
 	}
 
-	public void setSeq(Integer seq) {
-		this.seq = seq;
+	public void setTuesdaySeq(Integer tuesdaySeq) {
+		this.tuesdaySeq = tuesdaySeq;
 	}
 
 	public String getTitle() {
@@ -116,5 +118,12 @@ public class TuesdayPaintingVO extends PaintingVO {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	
+
+	public String getPostYn() {
+		return postYn;
+	}
+
+	public void setPostYn(String postYn) {
+		this.postYn = postYn;
+	}
 }

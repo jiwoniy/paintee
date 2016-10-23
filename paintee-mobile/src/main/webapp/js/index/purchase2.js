@@ -77,7 +77,7 @@ Purchase.prototype = {
 }
 
 // 구매화면으로 이동
-function purchase(paintingId, artistName, type) {
+function purchase(paintingId, artistName, type, purchaseType) {
 
 	if (userID == "") {
 		showLogin();
@@ -85,6 +85,7 @@ function purchase(paintingId, artistName, type) {
 	}
 	this.paintingId = paintingId;
     this.artistName = artistName;
+    this.purchaseType = purchaseType;
 
     initPurchasePop(type);
 }
@@ -179,7 +180,7 @@ function showComment(){
 };
 
 function showAddress(){
-    purchaseController = new PurchaseController(paintingId, artistName);
+    purchaseController = new PurchaseController(paintingId, artistName, purchaseType);
     purchaseController.purchasePopInfo();
 
     purchaseStatus="address";
@@ -441,9 +442,13 @@ function showPurchaseSpinner(){
     $(".stopper").show();
 }
 
-function PurchaseController(paintingId, artistName) {
+function PurchaseController(paintingId, artistName, purchaseType) {
+	if(purchaseType == null || purchaseType == '')
+		purchaseType = 'CASH';
+
 	this.paintingId = paintingId;
 	this.artistName = artistName;
+	this.purchaseType = purchaseType;
 	this.basicAddr;
 	this.detailAddr;
 	this.changeAddr = 'N';
@@ -478,6 +483,7 @@ PurchaseController.prototype = {
 			userId: userID,
 			paintingId: this.paintingId,
             artistName: this.artistName,
+            purchaseType: this.purchaseType,
 			sentence: $("[name=sentence]").val(),
 			privateAt: ($("[name=privateAt]").prop("checked")) ? "Y" : "N",
 			receiverBasicAddr: $("[name=receiverBasicAddr]").val(),
@@ -499,6 +505,7 @@ PurchaseController.prototype = {
 				controller.addPurchaseRes(result);
 			}
 		);
+
 	},
 	addPurchaseRes: function (result) {
         // 스피너 화면 중지
@@ -508,6 +515,15 @@ PurchaseController.prototype = {
 //		resetPurchase();
         closePurchaseStep01();
 		completePayment(result);
+
+		if(result.errorNo == '500') {
+			alert($.i18n.t('alert.purchase.notFreeTuesdayPaint'));
+			return;
+		} else if(result.errorNo == '501') {
+			alert($.i18n.t('alert.purchase.alreadyPostedTuesdayPaint'));
+			return;
+		}
+
     	dataReload(["initMy();", "initPopular();"]);
 	},
 	cancelPurchase: function (listData) {

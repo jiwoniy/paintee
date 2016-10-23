@@ -31,10 +31,5 @@ CREATE TABLE TB_TUESDAY_PAINTING (
    primary key (seq)
 ) COMMENT = '화요의 그림';
 
-CREATE TABLE TB_TUESDAY_PAINTING_POST (
-   tuesday_seq INT not null COMMENT '화요의그림 고유번호',
-   user_id varchar(64) not null COMMENT '화요의그림 구매자 아이디',
-   create_date DATETIME COMMENT '등록일시',
-   create_id VARCHAR(64) COMMENT '등록자 아이디',
-   primary key (tuesday_seq, user_id)
-) COMMENT = '화요의 그림 구매자 정보';
+ALTER TABLE tb_purchase ADD purchase_type VARCHAR(20) DEFAULT 'CASH' COMMENT '구매 방법(CASH|TUSEDAY|COUPON)' AFTER purchase_date;
+ALTER TABLE tb_purchase ADD tuesday_seq INT COMMENT '화요의그림 고유번호' AFTER purchase_type;

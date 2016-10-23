@@ -16,12 +16,9 @@ package com.paintee.common.repository.helper;
 
 import java.util.List;
 
-import com.paintee.common.repository.entity.Follow;
-import com.paintee.common.repository.entity.vo.FollowSearchVO;
-import com.paintee.common.repository.entity.vo.FollowVO;
+import com.paintee.common.repository.entity.TuesdayPainting;
 import com.paintee.common.repository.entity.vo.TuesdayPaintingSearchVO;
 import com.paintee.common.repository.entity.vo.TuesdayPaintingVO;
-import com.paintee.common.repository.mapper.FollowMapper;
 import com.paintee.common.repository.mapper.TuesdayPaintingMapper;
 
 /**
@@ -43,5 +40,23 @@ com.paintee.common.repository.helper \n
 */
 public interface TuesdayPaintingHelper extends TuesdayPaintingMapper {
 
+	/**
+	 @fn selectRewardInfo
+	 @brief 함수 간략한 설명 : 화요의 그림 목록 조회
+	 @remark
+	 - 함수의 상세 설명 : 화요의 그림 목록을 조회한다.
+	 @param user
+	 @return 
+	*/
 	List<TuesdayPaintingVO> selectTuesdayPaintingList(TuesdayPaintingSearchVO search);
+
+	/**
+	 @fn selectRewardInfo
+	 @brief 함수 간략한 설명 : 오늘 일자에 해당 그림이 무료 화요의 그림일 경우 정보를 조회한다.
+	 @remark
+	 - 함수의 상세 설명 : 오늘 일자에 해당 그림이 무료 화요의 그림일 경우 정보를 조회하며 그렇지 않을경우 null 이다.
+	 @param user
+	 @return 
+	*/
+	TuesdayPainting selectFreeTuesdayPaintingByPaintingId(String paintingId);
 }

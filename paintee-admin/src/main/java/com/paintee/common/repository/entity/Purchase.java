@@ -12,6 +12,10 @@ public class Purchase extends BaseEntity {
 
     private Date purchaseDate;
 
+    private String purchaseType;
+
+    private Integer tuesdaySeq;
+
     private String sentence;
 
     private String privateAt;
@@ -68,6 +72,22 @@ public class Purchase extends BaseEntity {
 
     public void setPurchaseDate(Date purchaseDate) {
         this.purchaseDate = purchaseDate;
+    }
+
+    public String getPurchaseType() {
+        return purchaseType;
+    }
+
+    public void setPurchaseType(String purchaseType) {
+        this.purchaseType = purchaseType;
+    }
+
+    public Integer getTuesdaySeq() {
+        return tuesdaySeq;
+    }
+
+    public void setTuesdaySeq(Integer tuesdaySeq) {
+        this.tuesdaySeq = tuesdaySeq;
     }
 
     public String getSentence() {
