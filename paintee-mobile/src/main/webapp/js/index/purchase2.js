@@ -752,6 +752,7 @@ CommentController.prototype = {
 		alert($.i18n.t('alert.comment.processInsert'));
 		$("[data-comment='" + this.paintingId + "']").html(parseInt($("[data-comment='" + this.paintingId + "']").html()) + 1);
 		closePurchaseStep01();
+		refreshDetailPosted();
 	}
 }
 

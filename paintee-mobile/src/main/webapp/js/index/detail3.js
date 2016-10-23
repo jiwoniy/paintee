@@ -249,6 +249,8 @@ var selectedPaintingId;
 var selectedArtistId;
 var selectedArtistName;
 
+var thisDetailSwiper = null;
+
 function DetailController() {
 }
 
@@ -332,6 +334,9 @@ function initDetail(paintingId, paintingInfo){
 	     //scrollbar: '.swiper-scrollbar-detail',
 	     //scrollbarHide: true
 	});
+
+	thisDetailSwiper = this.detailSwiper;
+
     this.detailSwiper.on("onSetTranslate", function(swiper){
 	     changeMode(swiper);
 	});
@@ -513,4 +518,20 @@ function callPosted(swiper){
 	if(detailPostedCnt == 0 || detailPostedCnt == ((swiper.activeIndex+1) - initPostedSlideCnt)) {//현재 화면에 출력된 slide 중 가장 마지막 slide 호출시 rowPerPage 만큼 데이터를 요청한다.
 		new PostedController().getPostedData(detailPostedCnt, rowPerPage, swiper);
 	}
+}
+
+function refreshDetailPosted() {
+	var slideCnt = thisDetailSwiper.slides.length;
+
+	postedObj = new Array();
+	postedIndex = new Array();
+	postedNodataIndex = new Array();
+
+	for(var i=0; i<=slideCnt; i++) {
+		if(i>1) {
+			thisDetailSwiper.removeSlide(1);
+		}
+	}
+
+	callPosted(thisDetailSwiper);
 }

@@ -97,7 +97,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		String userId = purchase.getUserId();
 		String paintingId = purchase.getPaintingId();
 
-		if(purchase.getPurchaseType().equals("TUESDAY")) {
+		if("TUESDAY".equals(purchase.getPurchaseType())) {
 			TuesdayPainting tuesdayPainting = tuesdayPaintingHelper.selectFreeTuesdayPaintingByPaintingId(paintingId);
 
 			//화요의 그림을 무료구매할수 있는 기간이 아닙니다.
