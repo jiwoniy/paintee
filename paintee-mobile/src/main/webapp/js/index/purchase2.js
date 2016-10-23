@@ -511,19 +511,25 @@ PurchaseController.prototype = {
         // 스피너 화면 중지
 		$(".stopper").hide();
 
-		// 기존 입력 내용 지우기
-//		resetPurchase();
-        closePurchaseStep01();
-		completePayment(result);
 
 		if(result.errorNo == '500') {
 			alert($.i18n.t('alert.purchase.notFreeTuesdayPaint'));
-			return;
+			popClose = true;
 		} else if(result.errorNo == '501') {
 			alert($.i18n.t('alert.purchase.alreadyPostedTuesdayPaint'));
-			return;
+			popClose = true;
 		}
-
+		
+		if (popClose) {
+			$(".popup_container").hide();
+			$(".payment_container").hide();
+			return;	
+		}
+		
+		// 기존 입력 내용 지우기
+//		resetPurchase();
+		closePurchaseStep01();
+		completePayment(result);
     	dataReload(["initMy();", "initPopular();"]);
 	},
 	cancelPurchase: function (listData) {
