@@ -89,11 +89,11 @@ function DetailStructure(paintingId, paintingInfo){
     
     this.detailBtnComment     =$("<img>").attr("src", "ico/comment.png").addClass("list_btn_icon").addClass("detail_btn_comment")
                                         .click(function(){
-                                               purchase(paintingId, paintingInfo.artistName, "comment");
+                                               purchase(paintingId, paintingInfo.artistName, "comment", "CASH");
                                         });
     this.detailBtnPost        =$("<img>").attr("src", "ico/post.png").addClass("list_btn_icon").addClass("detail_btn_post")
                                         .click(function() {
-                                               purchase(paintingId, paintingInfo.artistName, "post");
+                                               purchase(paintingId, paintingInfo.artistName, "post", "CASH");
                                         });
     this.detailPagenation   =$("<div>").addClass("swiper-pagination").addClass("detail_pagination");
     this.closeBtn          =$("<div>").addClass("close_btn").html("<img class='icon' src='ico/close.png' />").click(function(){
@@ -138,13 +138,13 @@ DetailStructure.prototype = {
     },
     setLikedNum: function(likedNum){
     	var paintingId = this.paintingId;
-        this.detailLikeNum.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num list_info_likes_num'>"+likedNum+" likes</div>")
+        this.detailLikeNum.append("<img class='list_info_posted_ico' src='ico/like.png'><div class='list_info_posted_num list_info_detail_comment_num'><span id='detail_likes_num'>"+likedNum+"</span> likes</div>")
         .click(function(){
         		showLikes(paintingId)
         });
     },
     setCommentedNum: function(commentedNum){
-        this.detailCommentNum.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'>"+commentedNum+" comments</div>");
+        this.detailCommentNum.append("<img class='list_info_posted_ico' src='ico/comment.png'><div class='list_info_posted_num'><span id='detail_comment_num'>"+commentedNum+"</span> comments</div>");
     },
     setPostedNum: function(postedNum){
         this.detailPostNum.append("<img class='list_info_posted_ico' src='ico/post.png'><div class='list_info_posted_num'>"+postedNum+" posts</div>");
@@ -249,6 +249,8 @@ var selectedPaintingId;
 var selectedArtistId;
 var selectedArtistName;
 
+var thisDetailSwiper = null;
+
 function DetailController() {
 }
 
@@ -332,6 +334,9 @@ function initDetail(paintingId, paintingInfo){
 	     //scrollbar: '.swiper-scrollbar-detail',
 	     //scrollbarHide: true
 	});
+
+	thisDetailSwiper = this.detailSwiper;
+
     this.detailSwiper.on("onSetTranslate", function(swiper){
 	     changeMode(swiper);
 	});
@@ -513,4 +518,32 @@ function callPosted(swiper){
 	if(detailPostedCnt == 0 || detailPostedCnt == ((swiper.activeIndex+1) - initPostedSlideCnt)) {//현재 화면에 출력된 slide 중 가장 마지막 slide 호출시 rowPerPage 만큼 데이터를 요청한다.
 		new PostedController().getPostedData(detailPostedCnt, rowPerPage, swiper);
 	}
+}
+
+function refreshDetailPosted() {
+	var slideCnt = thisDetailSwiper.slides.length;
+
+	postedObj = new Array();
+	postedIndex = new Array();
+	postedNodataIndex = new Array();
+
+	for(var i=0; i<=slideCnt; i++) {
+		if(i>1) {
+			thisDetailSwiper.removeSlide(1);
+		}
+	}
+
+	var postNum = parseInt($('#detail_comment_num').html(), 10);
+	postNum += 1;
+
+	$('#detail_comment_num').html(postNum);
+
+	callPosted(thisDetailSwiper);
+}
+
+function processDetailLikesNum(value) {
+	var likesNum = parseInt($('#detail_likes_num').html(), 10);
+	likesNum += value;
+
+	$('#detail_likes_num').html(likesNum);
 }

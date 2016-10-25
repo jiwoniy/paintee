@@ -24,7 +24,20 @@
 <body>
     <!--  화면이 스크롤되지 않도록 고정, 나중에 반응형으로 고정  -->
     <div class="main_container swiper_container">
-        <div class="swiper-wrapper">        
+        <div class="swiper-wrapper">
+        <!--    [tuesday] 화면 최상단에 tuesday를 위한 목록 추가    -->
+        <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [tuesday]  -->
+        <!--    화요의 그림  -->
+        <div class="mode_container swiper-slide" id="tuesday">
+            <div class="list_container swiper_container_tuesday">
+                <div class="home_btn">< This week</div>
+                <div class="tue_bg"></div>
+                <div class="tue_mask"></div>
+                <div class="swiper-wrapper"></div>
+                <div class="swiper-scrollbar swiper-scrollbar-tuesday"></div>
+
+            </div>
+        </div>
         <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [follow]  -->
         <div class="mode_container swiper-slide" id="follow">
             <div class="list_container swiper_container_follow">
@@ -69,6 +82,8 @@
         <!--   side menu     -->
         <div id="side_menu">
             <div class="side_menu_login"></div>
+            <!--     [tuesday] 화요의 그림을 위한 메뉴 추가       -->
+            <div class="side_menu_major" id="menu_tuesday">Tuesday</div>
             <div class="side_menu_major" id="menu_follow">Follow</div>
             <div class="side_menu_major" id="menu_popular">Popular</div>
             <div class="side_menu_major" id="menu_new">New</div>
@@ -498,6 +513,8 @@
     <script src="js/index/upload.js"></script>
 	<script src="js/index/about.js"></script>
 	<script src="js/index/like.js"></script>
+    <!--    [tuesday] tuesday 관련된 javascript    -->
+    <script src="js/index/tuesday.js"></script>
 	
 	
     <!-- 페이스북 로그인 --> 

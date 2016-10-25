@@ -43,8 +43,9 @@ followSwiper.on("onSlidePrevStart", function(swiper) {
 });
 
 // side menu에 이벤트 설정
+// [tuesday] mainSwiper 순서 하나씩 미룸
 $("#menu_follow").click(function() {
-	selectMenu(0);
+	selectMenu(1);
 });
 
 // 초기 설정들
@@ -189,7 +190,7 @@ function initFollow() {
 /*        if(!painteeFB.isCordova()){
             welcome.setAdd("<a href='https://play.google.com/store/apps/details?id=com.paintee1.pnt' target='_blank'><img class='download_btn_android' src='ico/download_btn_play.png'></a><a href='https://itunes.apple.com/ph/app/paintee-your-painting/id1146256092?mt=8' target='_blank'><img class='download_btn_android' src='ico/download_btn_ios.png'></a>");
         }*/
-		welcome.hidePrev();
+//		welcome.hidePrev();
 		followSwiper.appendSlide(welcome.buildStructure());
 		$("#menu_follow").addClass("side_menu_major_inactive");
 		delete welcome;
@@ -221,7 +222,7 @@ function setFollowHome(result) {
 	followHome.setExplain("<span data-i18n='[html]follow.loginexplain'><span>");
 	followHome.setContents(content1);
 	followHome.setContents(content2);
-	followHome.hidePrev();
+//	followHome.hidePrev();
 	followSwiper.appendSlide(followHome.buildStructure());
 	delete followHome;
 	delete content1;

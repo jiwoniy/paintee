@@ -42,8 +42,9 @@ popularSwiper.on("onSlidePrevStart", function(swiper) {
 });
 
 //side menu에 이벤트 설정
+// [tuesday] mainSwiper 순서 하나씩 미룸
 $("#menu_popular").on('click', function(){
-    selectMenu(1);
+    selectMenu(2);
 });
 
 //초기 설정들

@@ -77,7 +77,7 @@ Purchase.prototype = {
 }
 
 // 구매화면으로 이동
-function purchase(paintingId, artistName, type) {
+function purchase(paintingId, artistName, type, purchaseType) {
 
 	if (userID == "") {
 		showLogin();
@@ -85,6 +85,7 @@ function purchase(paintingId, artistName, type) {
 	}
 	this.paintingId = paintingId;
     this.artistName = artistName;
+    this.purchaseType = purchaseType;
 
     initPurchasePop(type);
 }
@@ -179,7 +180,7 @@ function showComment(){
 };
 
 function showAddress(){
-    purchaseController = new PurchaseController(paintingId, artistName);
+    purchaseController = new PurchaseController(paintingId, artistName, purchaseType);
     purchaseController.purchasePopInfo();
 
     purchaseStatus="address";
@@ -399,7 +400,21 @@ function initPayment(serviceCnt){
     $(".payment_box").empty();
     var payment = new Payment();
     payment.setTitle("Payment");
-    if (serviceCnt <= 0) {
+
+    // [tuesday] 이 단계에서 해당 그림이 무료기간 내의 tuesday 그림이면서 && 아직 사용자가 무료로 구매한 적이 없는 그림인지 확인
+    // 현재는 임의로 무조건 false
+    var  validTuesday = false;
+    if(validTuesday){
+        var contents = "<span data-i18n='[html]purchasePop1.tuesday'></span>"
+        payment.setContents(contents);
+        payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/payment.png'></div>");
+        payment.buildPayment();
+        $(".payment_btn").click(function(){
+                // [tuesday] 임시로 serviceCnt가 감소하지 않게 처리 필요
+                purchaseController.addPurchase(serviceCnt+1);
+                showPurchaseSpinner();
+        })
+    }else if (serviceCnt <= 0) {
          var contents = "<span class='reward_money'>" + serviceCnt + "/3</span><br>"
                      + "<span data-i18n='[html]purchasePop1.alert'></span>"
         payment.setContents(contents);
@@ -427,9 +442,13 @@ function showPurchaseSpinner(){
     $(".stopper").show();
 }
 
-function PurchaseController(paintingId, artistName) {
+function PurchaseController(paintingId, artistName, purchaseType) {
+	if(purchaseType == null || purchaseType == '')
+		purchaseType = 'CASH';
+
 	this.paintingId = paintingId;
 	this.artistName = artistName;
+	this.purchaseType = purchaseType;
 	this.basicAddr;
 	this.detailAddr;
 	this.changeAddr = 'N';
@@ -464,6 +483,7 @@ PurchaseController.prototype = {
 			userId: userID,
 			paintingId: this.paintingId,
             artistName: this.artistName,
+            purchaseType: this.purchaseType,
 			sentence: $("[name=sentence]").val(),
 			privateAt: ($("[name=privateAt]").prop("checked")) ? "Y" : "N",
 			receiverBasicAddr: $("[name=receiverBasicAddr]").val(),
@@ -485,14 +505,30 @@ PurchaseController.prototype = {
 				controller.addPurchaseRes(result);
 			}
 		);
+
 	},
 	addPurchaseRes: function (result) {
         // 스피너 화면 중지
 		$(".stopper").hide();
 
+
+		if(result.errorNo == '500') {
+			alert($.i18n.t('alert.purchase.notFreeTuesdayPaint'));
+			popClose = true;
+		} else if(result.errorNo == '501') {
+			alert($.i18n.t('alert.purchase.alreadyPostedTuesdayPaint'));
+			popClose = true;
+		}
+		
+		if (popClose) {
+			$(".popup_container").hide();
+			$(".payment_container").hide();
+			return;	
+		}
+		
 		// 기존 입력 내용 지우기
 //		resetPurchase();
-        closePurchaseStep01();
+		closePurchaseStep01();
 		completePayment(result);
     	dataReload(["initMy();", "initPopular();"]);
 	},
@@ -669,8 +705,8 @@ function completePayment(result){
 		    });
 		    isDetail = false;
 		}
-
-        selectMenu(3);
+        // [tuesday] mainSwiper 순서 하나씩 미룸
+        selectMenu(4);
         mySwiper.slideTo(1);
     });
 
@@ -722,6 +758,7 @@ CommentController.prototype = {
 		alert($.i18n.t('alert.comment.processInsert'));
 		$("[data-comment='" + this.paintingId + "']").html(parseInt($("[data-comment='" + this.paintingId + "']").html()) + 1);
 		closePurchaseStep01();
+		refreshDetailPosted();
 	}
 }
 

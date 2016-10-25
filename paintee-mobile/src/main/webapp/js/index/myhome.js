@@ -42,8 +42,9 @@ mySwiper.on("onSlidePrevStart", function(swiper) {
 });
 
 // side menu에 이벤트 설정
+// [tuesday] mainSwiper 순서 하나씩 미룸
 $("#menu_my").click(function(){
-    selectMenu(3);
+    selectMenu(4);
 });
 
 // 초기 설정들

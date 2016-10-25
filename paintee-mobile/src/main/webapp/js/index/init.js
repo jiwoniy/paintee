@@ -192,7 +192,7 @@ function Structure(data) {
                                                        alert($.i18n.t('alert.common.delPainting'));
                                                        return;
                                                    }
-                                                   purchase(data.paintingId, data.artistName, "comment");
+                                                   purchase(data.paintingId, data.artistName, "comment", "CASH");
                                             });
         this.listBtnPost        =$("<img>").attr("src", "ico/post.png").addClass("list_btn_icon").addClass("list_btn_post")
                                             .click(function() {
@@ -200,7 +200,7 @@ function Structure(data) {
                                                        alert($.i18n.t('alert.common.delPainting'));
                                                        return;
                                                    }
-                                                   purchase(data.paintingId, data.artistName, "post");
+                                                   purchase(data.paintingId, data.artistName, "post", "CASH");
                                             });
         this.listStatusBtn      =$("<div>").addClass("list_status_btn");                 
         this.listStatusStc      =$("<div>").addClass("list_status_sentence");            
@@ -532,10 +532,21 @@ function showDelete(clicked, listData, status){
 // 최초 5개 미리 생성
 initMenu(userID);
 
+// [tuesday] tuesday 목록이 하나 더 늘어남에 따라, mainSwiper의 순서와 길이를 변경했습니다.
 // mainSwiper의 첫항목과 마지막항목에서 스와이프 방지
 function mainLock(mainSwiper){
     if(mainSwiper.activeIndex==0){
         mainSwiper.lockSwipeToPrev();
+        tueSwiper.slideTo(0,0);
+        color = "190,50%,20%";
+        colorDark = "190,50%,20%";
+        if(isPersonal){hidePersonal()};
+        if(painteeFB.isCordova()){
+        	if(StatusBar){StatusBar.backgroundColorByHexString("#19444c")};
+        }
+
+    }else if(mainSwiper.activeIndex==1){
+        mainSwiper.unlockSwipes();
         color = "190,60%,50%";
         colorDark = "200,60%,20%";
         if(isPersonal){hidePersonal()};
@@ -543,7 +554,7 @@ function mainLock(mainSwiper){
         	if(StatusBar){StatusBar.backgroundColorByHexString("#33b3cc")};
         }
         
-    }else if(mainSwiper.activeIndex==1){
+    }else if(mainSwiper.activeIndex==2){
         mainSwiper.unlockSwipes();
         color = "330,60%,50%";
         colorDark = "330,60%,20%";
@@ -552,7 +563,7 @@ function mainLock(mainSwiper){
         	if(StatusBar){StatusBar.backgroundColorByHexString("#cc3380")};
         }
         
-    }else if(mainSwiper.activeIndex==2){
+    }else if(mainSwiper.activeIndex==3){
         mainSwiper.unlockSwipes();
         color = "80,60%,45%";
         colorDark = "90,60%,20%";
@@ -561,17 +572,15 @@ function mainLock(mainSwiper){
         	if(StatusBar){StatusBar.backgroundColorByHexString("#8ab82e")};
         }
         
-    }else if(mainSwiper.activeIndex==3){
-        mainSwiper.lockSwipeToNext();
+    }else if(mainSwiper.activeIndex==4){
+        mainSwiper.unlockSwipes();
         color = "250,60%,50%";
         colorDark = "250,60%,20%";
         if(isPersonal){hidePersonal()};
         if(painteeFB.isCordova()){
         	if(StatusBar){StatusBar.backgroundColorByHexString("#4c33cc")};
         }
-        
-    }
-    currentSwiper="";
+    }currentSwiper="";
 };
 
 // list 상태에서 mode container 스와이프 방지 && 마우스휠 해제/설정 && 페이지네이션 show/hide
@@ -657,7 +666,7 @@ function selectMenu(index){
 
 // 초기 설정들
 // 가로휠방지 && 페이지네이션숨김 && 위로스와이프방지
-mainSwiper.lockSwipeToPrev();
+// [tuesday] 처음 시작할때 무조건 위로 스와이프 방지하는 부분 삭제
 $(".swiper-scrollbar").hide();
 $(".home_btn").hide()
 

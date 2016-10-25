@@ -365,6 +365,136 @@ public class PurchaseExample {
             return (Criteria) this;
         }
 
+        public Criteria andPurchaseTypeIsNull() {
+            addCriterion("purchase_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeIsNotNull() {
+            addCriterion("purchase_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeEqualTo(String value) {
+            addCriterion("purchase_type =", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeNotEqualTo(String value) {
+            addCriterion("purchase_type <>", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeGreaterThan(String value) {
+            addCriterion("purchase_type >", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("purchase_type >=", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeLessThan(String value) {
+            addCriterion("purchase_type <", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeLessThanOrEqualTo(String value) {
+            addCriterion("purchase_type <=", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeLike(String value) {
+            addCriterion("purchase_type like", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeNotLike(String value) {
+            addCriterion("purchase_type not like", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeIn(List<String> values) {
+            addCriterion("purchase_type in", values, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeNotIn(List<String> values) {
+            addCriterion("purchase_type not in", values, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeBetween(String value1, String value2) {
+            addCriterion("purchase_type between", value1, value2, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeNotBetween(String value1, String value2) {
+            addCriterion("purchase_type not between", value1, value2, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqIsNull() {
+            addCriterion("tuesday_seq is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqIsNotNull() {
+            addCriterion("tuesday_seq is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqEqualTo(Integer value) {
+            addCriterion("tuesday_seq =", value, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqNotEqualTo(Integer value) {
+            addCriterion("tuesday_seq <>", value, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqGreaterThan(Integer value) {
+            addCriterion("tuesday_seq >", value, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqGreaterThanOrEqualTo(Integer value) {
+            addCriterion("tuesday_seq >=", value, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqLessThan(Integer value) {
+            addCriterion("tuesday_seq <", value, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqLessThanOrEqualTo(Integer value) {
+            addCriterion("tuesday_seq <=", value, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqIn(List<Integer> values) {
+            addCriterion("tuesday_seq in", values, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqNotIn(List<Integer> values) {
+            addCriterion("tuesday_seq not in", values, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqBetween(Integer value1, Integer value2) {
+            addCriterion("tuesday_seq between", value1, value2, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
+        public Criteria andTuesdaySeqNotBetween(Integer value1, Integer value2) {
+            addCriterion("tuesday_seq not between", value1, value2, "tuesdaySeq");
+            return (Criteria) this;
+        }
+
         public Criteria andSentenceIsNull() {
             addCriterion("sentence is null");
             return (Criteria) this;

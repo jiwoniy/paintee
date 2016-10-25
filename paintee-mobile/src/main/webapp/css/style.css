@@ -39,6 +39,9 @@ a{
     background-size: cover;
     background-position: center;
 }
+#tuesday{
+    background-color: hsla(190,50%,20%,1);
+}
 #follow{
     background-color: hsla(190,60%,50%,1);
 }
@@ -148,13 +151,13 @@ a{
 .list_container{
     width: 100%;
     height: 100%;
+    font-size: 12px;
 }
 .list_contents{
     width: 80%;
     height: 100%;
     text-align: center;
     vertical-align: middle;
-    font-size: 12px;
 }
 .list_info{
     width: 100%;
@@ -251,7 +254,7 @@ a{
     position: absolute;
     bottom: 5px;
     right: 2%;
-    width: 230px;
+    width: 168px;
     height: 40px;
     float: right;
 }
@@ -580,7 +583,7 @@ a{
     bottom: 5px;
     right: 2%;
     z-index: 22;
-    width: 230px;
+    width: 168px;
     height: 40px;
     float: right;
 }
@@ -971,6 +974,20 @@ a{
     font-weight: 400;
     cursor: pointer;
 }
+.payby_btn{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    right: 0px;
+    text-align: right;
+    padding: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    box-sizing: border-box;
+}
 .upload_sentence{
     box-sizing: border-box;
     width: 100%;
@@ -990,6 +1007,11 @@ a{
 }
 .upload_icon{
     font-size: 100px;
+}
+.upload_guide{
+    font-size: 24px;
+    margin: 5px;
+    color: rgb(80,80,80);
 }
 .upload_preview{
     position: absolute;
@@ -1777,7 +1799,7 @@ a{
     width: 56px;
     height: 56px;
     position: absolute;
-    left: 62px;
+    left: 0px;
     top: -10px;
     display: none;
 }
@@ -1805,6 +1827,143 @@ a{
     margin: auto;
     cursor: pointer;
 }
+.swiper_container_tuesday{
+    width: 100%;
+    height: 100%;
+}
+.tue_bg{
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-filter: blur(20px);
+}
+.tue_mask{
+    position: absolute;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(190,50%,20%,0.9);
+    transition: all 3000ms;
+}
+.tue_thumnail{
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.tue_comment{
+    position: absolute;
+    text-align: center;
+    vertical-align: bottom;
+    font-family: 'NanumMyeongjo', sans-serif;
+    font-size: 1.2em;
+    line-height: 2;
+    bottom: 50%;
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    color: rgba(255,255,255,1);
+    box-sizing: border-box;
+    transform: translate(0, -120px);
+}
+.tue_title{
+    font-size: 1.6em;
+}
+.tue_commentedby{
+    font-family: 'Merriweather', serif;
+    font-style: italic;
+    font-size: 0.8em;
+}
+.tue_artist{
+    position: absolute;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    font-size: 1em;
+    width: 100%;
+    top: 50%;
+    transform: translate(0, 120px);
+    color: rgba(255,255,255,0.5);
+}
+.tue_artist_name{
+    color: rgba(255,255,255,1);
+    cursor: pointer;
+}
+.tue_week{
+    position: absolute;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    font-size: 1.2em;
+    width: 100%;
+    bottom: 140px;
+    color: rgba(255,255,255,0.9);
+}
+.tue_explain{
+    position: absolute;
+    text-align: center;
+    font-size:0.9em;
+    width: 100%;
+    bottom: 100px;
+    color: rgba(255,255,255,0.3);
+}
+.tue_btn{
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+.tue_sentence_box{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.tue_sentence_input{
+    position: relative;
+    top:50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(80,80,80,0.1);
+    border-radius: 100px;
+    border: 0;
+    padding: 10px;
+    font-family: 'NanumMyeongjo', sans-serif;
+    font-weight: 300;
+    text-align: center;
+    color: rgb(80,80,80);
+    resize: none;
+    box-sizing: border-box;
+    transition: all 1000ms;
+    padding-top: 95px;
+}
+.tue_sentence_input:focus{
+    outline: none;
+    width: 80%;
+    border-radius: 0px;
+    padding: 10px;
+}
+.tue_sentence_input::-webkit-input-placeholder{
+    color: rgb(255,255,255);
+}
+.tue_sentence_confirm{
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+}
 
 /*   고해상도 디스플레이   */
 @media  screen and (min-device-pixel-ratio: 1.5),
@@ -1820,11 +1979,15 @@ screen and (-o-min-device-pixel-ratio: 1.5) {
         .home_container{
          font-size: 10px;
         }
-        .list_contents{
-            font-size: 12px;
+        .list_container{
+            font-size: 11px;
         }
         #side_menu{
             font-size: 12px;
+        }
+        .side_menu_minor{
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         .list_artist_btn{
             bottom: 7.5px;
@@ -1842,10 +2005,10 @@ screen and (-o-min-device-pixel-ratio: 1.5) {
             font-size: 15px;
         }
         .detail_container{
-            font-size: 12px;
+            font-size: 11px;
         }
         .detail_artist{
-			font-size: 12px;
+			font-size: 11px;
         }
         .detail_artist_btn{
 			font-size: 16px;
@@ -1865,7 +2028,7 @@ screen and (-o-min-device-pixel-ratio: 1.5) {
         .like_sequence {
             width: 52px;
             height: 52px;
-            left: 74px;
+            left: 12px;
         }
         .list_info_posted_ico{
             width: 18px;
@@ -1930,7 +2093,7 @@ screen and (-o-min-device-pixel-ratio: 2.5) {
         .home_container{
          font-size: 9px;
         }
-        .list_contents{
+        .list_container{
             font-size: 10px;
         }
         #side_menu{
@@ -1958,7 +2121,7 @@ screen and (-o-min-device-pixel-ratio: 2.5) {
         .like_sequence {
             width: 50px;
             height: 50px;
-            left: 80px;
+            left: 18px;
         }
         .list_info_posted_ico{
             width: 16px;
@@ -2037,6 +2200,7 @@ screen and (-o-min-device-pixel-ratio: 2.5) {
         width: 648px;
     }
 }
+
 /*   긴화면   */
 @media screen and (min-height: 550px){
     .home_contents_add{
