@@ -511,7 +511,8 @@ PurchaseController.prototype = {
         // 스피너 화면 중지
 		$(".stopper").hide();
 
-
+        // 이게 무슨 내용이지?
+        var popClose = false;
 		if(result.errorNo == '500') {
 			alert($.i18n.t('alert.purchase.notFreeTuesdayPaint'));
 			popClose = true;
@@ -525,6 +526,7 @@ PurchaseController.prototype = {
 			$(".payment_container").hide();
 			return;	
 		}
+
 		
 		// 기존 입력 내용 지우기
 //		resetPurchase();
