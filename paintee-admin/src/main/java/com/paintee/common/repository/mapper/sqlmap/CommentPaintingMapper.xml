@@ -76,7 +76,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from tb_comment_painting
+    from TB_COMMENT_PAINTING
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,15 +87,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from tb_comment_painting
+    from TB_COMMENT_PAINTING
     where seq = #{seq,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_comment_painting
+    delete from TB_COMMENT_PAINTING
     where seq = #{seq,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.CommentPaintingExample" >
-    delete from tb_comment_painting
+    delete from TB_COMMENT_PAINTING
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -104,7 +104,7 @@
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tb_comment_painting (seq, painting_id, user_id, 
+    insert into TB_COMMENT_PAINTING (seq, painting_id, user_id,
       sentence, created_date)
     values (#{seq,jdbcType=INTEGER}, #{paintingId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
       #{sentence,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP})
@@ -113,7 +113,7 @@
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tb_comment_painting
+    insert into TB_COMMENT_PAINTING
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="seq != null" >
         seq,
@@ -150,13 +150,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.paintee.common.repository.entity.CommentPaintingExample" resultType="java.lang.Integer" >
-    select count(*) from tb_comment_painting
+    select count(*) from TB_COMMENT_PAINTING
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_comment_painting
+    update TB_COMMENT_PAINTING
     <set >
       <if test="record.seq != null" >
         seq = #{record.seq,jdbcType=INTEGER},
@@ -179,7 +179,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_comment_painting
+    update TB_COMMENT_PAINTING
     set seq = #{record.seq,jdbcType=INTEGER},
       painting_id = #{record.paintingId,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR},
@@ -190,7 +190,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.CommentPainting" >
-    update tb_comment_painting
+    update TB_COMMENT_PAINTING
     <set >
       <if test="paintingId != null" >
         painting_id = #{paintingId,jdbcType=VARCHAR},
@@ -208,7 +208,7 @@
     where seq = #{seq,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.CommentPainting" >
-    update tb_comment_painting
+    update TB_COMMENT_PAINTING
     set painting_id = #{paintingId,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       sentence = #{sentence,jdbcType=VARCHAR},

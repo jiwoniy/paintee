@@ -16,7 +16,7 @@
 			<if test="userId == null" >
 			0 friend
 			</if>
-  		from tb_painting_like tpl
+  		from TB_PAINTING_LIKE tpl
   		where painting_id = #{paintingId}
   	</select>
 </mapper>

@@ -89,6 +89,13 @@ function Tuesday(data){
 												}
                                             });
         this.next       =$("<div>").addClass("home_next").html('<img class="icon" src="ico/keyboard_arrow_up.png">').click(function(){mainSwiper.slideNext()});
+        // checkFreeePaint 함수를 이용해 게시기간 체크해서 내용변경
+        if(checkFreePaint(data.startDate, data.endDate) && data.postYn == 'N'){
+            this.expalin.html("<span data-i18n='[html]tuesday.explainFree'></span>");
+            this.listBtnPost.attr("src", "ico/post_free.png");
+        }else{
+            this.expalin.html("<span data-i18n='[html]tuesday.explainNotFree'></span>");
+        }
 }
 
 Tuesday.prototype = {
@@ -121,20 +128,7 @@ Tuesday.prototype = {
                             this.week.html(week+"<span style='font-weight=700'> Tuesday</span>, of "+month)
 
                         },
-        setExplain:     function(free){
-        // 현재 게시기간이면 무료라고 표시, 아니면 다른 메세지 표시
-                            if(free){
-                                this.expalin.html("<span data-i18n='[html]tuesday.explainFree'></span>");
-                            }else{
-                                this.expalin.html("<span data-i18n='[html]tuesday.explainNotFree'></span>");
-                            }
-
-                        },
-        // 현재 게시 기간이면 무료 구매버튼 표시, 아니면 일반 구매버튼 표시
-        setPost:        function(free, listData){
-                            if(free){
-                                this.listBtnPost.attr("src", "ico/post_free.png");
-                            }
+        setPost:        function(listData){
                             this.tueBtn.append(this.listBtnPost);
                             this.tueBtn.append(this.listBtnComment);
                             if (listData.loginLikeCnt == 0) {
@@ -241,9 +235,6 @@ function addTuesday(swiper, currentIndex, type, listData){
 		tuesdaySeq: listData.tuesdaySeq
 	};
 
-    // free는 임의로 첫번째 인덱스에만 true가 되도록 설정된 상태입니다. 실제로는 게시기간을 확인해서 게시기간 이내만 free가 되도록 수정되어야 합니다.
-	var free = (toDate(new Date().getTime()) <= toDate(listData.endDate)) ? true : false;
-
 	var newSlide = new Tuesday(data);
 
     // 각각의 슬라이드의 내용을 설정합니다.
@@ -255,8 +246,7 @@ function addTuesday(swiper, currentIndex, type, listData){
     newSlide.setWeek(startDate.weekCountOfMonth() + "st", startDate.convertEngMonth());
     // 게시기간이 시작되는 날짜를 기준으로 [월] [몇번째주] 로 표시됩니다.
     
-    newSlide.setExplain(free);
-    newSlide.setPost(free, listData);
+    newSlide.setPost(listData);
     newSlide.setArtist(listData.artistName);
 
     tueSwiper.appendSlide(newSlide.buildStructure());
