@@ -9,7 +9,7 @@
   	<select id="selectLikeUserList" resultMap="BaseResultMap" parameterType="Map">
   		select
   			<include refid="com.paintee.common.repository.mapper.PaintingLikeMapper.Base_Column_List" />,
-  			(select tu.name from tb_user tu where tu.user_id = tpl.user_id) user_name,
+  			(select tu.name from TB_USER tu where tu.user_id = tpl.user_id) user_name,
 			<if test="userId != null" >
 			(select count(tf.user_id) from TB_FOLLOW tf where following = tpl.user_id and tf.user_id = #{userId}) friend
 			</if>
