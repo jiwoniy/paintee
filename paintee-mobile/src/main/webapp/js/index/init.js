@@ -90,7 +90,7 @@ function setSideMenu() {
 	}
 }
 
-var imageUrl="http://localhost:8000/paintee-admin";
+var imageUrl="http://52.78.126.27:8080/paintee-admin";
 //var imageUrl=window.location.protocol+"//paintee.me/paintee-admin";
 var apiUrl = imageUrl + "/api";
 
