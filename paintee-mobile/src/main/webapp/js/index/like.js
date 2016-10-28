@@ -106,7 +106,7 @@ PaintingLikeController.prototype = {
 	    // 해당 이벤트 발생 대상자 처리를 위해
 	    $(this.bubble).replaceWith(listBtnLiked);
         // 다른 목록의 대상자 처리를 위해
-	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_like, div.tue_btn > img.list_btn_like").replaceWith(listBtnLiked);
+/*	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_like, div.tue_btn > img.list_btn_like").replaceWith(listBtnLiked);*/
 	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) + 1);
 	    //dataReload(["initPopular();"]);
 
@@ -133,7 +133,7 @@ PaintingLikeController.prototype = {
 	    // 다른 목록의 대상자 처리를 위해
 	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_liked, div.tue_btn > img.list_btn_liked").replaceWith(listBtnLike);
 	    // 해당 이벤트 발생 대상자 처리를 위해
-	    $(this.bubble).replaceWith(listBtnLike);
+/*	    $(this.bubble).replaceWith(listBtnLike);*/
 	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) - 1);
 	    // dataReload(["initPopular();"]);
 
