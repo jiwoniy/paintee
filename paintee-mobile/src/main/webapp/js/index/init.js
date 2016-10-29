@@ -471,7 +471,7 @@ function hideCancel(clicked){
         $(clicked).parent().find(".list_refund_btn").fadeOut();
 	    $(clicked).parent().find(".list_status_sentence").fadeOut();
         deleteTimer();
-    }else if($(clicked).html()=="send"){
+    }else if($(clicked).html()=="sent"){
         //$(clicked).parent().find(".list_resend_btn").fadeOut();
         $(clicked).parent().find(".list_confirm_btn").fadeOut();
         $(clicked).parent().find(".list_status_sentence").fadeOut();
