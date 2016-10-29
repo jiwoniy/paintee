@@ -104,10 +104,10 @@
 	{
 		"successContent": "Image has been uploaded successfully.<br>Please share us your thoughts and feelings regarding this image.",
 		"failContent": "<b>Upload Failed!</b><br>Larger size is required for high quality printing.<br><b>W: 1080px H: 1500px</b><br>",
-		"content1": "As many as you post your artworks,<br>the maximum number of uploading images will be increased.<br>You have posted",
-		"content2": " times. Your maximum number of posting is ",
-		"content3": " <br> You are able to upload",
-		"content4": " more images.<br><br><br>The image should be larger than<br> W: <b>1080px</b> H: <b>1500px</b><br> <br><br><br><br><span style='color:rgb(150,0,0)'>If the unauthorized uploading of copyrighted works of others, you receive a sanction for the post. For more information, please check our <b>Terms & Policy</b> </span>"
+		"content1": "As many as you get ♥ <br>the maximum number of uploading images will be increased.<br><br>",
+		"content2": "",
+		"content3": "now, you are able to upload ",
+		"content4": " more images.<br><br><br><br><br><span style='color:rgb(150,0,0)'>If the unauthorized uploading of copyrighted works of others, you receive a sanction for the post. For more information, please check our <b>Terms & Policy</b> </span>"
 	},
 	"detailPop":
 	{
