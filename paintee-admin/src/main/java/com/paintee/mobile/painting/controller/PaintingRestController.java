@@ -173,6 +173,29 @@ public class PaintingRestController {
 
 		return resultMap;
 	}
+	
+	/**
+	 @fn deleteComment
+	 @brief 함수 간략한 설명 : 옆서 그림에 대한 코멘트 삭제
+	 @remark
+	 - 함수의 상세 설명 : 옆서 그림에 대한 코멘트 삭제
+	 @param seq
+	 @return
+	 @throws Exception 
+	 */
+	@RequestMapping(value="/api/painting/{seq}/comment", method={RequestMethod.DELETE})
+	public Map<String, Object> deleteComment(@PathVariable Integer seq, @RequestBody CommentPainting commentPainting) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		commentPainting.setSeq(seq);
+		
+		commentService.deleteCommentPainting(commentPainting);
+		
+		resultMap.put("errorMsg", "");
+		resultMap.put("errorNo", 0);
+		
+		return resultMap;
+	}
 
 	/**
 	@fn addPaintingLike

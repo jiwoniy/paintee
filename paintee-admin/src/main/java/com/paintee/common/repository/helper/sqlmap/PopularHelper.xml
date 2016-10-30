@@ -17,7 +17,8 @@
 		       (select painting_id as p_id,
 		               count(*) like_count
 				  from TB_PAINTING_LIKE
-				 where to_days(now()) - to_days(created_date) &lt;= 30
+				 where to_days(now()) - to_days(created_date) &lt;= 7
+				 group by painting_id
 		       ) b
 		 where a.painting_id = b.p_id
 		   and a.private_at = #{privateAt}

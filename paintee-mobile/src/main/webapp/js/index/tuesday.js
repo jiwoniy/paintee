@@ -72,19 +72,17 @@ function Tuesday(data){
 								            	purchase(data.paintingId, data.artistName, "comment", "TUESDAY");
 								        	});
         this.listBtnPost        =$("<img>").attr("src", "ico/post.png").addClass("list_btn_icon").addClass("list_btn_post").click(function() {
-
 												if (data.paintingStatus == "D") {
-												alert($.i18n.t('alert.common.delPainting'));
+													alert($.i18n.t('alert.common.delPainting'));
 												    return;
 												}
-												console.log("data.postYn:"+data.postYn);
 												if(checkFreePaint(data.startDate, data.endDate) && data.postYn == 'N') {
-													console.log(data);
-													console.log("TUESDAY");
+//													console.log(data);
+//													console.log("TUESDAY");
 													purchase(data.paintingId, data.artistName, "post", "TUESDAY");
 												} else {
-													console.log(data);
-													console.log("CASH");
+//													console.log(data);
+//													console.log("CASH");
 													purchase(data.paintingId, data.artistName, "post", "CASH");
 												}
                                             });
@@ -112,9 +110,9 @@ Tuesday.prototype = {
                         },
         setComment:     function(comment, title){
                             if(title!=undefined){
-                                this.comment.append(this.title.html(title+"<br>"));
+                                this.comment.append(this.title.html(convertToBr(title) + "<br>"));
                             }
-                            this.comment.append(comment);
+                            this.comment.append(convertToBr(comment));
                             this.comment.append(this.commentedby);
                         },
         setArtist:      function(artistName){
@@ -240,7 +238,7 @@ function addTuesday(swiper, currentIndex, type, listData){
     // 각각의 슬라이드의 내용을 설정합니다.
     // 이미지 주소/추천평/week/작가이름이 tuesday 목록에서 불러온 값으로 설정되게 해주세요.
     newSlide.setImage(getImageUrls(listData.fileId));
-    newSlide.setComment(listData.comment);
+    newSlide.setComment(listData.comment, listData.title);
 //    newSlide.setWeek("1st", "Oct");
     var startDate = new Date(listData.startDate);
     newSlide.setWeek(startDate.weekCountOfMonth() + "st", startDate.convertEngMonth());

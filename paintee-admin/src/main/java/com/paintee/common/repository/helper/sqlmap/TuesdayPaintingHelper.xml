@@ -6,6 +6,7 @@
 	    <result column="login_like_cnt" property="loginLikeCnt" />	    
 	    <result column="artist_name" property="artistName" />	    
 	    <result column="comment" property="comment" />	    
+	    <result column="title" property="title" />	    
 	    <result column="start_date" property="startDate" />	    
 	    <result column="end_date" property="endDate" />	    
 	    <result column="post_yn" property="postYn" />	    
@@ -26,12 +27,13 @@
 		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
 		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt,
 		       b.comment, 
+		       b.title, 
 		       b.start_date,	
 		       b.end_date,
-		       case when (select count(painting_id) from TB_PURCHASE where painting_id = a.painting_id and purchase_type = 'TUSEDAY') > 0
-			       then 'Y'
-			       else 'N'
-			       end AS post_yn,
+		       case when (select count(painting_id) from TB_PURCHASE where painting_id = b.painting_id and tuesday_seq = b.seq and purchase_type = 'TUESDAY' and user_id = #{userId}) > 0
+			        then 'Y'
+			        else 'N'
+			   end AS post_yn,
 			   b.seq AS tuesday_seq
 		  from TB_PAINTING a, 
 		       TB_TUESDAY_PAINTING b

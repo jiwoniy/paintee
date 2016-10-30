@@ -66,7 +66,7 @@
 			   a.painting_id,
 			   a.posted_num,
 			   a.comment_cnt, 
-			   '' AS purchase_status,
+			   '100' AS purchase_status,
 			   a.posted_people_cnt,
 		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id and user_id = #{userId}) login_like_cnt,
 		       (select count(*) from TB_PAINTING_LIKE where painting_id = a.painting_id) like_cnt,			   

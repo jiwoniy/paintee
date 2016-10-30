@@ -89,6 +89,7 @@ MyHomeController.prototype = {
 		for ( var index in result.list) {
 			addPainting(mySwiper, 1, "my", result.list[index]);
 		}
+        setStatusPosition();
 	}
 };
 
