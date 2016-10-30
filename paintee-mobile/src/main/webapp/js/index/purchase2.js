@@ -761,6 +761,20 @@ CommentController.prototype = {
 		$("[data-comment='" + this.paintingId + "']").html(parseInt($("[data-comment='" + this.paintingId + "']").html()) + 1);
 		closePurchaseStep01();
 		refreshDetailPosted();
+	},
+	delComment: function (listData) {
+		var controller = this;
+		AjaxCall.call(apiUrl + "/painting/"+listData.seq+"/comment",
+				{paintingId: listData.paintingId},
+				"DELETE",
+				function (result) {
+					controller.delCommentRes(result);
+				}
+		);
+	},
+	delCommentRes: function (result) {
+		dataReload(["initMy();", "initFollow();", "initPopular();", "initNew();"]);
+		alert($.i18n.t('alert.common.processDelete'));
 	}
 }
 

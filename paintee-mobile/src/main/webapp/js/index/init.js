@@ -90,6 +90,7 @@ function setSideMenu() {
 	}
 }
 
+//var imageUrl="http://localhost:8000/paintee-admin";
 var imageUrl="http://52.78.126.27:8080/paintee-admin";
 //var imageUrl=window.location.protocol+"//paintee.me/paintee-admin";
 var apiUrl = imageUrl + "/api";
@@ -287,6 +288,8 @@ Structure.prototype = {
                                 this.listArtist.html(name);
                             },
         setStatus:          function(listData){
+        						// console.log(listData);
+        	
                                 if(listData.paintingStatus == "1"){                                                        
                                     this.listStatusBtn.addClass("list_status_preparing")
                                                       .html("preparing")
@@ -315,6 +318,13 @@ Structure.prototype = {
 					                                  .click(function(){
 							                              showDelete(this, listData, listData.paintingStatus);
 							                          });
+                                } else if(listData.paintingStatus == "100"){
+                                	this.listStatusBtn.addClass("list_status_done")
+					                                  .html("delete")
+					                                  .attr("id", "exeBtn" + listData.seq)
+					                                  .click(function(){
+					                                	  showCommentDelete(this, listData, listData.paintingStatus);
+					                                  });
                                 } else if(listData.paintingStatus == "N"){
                                 	this.listStatusBtn.addClass("list_status_done")
 					                  				  .html("delete")
@@ -322,6 +332,15 @@ Structure.prototype = {
                                                       .click(function(){
 							                              showDelete(this, listData, listData.paintingStatus);
 							                          });
+                                } 
+                                // 댓글 삭제처리
+                                else {
+                                	this.listStatusBtn.addClass("list_status_done")
+                                	.html("delete")
+                                	.attr("id", "exeBtn" + listData.seq)
+                                	.click(function(){
+                                		showDelete(this, listData, listData.paintingStatus);
+                                	});
                                 }
                                 
         },
@@ -367,23 +386,26 @@ Structure.prototype = {
                                 this.container.append(this.listBtn);
                                 // 마이페이지의 그림 하단의 상태표시 버튼
                                 if (type == "my") {
-                                	switch(listData.paintingStatus) {
-                                	case "1":
-                                	case "2":
-                                	case "3":
-                                    case "4":
-                                    case "5":
-                                	case "99":
-                                	case "N":
-                                		this.container.append(this.listStatusBtn);  
-                                		this.container.append(this.listCancelBtn);  
-                                		this.container.append(this.listRefundBtn);  
-                                		//this.container.append(this.listResendBtn);s
-                                		this.container.append(this.listConfirmBtn);
-                                        this.container.append(this.listDeleteBtn);
-                                		this.container.append(this.listStatusStc);
-                                		break;
-                                	}
+                                	
+                            		switch(listData.paintingStatus) {
+                            		case "1":
+                            		case "2":
+                            		case "3":
+                            		case "4":
+                            		case "5":
+                            		case "99":
+                            		case "100":   // 댓글 일 경우 삭제를 위해 추가
+                             		case "N":
+                            			this.container.append(this.listStatusBtn);  
+                            			this.container.append(this.listCancelBtn);  
+                            			this.container.append(this.listRefundBtn);  
+                            			//this.container.append(this.listResendBtn);
+                            			this.container.append(this.listConfirmBtn);
+                            			this.container.append(this.listDeleteBtn);
+                            			this.container.append(this.listStatusStc);
+                            			break;
+                            		}
+                                	
                                 }
                                 return this.container;
                             }
@@ -527,6 +549,17 @@ function showDelete(clicked, listData, status){
     $(clicked).parent().find(".list_status_sentence").empty().html("<span data-i18n='[html]my.deleteStatusPurchase'></span>").fadeIn().click(function(){hideCancel(this)});
     startTimer(clicked);
     exeTranslation('#my', lang);
+}
+
+function showCommentDelete(clicked, listData, status){
+	$(clicked).parent().find(".list_delete_btn").fadeIn().one("click", function () {
+		new CommentController().delComment(listData);
+		hideCancel(this);
+	});
+	// 텍스트 문구 수정 sendStatus 블라블라
+	$(clicked).parent().find(".list_status_sentence").empty().html("<span data-i18n='[html]my.deleteStatusPurchase'></span>").fadeIn().click(function(){hideCancel(this)});
+	startTimer(clicked);
+	exeTranslation('#my', lang);
 }
 
 // 최초 5개 미리 생성

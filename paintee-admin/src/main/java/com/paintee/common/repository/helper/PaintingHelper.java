@@ -15,6 +15,7 @@
 package com.paintee.common.repository.helper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -105,10 +106,10 @@ public interface PaintingHelper extends PaintingMapper {
 	 @brief 함수 간략한 설명 : 그림의 코멘트 카운트를 1 증가 시킨다.
 	 @remark
 	 - 함수의 상세 설명 : 그림의 코멘트 카운트를 1 증가 시킨다.
-	 @param paintingId
+	 @param param
 	 @return 
 	*/
-	public void updateCommentCntByPaintingId(String paintingId);
+	public void updateCommentCntByPaintingId(Map<String, Object> param);
 
 	/**
 	 @fn selectLikeUserList

@@ -15,16 +15,16 @@
 package com.paintee.mobile.comment.service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.paintee.common.repository.entity.CommentPainting;
-import com.paintee.common.repository.entity.User;
 import com.paintee.common.repository.helper.CommentPaintingHelper;
 import com.paintee.common.repository.helper.PaintingHelper;
-import com.paintee.common.repository.helper.UserHelper;
 import com.paintee.mobile.support.obejct.LoginedUserVO;
 
 /**
@@ -60,8 +60,21 @@ public class CommentServiceImpl implements CommentService {
 
 		commentPaintingHelper.insert(commentPainting);
 
-		paintingHelper.updateCommentCntByPaintingId(commentPainting.getPaintingId());
+		Map<String, Object> param = new HashMap<>();
+		param.put("paintingId", commentPainting.getPaintingId());
+		param.put("cnt", 1);
+		paintingHelper.updateCommentCntByPaintingId(param);
 
 		return commentPainting;
+	}
+
+	@Transactional
+	public void deleteCommentPainting(CommentPainting commentPainting) throws Exception {
+		commentPaintingHelper.deleteByPrimaryKey(commentPainting.getSeq());
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("paintingId", commentPainting.getPaintingId());
+		param.put("cnt", -1);
+		paintingHelper.updateCommentCntByPaintingId(param);
 	}
 }

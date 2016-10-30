@@ -59,9 +59,9 @@
 	</select>
 
 	<!-- 그림의 comment count 증가 -->
-  	<update id="updateCommentCntByPaintingId">
+  	<update id="updateCommentCntByPaintingId" parameterType="java.util.Map">
 		update TB_PAINTING 
-		set comment_cnt = comment_cnt+1
+		set comment_cnt = comment_cnt + #{cnt}
 		where painting_id = #{paintingId}
   	</update>
 </mapper>

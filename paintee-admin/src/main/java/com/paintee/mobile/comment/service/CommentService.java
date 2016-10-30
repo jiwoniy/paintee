@@ -45,4 +45,15 @@ public interface CommentService {
 	 @throws Exception 
 	*/
 	public CommentPainting createCommentPainting(CommentPainting commentPainting, LoginedUserVO loginedUserVO) throws Exception;
+
+	/**
+	 @fn deleteCommentPainting
+	 @brief 함수 간략한 설명 : 그림 코멘트 정보 삭제
+	 @remark
+	 - 함수의 상세 설명 : 그림 코멘트 정보 삭제
+	 @param commentPainting
+	 @return 
+	 @throws Exception 
+	*/
+	public void deleteCommentPainting(CommentPainting commentPainting) throws Exception;
 }

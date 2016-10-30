@@ -112,6 +112,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 			where.andTuesdaySeqEqualTo(tuesdayPainting.getSeq());
 			where.andPurchaseTypeEqualTo("TUESDAY");
+			where.andUserIdEqualTo(userId);
 
 			//이미 구매한 화요의 그림일 경우
 			if(purchaseHelper.countByExample(example) > 0) {
