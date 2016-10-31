@@ -37,9 +37,9 @@
 	},
     "tuesday":
 	{
-		"explainFree": "paintee가 선정한 화요의 그림입니다.<br>화요의 그림은 일주일 동안 무료로 가질수 있습니다.",
-		"explainNotFree": "지난 화요의 그림입니다.<br>무료 기간은 일주일입니다.",
-        "explainAlready": "이미 무료로 구입한 화요의 그림입니다.<br>물론 얼마든지 더 가질 수 있습니다."
+		"explainFree": "Painting of Tuesday is selected by paintee.<br>You can get this for free for a week.",
+		"explainNotFree": "This is pase Painting of Tuesday<br>Free period was over.",
+        "explainAlready": "You already purchase this painting for free.<br>You can get free postcard just once"
 	},
 	"follow": 
 	{
@@ -91,7 +91,7 @@
 		"sender": "sender",
 		"address": "addresses",
         "sentence": "Please tell your story",
-        "tuesday": "화요의 그림은 단 한번만 무료로 구매할 수 있습니다. <br> 이후에는 정상적인 결제 절차를 통해 계속 구입할 수 있습니다.<br>아래 Payment 버튼을 눌러 무료엽서를 받아보세요."
+        "tuesday": "You can get Painting of Tuesday as a postcard for free at once.<br> After free postcard service, you can get more by ordinary purchasing process<br>Please click ‘Payment’ button to continue and get free postcard."
 	},	
 	"purchasePop2": 
 	{
@@ -154,8 +154,8 @@
 			"processCancelRefund": "Cancelling refund request is completed.",
 			"processComplete": "Re-sending request is completed.",
 			"finishPurchaseService": "You have turned off free service.",
-			"notFreeTuesdayPaint": "유료 화요의 그림이 아닙니다.",
-			"alreadyPostedTuesdayPaint": "이미 무료로 화요의 그림을 구입하셨습니다."
+			"notFreeTuesdayPaint": "It's not free",
+			"alreadyPostedTuesdayPaint": "You already get a free postcard service."
 		},
 		"reward" : {
 			"existRequest": "You have already applied for another reward.",
@@ -191,7 +191,7 @@
 			"choiceFile": "Please select the upload file."
 		},
 		"comment" : {
-			"processInsert": "코멘트를 등록하였습니다."
+			"processInsert": "Your comment has registerd."
  		},
         "notyet" : "This function is not yet available"
 	}				
