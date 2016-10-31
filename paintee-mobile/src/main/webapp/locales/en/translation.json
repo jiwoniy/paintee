@@ -38,7 +38,8 @@
     "tuesday":
 	{
 		"explainFree": "paintee가 선정한 화요의 그림입니다.<br>화요의 그림은 일주일 동안 무료로 가질수 있습니다.",
-		"explainNotFree": "지난 화요의 그림입니다.<br>무료 기간은 일주일입니다."
+		"explainNotFree": "지난 화요의 그림입니다.<br>무료 기간은 일주일입니다.",
+        "explainAlready": "이미 무료로 구입한 화요의 그림입니다.<br>물론 얼마든지 더 가질 수 있습니다."
 	},
 	"follow": 
 	{
