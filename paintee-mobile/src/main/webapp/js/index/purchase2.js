@@ -412,8 +412,6 @@ function initPayment(serviceCnt, option){
     var payment = new Payment();
     payment.setTitle("Payment");
 
-    console.log(option)
-
     if(option == "tuesday"){
         var contents = "<span data-i18n='[html]purchasePop1.tuesday'></span>"
         payment.setContents(contents);
@@ -765,10 +763,10 @@ CommentController.prototype = {
 	},
 	addCommentRes: function (result) {
 		dataReload(["initMy();"]);
-		alert($.i18n.t('alert.comment.processInsert'));
 		$("[data-comment='" + this.paintingId + "']").html(parseInt($("[data-comment='" + this.paintingId + "']").html()) + 1);
 		closePurchaseStep01();
-		refreshDetailPosted();
+//		refreshDetailPosted();
+        loadDetail(this.paintingId, color, colorDark, 'comment');
 	},
 	delComment: function (listData) {
 		var controller = this;
