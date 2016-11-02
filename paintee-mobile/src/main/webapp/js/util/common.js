@@ -147,6 +147,8 @@ Date.prototype.weekCountOfMonth = function () {
     while(sDate-(day-beginDay)<= 0){
     	week++;
     	day += 7;
+
+        if(week>7) break;
     }
 	return week;
 };
