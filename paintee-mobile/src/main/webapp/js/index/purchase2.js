@@ -4,7 +4,8 @@ var purchaseBox = $(".purchase_box");
 var purchaseSentenceBox = $(".purchase_box_sentence");
 var purchaseStructure;
 
-function Purchase(){
+function Purchase(purchaseType){
+    this.purchaseType = purchaseType;
     this.doneBox  = $("<div>").addClass("purchase_box_select");
     this.doneIcon   = $("<img>").addClass("icon").attr("src", "ico/done.png");
     this.doneBtn    = $("<div>").addClass("purchase_done_btn").append($("<div>").addClass("purchase_btn_text").html("done ")).click(function(){
@@ -38,7 +39,10 @@ function Purchase(){
     this.addressCheck   = $("<div>").addClass("purchase_col_check")
                             .append('<input type="checkbox" name="checkBasicAddr" class="purchase_input_check" checked> set as my address');
 
-    this.purchaseBtn    = $("<div>").addClass("purchase_pay_btn")
+    this.purchaseBtn    = $("<div>").addClass("purchase_pay_btn").attr("id", "payment-point")
+                            .append('<div class="purchase_btn_text">Payment </div>')
+                            .append('<img class="icon" src="ico/payment.png">');
+    this.purchaseTueBtn = $("<div>").addClass("purchase_pay_btn").attr("id", "payment-tuesday")
                             .append('<div class="purchase_btn_text">Payment </div>')
                             .append('<img class="icon" src="ico/payment.png">');
 }
@@ -70,7 +74,11 @@ Purchase.prototype = {
         this.addressBox.append(this.addresseeName);
         this.addressBox.append(this.addresseeInput);
         this.addressBox.append(this.addressCheck);
-        this.addressBox.append(this.purchaseBtn);
+        if(this.purchaseType=="TUESDAY"){
+            this.addressBox.append(this.purchaseTueBtn);
+        }else{
+            this.addressBox.append(this.purchaseBtn);
+        }
 
         return this.addressBox;
     }
@@ -87,14 +95,14 @@ function purchase(paintingId, artistName, type, purchaseType) {
     this.artistName = artistName;
     this.purchaseType = purchaseType;
 
-    initPurchasePop(type);
+    initPurchasePop(type, purchaseType);
 }
 
-function initPurchasePop(type) {
+function initPurchasePop(type, purchaseType) {
 	replaceHistory({"call": "purchasePop"});
     addHistory({"call": "purchaseStep1"});
 
-    purchaseStructure = new Purchase();
+    purchaseStructure = new Purchase(purchaseType);
     purchaseStatus = type;
 
     if(purchaseStatus=="post"){
@@ -127,8 +135,11 @@ function initPurchaseAddress(result){
 
     // 기존 설정된 이벤트 제거
     $(".purchase_pay_btn").off("click");
-    $(".purchase_pay_btn" ).click(function() {
-    	payment(result.user.serviceCnt);
+    $("#payment-point").click(function() {
+    	payment(result.user.serviceCnt, "point");
+    });
+    $("#payment-tuesday").click(function() {
+    	payment(result.user.serviceCnt, "tuesday");
     });
 
     // 우편번호 입력박스 키이벤트 등록
@@ -284,7 +295,7 @@ $("[name=sentence]").blur(function () {
 });
 
 //결재화면
-function payment(serviceCnt) {
+function payment(serviceCnt, option) {
 
 	addHistory({"call": "purchaseStep2"});
 
@@ -296,7 +307,7 @@ function payment(serviceCnt) {
     $(".purchase_container").hide();
 
     $(".payment_container").show();
-    initPayment(serviceCnt);
+    initPayment(serviceCnt, option);
     setBox();
 }
 
@@ -396,15 +407,12 @@ Payment.prototype = {
     }
 }
 
-function initPayment(serviceCnt){
+function initPayment(serviceCnt, option){
     $(".payment_box").empty();
     var payment = new Payment();
     payment.setTitle("Payment");
 
-    // [tuesday] 이 단계에서 해당 그림이 무료기간 내의 tuesday 그림이면서 && 아직 사용자가 무료로 구매한 적이 없는 그림인지 확인
-    // 현재는 임의로 무조건 false
-    var  validTuesday = false;
-    if(validTuesday){
+    if(option == "tuesday"){
         var contents = "<span data-i18n='[html]purchasePop1.tuesday'></span>"
         payment.setContents(contents);
         payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/payment.png'></div>");
@@ -511,7 +519,6 @@ PurchaseController.prototype = {
         // 스피너 화면 중지
 		$(".stopper").hide();
 
-        // 이게 무슨 내용이지?
         var popClose = false;
 		if(result.errorNo == '500') {
 			alert($.i18n.t('alert.purchase.notFreeTuesdayPaint'));
@@ -707,7 +714,6 @@ function completePayment(result){
 		    });
 		    isDetail = false;
 		}
-        // [tuesday] mainSwiper 순서 하나씩 미룸
         selectMenu(4);
         mySwiper.slideTo(1);
     });
@@ -757,10 +763,10 @@ CommentController.prototype = {
 	},
 	addCommentRes: function (result) {
 		dataReload(["initMy();"]);
-		alert($.i18n.t('alert.comment.processInsert'));
 		$("[data-comment='" + this.paintingId + "']").html(parseInt($("[data-comment='" + this.paintingId + "']").html()) + 1);
 		closePurchaseStep01();
-		refreshDetailPosted();
+//		refreshDetailPosted();
+        loadDetail(this.paintingId, color, colorDark, 'comment');
 	},
 	delComment: function (listData) {
 		var controller = this;

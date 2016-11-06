@@ -21,13 +21,13 @@ function DetailStructure(paintingId, paintingInfo){
     this.detailBgContainer  =$("<div>").addClass("detail_bg_container");
     this.detailBgImg        =$("<img>").addClass("detail_bg_img").swipe({
                                 swipeUp:function(){
-                                    showPostee();
+                                    showPostee(0);
                                 },
                                 tap:function(){
-                                    showPostee();
+                                    showPostee(0);
                                 },
                                 click:function(){
-                                    showPostee();
+                                    showPostee(0);
                                 },
                                 swipeDown:function(){
                                     closeDetail();
@@ -275,12 +275,16 @@ DetailController.prototype = {
 		$(".detail_container").css("background-color", "hsla("+colorDark+", 0.6)");
 
 		// 소셜공유에서 직접 호출한 경우
-		if (call == 'personal') {
+        if (call == 'comment') {
+            refreshDetailPosted(detailSwiper);
+            showPostee(1);
+		}else if (call == 'personal') {
 			showPersonal(get.user, get.page);
 			get = "";
-		}
-
-		callPosted(detailSwiper);
+            callPosted(detailSwiper);
+		}else{
+            callPosted(detailSwiper);
+        }
  	},
 	artistFollow: function(artistId) {
 		var controller = this;
@@ -373,12 +377,14 @@ function closeDetail(){
 }
 
 // 댓글 화면 표시
-function showPostee(){
+function showPostee(index){
     $(".notice_box").hide();
-    $(".detail_container").fadeIn(500);
+    $(".detail_container").fadeIn(500, function(){
+        detailSwiper.slideTo(index);
+    });
     detailSwiper.update();
-    detailSwiper.slideTo(0);
 }
+
 function hidePostee(){
     $(".detail_container").fadeOut(500);
 }
@@ -520,8 +526,8 @@ function callPosted(swiper){
 	}
 }
 
-function refreshDetailPosted() {
-	var slideCnt = thisDetailSwiper.slides.length;
+function refreshDetailPosted(swiper) {
+	var slideCnt = swiper.slides.length;
 
 	postedObj = new Array();
 	postedIndex = new Array();
@@ -529,7 +535,7 @@ function refreshDetailPosted() {
 
 	for(var i=0; i<=slideCnt; i++) {
 		if(i>1) {
-			thisDetailSwiper.removeSlide(1);
+			swiper.removeSlide(1);
 		}
 	}
 
@@ -538,7 +544,7 @@ function refreshDetailPosted() {
 
 	$('#detail_comment_num').html(postNum);
 
-	callPosted(thisDetailSwiper);
+	callPosted(swiper);
 }
 
 function processDetailLikesNum(value) {

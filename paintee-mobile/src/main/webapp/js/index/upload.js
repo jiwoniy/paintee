@@ -182,7 +182,7 @@ function initUpload(likeCount, doTotaluploadCount, uploadedCount){
                   "<div class='upload_count'>♥ " + likeCount + "</div>" +
                   "</span><span data-i18n='[html]uploadPop.content2'></span>" +
                   "<div class='upload_count'>max " + doTotaluploadCount + " paintings</div>" +
-                  "<div class='upload_count'>now " + doUploadCount + " more paintings</div><br><br>"+
+//                  "<div class='upload_count'>now " + doUploadCount + " more paintings</div><br><br>"+
                   "</span><span data-i18n='[html]uploadPop.content3'></span><b>" + doUploadCount +
                   "</b></span><span data-i18n='[html]uploadPop.content4'></span>";
     // "<br><br><br><br><span style='color:rgb(150,0,0)'>타인의 저작물을 무단으로 업로드할 경우, 게시물에 대해 재재를 받을 수 있습니다. 자세한 사항은 <b>Terms & Policy</b> 항목을 확인하세요.</span>";

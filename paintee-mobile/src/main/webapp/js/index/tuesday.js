@@ -77,12 +77,8 @@ function Tuesday(data){
 												    return;
 												}
 												if(checkFreePaint(data.startDate, data.endDate) && data.postYn == 'N') {
-//													console.log(data);
-//													console.log("TUESDAY");
 													purchase(data.paintingId, data.artistName, "post", "TUESDAY");
 												} else {
-//													console.log(data);
-//													console.log("CASH");
 													purchase(data.paintingId, data.artistName, "post", "CASH");
 												}
                                             });
@@ -91,7 +87,10 @@ function Tuesday(data){
         if(checkFreePaint(data.startDate, data.endDate) && data.postYn == 'N'){
             this.expalin.html("<span data-i18n='[html]tuesday.explainFree'></span>");
             this.listBtnPost.attr("src", "ico/post_free.png");
-        }else{
+        }else if(checkFreePaint(data.startDate, data.endDate) && data.postYn == 'Y'){
+            this.expalin.html("<span data-i18n='[html]tuesday.explainAlready'></span>");
+            mainSwiper.slideTo(1, 0);
+        }else {
             this.expalin.html("<span data-i18n='[html]tuesday.explainNotFree'></span>");
         }
 }
