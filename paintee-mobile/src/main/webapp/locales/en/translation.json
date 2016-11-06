@@ -37,7 +37,7 @@
 	},
     "tuesday":
 	{
-		"explainFree": "Painting of Tuesday is selected by paintee.<br>You can get this for free for a week.",
+		"explainFree": "One painting, every week.<br>You can get this painting for free for a week.",
 		"explainNotFree": "This is pase Painting of Tuesday<br>Free period was over.",
         "explainAlready": "You already purchase this painting for free.<br>You can get free postcard just once"
 	},
@@ -185,7 +185,8 @@
             "processMemberJoin2": "/n Please check your email.",
 			"processSocialMemberJoin": "You are successfully registered.",
 			"correctEmailAddr": "Please enter the correct email address.",
-			"invalidUserName": "Name should be 4 to 14 characters, which only contain letters or numbers."
+			"invalidUserName": "Name should be 4 to 14 characters, which only contain letters or numbers.",
+            "preventSocial": "Signing up by facebook account is temporary available. \n Please continue signing up by e-mail address."
 		},
 		"upload" : {
 			"choiceFile": "Please select the upload file."
