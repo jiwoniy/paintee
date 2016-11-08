@@ -278,6 +278,7 @@ TuesdayController.prototype = {
 			if (tueSwiper.slides.length > 100) {
 				break;
 			}
+            exeTranslation('.tue_container', lang);
 		}
 	},
 	getBgData: function (paintingId) {
