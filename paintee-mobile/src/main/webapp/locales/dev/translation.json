@@ -1,0 +1,51 @@
+{
+	"follow": 
+	{
+		"loginexplain": "가까운 사람들의 그림입니다.(영)",
+		"notloginexplain": "환영합니다.<br>그림을 엽서로 보내거나 받아보세요.(영)"
+	},
+	"popular": 
+	{
+		"explain": "가장 인기있는 그림입니다.(영)",
+		"content": "명이 paintee에서 좋아하는 그림을 찾았습니다.(영)"
+	},
+	"new": 
+	{
+		"explain": "새로 올라온 그림입니다.(영)",
+		"content": "개의 그림이 paintee에 있습니다.(영)"
+	},
+	"my": 
+	{
+		"notloginexplain": "로그인해서 나와 팔로워의 그림을 확인하세요<br><br><br>(영)",	
+		"loginexplain": "내가 올리거나 포스트한 그림입니다.<br>(영)",	
+		"login-introduce": "여기에 자신을 소개할 문구를 넣어주세요.(영)"	
+	},
+	"rewardPop": 
+	{
+		"content1": "당신의 그림이 post될 때 마다 reward가 쌓입니다.<br> 지금까지 (영)",	
+		"content2": "회 post된 당신이 얻은 총 Reward는<br>(영)",	
+		"content3": "입니다.<br><br><br>지금 Reward를 신청하면 남은 (영)",	
+		"content4": "에<br><b>수수료 $5</b>가 제외된 금액을 받을 수 있습니다.<br>(영)"	
+	},
+	"rewardPop2": 
+	{
+		"content1": "아래 계좌로 지금 받을 수 있는 (영)",	
+		"content2": "에 <br>reward <b>수수료 (영)",	
+		"content3": "를 제외한<br><br>(영)",	 
+		"content4": "이 입금됩니다.<br><br><br>(영)",	
+		"content5": "<br>계좌명과 계좌번호를 정확하게 입력해주세요.(영)"	,
+		"content6": "<br>계좌명이 정확하지 않을 경우, 입금에 장애가 있을 수 있습니다.(영)"	
+	},	
+	"purchasePop1": 
+	{
+		"contents": "추가적인 배송료나 포장비가 없습니다.<br>어디든 $2면 충분합니다.<br><br><br>구매한 $2의 일부는 작가에게 후원금으로 지급됩니다. <br>아름다운 그림을 나눠준 작가에게 큰 힘이 되어주세요.<br><br>아래 구매버튼을 눌러 결재를 계속하세요.(영)"
+	},	
+	"purchasePop2": 
+	{
+		"contents": "곧 엽서가 발송됩니다.<br>하지만, 기다리세요, 조금 더 시간이 걸립니다.<br>구매한 엽서는 우편을 통해 배송됩니다. 우편은 충분히 빠르지 않습니다.<br>기다린 만큼 더 큰 기쁨이 될 수 있습니다.<br><br><br><b>Post한 그림을 친구들과 함께 하세요.(영)"
+	},	
+	"personal": 
+	{
+		"contents": "님이 업로드한 그림들입니다.(영)"
+	}	
+}
