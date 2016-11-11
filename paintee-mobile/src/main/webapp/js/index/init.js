@@ -575,7 +575,7 @@ function mainLock(mainSwiper){
         colorDark = "190,50%,20%";
         if(isPersonal){hidePersonal()};
         if(painteeFB.isCordova()){
-        	if(StatusBar){StatusBar.backgroundColorByHexString("#19444c")};
+        	if(StatusBar){StatusBar.backgroundColorByHexString("#505050")};
         }
 
     }else if(mainSwiper.activeIndex==1){
@@ -936,7 +936,7 @@ var imgChecher = setInterval(function(){
         clearInterval(imgChecher);
         setWidth();
         if(painteeFB.isCordova()){
-        	if(StatusBar){StatusBar.backgroundColorByHexString("#33b3cc")};
+        	if(StatusBar){StatusBar.backgroundColorByHexString("#505050")};
         }
         
     })

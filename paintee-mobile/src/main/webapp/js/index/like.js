@@ -105,7 +105,7 @@ PaintingLikeController.prototype = {
         $(this).replaceWith(likeSeqCir)});
 	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_like, div.tue_btn > img.list_btn_like").replaceWith(listBtnLiked);
         if($(this.bubble).parent().attr("class")=="detail_btn"){
-            $(this.bubble).replaceWith($("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked").click(function(){dropBubble(this, data.paintingId, data.artistId)}))
+            $(this.bubble).replaceWith($("<img>").attr("src", "ico/liked.png").addClass("list_btn_icon").addClass("list_btn_liked").click(function(){dropBubble(this, selectedPaintingId, selectedArtistId)}))
         };
 	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) + 1);
 
@@ -131,7 +131,7 @@ PaintingLikeController.prototype = {
 	    .animate({width: "120%", height: "120%", top: "-10%", left: "-10%", opacity: "0"}, 500, "swing", function(){$(this).parent().hide();$(this).replaceWith(likeSeqCir)});
 	    $("div.list_btn[data-likeId='" + controller.paintingId + "'] > img.list_btn_liked, div.tue_btn > img.list_btn_liked").replaceWith(listBtnLike);
         if($(this.bubble).parent().attr("class")=="detail_btn"){
-            $(this.bubble).replaceWith($("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like").click(function(){riseBubble(this, data.paintingId, data.artistId)}))
+            $(this.bubble).replaceWith($("<img>").attr("src", "ico/like.png").addClass("list_btn_icon").addClass("list_btn_like").click(function(){riseBubble(this, selectedPaintingId, selectedArtistId)}))
         };
 	    $("[data-like=like_" + controller.paintingId + "]").html(parseInt($("[data-like=like_" + controller.paintingId + "]").html()) - 1);
 	    // dataReload(["initPopular();"]);
