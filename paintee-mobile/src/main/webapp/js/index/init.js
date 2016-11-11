@@ -606,7 +606,7 @@ function mainLock(mainSwiper){
         }
         
     }else if(mainSwiper.activeIndex==4){
-        mainSwiper.unlockSwipes();
+        mainSwiper.lockSwipeToNext();
         color = "250,60%,50%";
         colorDark = "250,60%,20%";
         if(isPersonal){hidePersonal()};
