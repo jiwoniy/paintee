@@ -571,48 +571,33 @@ function mainLock(mainSwiper){
     if(mainSwiper.activeIndex==0){
         mainSwiper.lockSwipeToPrev();
         tueSwiper.slideTo(0,0);
-        color = "190,50%,20%";
+        color = "#505050";
         colorDark = "190,50%,20%";
         if(isPersonal){hidePersonal()};
-        if(painteeFB.isCordova()){
-        	if(StatusBar){StatusBar.backgroundColorByHexString("#505050")};
-        }
 
     }else if(mainSwiper.activeIndex==1){
         mainSwiper.unlockSwipes();
-        color = "190,60%,50%";
+        color = "#33b3cc";
         colorDark = "200,60%,20%";
         if(isPersonal){hidePersonal()};
-        if(painteeFB.isCordova()){
-        	if(StatusBar){StatusBar.backgroundColorByHexString("#33b3cc")};
-        }
         
     }else if(mainSwiper.activeIndex==2){
         mainSwiper.unlockSwipes();
-        color = "330,60%,50%";
+        color = "#cc3380";
         colorDark = "330,60%,20%";
         if(isPersonal){hidePersonal()};
-        if(painteeFB.isCordova()){
-        	if(StatusBar){StatusBar.backgroundColorByHexString("#cc3380")};
-        }
         
     }else if(mainSwiper.activeIndex==3){
         mainSwiper.unlockSwipes();
-        color = "80,60%,45%";
+        color = "#8ab82e";
         colorDark = "90,60%,20%";
         if(isPersonal){hidePersonal()};
-        if(painteeFB.isCordova()){
-        	if(StatusBar){StatusBar.backgroundColorByHexString("#8ab82e")};
-        }
         
     }else if(mainSwiper.activeIndex==4){
         mainSwiper.lockSwipeToNext();
-        color = "250,60%,50%";
+        color = "#4c33cc";
         colorDark = "250,60%,20%";
         if(isPersonal){hidePersonal()};
-        if(painteeFB.isCordova()){
-        	if(StatusBar){StatusBar.backgroundColorByHexString("#4c33cc")};
-        }
     }currentSwiper="";
 };
 
@@ -639,6 +624,52 @@ function listLock(swiper){
     }
 }
 mainSwiper.on("onTransitionEnd", function(mainSwiper){mainLock(mainSwiper)});
+mainSwiper.on("onSlideChangeEnd", function(mainSwiper){
+    if(painteeFB.isCordova()){
+        if(mainSwiper.activeIndex==0){
+            if(StatusBar){
+                StatusBar.backgroundColorByHexString("#505050")
+            };
+        }else if(mainSwiper.activeIndex==1){
+            if(StatusBar){
+                StatusBar.backgroundColorByHexString("#33b3cc")
+            };
+        }else if(mainSwiper.activeIndex==2){
+            if(StatusBar){
+                StatusBar.backgroundColorByHexString("#cc3380")
+            };
+        }else if(mainSwiper.activeIndex==3){
+            if(StatusBar){
+                StatusBar.backgroundColorByHexString("#8ab82e")
+            };
+        }else if(mainSwiper.activeIndex==4){
+            if(StatusBar){
+                StatusBar.backgroundColorByHexString("#4c33cc")
+            };
+        }
+    }
+});
+mainSwiper.on("onSlidePrevStart", function(mainSwiper){
+    if(painteeFB.isCordova()){
+        if(mainSwiper.activeIndex==0){
+            if(StatusBar){
+                StatusBar.backgroundColorByHexString("#505050")
+            };
+        }else if(mainSwiper.activeIndex==1){
+            if(StatusBar){
+                StatusBar.backgroundColorByHexString("#33b3cc")
+            };
+        }else if(mainSwiper.activeIndex==2){
+            if(StatusBar){
+                StatusBar.backgroundColorByHexString("#cc3380")
+            };
+        }else if(mainSwiper.activeIndex==3){
+            if(StatusBar){
+                StatusBar.backgroundColorByHexString("#8ab82e")
+            };
+        }
+    }
+});
 
 // side menu 초기설정
 function initMenu(userID){
