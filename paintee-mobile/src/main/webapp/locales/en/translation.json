@@ -87,11 +87,16 @@
 	"purchasePop1": 
 	{
 		"contents": "Now is the beta test period. We will begin service soon.<br><br><br><b>Send 3 free postcards per week till beta test period over.</b><br>Please click ‘Payment’ button to continue and get free postcard.",
+        "contents1": "어디든 $2면 충분합니다.<br>추가적인 배송료나 포장비가 없습니다.<br>아래 Payment 버튼을 눌러 결제를 계속하세요.",
         "alert": "Now is the beta test period. We will begin service soon.<br><br><br>Only $2 USD, you can have any images since commercial service.<br><br>Please, wait commercial service.",
 		"sender": "sender",
 		"address": "addresses",
         "sentence": "Please tell your story",
-        "tuesday": "You can get Painting of Tuesday as a postcard for free at once.<br> After free postcard service, you can get more by ordinary purchasing process<br>Please click ‘Payment’ button to continue and get free postcard."
+        "tuesday": "You can get Painting of Tuesday as a postcard for free at once.<br> After free postcard service, you can get more by ordinary purchasing process<br>Please click ‘Payment’ button to continue and get free postcard.",
+        "reward1": "당신이 얻은 Reward로 엽서를 구매할 수 있습니다.<br> 당신의 리워드 <b>$</b>",
+        "reward2": "중에 <b>$2</b>가 차감됩니다.<br> 아래 Payment 버튼을 눌러 결제를 계속하세요.",
+        "promotionCode": "Promotion Code를 입력해서 엽서를 무료로 구매할 수 있습니다.<br>한번 사용된 Promotion Code는 재사용되거나 환불되지 않습니다.<br><br>아래에 6자리 Promotion Code를 정확히 입력해 주세요.<br><br><br>",
+        "select": "결재 방법을 선택해주세요."
 	},	
 	"purchasePop2": 
 	{

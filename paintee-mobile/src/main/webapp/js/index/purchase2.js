@@ -387,6 +387,16 @@ function Payment(){
     this.sociconFacebook =$("<img id='fac_share' src='ico/social_facebook.png'>").addClass("icon").addClass("social_img");
     this.sociconTwitter  =$("<img id='twi_share' src='ico/social_twitter.png'>").addClass("icon").addClass("social_img");
     this.sociconUrl      =$("<img id='url_share' src='ico/social_url.png'>").addClass("icon").addClass("social_img");
+    this.payByPaypal  =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/pay_paypal.png'><div class='purchase_btn_text'>by Credit Card </div>")
+                        .click(function(){paymentByPaypal()});
+    this.payByAndroid =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/pay_android.png'><div class='purchase_btn_text'>by Google Account </div>")
+                        .click(function(){paymentByAndroid()});
+    this.payByiOS     =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/pay_ios.png'><div class='purchase_btn_text'>by Apple Account </div>")
+                        .click(function(){paymentByiOS()});
+    this.payByReward  =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/attach_money.png'><div class='purchase_btn_text'>by Your Reward </div>")
+                        .click(function(){paymentByReward()});
+    this.payByCode    =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/pay_promotion.png'><div class='purchase_btn_text'>by Promotion Code </div>")
+                        .click(function(){paymentByCode()});
 }
 
 Payment.prototype = {
@@ -398,6 +408,29 @@ Payment.prototype = {
     },
     setBottom   : function(bottom){
         $(this.bottom).html(bottom);
+    },
+    setReturn   : function(){
+        $(this.bottom).append(this.editAddress);
+    },
+    /**
+     *  [payment] payment 버튼 선택시 선택 옵셥을 표출하는 함수
+     *  상황에 따라 다른 옵션이 표출되어야 함 ex. 안드로이드일 경우만, 안드로이드 인앱 결제 표시
+     */
+    setPay   : function(){
+        $(this.bottom).empty();
+        $(this.bottom).height(170);
+        $(this.bottomMargin).height(170);
+        $(this.bottom).append($("<div>").addClass("payby_btn").html($.i18n.t('purchasePop1.select')));
+        $(this.bottom).append(this.payByPaypal);
+        if(checkPaymentPlatform()=="android"){
+            $(this.bottom).append(this.payByAndroid);
+        }else if(checkPaymentPlatform()=="iOS"){
+            $(this.bottom).append(this.payByiOS);
+        }
+        if(checkPaymentReward){
+            $(this.bottom).append(this.payByReward);
+        }
+        $(this.bottom).append(this.payByCode);
     },
     buildPayment : function(){
         $(".payment_box").append(this.title);
@@ -428,6 +461,17 @@ function initPayment(serviceCnt, option){
         payment.setContents(contents);
         payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div>");
         payment.buildPayment();
+    }else if(serviceCnt > 5){
+        var contents = "<span data-i18n='[html]purchasePop1.contents1'></span>"
+        payment.setContents(contents);
+        payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/create.png'><div class='purchase_btn_text' onclick='history.back();'>edit address</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/payment.png'></div>");
+        payment.buildPayment();
+        $(".payment_btn").click(function(){
+        /**
+         *  [payment] payment 버튼 선택시 선택 옵셥을 표출
+         */
+                payment.setPay();
+        })
     }else{
         var contents = "<span class='reward_money'>" + serviceCnt + "/3</span><br>"
                      + "<span data-i18n='[html]purchasePop1.contents'></span>"
@@ -449,6 +493,140 @@ function showPurchaseSpinner(){
     $(".payment_btn").html("<div class='purchase_btn_text'>wait </div><img src='spinner.png' class='spinner'>");
     $(".stopper").show();
 }
+
+/**
+ *  [payment] paypal 옵션 선택
+ */
+
+function paymentByPaypal(){
+    alert("Paypal로 결제되는 과정이 진행됩니다.");
+    purchaseController.addPurchase(3);
+    showPurchaseSpinner();
+}
+
+/**
+ *  [payment] 안드로이드 인앱 옵션 선택
+ */
+
+function paymentByAndroid(){
+    alert("안드로이드 인앱으로 결제되는 과정이 진행됩니다.");
+    purchaseController.addPurchase(3);
+    showPurchaseSpinner();
+}
+
+/**
+ *  [payment] iOS 인앱 옵션 선택
+ */
+
+function paymentByiOS(){
+    alert("iOS 입앱으로 결제되는 과정이 진행됩니다.");
+    purchaseController.addPurchase(3);
+    showPurchaseSpinner();
+}
+
+/**
+ *  [payment] 리워드 옵션 선택
+ */
+
+function paymentByReward(){
+
+    $(".payment_box").empty();
+    var payment = new Payment();
+    payment.setTitle("Payment");
+
+    var reward = 75; // 현재 내가 받을 수 있는 리워드
+    var contents1 = "<span data-i18n='[html]purchasePop1.reward1'></span>"
+    var contents2 = "<span data-i18n='[html]purchasePop1.reward2'></span>"
+    payment.setContents(contents1 +"<b>"+ reward +"</b>"+ contents2);
+    payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/keyboard_arrow_left_black.png'><div class='purchase_btn_text' onclick='paymentCancle();'>Cancel</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/attach_money.png'></div>");
+    payment.buildPayment();
+    $(".payment_btn").click(function(){
+            alert("리워드 차감 과정이 진행됩니다.");
+            purchaseController.addPurchase(3);
+            showPurchaseSpinner();
+    })
+
+    delete payment;
+    exeTranslation('.base_position', lang);
+
+}
+
+/**
+ *  [payment] 프로모션 코드 옵션 선택
+ */
+
+function paymentByCode(){
+    $(".payment_box").empty();
+    var payment = new Payment();
+    payment.setTitle("Payment");
+
+    var contents = "<span data-i18n='[html]purchasePop1.promotionCode'></span>"
+    var form = '<input type="text" class="purchase_input">'
+    payment.setContents(contents + form);
+    payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/keyboard_arrow_left_black.png'><div class='purchase_btn_text' onclick='paymentCancle();'>Cancel</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/attach_money.png'></div>");
+    payment.buildPayment();
+    $(".payment_btn").click(function(){
+            alert("프로모션 코드 확인 및 사용처리 과정이 진행됩니다.");
+            purchaseController.addPurchase(3);
+            showPurchaseSpinner();
+    })
+
+    delete payment;
+    exeTranslation('.base_position', lang);
+
+}
+
+function paymentCancle(){
+    var bottom = $(".payment_bottom")
+    var payByPaypal  =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/pay_paypal.png'><div class='purchase_btn_text'>by Credit Card </div>")
+                        .click(function(){paymentByPaypal()});
+    var payByAndroid =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/pay_android.png'><div class='purchase_btn_text'>by Google Account </div>")
+                        .click(function(){paymentByAndroid()});
+    var payByiOS     =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/pay_ios.png'><div class='purchase_btn_text'>by Apple Account </div>")
+                        .click(function(){paymentByiOS()});
+    var payByReward  =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/attach_money.png'><div class='purchase_btn_text'>by Your Reward </div>")
+                        .click(function(){paymentByReward()});
+    var payByCode    =$("<div>").addClass("payby_btn").append("<img class='icon' src='ico/pay_promotion.png'><div class='purchase_btn_text'>by Promotion Code </div>")
+                        .click(function(){paymentByCode()});
+
+    bottom.empty();
+    bottom.height(170);
+    bottom.height(170);
+    bottom.append($("<div>").addClass("payby_btn").html($.i18n.t('purchasePop1.select')));
+    bottom.append(payByPaypal);
+    if(checkPaymentPlatform()=="android"){
+        bottom.append(payByAndroid);
+    }else if(checkPaymentPlatform()=="iOS"){
+        bottom.append(payByiOS);
+    }
+    if(checkPaymentReward){
+        bottom.append(payByReward);
+    }
+    bottom.append(payByCode);
+
+    exeTranslation('.base_position', lang);
+
+}
+
+/**
+ *  [payment] 안드로이드/iOS 플랫홈 체크
+ */
+
+function checkPaymentPlatform(){
+
+    return "android";
+}
+
+/**
+ *  [payment] Reward가 $2 이상인지 확인
+ */
+
+function checkPaymentReward(){
+
+    return true;
+}
+
+
 
 function PurchaseController(paintingId, artistName, purchaseType) {
 	if(purchaseType == null || purchaseType == '')
