@@ -35,9 +35,9 @@ function showPersonal(username, paintingId){
     initPersonal(paintingId);
     // [tuesday] mainSwiper 순서 하나씩 미룸
     selectMenu(5);
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#8ab82e")
-            };
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#8ab82e")
+//            };
 }
 
 /**

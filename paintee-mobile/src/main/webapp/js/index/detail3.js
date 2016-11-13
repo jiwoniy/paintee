@@ -185,7 +185,7 @@ DetailStructure.prototype = {
         this.detailBtn.append(this.detailBtnPost);
         this.detailBtn.append(this.detailBtnComment);
 
-        console.log(this.liked);
+//        console.log(this.liked);
         if(this.liked) {
         	this.detailBtn.append(this.detailBtnLiked);
         } else {
@@ -273,9 +273,9 @@ DetailController.prototype = {
 		$(".detail_bg_container").css("background-color", color);
 		$(".detail_bg_bottom").css("background-color", "hsla("+colorDark+", 1)");
 		$(".detail_container").css("background-color", "hsla("+colorDark+", 0.6)");
-        if(StatusBar){
-            StatusBar.backgroundColorByHexString("#505050")
-        };
+//        if(StatusBar){
+//            StatusBar.backgroundColorByHexString("#505050")
+//        };
 
 		// 소셜공유에서 직접 호출한 경우
         if (call == 'comment') {
@@ -376,9 +376,9 @@ function closeDetail(){
     	history.back();
     	processDetailClose();
         $(".notice_box").hide();
-        if(StatusBar){
-            StatusBar.backgroundColorByHexString("#8ab82e")
-        };
+//        if(StatusBar){
+//            StatusBar.backgroundColorByHexString("#8ab82e")
+//        };
     }
 }
 
