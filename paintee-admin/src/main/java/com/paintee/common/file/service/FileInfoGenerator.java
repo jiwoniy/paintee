@@ -251,7 +251,6 @@ public class FileInfoGenerator {
 
 		try {
 			File cropImageFilePath = new File(filePathGenerator.getAbsoluteFilPath(filePath));
-			logger.info("FileInfoGenerator ------------------1");
 			//크롭된 원본 파일 경로
 			if(!cropImageFilePath.exists()) {
 				logger.info("created {} directory", filePath);
@@ -260,7 +259,6 @@ public class FileInfoGenerator {
 
 			//원본파일 생성
 			originalFile = new File(fullPath.toString()+"_ori");
-			logger.info("FileInfoGenerator ------------------2");
 			FileCopyUtils.copy(multipartFile.getBytes(), originalFile);
 
 			//crop 이미지 생성
@@ -271,14 +269,12 @@ public class FileInfoGenerator {
 			//imgScalrWrapper.cropCenter(originalFile, cropImageFile, "jpeg", 1080, 1500);
 			imgScalrWrapper.cropCustom(originalFile, cropImageFile, "jpeg", paintingCreateVO.getX(), paintingCreateVO.getY(), paintingCreateVO.getxWidth(), paintingCreateVO.getyWidth(), paintingCreateVO.getRotate());
             imgScalrWrapper.resize(cropImageFilePre, cropImageFile, "jpeg", 1080, 1500);
-            logger.info("FileInfoGenerator ------------------3");
 			fileInfo.setSize(cropImageFile.length());
 
 			//중간 크기 썸네일
 			fullPath.delete(0, fullPath.length());
 			fullPath.append(filePathGenerator.getAbsoluteFilPath(filePath));
 			fullPath.append(newId).append("_2");
-			logger.info("FileInfoGenerator ------------------4");
 			thumbnailFile1 = new File(fullPath.toString());
 
 			imgScalrWrapper.resize(cropImageFile, thumbnailFile1, "jpeg", 648, 900);
@@ -291,7 +287,6 @@ public class FileInfoGenerator {
 			thumbnailFile2 = new File(fullPath.toString());
 
 			imgScalrWrapper.resize(cropImageFile, thumbnailFile2, "jpeg", 360, 500);
-			logger.info("FileInfoGenerator ------------------5");
 			//생성된 파일들을 aws 로 전송
 			StringBuilder awsPath = new StringBuilder();
 

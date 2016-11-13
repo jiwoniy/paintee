@@ -153,36 +153,19 @@ public class ImgScalrWrapper {
 		}
 
 		if(count > 0) {
-			logger.info("ImgSclarWrapper ------------------1");
 			// 2016-10-04 : 가로/세로 Problem
 			BufferedImage doneImage;
 			
-			logger.info("ImgSclarWrapper ------------------rotate : " + rotate);
-			
 			if(rotate == 90){
-//				bufferedImage = ;
-				logger.info("ImgSclarWrapper ------------------rotate : " + Scalr.Rotation.CW_90);
-				logger.info("ImgSclarWrapper ------------------rotate : " + x);
-				logger.info("ImgSclarWrapper ------------------rotate : " + y);
-				logger.info("ImgSclarWrapper ------------------rotate : " + width);
-				logger.info("ImgSclarWrapper ------------------rotate : " + height);
-				logger.info("ImgSclarWrapper ------------------rotate : " + Scalr.OP_ANTIALIAS);
 				BufferedImage rotatedImage = Scalr.rotate(bufferedImage, Scalr.Rotation.CW_90, Scalr.OP_ANTIALIAS);
-				
-				logger.info("ImgSclarWrapper ------------------ width : " + rotatedImage.getWidth());
-				logger.info("ImgSclarWrapper ------------------ height : " + rotatedImage.getHeight());
-				logger.info("ImgSclarWrapper ------------------rotate : ok");
 				// height & width change?
-				doneImage = Scalr.crop( rotatedImage, x, y, rotatedImage.getWidth(), rotatedImage.getWidth(), Scalr.OP_ANTIALIAS);
-				logger.info("ImgSclarWrapper ------------------rotate : what's happen");
+				doneImage = Scalr.crop( rotatedImage, x, y, rotatedImage.getWidth(), rotatedImage.getHeight(), Scalr.OP_ANTIALIAS);
 				
 			}else{
 				
 				doneImage = Scalr.crop(bufferedImage, x, y, width, height, Scalr.OP_ANTIALIAS);
 			}
-			
-//			BufferedImage doneImage = Scalr.crop(bufferedImage, x, y, width, height, Scalr.OP_ANTIALIAS);
-			logger.info("ImgSclarWrapper ------------------2");
+
 			writeImage(doneImage, resultFile, imageWritersByFormatName, 1);
 		}
 	}
