@@ -378,17 +378,11 @@ function closeDetail(){
     	history.back();
     	processDetailClose();
         $(".notice_box").hide();
-<<<<<<< HEAD
         if(painteeFB.isCordova()){
             if(StatusBar){
                 StatusBar.backgroundColorByHexString("#8ab82e")
             };
         }
-=======
-//        if(StatusBar){
-//            StatusBar.backgroundColorByHexString("#8ab82e")
-//        };
->>>>>>> paintee/master
     }
 }
 
