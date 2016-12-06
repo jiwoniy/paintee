@@ -171,6 +171,22 @@ $('#social_username_signup_btn').on('click', function() {
 $(".signup_terms").click(function(){
 	showAboutPolicy();
 });
+// [fix] username 가이드 추가
+$("#signupUserName").focusin(function(){
+    $(".username_guide").append("<span data-i18n='account.ruleName'></span>");
+    exeTranslation(".signup_container", lang);
+});
+$("#signupUserName").focusout(function(){
+    $(".username_guide").empty();
+});
+// [fix] password 가이드 추가
+$("#signupUserPassword").focusin(function(){
+    $(".password_guide").append("<span data-i18n='account.rulePassword'></span>");
+    exeTranslation(".signup_container", lang);
+});
+$("#signupUserPassword").focusout(function(){
+    $(".password_guide").empty();
+});
 
 function checkSignupUsername() {
 	var accessToken = signupSocialAuthResponse.authResponse.accessToken;

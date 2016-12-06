@@ -38,7 +38,8 @@ function showLikes(paintingId){
 }
 
 function addLikes(name, isfriend) {
-	var adder = new Follows();
+    // [fix] like 선택시 창닫히게
+	var adder = new Likes();
 	$(adder.build(name, isfriend)).appendTo($(".people_contents"));
 	delete adder;
 }
@@ -51,10 +52,12 @@ function Likes() {
 	this.freind = $("<div>").addClass("people_list_add")
 			                .html("<div class='people_list_btn_text'> </div><img class='icon img_transparent' src='ico/done.png'>");
 	this.build = function(name, isfriend) {
+        // [fix] like 선택시 창닫히게
 		$(this.name).html(name).click(function () {
-			history.back();
+            $(".people_container").hide();
+            processDetailClose();
 			showPersonal(name);
-		});;
+		});
 		$(this.likes).append(this.name);
 		if (isfriend) {
 			$(this.likes).append(this.freind);
@@ -67,7 +70,8 @@ function Likes() {
 			new FollowController().addFollow(btn, name);
 		});
 
-		return this.follows;
+        // [fix] like 선택시 창닫히게
+		return this.likes;
 	}
 }
 

@@ -678,6 +678,22 @@ a{
     height: 220px;
     padding: 10px;
 }
+.purchase_box_sentence_left{
+    position: absolute;
+    left: 18px;
+    font-size: 14px;
+    color: rgb(255,255,255);
+    display: none;
+    cursor: pointer;
+}
+.purchase_box_sentence_right{
+    position: absolute;
+    right: 18px;
+}
+.purchase_box_sentence_lock{
+    width: 18px;
+    height: 18px;
+}
 .purchase_box_select{
     box-sizing: border-box;
     width: 100%;
@@ -795,7 +811,9 @@ a{
     font-weight: 700;
     padding-top: 15px;
     padding-bottom: 10px;
+    padding-left: 10px;
     color: rgb(120,120,120);
+    box-sizing: border-box;
 }
 .purchase_col_name{
     float: left;
@@ -903,6 +921,66 @@ a{
 .line_counter{
     color: darkred;
     font-size: 12px;
+}
+.news_container{
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 40;
+    transition: top 300ms;
+}
+.news_box{
+	position: relative;
+	width: 288px;
+	max-width: 648px;
+	min-width: 288px;
+	min-height: 400px;
+	margin: auto;
+	top: 0px;
+    color: rgb(255,255,255);
+	background-color: rgba(25,25,25,0.2);
+	font-size: 14px;
+	box-sizing: border-box;
+	box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
+}
+.news_header{
+	width: 200px;
+    height: 60px;
+    margin: auto;
+}
+.news_header_div{
+    width: 50px;
+    float: left;
+    font-size: 10px;
+}
+.header_ico{
+    width: 24px;
+    height: 24px;
+    margin-top: 13px;
+    margin-left: 13px;
+}
+.news_list{
+    display: block;
+    width: 90%;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(120,120,120,0.2);
+    box-sizing: border-box;
+}
+.news_list_name{
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    cursor: pointer;
 }
 .popup_container{
     position: relative;
@@ -1138,6 +1216,7 @@ a{
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
+    color: rgba(255,255,255,0.8);
     text-align: center;
     cursor: pointer;
 }
@@ -1156,6 +1235,10 @@ a{
     text-align: right;
     background-color: rgba(255,255,255,0.1);
     cursor: pointer;
+}
+.account_bold{
+    color: rgba(255,255,255,1);
+    font-weight: 700;
 }
 .login_container{
     background-color: hsla(200,60%,50%,1);
@@ -1231,6 +1314,12 @@ a{
     padding: 10px;
     text-align: center;
     background-color: rgb(60,90,155);
+}
+.password_guide{
+    color: coral;
+}
+.username_guide{
+    color: coral;
 }
 .loginhelp_container{
     background-color: hsla(200,60%,50%,1);
@@ -2059,6 +2148,9 @@ screen and (-o-min-device-pixel-ratio: 1.5) {
         .popup_box{
             font-size: 11px;
         }
+        .news_box{
+            font-size: 11px;
+        }
         .account_container{
             font-size: 11px;
         }
@@ -2167,6 +2259,9 @@ screen and (-o-min-device-pixel-ratio: 2.5) {
             font-size: 10px;
         }
         .popup_box{
+            font-size: 10px;
+        }
+        .news_box{
             font-size: 10px;
         }
         .account_container{

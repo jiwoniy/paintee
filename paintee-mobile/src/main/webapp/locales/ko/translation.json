@@ -89,6 +89,8 @@
 		"contents": "<br>지금은 beta 운영기간입니다. 곧 정식서비스를 시작합니다.<br><br><b>beta 운영기간 중에는 매 주 3개의 무료엽서를 가질 수 있습니다.</b><br>매주 수요일에 새로운 엽서를 구매할 수 있는 포인트가 지급됩니다.<br>아래 Payment 버튼을 눌러 무료엽서를 받아보세요.",
         "contents1": "어디든 $2면 충분합니다.<br>추가적인 배송료나 포장비가 없습니다.<br>아래 Payment 버튼을 눌러 결제를 계속하세요.",
         "alert": "지금은 beta 운영기간입니다. 곧 정식서비스를 시작합니다.<br><br><br><b>정식 서비스가 시작되면 개수 제한없이 $2에 어떤 그림이든 가질 수 있습니다.<br><br>beta 운영 기간 중에는 매주 수요일에 새로운 엽서를 구매할 수 있는 point를 드립니다.",
+        "private": "비공개",
+        "public": "공개",
 		"sender": "보내는 사람",
 		"address": "받는 사람",
         "sentence": "당신의 이야기를 들려주세요.",
@@ -122,6 +124,23 @@
     "notice":
     {
         "closeDetail" : "목록 화면으로 돌아가려면 아래로 스와이프 하세요."
+    },
+    "news":
+    {
+        "like" : "님이 당신의 그림을 좋아합니다.",
+        "comment" : "님이 당신의 그림에 댓글을 남겼습니다.",
+        "post" : "님이 당신의 그림을 엽서로 구매했습니다.",
+        "follow" : "님이 당신을 follow하기 시작합니다."
+    },
+    "account":{
+        "loginHelp": "로그인 정보를 잊으셨나요? <span class='account_bold'>임시비밀번호받기</span>",
+        "signUp": "아직 계정이 없나요? <span class='account_bold'>회원가입</span>",
+        "logIn": "이미 계정이 있나요? <span class='account_bold'>로그인</span>",
+        "terms": "가입하면 <span class='account_bold'>약관 | 개인정보취급방침</span>에 동의하게 됩니다.",
+        "email": "회원가입한 email 주소를 입력해주세요.",
+        "return": "<span class='account_bold'>로그인</span>으로 돌아가기",
+        "ruleName": "username은 4자 이상 14자 이하의 영문 또는 숫자로만 입력해주세요.",
+        "rulePassword": "비밀번호는 8자 이상 12자 이하의 영문, 숫자의 조합으로 입력해주세요."
     },
 	"alert": 
 	{

@@ -89,6 +89,8 @@
 		"contents": "Now is the beta test period. We will begin service soon.<br><br><br><b>Send 3 free postcards per week till beta test period over.</b><br>Please click ‘Payment’ button to continue and get free postcard.",
         "contents1": "어디든 $2면 충분합니다.<br>추가적인 배송료나 포장비가 없습니다.<br>아래 Payment 버튼을 눌러 결제를 계속하세요.",
         "alert": "Now is the beta test period. We will begin service soon.<br><br><br>Only $2 USD, you can have any images since commercial service.<br><br>Please, wait commercial service.",
+        "private": "private",
+        "public": "public",
 		"sender": "sender",
 		"address": "addresses",
         "sentence": "Please tell your story",
@@ -122,6 +124,23 @@
     "notice":
     {
         "closeDetail" : "Swipe down to return to the list."
+    },
+    "news":
+    {
+        "like" : " liked your painting.",
+        "comment" : " commented on your painting.",
+        "post" : " bought your painting as a postcard.",
+        "follow" : " started following you."
+    },
+    "account":{
+        "loginHelp": "Forgot your login details? <span class='account_bold'>Get help signing in.</span>",
+        "signUp": "Don't have an account? <span class='account_bold'>Sign up</span>",
+        "logIn": "Already have an account? <span class='account_bold'>Log in</span>",
+        "terms": "By signing up, you agree to our <span class='account_bold'>Terms & Privacy Policy.</span>",
+        "email": "Enter your email address associated with your account",
+        "return": "Return to <span class='account_bold'>Log in</span>",
+        "ruleName": "Name should be 4 to 14 characters, which only contain letters or numbers.",
+        "rulePassword": "Password should be 8 to 12 characters, including letters and numbers."
     },
 	"alert": 
 	{

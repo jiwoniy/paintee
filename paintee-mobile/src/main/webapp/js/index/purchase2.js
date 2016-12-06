@@ -23,11 +23,11 @@ function Purchase(purchaseType){
     this.dividerSentence = $("<div>").addClass("purchase_box_divider").append("Published by Paintee co., Seoul, Korea | http://paintee.me");
 
     this.addressBox     = $("<div>").addClass("purchase_box_address");
-    this.senderTitle    = $("<div>").addClass("purchase_col_title").attr("data-i18n", "purchasePop1.sender").html("sender");
+    this.senderTitle    = $("<div>").addClass("purchase_col_title").html("<span data-i18n='purchasePop1.sender'></span>");
     this.senderName     = $("<div>").addClass("purchase_col_name")
                             .append('<input type="text" id="senderName" name="senderName" class="purchase_input" placeholder="name">');
     this.senderInput    = $("<div>").addClass("purchase_col_input");
-    this.addresseeTitle = $("<div>").addClass("purchase_col_title").attr("data-i18n", "purchasePop1.address").html("addressee");
+    this.addresseeTitle = $("<div>").addClass("purchase_col_title").html("<span data-i18n='purchasePop1.address'></span>");
     this.addresseeName  = $("<div>").addClass("purchase_col_name")
                             .append('<input type="text" id="receiverName" name="receiverName" class="purchase_input" placeholder="name">');
     this.addresseeInput = $("<div>").addClass("purchase_col_input")
@@ -155,15 +155,19 @@ function initPurchaseAddress(result){
         e.stopPropagation();
     });
 
+    exeTranslation('.base_position', lang);
+
 }
 
 function setPurchase(){
     if(purchaseStatus=="comment"){
         purchaseBox.css("top", mainHeight-250);
         purchaseBox.animate({top: mainHeight-270}, 200);
+        $(".purchase_box_sentence_left").hide();
     }else if(purchaseStatus=="post"){
         purchaseBox.css("top", mainHeight-250);
         purchaseBox.animate({top: mainHeight-270}, 200);
+        $(".purchase_box_sentence_left").show();
     }else if(purchaseStatus=="address"){
         if(mainHeight>=660){
             purchaseBox.css("top", mainHeight-620);
@@ -173,8 +177,26 @@ function setPurchase(){
     }
 }
 
-$(".sentence_textarea").focusin(function(){$(".character_counter").css("opacity", 1)});
-$(".sentence_textarea").focusout(function(){$(".character_counter").css("opacity", 0)});
+$(".sentence_textarea").focusin(function(){
+    $(".character_counter").css("opacity", 1);
+    $(".purchase_box_sentence_left").css("color", "rgb(80,80,80)")
+});
+$(".sentence_textarea").focusout(function(){
+    $(".character_counter").css("opacity", 0);
+    $(".purchase_box_sentence_left").css("color", "rgb(255,255,255)")
+});
+$(".purchase_box_sentence_left").click(function(){togglePrivate(this);})
+
+function togglePrivate(parivateAt){
+    var checked = $(parivateAt).attr("lock");
+    if(checked=="Y"){
+        $(parivateAt).html('<img class="purchase_box_sentence_lock" src="ico/unlock.png"> Public');
+        $(parivateAt).attr("lock", "N");
+    }else{
+        $(parivateAt).html('<img class="purchase_box_sentence_lock" src="ico/lock.png"> Private');
+        $(parivateAt).attr("lock", "Y");
+    }
+}
 
 function showPost(){
     purchaseStatus="post";
@@ -671,7 +693,7 @@ PurchaseController.prototype = {
             artistName: this.artistName,
             purchaseType: this.purchaseType,
 			sentence: $("[name=sentence]").val(),
-			privateAt: ($("[name=privateAt]").prop("checked")) ? "Y" : "N",
+			privateAt: ($("[name=privateAt]").attr("lock")) ? "Y" : "N",
 			receiverBasicAddr: $("[name=receiverBasicAddr]").val(),
 			receiverDetailAddr: $("[name=receiverDetailAddr]").val(),
 			receiverZipcode: $("[name=receiverZipcode]").val(),
@@ -943,8 +965,13 @@ CommentController.prototype = {
 		dataReload(["initMy();"]);
 		$("[data-comment='" + this.paintingId + "']").html(parseInt($("[data-comment='" + this.paintingId + "']").html()) + 1);
 		closePurchaseStep01();
-//		refreshDetailPosted();
-        loadDetail(this.paintingId, color, colorDark, 'comment');
+        // [fix] 코멘트 작성 오류 수정
+        if(isDetail){
+            refreshDetailPosted(detailSwiper);
+            detailSwiper.slideTo(1);
+        }else{
+            loadDetail(this.paintingId, color, colorDark, 'comment');
+        }
 	},
 	delComment: function (listData) {
 		var controller = this;
