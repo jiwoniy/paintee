@@ -90,13 +90,19 @@ function setSideMenu() {
 	}
 }
 
+<<<<<<< HEAD
 //var imageUrl="http://localhost:8000/paintee-admin";
 //var imageUrl="http://52.78.126.27:8080/paintee-admin";
+=======
+//var imageUrl="http://localhost:8080/paintee-admin";
+//var imageUrl="http://52.78.93.238/paintee-admin";
+>>>>>>> paintee/master
 var imageUrl="http://paintee.me/paintee-admin";
 //var imageUrl=window.location.protocol+"//paintee.me/paintee-admin";
 var apiUrl = imageUrl + "/api";
 
 //console.log(navigator.userAgent);
+
 //console.log(navigator);
 
 
@@ -636,50 +642,50 @@ function listLock(swiper){
 }
 mainSwiper.on("onTransitionEnd", function(mainSwiper){mainLock(mainSwiper)});
 mainSwiper.on("onSlideChangeEnd", function(mainSwiper){
-    if(painteeFB.isCordova()){
-        if(mainSwiper.activeIndex==0){
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#505050")
-            };
-        }else if(mainSwiper.activeIndex==1){
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#33b3cc")
-            };
-        }else if(mainSwiper.activeIndex==2){
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#cc3380")
-            };
-        }else if(mainSwiper.activeIndex==3){
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#8ab82e")
-            };
-        }else if(mainSwiper.activeIndex==4){
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#4c33cc")
-            };
-        }
-    }
+//    if(painteeFB.isCordova()){
+//        if(mainSwiper.activeIndex==0){
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#505050")
+//            };
+//        }else if(mainSwiper.activeIndex==1){
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#33b3cc")
+//            };
+//        }else if(mainSwiper.activeIndex==2){
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#cc3380")
+//            };
+//        }else if(mainSwiper.activeIndex==3){
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#8ab82e")
+//            };
+//        }else if(mainSwiper.activeIndex==4){
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#4c33cc")
+//            };
+//        }
+//    }
 });
 mainSwiper.on("onSlidePrevStart", function(mainSwiper){
-    if(painteeFB.isCordova()){
-        if(mainSwiper.activeIndex==0){
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#505050")
-            };
-        }else if(mainSwiper.activeIndex==1){
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#33b3cc")
-            };
-        }else if(mainSwiper.activeIndex==2){
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#cc3380")
-            };
-        }else if(mainSwiper.activeIndex==3){
-            if(StatusBar){
-                StatusBar.backgroundColorByHexString("#8ab82e")
-            };
-        }
-    }
+//    if(painteeFB.isCordova()){
+//        if(mainSwiper.activeIndex==0){
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#505050")
+//            };
+//        }else if(mainSwiper.activeIndex==1){
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#33b3cc")
+//            };
+//        }else if(mainSwiper.activeIndex==2){
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#cc3380")
+//            };
+//        }else if(mainSwiper.activeIndex==3){
+//            if(StatusBar){
+//                StatusBar.backgroundColorByHexString("#8ab82e")
+//            };
+//        }
+//    }
 });
 
 // side menu 초기설정
@@ -978,9 +984,9 @@ var imgChecher = setInterval(function(){
         }
         clearInterval(imgChecher);
         setWidth();
-        if(painteeFB.isCordova()){
-        	if(StatusBar){StatusBar.backgroundColorByHexString("#505050")};
-        }
+//        if(painteeFB.isCordova()){
+//        	if(StatusBar){StatusBar.backgroundColorByHexString("#505050")};
+//        }
         
     })
 }, 500)

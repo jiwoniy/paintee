@@ -3,11 +3,11 @@
 @section 파일생성정보
 |    항  목       |      내  용       |
 | :-------------: | -------------   |
-| File name | FileInfoGenerator.java |    
-| Package | com.paintee.common.file.service |    
-| Project name | paintee-admin |    
-| Type name | FileInfoGenerator |    
-| Company | Paintee | 
+| File name | FileInfoGenerator.java |
+| Package | com.paintee.common.file.service |
+| Project name | paintee-admin |
+| Type name | FileInfoGenerator |
+| Company | Paintee |
 | Create Date | 2016 2016. 3. 1. 오후 11:58:45 |
 | Author | Administrator |
 | File Version | v1.0 |
@@ -72,7 +72,7 @@ public class FileInfoGenerator {
 	 @remark
 	 - 함수의 상세 설명 : 첨부파일 정보 생성
 	 @param multipartFiles
-	 @return 
+	 @return
 	*/
 	public List<FileInfo> makeFileInfo(MultipartFile[] multipartFiles) throws Exception {
 		return makeFileInfo(multipartFiles, null, null);
@@ -85,7 +85,7 @@ public class FileInfoGenerator {
 	 - 함수의 상세 설명 : 첨부파일 정보 생성
 	 @param multipartFiles
 	 @param middlePath
-	 @return 
+	 @return
 	*/
 	public List<FileInfo> makeFileInfo(MultipartFile[] multipartFiles, String middlePath) throws Exception {
 		return makeFileInfo(multipartFiles, middlePath, null);
@@ -99,7 +99,7 @@ public class FileInfoGenerator {
 	 @param multipartFiles
 	 @param middlePath
 	 @param displayName
-	 @return 
+	 @return
 	*/
 	public List<FileInfo> makeFileInfo(MultipartFile[] multipartFiles, String middlePath, String[] displayNames) throws Exception {
 		List<FileInfo> fileInfoList= new ArrayList<FileInfo>();
@@ -142,7 +142,7 @@ public class FileInfoGenerator {
 	 @remark
 	 - 함수의 상세 설명 : 첨부파일 정보 생성
 	 @param multipartFile
-	 @return 
+	 @return
 	*/
 	public FileInfo makeFileInfo(MultipartFile multipartFile) throws Exception {
 
@@ -155,7 +155,7 @@ public class FileInfoGenerator {
 	 @remark
 	 - 함수의 상세 설명 : 첨부파일 정보 생성
 	 @param multipartFile
-	 @return 
+	 @return
 	*/
 	public FileInfo makeFileInfo(MultipartFile multipartFile, String middlePath) throws Exception {
 
@@ -171,7 +171,7 @@ public class FileInfoGenerator {
 	 @param middlePath
 	 @param altNm
 	 @param extraFiled
-	 @return 
+	 @return
 	*/
 	public FileInfo makeFileInfo(MultipartFile multipartFile, String middlePath, String displayName) throws Exception {
 		Date today = new Date();
@@ -220,7 +220,7 @@ public class FileInfoGenerator {
 	 @param middlePath
 	 @param displayName
 	 @return
-	 @throws Exception 
+	 @throws Exception
 	*/
 	public FileInfo makePainteeFileInfo(MultipartFile multipartFile, String middlePath, String displayName, PaintingCreateVO paintingCreateVO) throws Exception {
 		Date today = new Date();
@@ -251,7 +251,6 @@ public class FileInfoGenerator {
 
 		try {
 			File cropImageFilePath = new File(filePathGenerator.getAbsoluteFilPath(filePath));
-
 			//크롭된 원본 파일 경로
 			if(!cropImageFilePath.exists()) {
 				logger.info("created {} directory", filePath);
@@ -260,24 +259,22 @@ public class FileInfoGenerator {
 
 			//원본파일 생성
 			originalFile = new File(fullPath.toString()+"_ori");
-		
 			FileCopyUtils.copy(multipartFile.getBytes(), originalFile);
 
 			//crop 이미지 생성
 			cropImageFilePre = new File(fullPath.toString());
             cropImageFile = new File(fullPath.toString());
-			
-			//imgScalrWrapper.cropCenter(originalFile, cropImageFile, "jpeg", 1080, 1500);
-			imgScalrWrapper.cropCustom(originalFile, cropImageFilePre, "jpeg", paintingCreateVO.getX(), paintingCreateVO.getY(), paintingCreateVO.getxWidth(), paintingCreateVO.getyWidth());
-            imgScalrWrapper.resize(cropImageFilePre, cropImageFile, "jpeg", 1080, 1500);
 
+            // 2016-10-04 : 가로/세로 Problem
+			//imgScalrWrapper.cropCenter(originalFile, cropImageFile, "jpeg", 1080, 1500);
+			imgScalrWrapper.cropCustom(originalFile, cropImageFile, "jpeg", paintingCreateVO.getX(), paintingCreateVO.getY(), paintingCreateVO.getxWidth(), paintingCreateVO.getyWidth(), paintingCreateVO.getRotate());
+            imgScalrWrapper.resize(cropImageFilePre, cropImageFile, "jpeg", 1080, 1500);
 			fileInfo.setSize(cropImageFile.length());
 
 			//중간 크기 썸네일
 			fullPath.delete(0, fullPath.length());
 			fullPath.append(filePathGenerator.getAbsoluteFilPath(filePath));
 			fullPath.append(newId).append("_2");
-
 			thumbnailFile1 = new File(fullPath.toString());
 
 			imgScalrWrapper.resize(cropImageFile, thumbnailFile1, "jpeg", 648, 900);
@@ -290,7 +287,6 @@ public class FileInfoGenerator {
 			thumbnailFile2 = new File(fullPath.toString());
 
 			imgScalrWrapper.resize(cropImageFile, thumbnailFile2, "jpeg", 360, 500);
-
 			//생성된 파일들을 aws 로 전송
 			StringBuilder awsPath = new StringBuilder();
 

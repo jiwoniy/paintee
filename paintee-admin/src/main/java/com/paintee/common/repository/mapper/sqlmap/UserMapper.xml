@@ -103,7 +103,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from tb_user
+    from TB_USER
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -114,21 +114,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from tb_user
+    from TB_USER
     where user_id = #{userId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from tb_user
+    delete from TB_USER
     where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.UserExample" >
-    delete from tb_user
+    delete from TB_USER
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.paintee.common.repository.entity.User" >
-    insert into tb_user (user_id, password, email, 
+    insert into TB_USER (user_id, password, email,
       name, provider_id, introduce, 
       basic_addr, detail_addr, zipcode, 
       city, location, language, 
@@ -150,7 +150,7 @@
       #{createdDate,jdbcType=TIMESTAMP}, #{serviceCnt,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.User" >
-    insert into tb_user
+    insert into TB_USER
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         user_id,
@@ -325,13 +325,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.paintee.common.repository.entity.UserExample" resultType="java.lang.Integer" >
-    select count(*) from tb_user
+    select count(*) from TB_USER
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_user
+    update TB_USER
     <set >
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=VARCHAR},
@@ -423,7 +423,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_user
+    update TB_USER
     set user_id = #{record.userId,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
@@ -457,7 +457,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.User" >
-    update tb_user
+    update TB_USER
     <set >
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
@@ -544,7 +544,7 @@
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.User" >
-    update tb_user
+    update TB_USER
     set password = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},

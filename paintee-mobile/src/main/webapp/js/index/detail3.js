@@ -185,7 +185,7 @@ DetailStructure.prototype = {
         this.detailBtn.append(this.detailBtnPost);
         this.detailBtn.append(this.detailBtnComment);
 
-        console.log(this.liked);
+//        console.log(this.liked);
         if(this.liked) {
         	this.detailBtn.append(this.detailBtnLiked);
         } else {
@@ -378,11 +378,17 @@ function closeDetail(){
     	history.back();
     	processDetailClose();
         $(".notice_box").hide();
+<<<<<<< HEAD
         if(painteeFB.isCordova()){
             if(StatusBar){
                 StatusBar.backgroundColorByHexString("#8ab82e")
             };
         }
+=======
+//        if(StatusBar){
+//            StatusBar.backgroundColorByHexString("#8ab82e")
+//        };
+>>>>>>> paintee/master
     }
 }
 

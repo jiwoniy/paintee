@@ -78,6 +78,14 @@ public class PaintingCreateVO extends Painting {
 		this.yWidth = yWidth;
 	}
 
+	public int getRotate() {
+		return rotate;
+	}
+
+	public void setRotate(int rotate) {
+		this.rotate = rotate;
+	}
+
 	private int x;
     
     private int y;
@@ -85,4 +93,6 @@ public class PaintingCreateVO extends Painting {
     private int xWidth;
     
     private int yWidth;
+
+    private int rotate;
 }

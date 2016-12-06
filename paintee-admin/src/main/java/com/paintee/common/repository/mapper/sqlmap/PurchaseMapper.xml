@@ -92,7 +92,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from tb_purchase
+    from TB_PURCHASE
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -103,15 +103,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from tb_purchase
+    from TB_PURCHASE
     where seq = #{seq,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_purchase
+    delete from TB_PURCHASE
     where seq = #{seq,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.PurchaseExample" >
-    delete from tb_purchase
+    delete from TB_PURCHASE
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -120,7 +120,7 @@
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tb_purchase (user_id, painting_id, purchase_date, 
+    insert into TB_PURCHASE (user_id, painting_id, purchase_date,
       purchase_type, tuesday_seq, sentence, 
       private_at, receiver_basic_addr, receiver_detail_addr, 
       receiver_zipcode, receiver_city, receiver_name, 
@@ -139,7 +139,7 @@
     <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tb_purchase
+    insert into TB_PURCHASE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         user_id,
@@ -254,13 +254,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.paintee.common.repository.entity.PurchaseExample" resultType="java.lang.Integer" >
-    select count(*) from tb_purchase
+    select count(*) from TB_PURCHASE
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_purchase
+    update TB_PURCHASE
     <set >
       <if test="record.seq != null" >
         seq = #{record.seq,jdbcType=INTEGER},
@@ -325,7 +325,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_purchase
+    update TB_PURCHASE
     set seq = #{record.seq,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=VARCHAR},
       painting_id = #{record.paintingId,jdbcType=VARCHAR},
@@ -350,7 +350,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.Purchase" >
-    update tb_purchase
+    update TB_PURCHASE
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
@@ -410,7 +410,7 @@
     where seq = #{seq,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.Purchase" >
-    update tb_purchase
+    update TB_PURCHASE
     set user_id = #{userId,jdbcType=VARCHAR},
       painting_id = #{paintingId,jdbcType=VARCHAR},
       purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
