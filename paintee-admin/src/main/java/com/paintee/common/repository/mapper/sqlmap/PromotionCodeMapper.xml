@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paintee.common.repository.mapper.PurchaseMapper" >
+  <resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.Purchase" >
+    <id column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="code_value" property="codeValue" jdbcType="CHAR" />
+    <result column="use_yn" property="useYn" jdbcType="VARCHAR" />
+    <result column="used_user" property="usedUser" jdbcType="VARCHAR" />
+    <result column="used_email" property="usedEmail" jdbcType="VARCHAR" />
+    <result column="issue_date" property="issueDate" jdbcType="TIMESTAMP" />
+    <result column="used_date" property="issueDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seq, code_value, use_yn, used_user, used_email, issue_date, used_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.PromotionCodeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_PURCHASE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TB_PROMOTIONCODE
+    where seq = #{seq,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_PROMOTIONCODE
+    where seq = #{seq,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.paintee.common.repository.entity.PromotionCodeExample" >
+    delete from TB_PROMOTIONCODE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.paintee.common.repository.entity.PromotionCode" >
+    <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TB_PROMOTIONCODE (
+        code_value, use_yn, used_user, used_email, issue_date, used_date
+      )
+    values (#{codeValue,jdbcType=CHAR}, #{useYn,jdbcType=CHAR}, #{usedUser,jdbcType=VARCHAR},
+      #{usedEmail,jdbcType=VARCHAR}, #{issueDate,jdbcType=TIMESTAMP}, #{usedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.PromotionCode" >
+    <selectKey resultType="java.lang.Integer" keyProperty="seq" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TB_PROMOTIONCODE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codeValue != null" >
+        code_value,
+      </if>
+      <if test="useYn != null" >
+        use_yn,
+      </if>
+      <if test="usedUser != null" >
+        used_user,
+      </if>
+      <if test="usedEmail != null" >
+        used_email,
+      </if>
+      <if test="issueDate != null" >
+        issue_date,
+      </if>
+      <if test="usedDate != null" >
+        used_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codeValue != null" >
+        #{codeValue,jdbcType=CHAR},
+      </if>
+      <if test="useYn != null" >
+        #{useYn,jdbcType=CHAR},
+      </if>
+      <if test="usedUser != null" >
+        #{usedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="usedEmail != null" >
+        #{usedEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="issueDate != null" >
+        #{issueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usedDate != null" >
+        #{usedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paintee.common.repository.entity.PromotionCodeExample" resultType="java.lang.Integer" >
+    select count(*) from TB_PROMOTIONCODE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TB_PROMOTIONCODE
+    <set >
+      <if test="record.seq != null" >
+        seq = #{record.seq,jdbcType=INTEGER},
+      </if>
+      <if test="record.codeValue != null" >
+        code_value = #{record.codeValue,jdbcType=CHAR},
+      </if>
+      <if test="record.useYn != null" >
+        use_yn = #{record.useYn,jdbcType=CHAR},
+      </if>
+      <if test="record.usedUser != null" >
+        used_user = #{record.usedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usedEmail != null" >
+        used_email = #{record.usedEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issueDate != null" >
+        issue_date = #{record.issueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.usedDate != null" >
+        used_date = #{record.usedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TB_PROMOTIONCODE
+    set seq = #{record.seq,jdbcType=INTEGER},
+      code_value = #{record.codeValue,jdbcType=CHAR},
+      use_yn = #{record.useYn,jdbcType=CHAR},
+      used_user = #{record.usedUser,jdbcType=VARCHAR},
+      used_email = #{record.usedEmail,jdbcType=VARCHAR},
+      issue_date = #{record.issueDate,jdbcType=TIMESTAMP},
+      used_date = #{record.usedDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paintee.common.repository.entity.PromotionCode" >
+    update TB_PROMOTIONCODE
+    <set >
+      <if test="codeValue != null" >
+          code_value = #{codeValue,jdbcType=CHAR},
+      </if>
+      <if test="useYn != null" >
+          use_yn = #{useYn,jdbcType=CHAR},
+      </if>
+      <if test="usedUser != null" >
+          used_user = #{usedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="usedEmail != null" >
+          used_email = #{usedEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="issueDate != null" >
+          issue_date = #{issueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usedDate != null" >
+          used_date = #{usedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where seq = #{seq,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paintee.common.repository.entity.PromotionCode" >
+    update TB_PROMOTIONCODE
+    set code_value = #{codeValue,jdbcType=CHAR},
+    use_yn = #{useYn,jdbcType=CHAR},
+    used_user = #{usedUser,jdbcType=VARCHAR},
+    used_email = #{usedEmail,jdbcType=VARCHAR},
+    issue_date = #{issueDate,jdbcType=TIMESTAMP},
+    used_date = #{usedDate,jdbcType=TIMESTAMP}
+    where seq = #{seq,jdbcType=INTEGER}
+  </update>
+</mapper>
