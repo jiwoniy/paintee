@@ -1384,6 +1384,202 @@ public class PurchaseExample {
             addCriterion("created_date not between", value1, value2, "createdDate");
             return (Criteria) this;
         }
+        
+        
+        
+        public Criteria andPurchaseProviderIsNull() {
+            addCriterion("purchase_provider is null");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderIsNotNull() {
+            addCriterion("purchase_provider is not null");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderEqualTo(Integer value) {
+            addCriterion("purchase_provider =", value, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderNotEqualTo(Integer value) {
+            addCriterion("purchase_provider <>", value, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderGreaterThan(Integer value) {
+            addCriterion("purchase_provider >", value, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderGreaterThanOrEqualTo(Integer value) {
+            addCriterion("purchase_provider >=", value, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderLessThan(Integer value) {
+            addCriterion("purchase_provider <", value, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderLessThanOrEqualTo(Integer value) {
+            addCriterion("purchase_provider <=", value, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderIn(List<Integer> values) {
+            addCriterion("purchase_provider in", values, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderNotIn(List<Integer> values) {
+            addCriterion("purchase_provider not in", values, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderBetween(Integer value1, Integer value2) {
+            addCriterion("purchase_provider between", value1, value2, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseProviderNotBetween(Integer value1, Integer value2) {
+            addCriterion("purchase_provider not between", value1, value2, "purchaseProvider");
+            return (Criteria) this;
+        }
+        
+        
+        public Criteria andPayingStatusIsNull() {
+            addCriterion("paying_status is null");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusIsNotNull() {
+            addCriterion("paying_status is not null");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusEqualTo(Integer value) {
+            addCriterion("paying_status =", value, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusNotEqualTo(Integer value) {
+            addCriterion("paying_status <>", value, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusGreaterThan(Integer value) {
+            addCriterion("paying_status >", value, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("paying_status >=", value, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusLessThan(Integer value) {
+            addCriterion("paying_status <", value, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("paying_status <=", value, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusIn(List<Integer> values) {
+            addCriterion("paying_status in", values, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusNotIn(List<Integer> values) {
+            addCriterion("paying_status not in", values, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusBetween(Integer value1, Integer value2) {
+            addCriterion("paying_status between", value1, value2, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPayingStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("paying_status not between", value1, value2, "payingStatus");
+            return (Criteria) this;
+        }
+        
+        
+        public Criteria andPurchaseIdIsNull() {
+            addCriterion("purchase_id is null");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdIsNotNull() {
+            addCriterion("purchase_id is not null");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdEqualTo(String value) {
+            addCriterion("purchase_id =", value, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdNotEqualTo(String value) {
+            addCriterion("purchase_id <>", value, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdGreaterThan(String value) {
+            addCriterion("purchase_id >", value, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdGreaterThanOrEqualTo(String value) {
+            addCriterion("purchase_id >=", value, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdLessThan(String value) {
+            addCriterion("purchase_id <", value, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdLessThanOrEqualTo(String value) {
+            addCriterion("purchase_id <=", value, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdLike(String value) {
+            addCriterion("purchase_id like", value, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdNotLike(String value) {
+            addCriterion("purchase_id not like", value, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdIn(List<String> values) {
+            addCriterion("purchase_id in", values, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdNotIn(List<String> values) {
+            addCriterion("purchase_id not in", values, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdBetween(String value1, String value2) {
+            addCriterion("purchase_id between", value1, value2, "purchaseId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andPurchaseIdNotBetween(String value1, String value2) {
+            addCriterion("purchase_id not between", value1, value2, "purchaseId");
+            return (Criteria) this;
+        }
+        
+
     }
 
     public static class Criteria extends GeneratedCriteria {

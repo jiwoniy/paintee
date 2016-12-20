@@ -83,7 +83,8 @@
   <sql id="Base_Column_List" >
     seq, user_id, painting_id, purchase_date, purchase_type, tuesday_seq, sentence, private_at, 
     receiver_basic_addr, receiver_detail_addr, receiver_zipcode, receiver_city, receiver_name, 
-    sender_addr, sender_name, location, purchase_status, status_update_date, created_date
+    sender_addr, sender_name, location, purchase_status, status_update_date, created_date, purchase_provider, paying_status, purchase_id
+
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.PurchaseExample" >
     select
@@ -125,14 +126,15 @@
       private_at, receiver_basic_addr, receiver_detail_addr, 
       receiver_zipcode, receiver_city, receiver_name, 
       sender_addr, sender_name, location, 
-      purchase_status, status_update_date, created_date
+      purchase_status, status_update_date, created_date, purchase_provider, paying_status, purchase_id
       )
     values (#{userId,jdbcType=VARCHAR}, #{paintingId,jdbcType=VARCHAR}, #{purchaseDate,jdbcType=TIMESTAMP}, 
       #{purchaseType,jdbcType=VARCHAR}, #{tuesdaySeq,jdbcType=INTEGER}, #{sentence,jdbcType=VARCHAR}, 
       #{privateAt,jdbcType=CHAR}, #{receiverBasicAddr,jdbcType=VARCHAR}, #{receiverDetailAddr,jdbcType=VARCHAR}, 
       #{receiverZipcode,jdbcType=VARCHAR}, #{receiverCity,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, 
       #{senderAddr,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
-      #{purchaseStatus,jdbcType=VARCHAR}, #{statusUpdateDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}
+      #{purchaseStatus,jdbcType=VARCHAR}, #{statusUpdateDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}, #{purchaseProvider,jdbcType=INTEGER}, #{payingStatus,jdbcType=INTEGER}, #{purchaseId,jdbcType=VARCHAR}
+      
       )
   </insert>
   <insert id="insertSelective" parameterType="com.paintee.common.repository.entity.Purchase" >
@@ -195,6 +197,16 @@
       <if test="createdDate != null" >
         created_date,
       </if>
+      
+      <if test="purchaseProvider != null" >
+          purchase_provider,
+      </if>
+      <if test="payingStatus != null" >
+          paying_status,
+      </if>
+      <if test="purchaseId != null" >
+          purchase_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -250,6 +262,15 @@
       </if>
       <if test="createdDate != null" >
         #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purchaseProvider != null" >
+          #{purchaseProvider,jdbcType=INTEGER},
+      </if>
+      <if test="payingStatus != null" >
+          #{payingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseId != null" >
+          #{purchaseId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -319,6 +340,15 @@
       <if test="record.createdDate != null" >
         created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.purchaseProvider != null" >
+          purchase_provider = #{record.purchaseProvider,jdbcType=INTEGER},
+      </if>
+      <if test="record.payingStatus != null" >
+          paying_status = #{record.payingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchaseId != null" >
+          purchase_id = #{record.purchaseId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -344,7 +374,10 @@
       location = #{record.location,jdbcType=VARCHAR},
       purchase_status = #{record.purchaseStatus,jdbcType=VARCHAR},
       status_update_date = #{record.statusUpdateDate,jdbcType=TIMESTAMP},
-      created_date = #{record.createdDate,jdbcType=TIMESTAMP}
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      purchase_provider = #{record.purchaseProvider,jdbcType=INTEGER},
+      paying_status = #{record.payingStatus,jdbcType=INTEGER},
+      purchase_id = #{record.purchaseId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -406,6 +439,15 @@
       <if test="createdDate != null" >
         created_date = #{createdDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="purchaseProvider != null" >
+          purchase_provider = #{purchaseProvider,jdbcType=INTEGER},
+      </if>
+      <if test="payingStatus != null" >
+          paying_status = #{payingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseId != null" >
+          purchase_id = #{purchaseId,jdbcType=VARCHAR},
+      </if>
     </set>
     where seq = #{seq,jdbcType=INTEGER}
   </update>
@@ -428,7 +470,10 @@
       location = #{location,jdbcType=VARCHAR},
       purchase_status = #{purchaseStatus,jdbcType=VARCHAR},
       status_update_date = #{statusUpdateDate,jdbcType=TIMESTAMP},
-      created_date = #{createdDate,jdbcType=TIMESTAMP}
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      purchase_provider = #{purchaseProvider,jdbcType=INTEGER},
+      paying_status = #{payingStatus,jdbcType=INTEGER},
+      purchase_id = #{purchaseId,jdbcType=VARCHAR}
     where seq = #{seq,jdbcType=INTEGER}
   </update>
 </mapper>
