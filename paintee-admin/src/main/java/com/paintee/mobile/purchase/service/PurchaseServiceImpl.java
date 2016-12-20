@@ -96,6 +96,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 		String userId = purchase.getUserId();
 		String paintingId = purchase.getPaintingId();
+        Float nowused = purchase.getUsedRewardMoney();
 
 		if("TUESDAY".equals(purchase.getPurchaseType())) {
 			TuesdayPainting tuesdayPainting = tuesdayPaintingHelper.selectFreeTuesdayPaintingByPaintingId(paintingId);
@@ -166,7 +167,15 @@ public class PurchaseServiceImpl implements PurchaseService {
 		if (!purchase.getPurchaseType().equals("TUESDAY") && purchase.getServiceCnt() > 0) {
 			user.setServiceCnt(-1);
 		}
-		
+        // 리워드 차감 (usedrewardmoney + 2);
+        if(purchaseProvider == 4){
+            if(user != null && nowused != null){
+                user.setUsedRewardMoney(2.f);
+            }
+        }
+        if(purchaseProvider == 5){
+//            System.out.println("buying with PROMOTIONCODE");
+        }
 		userHelper.updateUserInfo(user);
 		
 		// 구매 후 공유를 할 수 있게 하기 위해 그림 정보를 가져온다.

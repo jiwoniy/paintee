@@ -6,6 +6,7 @@ var purchaseStructure;
 
 function Purchase(purchaseType){
     this.purchaseType = purchaseType;
+    this.purchaseProvider = 0;
     this.doneBox  = $("<div>").addClass("purchase_box_select");
     this.doneIcon   = $("<img>").addClass("icon").attr("src", "ico/done.png");
     this.doneBtn    = $("<div>").addClass("purchase_done_btn").append($("<div>").addClass("purchase_btn_text").html("done ")).click(function(){
@@ -444,11 +445,11 @@ Payment.prototype = {
         $(this.bottomMargin).height(170);
         $(this.bottom).append($("<div>").addClass("payby_btn").html($.i18n.t('purchasePop1.select')));
         $(this.bottom).append(this.payByPaypal);
-        if(checkPaymentPlatform()=="android"){
-            $(this.bottom).append(this.payByAndroid);
-        }else if(checkPaymentPlatform()=="iOS"){
-            $(this.bottom).append(this.payByiOS);
-        }
+        // if(checkPaymentPlatform()=="android"){
+        //     $(this.bottom).append(this.payByAndroid);
+        // }else if(checkPaymentPlatform()=="iOS"){
+        //     $(this.bottom).append(this.payByiOS);
+        // }
         if(checkPaymentReward){
             $(this.bottom).append(this.payByReward);
         }
@@ -521,9 +522,52 @@ function showPurchaseSpinner(){
  */
 
 function paymentByPaypal(){
-    alert("Paypal로 결제되는 과정이 진행됩니다.");
-    purchaseController.addPurchase(3);
-    showPurchaseSpinner();
+  $(".payment_box").empty();
+  var payment = new Payment();
+  payment.setTitle("Payment by Credit Card");
+
+
+      // var contents = "<span data-i18n='[html]purchasePop1.promotionCode'></span>"
+      // var form = '<input type="text" name="promotionCode" class="purchase_input">'
+      // payment.setContents(contents + form);
+      payment.setContents("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'><input type='hidden' name='cmd' value='_s-xclick'><input type='hidden' name='hosted_button_id' value='LVZ3RM89U7UWQ'><input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'><img alt='' border='0' src='https://www.paypalobjects.com/ko_KR/i/scr/pixel.gif' width='1' height='1'></form>");
+      payment.buildPayment();
+
+
+  // $(".payment_btn").click(function(){
+  //         // alert("프로모션 코드 확인 및 사용처리 과정이 진행됩니다.");
+  //         showPurchaseSpinner();
+  //         var code = $("[name=promotionCode]").val();
+  //         var data = {
+  //           codeValue : code
+  //         };
+  //         // alert(code);
+  //         AjaxCall.call(apiUrl + "/promotioncode/check",
+  //     			data,
+  //     			"POST",
+  //     			function (result) {
+  //             if(result.status == 'possible'){
+  //
+  //                 purchaseController.addPurchase(3, 5);
+  //
+  //             }
+  //             else if(result.status == 'used'){
+  //
+  //             }
+  //             else {
+  //               $(".stopper").hide();
+  //                 alert("잘못된 프로모션 코드 입니다.");
+  //
+  //
+  //             }
+  //
+  //     			}
+  //     		);
+  //
+  // })
+
+  delete payment;
+  exeTranslation('.base_position', lang);
 }
 
 /**
@@ -531,9 +575,9 @@ function paymentByPaypal(){
  */
 
 function paymentByAndroid(){
-    alert("안드로이드 인앱으로 결제되는 과정이 진행됩니다.");
-    purchaseController.addPurchase(3);
-    showPurchaseSpinner();
+    // alert("안드로이드 인앱으로 결제되는 과정이 진행됩니다.");
+    // purchaseController.addPurchase(3);
+    // showPurchaseSpinner();
 }
 
 /**
@@ -541,9 +585,9 @@ function paymentByAndroid(){
  */
 
 function paymentByiOS(){
-    alert("iOS 입앱으로 결제되는 과정이 진행됩니다.");
-    purchaseController.addPurchase(3);
-    showPurchaseSpinner();
+    // alert("iOS 입앱으로 결제되는 과정이 진행됩니다.");
+    // purchaseController.addPurchase(3);
+    // showPurchaseSpinner();
 }
 
 /**
@@ -552,25 +596,25 @@ function paymentByiOS(){
 
 function paymentByReward(){
 
-    $(".payment_box").empty();
-    var payment = new Payment();
-    payment.setTitle("Payment");
+  this.purchaseProvider = 4;
+  this.purchaseType = 'REWARD';
+  $(".payment_box").empty();
+  var payment = new Payment();
+  payment.setTitle("Payment");
 
-    var reward = 75; // 현재 내가 받을 수 있는 리워드
-    var contents1 = "<span data-i18n='[html]purchasePop1.reward1'></span>"
-    var contents2 = "<span data-i18n='[html]purchasePop1.reward2'></span>"
-    payment.setContents(contents1 +"<b>"+ reward +"</b>"+ contents2);
-    payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/keyboard_arrow_left_black.png'><div class='purchase_btn_text' onclick='paymentCancle();'>Cancel</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/attach_money.png'></div>");
-    payment.buildPayment();
-    $(".payment_btn").click(function(){
-            alert("리워드 차감 과정이 진행됩니다.");
-            purchaseController.addPurchase(3);
-            showPurchaseSpinner();
-    })
-
-    delete payment;
-    exeTranslation('.base_position', lang);
-
+  var reward = userInfo.earnedRewardMoney - userInfo.usedRewardMoney; // 현재 내가 받을 수 있는 리워드
+  var contents1 = "<span data-i18n='[html]purchasePop1.reward1'></span>"
+  var contents2 = "<span data-i18n='[html]purchasePop1.reward2'></span>"
+  payment.setContents(contents1 +"<b>"+ reward +"</b>"+ contents2);
+  payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/keyboard_arrow_left_black.png'><div class='purchase_btn_text' onclick='paymentCancle();'>Cancel</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/attach_money.png'></div>");
+  payment.buildPayment();
+  $(".payment_btn").click(function(){
+          // alert("리워드 차감 과정이 진행됩니다.");
+          purchaseController.addPurchase(3, 4);
+          showPurchaseSpinner();
+  })
+  delete payment;
+  exeTranslation('.base_position', lang);
 }
 
 /**
@@ -578,25 +622,51 @@ function paymentByReward(){
  */
 
 function paymentByCode(){
-    $(".payment_box").empty();
+  $(".payment_box").empty();
     var payment = new Payment();
     payment.setTitle("Payment");
 
     var contents = "<span data-i18n='[html]purchasePop1.promotionCode'></span>"
-    var form = '<input type="text" class="purchase_input">'
+    var form = '<input type="text" name="promotionCode" class="purchase_input">'
     payment.setContents(contents + form);
     payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/keyboard_arrow_left_black.png'><div class='purchase_btn_text' onclick='paymentCancle();'>Cancel</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/attach_money.png'></div>");
     payment.buildPayment();
+
     $(".payment_btn").click(function(){
-            alert("프로모션 코드 확인 및 사용처리 과정이 진행됩니다.");
-            purchaseController.addPurchase(3);
+            // alert("프로모션 코드 확인 및 사용처리 과정이 진행됩니다.");
             showPurchaseSpinner();
+            var code = $("[name=promotionCode]").val();
+            var data = {
+              codeValue : code
+            };
+            // alert(code);
+            AjaxCall.call(apiUrl + "/promotioncode/check",
+        			data,
+        			"POST",
+        			function (result) {
+                if(result.status == 'possible'){
+
+                    purchaseController.addPurchase(3, 5);
+
+                }
+                else if(result.status == 'used'){
+
+                }
+                else {
+                  $(".stopper").hide();
+                    alert("잘못된 프로모션 코드 입니다.");
+
+
+                }
+
+        			}
+        		);
+
     })
 
     delete payment;
     exeTranslation('.base_position', lang);
-
-}
+  }
 
 function paymentCancle(){
     var bottom = $(".payment_bottom")
@@ -636,7 +706,7 @@ function paymentCancle(){
 
 function checkPaymentPlatform(){
 
-    return "android";
+    return "web";
 }
 
 /**
@@ -644,8 +714,13 @@ function checkPaymentPlatform(){
  */
 
 function checkPaymentReward(){
+  if(userInfo.earnedRewardMoney - userInfo.usedRewardMoney > 2){
 
-    return true;
+          return true;
+      }
+      else{
+        return false;
+    }
 }
 
 
@@ -685,8 +760,21 @@ PurchaseController.prototype = {
 		}
 		initPurchaseAddress(result);
 	},
-	addPurchase: function (serviceCnt) {
-		var controller = this;
+	addPurchase: function (serviceCnt, provider) {
+    var controller = this;
+    var typ = this.purchaseType;
+    // var usedrewardmoney = 0;
+    this.purchaseProvider = provider
+    var purchaseId = "";
+    if(provider == 4){
+        typ = 'REWARD';
+    }
+    else if(provider == 5){
+        typ = 'PROMOTIONCODE';
+        purchaseId = $("[name=promotionCode]").val();
+
+    }
+
 		var data = {
 			userId: userID,
 			paintingId: this.paintingId,
@@ -703,7 +791,10 @@ PurchaseController.prototype = {
 			location: $("[name=location]").val(),
 			purchaseStatus: "1",
 			changeAddr: controller.changeAddr,
-			serviceCnt: serviceCnt
+			serviceCnt: serviceCnt,
+      purchaseProvider:provider,
+      purchaseId:purchaseId,
+      usedRewardMoney:userInfo.usedRewardMoney
 		};
 
 		AjaxCall.call(apiUrl + "/purchase",
@@ -727,14 +818,14 @@ PurchaseController.prototype = {
 			alert($.i18n.t('alert.purchase.alreadyPostedTuesdayPaint'));
 			popClose = true;
 		}
-		
+
 		if (popClose) {
 			$(".popup_container").hide();
 			$(".payment_container").hide();
-			return;	
+			return;
 		}
 
-		
+
 		// 기존 입력 내용 지우기
 //		resetPurchase();
 		closePurchaseStep01();

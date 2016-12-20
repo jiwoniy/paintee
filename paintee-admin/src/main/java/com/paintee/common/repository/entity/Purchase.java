@@ -41,7 +41,13 @@ public class Purchase extends BaseEntity {
     private Date statusUpdateDate;
 
     private Date createdDate;
-
+    
+    private Integer purchaseProvider;
+    
+    private Integer payingStatus;
+    
+    private String purchaseId;
+    
     public Integer getSeq() {
         return seq;
     }
@@ -193,4 +199,29 @@ public class Purchase extends BaseEntity {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+    
+    public Integer getPurchaseProvider(){
+        return purchaseProvider;
+    }
+    
+    public void setPurchaseProvider(Integer purchaseProvider){
+        this.purchaseProvider = purchaseProvider;
+    }
+    
+    public Integer getPayingStatus(){
+        return payingStatus;
+    }
+    
+    public void setPayingStatus(Integer payingStatus){
+        this.payingStatus = payingStatus;
+    }
+    
+    public String getPurchaseId(){
+        return purchaseId;
+    }
+    
+    public void setPurchaseId(String purchaseId){
+        this.purchaseId = purchaseId;
+    }
+
 }
