@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paintee.common.repository.helper.PromotionCodeHelper">
+  
+  	<resultMap id="BaseResultMap" type="com.paintee.common.repository.entity.vo.PromotionCodeVO" extends="com.paintee.common.repository.mapper.PromotionCodeMapper.BaseResultMap">
+	    <result column="code_value" property="codeValue" />
+	</resultMap>
+  	
+  	<!-- 관리자 화면 프로모션코드 목록 정보 조회시의 공통 SQL -->
+  	<sql id="promotionCodeList">
+		  from TB_PROMOTIONCODE
+  	</sql>
+	<!-- 관리자 화면의 프로모션코드  목록을 조회 -->
+  	<select id="selectPromotionCodeList" resultMap="BaseResultMap" parameterType="com.paintee.common.repository.entity.vo.PromotionCodeSearchVO">
+		select *
+		  <include refid="promotionCodeFromWhere" />
+	</select>
+  	<sql id="promotionCodeFromWhere">
+		  from TB_PROMOTIONCODE
+		 where use_yn in <foreach item="status" collection="statusList" open="(" close=")" separator=",">
+	   								#{status}
+	                        	  </foreach>
+  	</sql>
+  	
+	<!-- 프로모션 코드 업데이트 ( 사용처리 ) -->
+	<update id="updatePromotionCodeInfo">
+		update TB_PROMOTIONCODE
+		<trim prefix="SET" prefixOverrides=",">
+		<if test="codeValue != null">
+			,code_value = #{codeValue}
+		</if>
+		<if test="usedUser != null">
+		 	,used_user = #{usedUser}
+		</if>
+		<if test="usedDate != null">
+			,used_date = #{usedDate}
+		</if>
+		<if test="usedEmail != null">
+			,used_email = #{usedEmail}
+		</if>
+		<if test="useYn != null">
+			,use_yn = "Y"
+		</if>
+		</trim>
+		where code_value = #{codeValue}
+	</update>
+	
+	
+	<!-- 관리자 화면의 프로모션 코드 목록 카운트 조회 :: 현재 무한 스크롤 방식으로 변경해서 필요없음 -->
+  	<select id="selectPromotionCodeListCount" resultType="int">
+		select count(*)
+		  <include refid="promotionCodeFromWhere" />
+	</select>
+	
+</mapper>
