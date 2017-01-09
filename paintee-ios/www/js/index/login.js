@@ -50,13 +50,13 @@ LogInController.prototype = {
 	doResetPasswod: function() {
 		var param = {};
 		param.email = this.email;
-		
+
 		var controller = this;
 
 		AjaxCall.call(apiUrl+"/resetpasswd", param, "POST", function(result, status) { controller.doResetPasswodRes(result, status); });
 	},
 	doResetPasswodRes: function(result, status) {
-		
+
 		if(result.errorNo == 0) {
 			// console.log(result);
 			alert($.i18n.t('alert.login.resetPassSendMail'));
@@ -138,7 +138,7 @@ $(".help_login_btn").click(function(){
 $('#resetPasswordBtn').on('click', function() {
     var resetUserEmail = $('#resetUserEmail').val();
     var logInController = new LogInController(resetUserEmail, '');
-    
+
     logInController.doResetPasswod();
 });
 
@@ -150,7 +150,7 @@ var userId = response.authResponse.userID;
 var providerId = providerId;
 
 	if (response.status === 'connected') {
-		
+
 		painteeFB.api('/me', {fields: 'email,name'}, function(response) {
 			new LogInController().doSocialLogin(response.email, response.name, accessToken, expireTime, userId, providerId);
 		});
@@ -182,7 +182,7 @@ $('#login_facebook_btn').on('click', function() {
 	painteeFB.login(function(response) {
 		loginSocialUser(response, "FACEBOOK")
 	}, {scope: 'email,user_likes'});
-	
+
 //	 FB.login(function(response) {
 //		loginSocialUser(response, "FACEBOOK")
 //	}, {scope: 'email,user_likes'});

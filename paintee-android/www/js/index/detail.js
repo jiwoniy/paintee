@@ -5,13 +5,13 @@ function DetailStructure(paintingId, paintingInfo){
     this.fileId         = paintingInfo.fileInfo.id;
     this.artistName     = paintingInfo.artistName;
     this.artistId       = paintingInfo.artistId;
-    this.artistSentence = convertToBr(paintingInfo.sentence);
+    this.artistSentence = convertToBr(paintingInfo.sentence);  
     this.uploadDate     = toDate(paintingInfo.uploadDate);
     this.postedNum      = paintingInfo.postedNum;
     // 히스토리 사용 부분 추가
     this.colorDark      = paintingInfo.colorDark;
     this.color          = paintingInfo.color;
-
+    
     this.detail             =$(".detail");
 
     this.detailBgContainer  =$("<div>").addClass("detail_bg_container");
@@ -90,7 +90,7 @@ DetailStructure.prototype = {
     	var paintingId = this.paintingId;
     	var color      = this.color;
     	var colorDark  = this.colorDark;
-
+    	
         this.detailArtistBtn.html(artistName);
         this.detailArtistBtn.click(function () {
         	processDetailClose();
@@ -164,10 +164,10 @@ DetailStructure.prototype = {
                 $(this).addClass("detail_artist_followed").removeClass("detail_artist_follow");
             });
         }
-
+        
         var paintingId = this.paintingId;
         var fileId = this.fileId;
-
+        
         // 소셜 공유
         var data = {name: artistName, page: paintingId, fileId: fileId};
         $("#detail_fac_share").click(function() {
@@ -212,7 +212,7 @@ DetailController.prototype = {
 		// 히스트리에서 사용하기 위해서 객체 변수 추가
 		result.color = color;
 		result.colorDark = colorDark;
-
+		
 		initDetail(paintingId, result);
 		setDetailLayout();
 
@@ -225,18 +225,18 @@ DetailController.prototype = {
 
 		lockPosted(detailSwiper);
         detailSwiper.lockSwipes();
-
+		
 		// 소셜공유에서 직접 호출한 경우
 		if (call == 'personal') {
 			showPersonal(get.user, get.page);
 			get = "";
 		}
-
+		
 		callPosted(detailSwiper);
  	},
 	artistFollow: function(artistId) {
 		var controller = this;
-
+		
 		// 개인페이지에서 사용하는 부분이 있어 selectedArtistId 이 없을 경우 artistId를 사용하도록 변경. 04-05
 		AjaxCall.call(apiUrl+"/user/"+(selectedArtistId ? selectedArtistId : artistId)+"/follow", null, "POST", function(result, status) { controller.artistFollowRes(result, status); });
 	},
@@ -262,10 +262,10 @@ function initDetail(paintingId, paintingInfo){
 	postedLock = true;
 	postedObj = new Array();
 	postedIndex = new Array();
-
+	
 	selectedArtistId = paintingInfo.artistId;
 	selectedArtistName = paintingInfo.artistName;
-
+	
 	this.detailStructure = new DetailStructure(paintingId, paintingInfo);
 	this.detailStructure.buildDetail();
 	this.detailSwiper = new Swiper('.swiper_container_detail', {
@@ -328,10 +328,10 @@ function processDetailClose() {
     	delete detailStructure;
     	delete detailSwiper;
     });
-    isDetail = false;
+    isDetail = false; 
 }
 //디테일화면의 스크롤 잠금/열기
-function changeMode(swiper){
+function changeMode(swiper){            
     var translate = swiper.translate;
     if(translate>50){
         closeDetail();
@@ -352,7 +352,7 @@ function changeMode(swiper){
 
 //디테일화면의 스크롤 잠금
 function lockPosted(swiper){
-
+	
     postedLock = true;
     // hidePosted(swiper);
     // swiper.params.freeMode = false;

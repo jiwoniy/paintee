@@ -2,13 +2,13 @@ var purchaseController;
 var onceAboutPost = true;
 // 구매화면으로 이동
 function purchase(paintingId, artistName) {
-
+	
 	if (userID == "") {
 		showLogin();
 		return ;
-	}
+	} 
 	this.paintingId = paintingId;
-
+	
 	// 구매 팝업 정보 조회
 	purchaseController = new PurchaseController(paintingId, artistName);
 	purchaseController.purchasePopInfo();
@@ -18,19 +18,19 @@ function initPurchasePop(result) {
 //	console.log(JSON.stringify(result));
 	replaceHistory({"call": "purchasePop"});
     addHistory({"call": "purchaseStep1"});
-
+    
 	purchaseController.basicAddr  = result.user.basicAddr;
 	purchaseController.detailAddr = result.user.detailAddr;
-
+	 
 	$(".purchase_container").show();
-
+    
     // 주소설정...
     $("[name=senderName]").val(userInfo.name);
     $("[name=location]").val(result.user.location ? result.user.location : 'Korea');
     $("[name=receiverBasicAddr]").val(result.user.basicAddr);
     $("[name=receiverDetailAddr]").val(result.user.detailAddr);
     $("[name=receiverZipcode]").val(result.user.zipcode);
-
+    
     // 기존 설정된 이벤트 제거
     $(".purchase_pay_btn").off("click");
     $(".purchase_pay_btn" ).click(function() {
@@ -44,12 +44,12 @@ function initPurchasePop(result) {
     .keyup(function (event) {
     	limitNumber(event);
     });
-
+    
     purchaseStatus = "sentence";
     setWidth();
-
+    
     setPostUI($("[name=location]").val());
-
+    
     // 다국어 처리
     exeTranslation('.base_position', lang);
 }
@@ -59,7 +59,7 @@ function setPurchase(){
         purchaseWidth = mainWidth*0.9;
         if(purchaseStatus!="address"){
             $(".purchase_box").css("left", mainWidth*0.1);
-            $(".purchase_next_btn").show();
+            $(".purchase_next_btn").show();   
         }else{
             $(".purchase_box").css("left", -purchaseWidth);
             $(".purchase_prev_btn").show();
@@ -80,7 +80,7 @@ function setPurchase(){
         $(".purchase_prev_btn").hide();
     }
     $(".purchase_box").width(purchaseWidth*2);
-    $(".purchase_box_left").width(purchaseWidth);
+    $(".purchase_box_left").width(purchaseWidth);            
     $(".purchase_box_right").width(purchaseWidth);
 }
 
@@ -140,7 +140,7 @@ $("[name=location]").change(function(e){
 function callback(searchModule){
 	replaceHistory({"call": "purchasePop"});
     addHistory({"call": "purchaseStep1"});
-
+    
     if($(".detail").css("display") == "block") {
         replaceHistory({"call": "detailPop"});
         addHistory({"call": "dummy"});
@@ -157,7 +157,7 @@ var postPopOn = false;
 
 function setPostUI(type) {
 	if (type == 'Korea') {
-		// 기본 주소 선택시
+		// 기본 주소 선택시 
 		$("[name=receiverCity]").attr("disabled", "disabled");
         $("[name=receiverCity]").addClass("input_disable")
 		$("[name=receiverZipcode]").attr("readOnly", "readOnly");
@@ -173,15 +173,15 @@ function setPostUI(type) {
 		$("[name=receiverBasicAddr]").off();
 		$("[name=receiverCity]").attr("disabled", false);
         $("[name=receiverCity]").removeClass("input_disable")
-		$("[name=receiverZipcode]").attr("readOnly", false);
+		$("[name=receiverZipcode]").attr("readOnly", false);		
 		$("[name=receiverBasicAddr]").attr("readOnly", false);
 	}
 }
 
-// 구매시의 한마디
+// 구매시의 한마디 
 $("[name=sentence]").keyup(function () {
     // 남은 글자 수를 구합니다.
-    var inputLength = getCharCount($(this).val());
+    var inputLength = getCharCount($(this).val());    
     var remain = 200 - inputLength;
 
     $('#pSentenceCount').html(inputLength);
@@ -203,10 +203,10 @@ $("[name=sentence]").blur(function () {
 function payment(serviceCnt) {
 
 	addHistory({"call": "purchaseStep2"});
-
+	
 	// 구매입력 항목 체크
 	if (!validPurchase()) { return false; }
-
+	
     purchaseStatus = "";
     boxStatus = "payment";
     $(".purchase_container").hide();
@@ -221,20 +221,20 @@ function validPurchase() {
 		$("[name=sentence]").focus();
 		return false;
 	}
-
+	
 	if (getCharCount($("[name=sentence]").val()) > 200) {
 		alert($.i18n.t('alert.purchase.exceedSentence'));
 		$("[name=sentence]").focus();
 		return false;
 	}
-
+	
 	var enter = getEnterCount($("[name=sentence]"));
 	if (enter > 5) {
 		alert($.i18n.t('alert.purchase.limitEnterCount'));
 		$("[name=sentence]").focus();
 		return false;
 	}
-
+	
 	if ($("[name=senderName]").val().trim().length == 0) {
 		alert($.i18n.t('alert.purchase.emptySenderName'));
 		$("[name=senderName]").focus();
@@ -262,7 +262,7 @@ function validPurchase() {
 		$("[name=receiverZipcode]").focus();
 		return false;
 	}
-
+	
 	if (!chkNum($("[name=receiverZipcode]").val())) {
 		alert($.i18n.t('alert.purchase.inputOnlyNumber'));
 		$("[name=receiverZipcode]").focus();
@@ -333,7 +333,7 @@ function initPayment(serviceCnt){
         })
     }
     delete payment;
-
+    
     // 다국어 처리
     exeTranslation('.base_position', lang);
 }
@@ -354,18 +354,18 @@ function PurchaseController(paintingId, artistName) {
 PurchaseController.prototype = {
 	purchasePopInfo: function () {
 		var controller = this;
-		AjaxCall.call(apiUrl + "/purchasePopInfo?paintingId=" + controller.paintingId,
-			"",
-			"GET",
+		AjaxCall.call(apiUrl + "/purchasePopInfo?paintingId=" + controller.paintingId, 
+			"", 
+			"GET", 
 			function (result) {
 				// 해당 그림이 정상 상태가 이닐경우
 				if (result.errorNo == "100") {
 					alert($.i18n.t('alert.common.delPainting'));
-					return;
+					return;	
 				}
-				controller.purchasePopInfoRes(result);
+				controller.purchasePopInfoRes(result);			
 			}
-		);
+		);		
 	},
 	purchasePopInfoRes: function (result) {
 		if (result.count == 0 && onceAboutPost == true) {
@@ -392,19 +392,19 @@ PurchaseController.prototype = {
 			changeAddr: controller.changeAddr,
 			serviceCnt: serviceCnt
 		};
-
-		AjaxCall.call(apiUrl + "/purchase",
-			data,
-			"POST",
+		
+		AjaxCall.call(apiUrl + "/purchase", 
+			data, 
+			"POST", 
 			function (result) {
-				controller.addPurchaseRes(result);
+				controller.addPurchaseRes(result);			
 			}
 		);
 	},
 	addPurchaseRes: function (result) {
         // 스피너 화면 중지
 		$(".stopper").hide();
-
+	    
 		// 기존 입력 내용 지우기
 		resetPurchase();
 		completePayment(result);
@@ -418,12 +418,12 @@ PurchaseController.prototype = {
 			purchaseStatus: "3", // 환불 요청
 			paintingId: listData.paintingId
 		};
-
-		AjaxCall.call(apiUrl + "/cancelPurchase",
-			data,
-			"POST",
+		
+		AjaxCall.call(apiUrl + "/cancelPurchase", 
+			data, 
+			"POST", 
 			function (result) {
-				controller.cancelPurchaseRes(result, listData);
+				controller.cancelPurchaseRes(result, listData);			
 			}
 		);
 	},
@@ -434,7 +434,7 @@ PurchaseController.prototype = {
 				                   .html("refund")
 				                   .click(function () {
 				                	   showRefund(this, listData);
-					       		   });
+					       		   }); 
 		alert($.i18n.t('alert.purchase.processCancel'));
         initMy();
 	},
@@ -444,12 +444,12 @@ PurchaseController.prototype = {
 			seq: listData.seq,
 			purchaseStatus: "4" // 재발송 요청
 		};
-
-		AjaxCall.call(apiUrl + "/resendStatusPurchase",
-				data,
-				"POST",
+		
+		AjaxCall.call(apiUrl + "/resendStatusPurchase", 
+				data, 
+				"POST", 
 				function (result) {
-					controller.resendPurchaseRes(result, listData.seq);
+					controller.resendPurchaseRes(result, listData.seq);			
 				});
 	},
 	resendPurchaseRes: function (result, seq) {
@@ -463,11 +463,11 @@ PurchaseController.prototype = {
 				seq: listData.seq,
 				purchaseStatus: "1" // 요청
 		};
-		AjaxCall.call(apiUrl + "/cancelRefundPurchase",
-				data,
-				"POST",
+		AjaxCall.call(apiUrl + "/cancelRefundPurchase", 
+				data, 
+				"POST", 
 				function (result) {
-			controller.cancelRefundPurchaseRes(result, listData);
+			controller.cancelRefundPurchaseRes(result, listData);			
 		});
 	},
 	cancelRefundPurchaseRes: function (result, listData) {
@@ -477,7 +477,7 @@ PurchaseController.prototype = {
 				                   .html("preparing")
 				                   .click(function () {
 				                	   showCancel(this, listData);
-					       		   });
+					       		   }); 
 		alert($.i18n.t('alert.purchase.processCancelRefund'));
         initMy();
 	},
@@ -487,12 +487,12 @@ PurchaseController.prototype = {
 				seq: listData.seq,
 				purchaseStatus: "99" // 완료
 		};
-
-		AjaxCall.call(apiUrl + "/completeStatusPurchase",
-				data,
-				"POST",
+		
+		AjaxCall.call(apiUrl + "/completeStatusPurchase", 
+				data, 
+				"POST", 
 				function (result) {
-			controller.completePurchaseRes(result, listData);
+			controller.completePurchaseRes(result, listData);			
 		});
 	},
 	completePurchaseRes: function (result, listData) {
@@ -501,8 +501,8 @@ PurchaseController.prototype = {
 				                      .addClass("list_status_done")
 				                      .html("delete")
 				                      .click(function () {
-					       				  new PurchaseController().delStatusPurchase(listData);
-					       			  });
+					       				  new PurchaseController().delStatusPurchase(listData); 
+					       			  }); 
 		//alert($.i18n.t('alert.purchase.processComplete'));
         initMy();
 	},
@@ -513,12 +513,12 @@ PurchaseController.prototype = {
 			artistId: listData.artistId,
 			paintingStatus: "D" // 삭제 요청
 		};
-
-		AjaxCall.call(apiUrl + "/delStatusPainting",
-				data,
-				"POST",
+		
+		AjaxCall.call(apiUrl + "/delStatusPainting", 
+				data, 
+				"POST", 
 				function (result) {
-					controller.delStatusPaintingRes(result);
+					controller.delStatusPaintingRes(result);			
 				});
 	},
 	delStatusPaintingRes: function (result) {
@@ -532,11 +532,11 @@ PurchaseController.prototype = {
 			userId: listData.artistId,
 			purchaseStatus: "7" // 삭제 요청
 		};
-		AjaxCall.call(apiUrl + "/delStatusPurchase",
-				data,
-				"POST",
+		AjaxCall.call(apiUrl + "/delStatusPurchase", 
+				data, 
+				"POST", 
 				function (result) {
-					controller.delStatusPurchaseRes(result);
+					controller.delStatusPurchaseRes(result);			
 				});
 	},
 	delStatusPurchaseRes: function (result) {
@@ -570,10 +570,10 @@ function completePayment(result){
     payment.setBottom("<div class='popup_btn payment_btn'><div class='purchase_btn_text'>Go to my history </div><img class='icon' src='ico/person_black.png'></div>");
     payment.buildPayment();
     $(".payment_btn").click(function(){
-
+		
     	$(".popup_container").hide();
     	$(".payment_container").hide();
-
+		
 		if ($(".detail").css("display") == "block") {
 		    $(".detail").animate({top: 200, opacity: 0}, 200, "linear", function(){
 		    	$(".detail").empty();
@@ -581,13 +581,13 @@ function completePayment(result){
 		    	delete detailStructure;
 		    	delete detailSwiper;
 		    });
-		    isDetail = false;
+		    isDetail = false; 
 		}
-
+		
         selectMenu(3);
         mySwiper.slideTo(1);
     });
-
+    
     var data = {name: purchaseController.artistName, page: purchaseController.paintingId, fileId: result.fileId};
     $("#fac_share").click(function() {
     	shareSocial($.extend({type: "facebook"}, data));
@@ -598,9 +598,9 @@ function completePayment(result){
     $("#url_share").click(function() {
     	urlCopy(data);
     });
-
+    
     delete payment;
-
+    
     // 다국어 처리
-    exeTranslation('.base_position', lang);
+    exeTranslation('.base_position', lang);    
 }

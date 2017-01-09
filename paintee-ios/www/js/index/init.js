@@ -4,10 +4,10 @@ $(function () {
 	if(!userInfo && !get) {
 		showAboutOverview();
 	}
-	
+
 	setSideMenu();  // 사이드 메뉴 설정
 });
-	
+
 // 전역변수 설정
 var get;
 var callType;
@@ -25,7 +25,7 @@ var boxStatus="";
 var popName="";
 var fullImage=true;
 
-//get 방식으로 user, painting 가져오기 
+//get 방식으로 user, painting 가져오기
 function getRequest() {
 	if(location.search.length > 1) {
 		var get = new Object();
@@ -79,9 +79,9 @@ function setSideMenu() {
 	// 사이드 메뉴 언어 설정
 	// 로그인 정보를 매번 가져오지 않기 때문에 사이트 로딩시 로그인 상태일 경우만 로그인 정보를 가져온다.
 	if (userInfo) {
-		AjaxCall.call(apiUrl + "/user/me", 
-			null, 
-			"GET", 
+		AjaxCall.call(apiUrl + "/user/me",
+			null,
+			"GET",
 			function (result) {
 				lang = result.userInfo.language ? result.userInfo.language : "ko";
 				$(".side_menu_lang_select").val(lang);
@@ -91,11 +91,11 @@ function setSideMenu() {
 }
 
 //var imageUrl="http://localhost:8000/paintee-admin";
-//var imageUrl="http://52.78.126.27:8080/paintee-admin";
+var imageUrl="http://52.78.12.134:8080/paintee-admin";
 
 //var imageUrl="http://localhost:8080/paintee-admin";
 //var imageUrl="http://52.78.93.238/paintee-admin";
-var imageUrl="http://paintee.me/paintee-admin";
+// var imageUrl="http://paintee.me/paintee-admin";
 //var imageUrl=window.location.protocol+"//paintee.me/paintee-admin";
 var apiUrl = imageUrl + "/api";
 
@@ -208,10 +208,10 @@ function Structure(data) {
                                                    }
                                                    purchase(data.paintingId, data.artistName, "post", "CASH");
                                             });
-        this.listStatusBtn      =$("<div>").addClass("list_status_btn");                 
-        this.listStatusStc      =$("<div>").addClass("list_status_sentence");            
-        this.listCancelBtn      =$("<div>").addClass("list_cancel_btn").html("Cancel");  
-        this.listRefundBtn      =$("<div>").addClass("list_refund_btn").html("Cancel Refund");  
+        this.listStatusBtn      =$("<div>").addClass("list_status_btn");
+        this.listStatusStc      =$("<div>").addClass("list_status_sentence");
+        this.listCancelBtn      =$("<div>").addClass("list_cancel_btn").html("Cancel");
+        this.listRefundBtn      =$("<div>").addClass("list_refund_btn").html("Cancel Refund");
         //this.listResendBtn      =$("<div>").addClass("list_resend_btn").html("Resend");
         this.listConfirmBtn     =$("<div>").addClass("list_confirm_btn").html("Confirm");
         this.listDeleteBtn      =$("<div>").addClass("list_delete_btn").html("Delete");
@@ -265,7 +265,7 @@ Structure.prototype = {
                                 		}
                                 	}
                                 }
-                            	
+
                                 this.listPainting.swipe({
                                     swipeUp:function(){
                                         loadDetail(paintingId, color, colorDark);
@@ -294,8 +294,8 @@ Structure.prototype = {
                             },
         setStatus:          function(listData){
         						// console.log(listData);
-        	
-                                if(listData.paintingStatus == "1"){                                                        
+
+                                if(listData.paintingStatus == "1"){
                                     this.listStatusBtn.addClass("list_status_preparing")
                                                       .html("preparing")
                                                       .attr("id", "exeBtn" + listData.seq)
@@ -309,7 +309,7 @@ Structure.prototype = {
                                                       .click(function(){
 						                                  showResend(this, listData);
 						                              });
-                                } else if(listData.paintingStatus == "3"){                                                     
+                                } else if(listData.paintingStatus == "3"){
                                     this.listStatusBtn.addClass("list_status_refund")
 					                                  .html("refund")
 					                                  .attr("id", "exeBtn" + listData.seq)
@@ -337,7 +337,7 @@ Structure.prototype = {
                                                       .click(function(){
 							                              showDelete(this, listData, listData.paintingStatus);
 							                          });
-                                } 
+                                }
                                 // 댓글 삭제처리
                                 else {
                                 	this.listStatusBtn.addClass("list_status_done")
@@ -347,7 +347,7 @@ Structure.prototype = {
                                 		showDelete(this, listData, listData.paintingStatus);
                                 	});
                                 }
-                                
+
         },
         setNotice:          function(sentence, link){
                                 this.listInfoSentence.html(sentence);
@@ -391,7 +391,7 @@ Structure.prototype = {
                                 this.container.append(this.listBtn);
                                 // 마이페이지의 그림 하단의 상태표시 버튼
                                 if (type == "my") {
-                                	
+
                             		switch(listData.paintingStatus) {
                             		case "1":
                             		case "2":
@@ -401,16 +401,16 @@ Structure.prototype = {
                             		case "99":
                             		case "100":   // 댓글 일 경우 삭제를 위해 추가
                              		case "N":
-                            			this.container.append(this.listStatusBtn);  
-                            			this.container.append(this.listCancelBtn);  
-                            			this.container.append(this.listRefundBtn);  
+                            			this.container.append(this.listStatusBtn);
+                            			this.container.append(this.listCancelBtn);
+                            			this.container.append(this.listRefundBtn);
                             			//this.container.append(this.listResendBtn);
                             			this.container.append(this.listConfirmBtn);
                             			this.container.append(this.listDeleteBtn);
                             			this.container.append(this.listStatusStc);
                             			break;
                             		}
-                                	
+
                                 }
                                 return this.container;
                             }
@@ -418,7 +418,7 @@ Structure.prototype = {
 
 // 현재 슬라이드 위치에서 앞으로 5개의 슬라이드가 없으면 새로 생성 (무한스크롤)
 function addPainting(swiper, currentIndex, type, listData){
-	
+
 	if (!listData) { return; }
 	var data = {
 		index: swiper.slides.length,
@@ -450,11 +450,11 @@ function addPainting(swiper, currentIndex, type, listData){
         newSlide.setColor("hsl(90,60%,20%)");
     } else if (type=="my" || type=="personal") {
         newSlide.setColor("hsl(250,60%,20%)");
-        newSlide.setStatus(listData);   
-	} 
-    
+        newSlide.setStatus(listData);
+	}
+
     swiper.appendSlide(newSlide.buildStructure(type, listData));
-    delete newSlide;    
+    delete newSlide;
 }
 
 // follow 목록에 공지사항을 추가
@@ -511,8 +511,8 @@ function hideCancel(clicked){
 }
 
 function showCancel(clicked, listData){
-    $(clicked).parent().find(".list_cancel_btn").fadeIn().one("click", function () { 
-   		new PurchaseController().cancelPurchase(listData); 
+    $(clicked).parent().find(".list_cancel_btn").fadeIn().one("click", function () {
+   		new PurchaseController().cancelPurchase(listData);
    		hideCancel(this);
     });
     $(clicked).parent().find(".list_status_sentence").empty().html("<span data-i18n='[html]my.cancelStatusPurchase'></span>").fadeIn().click(function(){hideCancel(this)});
@@ -521,8 +521,8 @@ function showCancel(clicked, listData){
 }
 
 function showRefund(clicked, listData){
-	$(clicked).parent().find(".list_refund_btn").fadeIn().one("click", function () { 
-		new PurchaseController().cancelRefundPurchase(listData); 
+	$(clicked).parent().find(".list_refund_btn").fadeIn().one("click", function () {
+		new PurchaseController().cancelRefundPurchase(listData);
 		hideCancel(this);
 	});
 	$(clicked).parent().find(".list_status_sentence").empty().html("<span data-i18n='[html]my.refundStatusPurchase'></span>").fadeIn().click(function(){hideCancel(this)});
@@ -532,7 +532,7 @@ function showRefund(clicked, listData){
 
 function showResend(clicked, listData){
     $(clicked).parent().find(".list_confirm_btn").fadeIn().click(function(){
-    	new PurchaseController().completePurchase(listData); 
+    	new PurchaseController().completePurchase(listData);
     	hideCancel(this)
     });
     $(clicked).parent().find(".list_status_sentence").empty().html("<span data-i18n='[html]my.sendStatusPurchase'></span>").fadeIn().click(function(){hideCancel(this)});
@@ -587,21 +587,21 @@ function mainLock(mainSwiper){
         colorDark = "200,60%,20%";
         if(isPersonal){hidePersonal()};
         hideNewsHead();
-        
+
     }else if(mainSwiper.activeIndex==2){
         mainSwiper.unlockSwipes();
         color = "#cc3380";
         colorDark = "330,60%,20%";
         if(isPersonal){hidePersonal()};
         hideNewsHead();
-        
+
     }else if(mainSwiper.activeIndex==3){
         mainSwiper.unlockSwipes();
         color = "#8ab82e";
         colorDark = "90,60%,20%";
         if(isPersonal){hidePersonal()};
         hideNewsHead();
-        
+
     }else if(mainSwiper.activeIndex==4){
         mainSwiper.lockSwipeToNext();
         color = "#4c33cc";
@@ -614,7 +614,7 @@ function mainLock(mainSwiper){
 };
 
 // list 상태에서 mode container 스와이프 방지 && 마우스휠 해제/설정 && 페이지네이션 show/hide
-function listLock(swiper){  
+function listLock(swiper){
     if(swiper.isBeginning){
         if(mainSwiper.isBeginning){
             mainSwiper.unlockSwipeToNext();
@@ -738,7 +738,7 @@ sideMenu.swipe({
 //side menu에 이벤트 설정
 function selectMenu(index){
     if(currentSwiper!==""){
-        currentSwiper.slideTo(0);   
+        currentSwiper.slideTo(0);
     }
     sideOff();
     mainSwiper.slideTo(index);
@@ -761,7 +761,7 @@ $(window).resize(function (){
 
 function setWidth() {
     mainWidth = $(window).width();
-    mainHeight = $(window).height();    
+    mainHeight = $(window).height();
     if(mainWidth>729){
     	slideWidth=648;
         $(".list_painting").css({"width": "648px", "height": "900px"});
@@ -849,7 +849,7 @@ function setBox(){
                 $(".upload_box").width(mainWidth*0.8);
                 $(".upload_box").height(mainWidth*10/9);
             }
-        }    
+        }
     }else if(boxStatus=="about"){
         $(".about_wrapper").width(mainWidth*6);
         $(".about_card").width(mainWidth);
@@ -909,7 +909,7 @@ function closePopup() {
 			openPopupContainer.hide();
 			history.go(-2);
 			boxStatus = "";
-		} 
+		}
 		else if (boxStatus == "rewardStep2") {
 			history.go(-2);
 		}
@@ -942,8 +942,8 @@ $(".popup_box").click(function(e){
 
 /**
  *   홈 페이지 데이터 리로딩
- *   그림 구매시 : My, Popular  
- *   팔로우 대상 변경 시 : Follow, 
+ *   그림 구매시 : My, Popular
+ *   팔로우 대상 변경 시 : Follow,
  */
 function dataReload(loadPages) {
 	for (var index in loadPages) {
@@ -958,13 +958,13 @@ $(".side_menu_lang_select").change(function(event) {
 	lang = $(this).val();
 	exeTranslation("body", lang);
 	if (userID) {
-		AjaxCall.call(apiUrl + "/user/me", 
-			{"language": lang}, 
-			"PUT", 
+		AjaxCall.call(apiUrl + "/user/me",
+			{"language": lang},
+			"PUT",
 			function (result) {
 			}
 		);
-	} 
+	}
 });
 
 /**
@@ -985,7 +985,7 @@ var imgChecher = setInterval(function(){
 //        if(painteeFB.isCordova()){
 //        	if(StatusBar){StatusBar.backgroundColorByHexString("#505050")};
 //        }
-        
+
     })
 }, 500)
 
@@ -999,4 +999,3 @@ function showNotice(notice){
     $(".notice_box").delay(2000).fadeOut(2000);
 }
 $(".notice_box").hide();
-

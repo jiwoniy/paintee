@@ -34,9 +34,9 @@ ProfileController.prototype = {
 			if(userInfo.location) {
 				$('#profileLocation').val(userInfo.location);
 			}
-
+			
 			setProfilePostUI($("[name=profileLocation]").val());
-
+			
 			//사용자 정보 set
 		    boxStatus = "profile";
 		    setBox();
@@ -132,15 +132,15 @@ function showProfile() {
 }
 
 $("[name=profileLocation]").change(function(e){
-
+	
 	setProfilePostUI($("[name=profileLocation]").val());
 	e.stopPropagation();
 });
 
 function setProfilePostUI(type) {
-
+	
 	if (type == 'Korea') {
-		// 기본 주소 선택시
+		// 기본 주소 선택시 
 		$("[name=profileCity]").attr("disabled", "disabled");
         $("[name=profileCity]").addClass("input_disable")
 		$("[name=profileBasicAddr]").attr("readOnly", "readOnly");

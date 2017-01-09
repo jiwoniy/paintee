@@ -3,6 +3,7 @@ var onceAboutPost = true;
 var purchaseBox = $(".purchase_box");
 var purchaseSentenceBox = $(".purchase_box_sentence");
 var purchaseStructure;
+var purchaseToken;
 
 function Purchase(purchaseType){
     this.purchaseType = purchaseType;
@@ -444,13 +445,13 @@ Payment.prototype = {
         $(this.bottom).height(170);
         $(this.bottomMargin).height(170);
         $(this.bottom).append($("<div>").addClass("payby_btn").html($.i18n.t('purchasePop1.select')));
-        $(this.bottom).append(this.payByPaypal);
+        // $(this.bottom).append(this.payByPaypal);
         // if(checkPaymentPlatform()=="android"){
-        //     $(this.bottom).append(this.payByAndroid);
-        // }else if(checkPaymentPlatform()=="iOS"){
-        //     $(this.bottom).append(this.payByiOS);
+//              $(this.bottom).append(this.payByAndroid);
+//         }else if(checkPaymentPlatform()=="iOS"){
+             $(this.bottom).append(this.payByiOS);
         // }
-        if(checkPaymentReward){
+        if(checkPaymentReward() == true){
             $(this.bottom).append(this.payByReward);
         }
         $(this.bottom).append(this.payByCode);
@@ -533,39 +534,6 @@ function paymentByPaypal(){
       payment.setContents("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'><input type='hidden' name='cmd' value='_s-xclick'><input type='hidden' name='hosted_button_id' value='LVZ3RM89U7UWQ'><input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'><img alt='' border='0' src='https://www.paypalobjects.com/ko_KR/i/scr/pixel.gif' width='1' height='1'></form>");
       payment.buildPayment();
 
-
-  // $(".payment_btn").click(function(){
-  //         // alert("프로모션 코드 확인 및 사용처리 과정이 진행됩니다.");
-  //         showPurchaseSpinner();
-  //         var code = $("[name=promotionCode]").val();
-  //         var data = {
-  //           codeValue : code
-  //         };
-  //         // alert(code);
-  //         AjaxCall.call(apiUrl + "/promotioncode/check",
-  //     			data,
-  //     			"POST",
-  //     			function (result) {
-  //             if(result.status == 'possible'){
-  //
-  //                 purchaseController.addPurchase(3, 5);
-  //
-  //             }
-  //             else if(result.status == 'used'){
-  //
-  //             }
-  //             else {
-  //               $(".stopper").hide();
-  //                 alert("잘못된 프로모션 코드 입니다.");
-  //
-  //
-  //             }
-  //
-  //     			}
-  //     		);
-  //
-  // })
-
   delete payment;
   exeTranslation('.base_position', lang);
 }
@@ -577,8 +545,19 @@ function paymentByPaypal(){
 function paymentByAndroid(){
     // alert("안드로이드 인앱으로 결제되는 과정이 진행됩니다.");
     // purchaseController.addPurchase(3);
-    // showPurchaseSpinner();
+//     showPurchaseSpinner();
+    cordova.exec(function(result){
+        var token = result.token;
+        purchaseToken = token;
+
+        purchaseController.addPurchase(3, 2);
+
+    },function(err){
+        alert("인앱 결제 과정에 오류가 발생했습니다.");
+
+    },"InAppBrowser","store",[]);
 }
+
 
 /**
  *  [payment] iOS 인앱 옵션 선택
@@ -602,7 +581,7 @@ function paymentByReward(){
   var payment = new Payment();
   payment.setTitle("Payment");
 
-  var reward = userInfo.earnedRewardMoney - userInfo.usedRewardMoney; // 현재 내가 받을 수 있는 리워드
+  var reward = userInfo.earnedTotalMoney - userInfo.earnedRewardMoney - userInfo.usedRewardMoney; // 현재 내가 받을 수 있는 리워드
   var contents1 = "<span data-i18n='[html]purchasePop1.reward1'></span>"
   var contents2 = "<span data-i18n='[html]purchasePop1.reward2'></span>"
   payment.setContents(contents1 +"<b>"+ reward +"</b>"+ contents2);
@@ -635,7 +614,7 @@ function paymentByCode(){
     $(".payment_btn").click(function(){
             // alert("프로모션 코드 확인 및 사용처리 과정이 진행됩니다.");
             showPurchaseSpinner();
-            var code = $("[name=promotionCode]").val();
+            var code = $("[name=promotionCode]").val().toLowerCase();
             var data = {
               codeValue : code
             };
@@ -685,13 +664,13 @@ function paymentCancle(){
     bottom.height(170);
     bottom.height(170);
     bottom.append($("<div>").addClass("payby_btn").html($.i18n.t('purchasePop1.select')));
-    bottom.append(payByPaypal);
-    if(checkPaymentPlatform()=="android"){
-        bottom.append(payByAndroid);
-    }else if(checkPaymentPlatform()=="iOS"){
+    // bottom.append(payByPaypal);
+//    if(checkPaymentPlatform()=="android"){
+//         bottom.append(payByAndroid);
+//    }else if(checkPaymentPlatform()=="iOS"){
         bottom.append(payByiOS);
-    }
-    if(checkPaymentReward){
+//    }
+    if(checkPaymentReward() == true){
         bottom.append(payByReward);
     }
     bottom.append(payByCode);
@@ -714,13 +693,13 @@ function checkPaymentPlatform(){
  */
 
 function checkPaymentReward(){
-  if(userInfo.earnedRewardMoney - userInfo.usedRewardMoney > 2){
 
-          return true;
-      }
-      else{
-        return false;
-    }
+  if(userInfo.earnedTotalMoney - userInfo.earnedRewardMoney - userInfo.usedRewardMoney > 2){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 
@@ -774,12 +753,16 @@ PurchaseController.prototype = {
         purchaseId = $("[name=promotionCode]").val();
 
     }
+    else if(provider == 2){
+        typ == 'ANDROID';
+        purchaseId = purchaseToken;
+    }
 
 		var data = {
 			userId: userID,
 			paintingId: this.paintingId,
             artistName: this.artistName,
-            purchaseType: this.purchaseType,
+            purchaseType: typ,
 			sentence: $("[name=sentence]").val(),
 			privateAt: ($("[name=privateAt]").attr("lock")) ? "Y" : "N",
 			receiverBasicAddr: $("[name=receiverBasicAddr]").val(),

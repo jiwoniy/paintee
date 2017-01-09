@@ -3,7 +3,7 @@ $(document).ready(function() {
 	initMy();
 });
 
-//list container 시작
+//list container 시작        
 var mySwiper = new Swiper('.swiper_container_my', {
     slidesPerView: 'auto',
     centeredSlides: true,
@@ -17,7 +17,7 @@ var mySwiper = new Swiper('.swiper_container_my', {
     scrollbarHide: true,
     lazyLoading: false,
     lazyLoadingInPrevNext: true,
-    lazyLoadingInPrevNextAmount: 3
+    lazyLoadingInPrevNextAmount: 3    
 })
 
 mySwiper.on("onSlideChangeStart", function(swiper) {
@@ -63,29 +63,29 @@ function MyHomeController() {
 
 MyHomeController.prototype = {
 	getHomeInfo : function (startRow) {
-
+		
 		var upload = ($("#uploadBtn").hasClass("home_btn_inactive")) ? "N" : "Y";
 		var post   = ($("#postBtn"  ).hasClass("home_btn_inactive")) ? "N" : "Y";
 		this.startRow = startRow;
 		var controller = this;
 		AjaxCall.call(
-			apiUrl + "/index/myhome/info?startRow=" + startRow + "&upload=" + upload + "&post=" + post,
+			apiUrl + "/index/myhome/info?startRow=" + startRow + "&upload=" + upload + "&post=" + post, 
 			null,
-			"GET",
+			"GET", 
 			function(result) {
 				controller.getHomeInfoRes(result);
 			}
 		);
-	},
+	}, 	
 	getHomeInfoRes : function (result) {
 		// 처음 로딩시에만 메인화면 구성
 		if (this.startRow == 0) {
 			setMyHome(result);
-
+			
 			if (result.uploadClass == "N") $("#uploadBtn").addClass("home_btn_inactive");
 			if (result.postClass   == "N") $("#postBtn"  ).addClass("home_btn_inactive");
 		}
-
+		
 		for ( var index in result.list) {
 			addPainting(mySwiper, 1, "my", result.list[index]);
 		}
@@ -137,11 +137,11 @@ function setMyHome(result) {
     myHome.setContents(content1);
     myHome.setContents(content2);
     mySwiper.appendSlide(myHome.buildStructure());
-
+    
     delete myHome;
     delete content1;
     delete content2;
-
+    
     // 다국어 변경 적용
 	exeTranslation('.main_container', lang);
 }

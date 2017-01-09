@@ -18,8 +18,8 @@ LogInController.prototype = {
 	doLoginRes: function(result, status) {
 
 		if(result.errorNo == 0) {
-
 			setUserInfoCookie(result);
+
 			var userAgent = navigator.userAgent;
 
 			location.reload();
@@ -32,7 +32,6 @@ LogInController.prototype = {
 			// e-mail confirm안한 사용자
 			alert($.i18n.t('alert.login.confirmEmail'));
 		}
-
 	},
 	doSocialLogin: function(email, name, accessToken, expireTime, userId, providerId) {
 		var param = {};
@@ -188,3 +187,15 @@ $('#login_facebook_btn').on('click', function() {
 //		loginSocialUser(response, "FACEBOOK")
 //	}, {scope: 'email,user_likes'});
 });
+
+// [fix] 로그인할때 아래로 스크롤
+$("#userEmail").focusin(function(){scrollAccountContainer($("#userEmail").offset().top)});
+$("#userPassword").focusin(function(){scrollAccountContainer($("#userPassword").offset().top)});
+$("#signupUserId").focusin(function(){scrollAccountContainer($("#signupUserId").offset().top)});
+$("#signupUserPassword").focusin(function(){scrollAccountContainer($("#signupUserPassword").offset().top)});
+$("#signupConfirmPassord").focusin(function(){scrollAccountContainer($("#signupConfirmPassord").offset().top)});
+$("#signupUserName").focusin(function(){scrollAccountContainer($("#signupUserName").offset().top)});
+
+function scrollAccountContainer(top){
+    $(".account_container").scrollTop(top);
+}

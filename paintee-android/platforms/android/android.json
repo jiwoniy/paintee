@@ -25,6 +25,9 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.paintee1.pnt"
         },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.paintee1.pnt"
+        },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.paintee1.pnt"
         }

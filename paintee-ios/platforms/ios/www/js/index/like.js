@@ -16,7 +16,7 @@ function dropBubble(bubble, paintingId, artistId){
 	if (!userInfo) {
 		alert($.i18n.t('alert.common.notLogin'));
 		return;
-	}
+	}	
 	var controller = new PaintingLikeController(bubble, paintingId, artistId);
 	controller.cancelPaintingLike();
 }
@@ -38,7 +38,8 @@ function showLikes(paintingId){
 }
 
 function addLikes(name, isfriend) {
-	var adder = new Follows();
+    // [fix] like 선택시 창닫히게
+	var adder = new Likes();
 	$(adder.build(name, isfriend)).appendTo($(".people_contents"));
 	delete adder;
 }
@@ -51,10 +52,12 @@ function Likes() {
 	this.freind = $("<div>").addClass("people_list_add")
 			                .html("<div class='people_list_btn_text'> </div><img class='icon img_transparent' src='ico/done.png'>");
 	this.build = function(name, isfriend) {
+        // [fix] like 선택시 창닫히게
 		$(this.name).html(name).click(function () {
-			history.back();
+            $(".people_container").hide();
+            processDetailClose();
 			showPersonal(name);
-		});;
+		});
 		$(this.likes).append(this.name);
 		if (isfriend) {
 			$(this.likes).append(this.freind);
@@ -67,7 +70,8 @@ function Likes() {
 			new FollowController().addFollow(btn, name);
 		});
 
-		return this.follows;
+        // [fix] like 선택시 창닫히게
+		return this.likes;
 	}
 }
 
@@ -84,13 +88,13 @@ PaintingLikeController.prototype = {
 			paintingId: this.paintingId,
 			artistId: controller.artistId
 		};
-
+		
 		AjaxCall.call(
 				apiUrl + "/painting/like",
-				data,
-				"POST",
+				data, 
+				"POST", 
 				function (result) {
-					controller.addPaintingLikeRes(result);
+					controller.addPaintingLikeRes(result);			
 				}
 		);
 	},
@@ -114,12 +118,12 @@ PaintingLikeController.prototype = {
 	cancelPaintingLike: function () {
 		var controller = this;
 		var data = {"artistId": controller.artistId};
-
-		AjaxCall.call(apiUrl + "/painting/" + controller.paintingId + "/like",
-			data,
+		
+		AjaxCall.call(apiUrl + "/painting/" + controller.paintingId + "/like", 
+			data, 
 			"DELETE",
 			function (result) {
-				controller.cancelPaintingLikeRes(result);
+				controller.cancelPaintingLikeRes(result);			
 			}
 		);
 	},
@@ -144,7 +148,7 @@ PaintingLikeController.prototype = {
 		AjaxCall.call(
 			apiUrl + "/painting/" + controller.paintingId + "/like/users",
 			null,
-			"GET",
+			"GET", 
 			function(result) {
 				controller.getLikeUserListRes(result);
 			}

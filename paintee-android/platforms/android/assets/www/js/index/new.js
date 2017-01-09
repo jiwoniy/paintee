@@ -4,7 +4,7 @@ $(document).ready(function () {
 	initNew();
 });
 
-// list container 시작
+// list container 시작  
 var newSwiper = new Swiper('.swiper_container_new', {
     slidesPerView: 'auto',
     centeredSlides: true,
@@ -18,7 +18,7 @@ var newSwiper = new Swiper('.swiper_container_new', {
     scrollbarHide: true,
     lazyLoading: false,
     lazyLoadingInPrevNext: true,
-    lazyLoadingInPrevNextAmount: 3
+    lazyLoadingInPrevNextAmount: 3    
 })
 
 newSwiper.on("onSlideChangeStart", function(swiper){
@@ -60,15 +60,15 @@ function NewController() {
 }
 
 NewController.prototype = {
-	// 그림 정보 조회 : 업로드 카운트 및 이미지 목록
+	// 그림 정보 조회 : 업로드 카운트 및 이미지 목록 
 	getListData: function (startRow) {
 		this.startRow = startRow;
 		var controller = this;
-		AjaxCall.call(apiUrl + "/newIndex?startRow=" + startRow,
-			null,
-			"GET",
+		AjaxCall.call(apiUrl + "/newIndex?startRow=" + startRow, 
+			null, 
+			"GET", 
 			function (result) {
-				controller.getListDataRes(result);
+				controller.getListDataRes(result);			
 			}
 		);
 	},
@@ -83,7 +83,7 @@ NewController.prototype = {
 			if (newSwiper.slides.length > 100) {
 				break;
 			}
-		}
+		} 
 	}
 };
 
@@ -93,7 +93,7 @@ NewController.prototype = {
 function initNew(){
   // 기존 설정된 슬라이더 제거
   newSwiper.removeAllSlides();
-
+	
   var newHome = new Home();
 	  newHome.setTitle("new");
 	  newHome.setExplain("<span data-i18n='new.explain'><span>");
@@ -103,7 +103,7 @@ function initNew(){
 
   // 다국어 변경 적용
   exeTranslation('.main_container', lang);
-
+  
   //테이블에서 가져올 데이터의 시작 위치를 처음 로딩시 0번째 부터 조회
   new NewController().getListData(0);
 }

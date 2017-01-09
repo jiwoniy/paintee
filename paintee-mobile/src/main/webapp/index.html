@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta name="description" content="그림으로 가득합니다. 누구에게나 간단하게 그림 엽서를 보냅니다.">
-    
+
     <!-- 페이스북 공유시 사용 ::: 정식 도메인이 나온다음 테스트 진행 -->
     <meta property="og:url" id="ogUrl" content="" />
     <meta property="og:title" id="ogTitle" content="paintee">
@@ -19,7 +19,7 @@
     <link href="css/cropper.min.css" type="text/css" rel="stylesheet"/>
     <link href="css/popup.css" type="text/css" rel="stylesheet"/>
     <link href="css/search.css" type="text/css" rel="stylesheet"/>
-    <link rel="shortcut icon" href="icon/favicon.ico" /> 
+    <link rel="shortcut icon" href="icon/favicon.ico" />
 </head>
 <body>
     <!--  화면이 스크롤되지 않도록 고정, 나중에 반응형으로 고정  -->
@@ -45,7 +45,7 @@
                 <div class="bottom_bar" style="background-color: hsl(200,60%,20%)"></div>
                 <div class="swiper-wrapper"></div>
                 <div class="swiper-scrollbar swiper-scrollbar-follow"></div>
-                
+
             </div>
         </div>
         <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [popular]  -->
@@ -55,7 +55,7 @@
                 <div class="bottom_bar" style="background-color: hsl(330,60%,20%)"></div>
                 <div class="swiper-wrapper"></div>
                 <div class="swiper-scrollbar swiper-scrollbar-popular"></div>
- 
+
             </div>
         </div>
         <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [new]  -->
@@ -65,7 +65,7 @@
                 <div class="bottom_bar" style="background-color: hsl(90,60%,20%)"></div>
                 <div class="swiper-wrapper"></div>
                 <div class="swiper-scrollbar swiper-scrollbar-new"></div>
- 
+
             </div>
         </div>
         <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [my]  -->
@@ -78,7 +78,7 @@
             </div>
         </div>
         </div>
-        
+
         <!--   side menu     -->
         <div id="side_menu">
             <div class="side_menu_login"></div>
@@ -108,16 +108,16 @@
         </div>
         <div class="modal"></div>
     </div>
-    
+
     <!--  상세화면  -->
     <div class="detail">
     </div>
-    
+
     <!--  아래는 팝업화면으로 처리  -->
     <div class="base_position">
 
     <!--  새소식 화면  -->
-    <div class="news_container">
+    <!-- <div class="news_container">
         <div class="news_box">
             <div class="news_header">
                 <div class="news_header_div" id="news_like"><img class="header_ico" src="ico/like.png">5</div>
@@ -128,7 +128,7 @@
             <div class="news_contents">
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!--   구매 화면   -->
     <div class="purchase_container">
@@ -160,19 +160,19 @@
         <div id="upload_file_input_box" style="position:relative; left:-5000px;"></div>
         <div class="return_btn"><img class="icon" src="ico/close.png"></div>
     </div>
-        
+
     <!--  리워드 화면  -->
     <div class="popup_container reward_container">
         <div class="popup_box reward_box"></div>
         <div class="return_btn"><img class="icon" src="ico/close.png"></div>
     </div>
-    
+
     <!--  팔로우/팔로워 화면  -->
     <div class="popup_container people_container">
         <div class="popup_box people_box"></div>
         <div class="return_btn"><img class="icon" src="ico/close.png"></div>
-    </div> 
-    
+    </div>
+
     <!--  회원정보 수정 화면  -->
     <div class="popup_container profile_container">
     <div class="popup_box profile_box">
@@ -214,7 +214,7 @@
                 </select>
             </div>
             <div class="return_btn"><img class="icon" src="ico/keyboard_backspace.png"></div>
-            <!-- 
+            <!--
 	        <div id="profileLayer" style="display:none;position:absolute;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 				<img src="http://i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseProfileLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 			</div>
@@ -226,7 +226,7 @@
         </div>
     </div>
     </div>
-    
+
     <!--  로그인화면  -->
     <div class="account_container login_container">
     <div class="account_wrapper">
@@ -410,10 +410,10 @@
 	<div class="stopper"></div>
 
     <!--  Scripts-->
-    <!-- 
+    <!--
 	<script src="cordova.js"></script>
 	 -->
-    
+
     <script>
  	var painteeFB = (function() {
 
@@ -428,25 +428,25 @@
  		function isCordova(){
  			return runningInCordova;
  		}
- 		
+
  		function login(callback, options){
- 			
+
  			if(isCordova()){
  				openFB.login(callback, options);
  			}else{
- 				FB.login(callback, options);	
+ 				FB.login(callback, options);
  			}
- 			 
+
  		}
- 		
+
 		function api(path, options, callback){
- 			
+
  			if(isCordova()){
  				openFB.api(path, options, callback);
  			}else{
- 				FB.api(path, options, callback);	
+ 				FB.api(path, options, callback);
  			}
- 			 
+
  		}
 
 
@@ -458,12 +458,12 @@
  		 }
  	}());
  	</script>
-    
+
     <script src="js/jquery/jquery-2.1.1.js"></script>
     <script src="js/swiper.jquery.min.js"></script>
     <script src="js/jquery.touchSwipe.min.js"></script>
     <script src="js/cropper.js"></script>
-    
+
 	<!-- 다국어 지원 라이브러리 -->
 	<script src="js/jquery/i18next.min.js"></script>
 
@@ -472,9 +472,9 @@
 	<!-- 히스토리  -->
     <script src="js/util/history.js"></script>
 
-	<!-- 공통 -->    
+	<!-- 공통 -->
 	<script src="js/util/common.js"></script>
-	<!-- 공통 AJAX -->    
+	<!-- 공통 AJAX -->
 	<script src="js/util/common-ajax.js"></script>
 
 	<!--  메인페이지 관련 스크립트 -->
@@ -495,14 +495,14 @@
 	<script src="js/index/like.js"></script>
     <script src="js/index/tuesday.js"></script>
     <script src="js/index/news.js"></script>
-	
-	
-    <!-- 페이스북 로그인 --> 
+
+
+    <!-- 페이스북 로그인 -->
     <script src="js/util/openFB.js"></script>
     <script src="js/util/facebook.js"></script>
 	<script src="js/util/spinner.js"></script>
-	
-	
+
+
 	 <!-- postcodify -->
     <script src="js/util/search.js"></script>
 

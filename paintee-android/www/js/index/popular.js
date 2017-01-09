@@ -3,7 +3,7 @@ $(document).ready(function () {
 	initPopular();
 });
 
-// list container 시작
+// list container 시작  
 var popularSwiper = new Swiper('.swiper_container_popular', {
     slidesPerView: 'auto',
     centeredSlides: true,
@@ -17,7 +17,7 @@ var popularSwiper = new Swiper('.swiper_container_popular', {
     scrollbarHide: true,
     lazyLoading: false,
     lazyLoadingInPrevNext: true,
-    lazyLoadingInPrevNextAmount: 3
+    lazyLoadingInPrevNextAmount: 3    
 });
 
 popularSwiper.on("onSlideChangeStart", function(swiper){
@@ -60,15 +60,15 @@ function PopularController() {
 }
 
 PopularController.prototype = {
-	// 목록 데이터 요청 AJAX
+	// 목록 데이터 요청 AJAX	
 	getListData: function (startRow) {
 		this.startRow = startRow;
 		var controller = this;
 		AjaxCall.call(apiUrl + "/popularIndex?startRow=" + startRow,
-			null,
-			"GET",
+			null, 
+			"GET", 
 			function (result) {
-				controller.getListDataRes(result);
+				controller.getListDataRes(result);			
 			}
 		);
 	},
@@ -82,7 +82,7 @@ PopularController.prototype = {
 			if (popularSwiper.slides.length > 100) {
 				break;
 			}
-		}
+		} 
 	}
 };
 
@@ -90,17 +90,17 @@ PopularController.prototype = {
 function initPopular(){
 	// 기존 설정된 슬라이더 제거
 	popularSwiper.removeAllSlides();
-
+	
     var popularHome = new Home();
     popularHome.setTitle("Popular");
     popularHome.setExplain("<span data-i18n='popular.explain'><span>");
     popularHome.setContents($("<div>").html("<span id='popular_count'>0</span><span data-i18n='popular.content'></span>"));
     popularSwiper.appendSlide(popularHome.buildStructure());
     delete popularHome;
-
+  
 	// 다국어 변경 적용
 	exeTranslation('.main_container', lang);
-
+	
     //테이블에서 가져올 데이터의 시작 위치를 처음 로딩시 0번째 부터 조회
 	new PopularController().getListData(0);
 }

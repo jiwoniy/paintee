@@ -5,13 +5,13 @@ var isPersonal = false;
 /**
  * 특정 아티스트 정보 보이기
  * @param username
- */
+ */             
 function showPersonal(username, paintingId){
     if (personal != "") hidePersonal();
     isPersonal = true;
     color = "250,60%,50%";
     colorDark = "250,60%,20%";
-
+    
     personal = new Personal(username);
     mainSwiper.appendSlide(personal.buildStructure());
     personal.setSwiper();
@@ -31,13 +31,15 @@ function showPersonal(username, paintingId){
         $(swiper.container).find(".home_btn").show()
     });
     personal.swiper.on("onSetTranslate", function(swiper, translate){swipeToMenu(swiper, translate)});
-
+      
     initPersonal(paintingId);
     // [tuesday] mainSwiper 순서 하나씩 미룸
     selectMenu(5);
-//            if(StatusBar){
-//                StatusBar.backgroundColorByHexString("#8ab82e")
-//            };
+    if(painteeFB.isCordova()){
+        if(StatusBar){
+            StatusBar.backgroundColorByHexString("#8ab82e")
+        };
+    }
 }
 
 /**
@@ -77,7 +79,7 @@ Personal.prototype = {
                             preloadImages: false,
                             lazyLoading: true,
                             lazyLoadingInPrevNext: true,
-                            lazyLoadingInPrevNextAmount: 3
+                            lazyLoadingInPrevNextAmount: 3                            
                         })
                     },
     buildStructure  : function(){
@@ -86,7 +88,7 @@ Personal.prototype = {
                         this.list.append(this.wrapper);
                         this.list.append(this.scroll);
                         this.container.append(this.list);
-
+        
                         return this.container;
                     }
 }
@@ -103,14 +105,14 @@ function setPersonal(result) {
     personalHome.setExplain(introduce);
     var contents1 = $("<div>").addClass("follow_artist").html("<br><br><img style='width:12px; height: 12px' class='icon' src='ico/star_white.png'> <span id='personalFollow'>follow artist</span>");
     var contents2 = $("<div>").addClass("share_artist").html("Share to <img class='icon social_img' id='personal-facebook' src='ico/social_facebook_white.png'><img class='icon social_img' id='personal-twitter' src='ico/social_twitter_white.png'><img class='icon social_img' id='personal-url' src='ico/social_url_white.png'>");  // 수정부분
-
+    
     personalHome.hideNext();
     personalHome.setContents(contents1);
-    personalHome.setAdd(contents2);
+    personalHome.setAdd(contents2); 
     personal.swiper.appendSlide(personalHome.buildStructure());
     delete personalHome;
     delete content1;
-
+    
     var data = {name: personal.username};
     $("#personal-facebook").click(function() {
     	shareSocial({name: personal.username, type: "facebook"});
@@ -121,7 +123,7 @@ function setPersonal(result) {
     $("#personal-url").click(function() {
     	urlCopy({"name": personal.username});
     });
-
+    
     $("#personalFollow").click(function () {
     	if (!userInfo) {
     		alert($.i18n.t('alert.common.notLogin'));
@@ -131,13 +133,13 @@ function setPersonal(result) {
 			alert(personal.username + $.i18n.t('alert.detail.existFollow'));
 			return;
 		}
-		selectedArtistId = result.personal.artistId;
-		selectedArtistName = personal.username;
+		selectedArtistId = result.personal.artistId; 
+		selectedArtistName = personal.username; 
     	new DetailController().artistFollow(result.personal.artistId);
     }); // 수정부분
-
+    
     // 다국어 처리
-    exeTranslation('.main_container', lang);
+    exeTranslation('.main_container', lang);      
 }
 
 function PersonalController(paintingId) {
@@ -151,25 +153,25 @@ PersonalController.prototype = {
 		this.startRow = startRow;
 		var controller = this;
 		var param = "?startRow=" + startRow  + "&artistName=" + personal.username;
-		//
+		// 
 		if (this.paintingId) {
 			param += "&paintingId=" + this.paintingId;
 		}
 		AjaxCall.call(
-			apiUrl + "/index/personal" + param,
+			apiUrl + "/index/personal" + param, 
 			null,
-			"GET",
+			"GET", 
 			function(result) {
 				// 에러코드 100 번일 경우 사용자 작가 개인 페이지 호출 시 작가가 존재하지 않는 경우
 				if (result.errorNo == 100) {
 					alert($.i18n.t('alert.common.notExistArtist'));
 //					location.href = "/";
 					location.reload();
-				}
+				}  	
 				controller.getPersonInfoRes(result);
 			}
 		);
-	},
+	}, 	
 	// 개인페이지 홈 정보와 그림 목록을 조회 후 처리하는 함수
 	getPersonInfoRes : function (result) {
 		var controller = this;
@@ -181,7 +183,7 @@ PersonalController.prototype = {
 			var pageType = "my";
 			// 소셜에서 들어온 경우 Lazy Loading을 위해서 값 설정을 변경함 : 다른 페이지와 구분값 설정
 			if (controller.paintingId) pageType = "personal";
-
+			
 			addPainting(personal.swiper, 1, pageType, result.list[index]);
 		}
 		// 개인페이지에서 상세화면을 닫았을때 요청한 그림을 목로에서 바로 보여주기 위해 슬라이드를 해당 그림으로 이동시킴
@@ -193,14 +195,14 @@ PersonalController.prototype = {
 	getPictureStatus : function (paintingId) {
 		var controller = this;
 		AjaxCall.call(
-				apiUrl + "/index/personal/pictureStatus?paintingId=" + paintingId,
+				apiUrl + "/index/personal/pictureStatus?paintingId=" + paintingId, 
 				null,
-				"GET",
+				"GET", 
 				function(result) {
 					// 에러코드 100 번일 경우 사용자 작가 개인 페이지 호출 시 작가의 그림이 존재하지 않는 경우
 					if (result.errorNo == 100) {
 						alert($.i18n.t('alert.common.notExistPicture'));
-					}
+					}  
 					else {
 						// 그림이 존재하는 경우만 상세 페이지 호출
 						loadDetail(get.page, "200,60%,50%", "200,60%,20%", "personal");
@@ -212,14 +214,14 @@ PersonalController.prototype = {
 	getArtistStatus : function (name) {
 		var controller = this;
 		AjaxCall.call(
-				apiUrl + "/index/personal/artistStatus?name=" + name,
+				apiUrl + "/index/personal/artistStatus?name=" + name, 
 				null,
-				"GET",
+				"GET", 
 				function(result) {
 					// 에러코드 100 번일 경우 사용자 작가 개인 페이지 호출 시 작가  존재 여부 체크
 					if (result.errorNo == 100) {
 						alert($.i18n.t('alert.common.notExistArtist'));
-					}
+					}  
 					// 그림 작가가 있을 경우에만 다음 단계 진행
 					else {
 						// 개인페이지 진행
@@ -230,7 +232,7 @@ PersonalController.prototype = {
 	}
 };
 
-//get 방식으로 user, painting 가져오기
+//get 방식으로 user, painting 가져오기 
 function getRequest() {
     if(location.search.length > 1) {
         var get = new Object();

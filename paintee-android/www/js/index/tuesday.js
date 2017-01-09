@@ -132,7 +132,7 @@ Tuesday.prototype = {
                             	this.tueBtn.append(this.listBtnLike);
                             } else {
                             	this.tueBtn.append(this.listBtnLiked);
-                            }
+                            }                            
         },
         setSentenceBox: function(){
                             this.sentenceBox.append(this.sentenceInput);
@@ -242,7 +242,7 @@ function addTuesday(swiper, currentIndex, type, listData){
     var startDate = new Date(listData.startDate);
     newSlide.setWeek(startDate.weekCountOfMonth() + "st", startDate.convertEngMonth());
     // 게시기간이 시작되는 날짜를 기준으로 [월] [몇번째주] 로 표시됩니다.
-
+    
     newSlide.setPost(listData);
     newSlide.setArtist(listData.artistName);
 

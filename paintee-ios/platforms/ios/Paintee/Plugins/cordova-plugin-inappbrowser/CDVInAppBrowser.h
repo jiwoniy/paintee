@@ -21,14 +21,6 @@
 #import <Cordova/CDVInvokedUrlCommand.h>
 #import <Cordova/CDVScreenOrientationDelegate.h>
 
-
-#import <StoreKit/SKProductsRequest.h>
-#import <StoreKit/SKProduct.h>
-#import <StoreKit/SKPayment.h>
-#import <StoreKit/SKPaymentQueue.h>
-#import <StoreKit/SKPaymentTransaction.h>
-
-
 #ifdef __CORDOVA_4_0_0
     #import <Cordova/CDVUIWebViewDelegate.h>
 #else
@@ -43,7 +35,6 @@
 @property (nonatomic, retain) CDVInAppBrowserViewController* inAppBrowserViewController;
 @property (nonatomic, copy) NSString* callbackId;
 @property (nonatomic, copy) NSRegularExpression *callbackIdPattern;
-@property (strong, nonatomic) SKProductsRequest *productsRequest;
 
 - (void)open:(CDVInvokedUrlCommand*)command;
 - (void)close:(CDVInvokedUrlCommand*)command;

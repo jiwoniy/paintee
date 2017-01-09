@@ -123,21 +123,21 @@ SignupController.prototype = {
 		param.providerId=providerId;
 		param.providerUserId=userId;
 		param.accessToken = accessToken;
-
+		
 		// 이름 유효성 검사
 		// username 유효성 검사 (4자~14자)
-		var reg_exp = new RegExp("^[a-zA-Z][a-zA-Z0-9]{3,11}$","g");
-        var match = reg_exp.exec(param.name);
+		var reg_exp = new RegExp("^[a-zA-Z][a-zA-Z0-9]{3,11}$","g");  
+        var match = reg_exp.exec(param.name); 
 
         if (match == null || param.name.length <  4 || param.name.length > 14) {
-    		alert($.i18n.t('alert.signup.invalidUserName'));
+    		alert($.i18n.t('alert.signup.invalidUserName')); 
             $("#signup_social_username").focus();
         }else{
         	//email, user name 중복 체크
     		controller.checkDuplication(param);
         }
-
-
+        
+		
 	}
 }
 
@@ -146,11 +146,11 @@ function registSocialUser(response, providerId) {
 	signupSocialAuthResponse = response;
 	signupSocialProviderId = providerId;
 	var laccessToken = response.authResponse.accessToken;
-
+	
 	if (response.status === 'connected') {
-
+		
 		painteeFB.api('/me', {fields: 'email,name'}, function(response) {
-
+		
 		 	signupSocialAuthResponse.email = response.email;
 		 	showUsername();
 		 });
@@ -171,6 +171,22 @@ $('#social_username_signup_btn').on('click', function() {
 $(".signup_terms").click(function(){
 	showAboutPolicy();
 });
+// [fix] username 가이드 추가
+$("#signupUserName").focusin(function(){
+    $(".username_guide").append("<span data-i18n='account.ruleName'></span>");
+    exeTranslation(".signup_container", lang);
+});
+$("#signupUserName").focusout(function(){
+    $(".username_guide").empty();
+});
+// [fix] password 가이드 추가
+$("#signupUserPassword").focusin(function(){
+    $(".password_guide").append("<span data-i18n='account.rulePassword'></span>");
+    exeTranslation(".signup_container", lang);
+});
+$("#signupUserPassword").focusout(function(){
+    $(".password_guide").empty();
+});
 
 function checkSignupUsername() {
 	var accessToken = signupSocialAuthResponse.authResponse.accessToken;
@@ -189,11 +205,12 @@ $('#signup_facebook_btn').on('click', function() {
     alert($.i18n.t('alert.signup.preventSocial'));
 
 
+/*  Facebook 회원가입 기능 일단 중단
 
     painteeFB.login(function(response) {
 		 registSocialUser(response, "FACEBOOK")
 	 }, {scope: 'email,user_likes'});
-
+*/
 });
 
 /*  4.4 수정  */

@@ -3,7 +3,7 @@ $(document).ready(function() {
 	initFollow();
 });
 
-// list container 시작
+// list container 시작  
 var followSwiper = new Swiper('.swiper_container_follow', {
 	slidesPerView : 'auto',
 	centeredSlides : true,
@@ -63,25 +63,25 @@ FollowController.prototype = {
 	getHomeCount : function () {
 		var controller = this;
 		AjaxCall.call(
-			apiUrl + "/index/follow/count",
+			apiUrl + "/index/follow/count", 
 			null,
-			"GET",
+			"GET", 
 			function(result) {
 				controller.getHomeCountRes(result);
 			}
 		);
-	},
+	}, 	
 	// 팔로워 목록 홈 카운드 요청 후 처리 함수
 	getHomeCountRes : function (result) {
 		setFollowHome(result);
-	},
+	}, 	
 	// 팔로워 목록 그림 요청 AJAX
 	getListData : function(startRow) {
 
 		var controller = this;
 		AjaxCall.call(
 			apiUrl + "/index/follow/list?startRow=" + startRow, null,
-			"GET",
+			"GET", 
 			function(result) {
 				controller.getListDataRes(result);
 			}
@@ -103,7 +103,7 @@ FollowController.prototype = {
 		AjaxCall.call(
 			apiUrl + "/index/follows",
 			null,
-			"GET",
+			"GET", 
 			function(result) {
 				controller.getFollowsListRes(result);
 			}
@@ -122,7 +122,7 @@ FollowController.prototype = {
 		AjaxCall.call(
 			apiUrl + "/index/following",
 			null,
-			"GET",
+			"GET", 
 			function(result) {
 				controller.getFollowngListRes(result);
 			}
@@ -141,7 +141,7 @@ FollowController.prototype = {
 		AjaxCall.call(
 				apiUrl + "/index/follows",
 				{following: name},
-				"POST",
+				"POST", 
 				function(result) {
 					controller.addFollowRes(result);
 				}
@@ -159,13 +159,13 @@ FollowController.prototype = {
 		if (!confirm($.i18n.t('alert.common.wantDelete'))) {
 			return ;
 		}
-
+		
 		this.following = following;
 		var controller = this;
 		AjaxCall.call(
 				apiUrl + "/index/following/" + name,
-				"",
-				"DELETE",
+				"", 
+				"DELETE", 
 				function(result) {
 					controller.delFollowingRes(result);
 				}
@@ -187,10 +187,10 @@ function initFollow() {
 		welcome.setTitle("Welcome!");
 		welcome.setExplain("<span data-i18n='[html]follow.notloginexplain'></span><br><br><br>");
         welcome.setContents(logInBtn);
-/*        if(!painteeFB.isCordova()){
-            welcome.setAdd("<a href='https://play.google.com/store/apps/details?id=com.paintee1.pnt' target='_blank'><img class='download_btn_android' src='ico/download_btn_play.png'></a><a href='https://itunes.apple.com/ph/app/paintee-your-painting/id1146256092?mt=8' target='_blank'><img class='download_btn_android' src='ico/download_btn_ios.png'></a>");
-        }*/
-//		welcome.hidePrev();
+        // 안드로이드랑 iOS는 아래 부분 주석처리
+//        if(!painteeFB.isCordova()){
+//            welcome.setAdd("<a href='https://play.google.com/store/apps/details?id=com.paintee1.pnt' target='_blank'><img class='download_btn_android' src='ico/download_btn_play.png'></a><a href='https://itunes.apple.com/ph/app/paintee-your-painting/id1146256092?mt=8' target='_blank'><img class='download_btn_android' src='ico/download_btn_ios.png'></a>");
+//        }
 		followSwiper.appendSlide(welcome.buildStructure());
 		$("#menu_follow").addClass("side_menu_major_inactive");
 		delete welcome;
@@ -217,7 +217,7 @@ function setFollowHome(result) {
 	               .click(function() {
 					    initFollowing();
 				   });
-
+	
 	followHome.setTitle("Follow");
 	followHome.setExplain("<span data-i18n='[html]follow.loginexplain'><span>");
 	followHome.setContents(content1);
@@ -231,10 +231,10 @@ function setFollowHome(result) {
 
     // follow의 맨앞에 공지사항 적용
 //    addNotice("지금 post it을 누르세요.<br>beta 테스트 기간동에는 누구나 일주일에 3개의<br>무료 엽서를 보낼 수 있습니다.");
-
+	
 	// 다국어 변경 적용
 	exeTranslation('.main_container', lang);
-
+	
 	// 테이블에서 가져올 데이터의 시작 위치를 처음 로딩시 0번째 부터 조회
 	new FollowController().getListData(0);
 }
@@ -262,14 +262,14 @@ function initFollows() {
 	// 히스토리 설정
 	replaceHistory({"call": "followPop"});
     addHistory({"call": "dummy"});
-
+    
 	setBox();
 	$(".people_container").show();
 	$(".people_box").empty();
 	var people = new People();
 	people.setTitle("Follows");
 	people.buildUpload();
-
+	
 	// 나를 팔로우한 목록 요청
 	new FollowController().getFollowsList();
 }
@@ -303,17 +303,17 @@ function Follows() {
 			popName = "followPop";
 			new FollowController().addFollow(btn, name);
 		});
-
+		
 		return this.follows;
 	}
 }
 
 function initFollowing() {
-
+	
 	// 히스토리 설정
 	replaceHistory({"call": "followPop"});
     addHistory({"call": "dummy"});
-
+    
 	boxStatus = "people";
 	setBox();
 	$(".people_container").show();
@@ -321,7 +321,7 @@ function initFollowing() {
 	var people = new People();
 	people.setTitle("Following");
 	people.buildUpload();
-
+	
 	// 내가 팔로우한 목록 요청
 	new FollowController().getFollowingList();
 }
@@ -344,13 +344,13 @@ function Following() {
 		});
 		$(this.following).append(this.name);
 		$(this.following).append(this.btn);
-
+		
 		var following = this.following;
 		this.btn.click(function () {
 			popName = "followPop";
 			new FollowController().delFollowing(following, name);
 		});
-
+		
 		return this.following;
 	}
 }

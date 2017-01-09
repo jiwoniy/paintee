@@ -7,6 +7,7 @@ function reward(){
     // 리워드 정보 조회
     rewardController = new RewardController()
     rewardController.getRewardInfo();
+
 }
 
 function Reward(){
@@ -40,6 +41,7 @@ function initReward(){
     addHistory({"call": "rewardStep1"});
 
 	var data = rewardController.result;
+
     $(".reward_box").empty();
     var reward = new Reward();
     reward.setTitle("Reward");
@@ -50,6 +52,10 @@ function initReward(){
      * 리워드 최소금액이 안될 경우( $10 )
      * - "리워드가 $10 이상일 때 리워드를 신청할 수 있습니다."
      */
+    //  alert(result.reward.remainMoney);
+    //  alert(data.reward.remainMoney);
+
+    //  alert('reamin : ',data.reward.remainMoney, ' total ear : ',data.reward.earnTotalMoney);
     var html =  "<span data-i18n='[html]rewardPop.content4'></span>" +
 				"<b>$" + (data.reward.remainMoney - 5) + " </b>" +
 				"<span data-i18n='[html]rewardPop.content5'></span><br>";
@@ -198,6 +204,7 @@ function Rewarded(){
     this.required   = $("<div>").addClass("reward_list_required");
     this.problem    = $("<div>").addClass("reward_list_problem").html("problem");
     this.done       = $("<div>").addClass("reward_list_finished").html("rewarded");
+    this.bought     = $("<div>").addClass("reward_list_finished").html("bought");
     this.build      = function(data){
                         $(this.money).html(data.earmRequestedMoney);
                         $(this.account).html(data.accountInfo);
@@ -215,6 +222,8 @@ function Rewarded(){
                             $(this.rewarded).append(this.required);
                         } else if (data.status == "problem") {
                             $(this.rewarded).append(this.problem);
+                        } else if (data.status == "bought") {
+                            $(this.rewarded).append(this.bought);
                         } else {
                             $(this.rewarded).append(this.done);
                         }
@@ -236,16 +245,35 @@ function showRewarded(result){
     for(var i = 0; i < result.length; i++){
 
     	var status;
+      var money;
+      var accountInfo;
+      var earnRequestedMoney;
     	switch (result[i].rewardStatus) {
-    	case "R": status = "required"; break;
-    	case "A": status = "problem"; break;
-    	case "C": status = "done"; break;
+    	   case "R": status = "required"; break;
+    	    case "A": status = "problem"; break;
+    	     case "C": status = "done"; break;
     	}
+      console.log("reward type : ",result[i].rewardType);
+      switch (result[i].rewardType) {
+        case "P":{
+          status = "bought";
+          accountInfo = "엽서 구매";
+          money = 2;
+          earnRequestedMoney = "$ 2";
+          break;
+        }
+        case "C":{
+          accountInfo: result[i].bankName + " " + result[i].accountNo;
+          money = result[i].earmRequestedCommission + result[i].earmRequestedMoney;
+          earnRequestedMoney = "$ " + result[i].earmRequestedMoney;
+          break;
+        }
+      }
     	var data = {
-    		earmRequestedMoney: "$ " + result[i].earmRequestedMoney,
-    		accountInfo: result[i].bankName + " " + result[i].accountNo,
+    		earmRequestedMoney: earnRequestedMoney,
+    		accountInfo: accountInfo,
     		status: status,
-    		money: result[i].earmRequestedCommission + result[i].earmRequestedMoney,
+    		money: money,
     		seq: result[i].seq
     	};
 
@@ -262,6 +290,7 @@ function RewardController() {
 
 RewardController.prototype = {
 	getRewardInfo : function () {
+
 		var controller = this;
 		AjaxCall.call(
 			apiUrl + "/reward/info",
@@ -274,6 +303,7 @@ RewardController.prototype = {
 	},
 	getRewardInfoRes : function (result) {
 		rewardController.result = result;
+    // alert(result.reward.remainMoney);
 		initReward();
 		setBox();
 	},

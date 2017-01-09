@@ -188,9 +188,9 @@ function initFollow() {
 		welcome.setExplain("<span data-i18n='[html]follow.notloginexplain'></span><br><br><br>");
         welcome.setContents(logInBtn);
         // 안드로이드랑 iOS는 아래 부분 주석처리
-        if(!painteeFB.isCordova()){
-            welcome.setAdd("<a href='https://play.google.com/store/apps/details?id=com.paintee1.pnt' target='_blank'><img class='download_btn_android' src='ico/download_btn_play.png'></a><a href='https://itunes.apple.com/ph/app/paintee-your-painting/id1146256092?mt=8' target='_blank'><img class='download_btn_android' src='ico/download_btn_ios.png'></a>");
-        }
+//        if(!painteeFB.isCordova()){
+//            welcome.setAdd("<a href='https://play.google.com/store/apps/details?id=com.paintee1.pnt' target='_blank'><img class='download_btn_android' src='ico/download_btn_play.png'></a><a href='https://itunes.apple.com/ph/app/paintee-your-painting/id1146256092?mt=8' target='_blank'><img class='download_btn_android' src='ico/download_btn_ios.png'></a>");
+//        }
 		followSwiper.appendSlide(welcome.buildStructure());
 		$("#menu_follow").addClass("side_menu_major_inactive");
 		delete welcome;

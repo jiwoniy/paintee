@@ -3,9 +3,11 @@ var onceAboutPost = true;
 var purchaseBox = $(".purchase_box");
 var purchaseSentenceBox = $(".purchase_box_sentence");
 var purchaseStructure;
+var purchaseToken;
 
 function Purchase(purchaseType){
     this.purchaseType = purchaseType;
+    this.purchaseProvider = 0;
     this.doneBox  = $("<div>").addClass("purchase_box_select");
     this.doneIcon   = $("<img>").addClass("icon").attr("src", "ico/done.png");
     this.doneBtn    = $("<div>").addClass("purchase_done_btn").append($("<div>").addClass("purchase_btn_text").html("done ")).click(function(){
@@ -23,11 +25,11 @@ function Purchase(purchaseType){
     this.dividerSentence = $("<div>").addClass("purchase_box_divider").append("Published by Paintee co., Seoul, Korea | http://paintee.me");
 
     this.addressBox     = $("<div>").addClass("purchase_box_address");
-    this.senderTitle    = $("<div>").addClass("purchase_col_title").attr("data-i18n", "purchasePop1.sender").html("sender");
+    this.senderTitle    = $("<div>").addClass("purchase_col_title").html("<span data-i18n='purchasePop1.sender'></span>");
     this.senderName     = $("<div>").addClass("purchase_col_name")
                             .append('<input type="text" id="senderName" name="senderName" class="purchase_input" placeholder="name">');
     this.senderInput    = $("<div>").addClass("purchase_col_input");
-    this.addresseeTitle = $("<div>").addClass("purchase_col_title").attr("data-i18n", "purchasePop1.address").html("addressee");
+    this.addresseeTitle = $("<div>").addClass("purchase_col_title").html("<span data-i18n='purchasePop1.address'></span>");
     this.addresseeName  = $("<div>").addClass("purchase_col_name")
                             .append('<input type="text" id="receiverName" name="receiverName" class="purchase_input" placeholder="name">');
     this.addresseeInput = $("<div>").addClass("purchase_col_input")
@@ -155,15 +157,19 @@ function initPurchaseAddress(result){
         e.stopPropagation();
     });
 
+    exeTranslation('.base_position', lang);
+
 }
 
 function setPurchase(){
     if(purchaseStatus=="comment"){
         purchaseBox.css("top", mainHeight-250);
         purchaseBox.animate({top: mainHeight-270}, 200);
+        $(".purchase_box_sentence_left").hide();
     }else if(purchaseStatus=="post"){
         purchaseBox.css("top", mainHeight-250);
         purchaseBox.animate({top: mainHeight-270}, 200);
+        $(".purchase_box_sentence_left").show();
     }else if(purchaseStatus=="address"){
         if(mainHeight>=660){
             purchaseBox.css("top", mainHeight-620);
@@ -173,8 +179,26 @@ function setPurchase(){
     }
 }
 
-$(".sentence_textarea").focusin(function(){$(".character_counter").css("opacity", 1)});
-$(".sentence_textarea").focusout(function(){$(".character_counter").css("opacity", 0)});
+$(".sentence_textarea").focusin(function(){
+    $(".character_counter").css("opacity", 1);
+    $(".purchase_box_sentence_left").css("color", "rgb(80,80,80)")
+});
+$(".sentence_textarea").focusout(function(){
+    $(".character_counter").css("opacity", 0);
+    $(".purchase_box_sentence_left").css("color", "rgb(255,255,255)")
+});
+$(".purchase_box_sentence_left").click(function(){togglePrivate(this);})
+
+function togglePrivate(parivateAt){
+    var checked = $(parivateAt).attr("lock");
+    if(checked=="Y"){
+        $(parivateAt).html('<img class="purchase_box_sentence_lock" src="ico/unlock.png"> Public');
+        $(parivateAt).attr("lock", "N");
+    }else{
+        $(parivateAt).html('<img class="purchase_box_sentence_lock" src="ico/lock.png"> Private');
+        $(parivateAt).attr("lock", "Y");
+    }
+}
 
 function showPost(){
     purchaseStatus="post";
@@ -421,13 +445,13 @@ Payment.prototype = {
         $(this.bottom).height(170);
         $(this.bottomMargin).height(170);
         $(this.bottom).append($("<div>").addClass("payby_btn").html($.i18n.t('purchasePop1.select')));
-        $(this.bottom).append(this.payByPaypal);
-        if(checkPaymentPlatform()=="android"){
-            $(this.bottom).append(this.payByAndroid);
-        }else if(checkPaymentPlatform()=="iOS"){
-            $(this.bottom).append(this.payByiOS);
-        }
-        if(checkPaymentReward){
+        // $(this.bottom).append(this.payByPaypal);
+        // if(checkPaymentPlatform()=="android"){
+//              $(this.bottom).append(this.payByAndroid);
+//         }else if(checkPaymentPlatform()=="iOS"){
+             $(this.bottom).append(this.payByiOS);
+        // }
+        if(checkPaymentReward() == true){
             $(this.bottom).append(this.payByReward);
         }
         $(this.bottom).append(this.payByCode);
@@ -499,9 +523,19 @@ function showPurchaseSpinner(){
  */
 
 function paymentByPaypal(){
-    alert("Paypal로 결제되는 과정이 진행됩니다.");
-    purchaseController.addPurchase(3);
-    showPurchaseSpinner();
+  $(".payment_box").empty();
+  var payment = new Payment();
+  payment.setTitle("Payment by Credit Card");
+
+
+      // var contents = "<span data-i18n='[html]purchasePop1.promotionCode'></span>"
+      // var form = '<input type="text" name="promotionCode" class="purchase_input">'
+      // payment.setContents(contents + form);
+      payment.setContents("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'><input type='hidden' name='cmd' value='_s-xclick'><input type='hidden' name='hosted_button_id' value='LVZ3RM89U7UWQ'><input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'><img alt='' border='0' src='https://www.paypalobjects.com/ko_KR/i/scr/pixel.gif' width='1' height='1'></form>");
+      payment.buildPayment();
+
+  delete payment;
+  exeTranslation('.base_position', lang);
 }
 
 /**
@@ -509,19 +543,30 @@ function paymentByPaypal(){
  */
 
 function paymentByAndroid(){
-    alert("안드로이드 인앱으로 결제되는 과정이 진행됩니다.");
-    purchaseController.addPurchase(3);
-    showPurchaseSpinner();
+    // alert("안드로이드 인앱으로 결제되는 과정이 진행됩니다.");
+    // purchaseController.addPurchase(3);
+//     showPurchaseSpinner();
+    cordova.exec(function(result){
+        var token = result.token;
+        purchaseToken = token;
+
+        purchaseController.addPurchase(3, 2);
+
+    },function(err){
+        alert("인앱 결제 과정에 오류가 발생했습니다.");
+
+    },"InAppBrowser","store",[]);
 }
+
 
 /**
  *  [payment] iOS 인앱 옵션 선택
  */
 
 function paymentByiOS(){
-    alert("iOS 입앱으로 결제되는 과정이 진행됩니다.");
-    purchaseController.addPurchase(3);
-    showPurchaseSpinner();
+    // alert("iOS 입앱으로 결제되는 과정이 진행됩니다.");
+    // purchaseController.addPurchase(3);
+    // showPurchaseSpinner();
 }
 
 /**
@@ -530,25 +575,25 @@ function paymentByiOS(){
 
 function paymentByReward(){
 
-    $(".payment_box").empty();
-    var payment = new Payment();
-    payment.setTitle("Payment");
+  this.purchaseProvider = 4;
+  this.purchaseType = 'REWARD';
+  $(".payment_box").empty();
+  var payment = new Payment();
+  payment.setTitle("Payment");
 
-    var reward = 75; // 현재 내가 받을 수 있는 리워드
-    var contents1 = "<span data-i18n='[html]purchasePop1.reward1'></span>"
-    var contents2 = "<span data-i18n='[html]purchasePop1.reward2'></span>"
-    payment.setContents(contents1 +"<b>"+ reward +"</b>"+ contents2);
-    payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/keyboard_arrow_left_black.png'><div class='purchase_btn_text' onclick='paymentCancle();'>Cancel</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/attach_money.png'></div>");
-    payment.buildPayment();
-    $(".payment_btn").click(function(){
-            alert("리워드 차감 과정이 진행됩니다.");
-            purchaseController.addPurchase(3);
-            showPurchaseSpinner();
-    })
-
-    delete payment;
-    exeTranslation('.base_position', lang);
-
+  var reward = userInfo.earnedTotalMoney - userInfo.earnedRewardMoney - userInfo.usedRewardMoney; // 현재 내가 받을 수 있는 리워드
+  var contents1 = "<span data-i18n='[html]purchasePop1.reward1'></span>"
+  var contents2 = "<span data-i18n='[html]purchasePop1.reward2'></span>"
+  payment.setContents(contents1 +"<b>"+ reward +"</b>"+ contents2);
+  payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/keyboard_arrow_left_black.png'><div class='purchase_btn_text' onclick='paymentCancle();'>Cancel</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/attach_money.png'></div>");
+  payment.buildPayment();
+  $(".payment_btn").click(function(){
+          // alert("리워드 차감 과정이 진행됩니다.");
+          purchaseController.addPurchase(3, 4);
+          showPurchaseSpinner();
+  })
+  delete payment;
+  exeTranslation('.base_position', lang);
 }
 
 /**
@@ -556,25 +601,51 @@ function paymentByReward(){
  */
 
 function paymentByCode(){
-    $(".payment_box").empty();
+  $(".payment_box").empty();
     var payment = new Payment();
     payment.setTitle("Payment");
 
     var contents = "<span data-i18n='[html]purchasePop1.promotionCode'></span>"
-    var form = '<input type="text" class="purchase_input">'
+    var form = '<input type="text" name="promotionCode" class="purchase_input">'
     payment.setContents(contents + form);
     payment.setBottom("<div class='popup_cancle_btn payment_cancle_btn'><img class='icon' src='ico/keyboard_arrow_left_black.png'><div class='purchase_btn_text' onclick='paymentCancle();'>Cancel</div></div><div class='popup_btn payment_btn'><div class='purchase_btn_text'>Payment </div><img class='icon' src='ico/attach_money.png'></div>");
     payment.buildPayment();
+
     $(".payment_btn").click(function(){
-            alert("프로모션 코드 확인 및 사용처리 과정이 진행됩니다.");
-            purchaseController.addPurchase(3);
+            // alert("프로모션 코드 확인 및 사용처리 과정이 진행됩니다.");
             showPurchaseSpinner();
+            var code = $("[name=promotionCode]").val().toLowerCase();
+            var data = {
+              codeValue : code
+            };
+            // alert(code);
+            AjaxCall.call(apiUrl + "/promotioncode/check",
+        			data,
+        			"POST",
+        			function (result) {
+                if(result.status == 'possible'){
+
+                    purchaseController.addPurchase(3, 5);
+
+                }
+                else if(result.status == 'used'){
+
+                }
+                else {
+                  $(".stopper").hide();
+                    alert("잘못된 프로모션 코드 입니다.");
+
+
+                }
+
+        			}
+        		);
+
     })
 
     delete payment;
     exeTranslation('.base_position', lang);
-
-}
+  }
 
 function paymentCancle(){
     var bottom = $(".payment_bottom")
@@ -593,13 +664,13 @@ function paymentCancle(){
     bottom.height(170);
     bottom.height(170);
     bottom.append($("<div>").addClass("payby_btn").html($.i18n.t('purchasePop1.select')));
-    bottom.append(payByPaypal);
-    if(checkPaymentPlatform()=="android"){
-        bottom.append(payByAndroid);
-    }else if(checkPaymentPlatform()=="iOS"){
+    // bottom.append(payByPaypal);
+//    if(checkPaymentPlatform()=="android"){
+//         bottom.append(payByAndroid);
+//    }else if(checkPaymentPlatform()=="iOS"){
         bottom.append(payByiOS);
-    }
-    if(checkPaymentReward){
+//    }
+    if(checkPaymentReward() == true){
         bottom.append(payByReward);
     }
     bottom.append(payByCode);
@@ -614,7 +685,7 @@ function paymentCancle(){
 
 function checkPaymentPlatform(){
 
-    return "android";
+    return "web";
 }
 
 /**
@@ -623,7 +694,12 @@ function checkPaymentPlatform(){
 
 function checkPaymentReward(){
 
+  if(userInfo.earnedTotalMoney - userInfo.earnedRewardMoney - userInfo.usedRewardMoney > 2){
     return true;
+  }
+  else{
+    return false;
+  }
 }
 
 
@@ -663,15 +739,32 @@ PurchaseController.prototype = {
 		}
 		initPurchaseAddress(result);
 	},
-	addPurchase: function (serviceCnt) {
-		var controller = this;
+	addPurchase: function (serviceCnt, provider) {
+    var controller = this;
+    var typ = this.purchaseType;
+    // var usedrewardmoney = 0;
+    this.purchaseProvider = provider
+    var purchaseId = "";
+    if(provider == 4){
+        typ = 'REWARD';
+    }
+    else if(provider == 5){
+        typ = 'PROMOTIONCODE';
+        purchaseId = $("[name=promotionCode]").val();
+
+    }
+    else if(provider == 2){
+        typ == 'ANDROID';
+        purchaseId = purchaseToken;
+    }
+
 		var data = {
 			userId: userID,
 			paintingId: this.paintingId,
             artistName: this.artistName,
-            purchaseType: this.purchaseType,
+            purchaseType: typ,
 			sentence: $("[name=sentence]").val(),
-			privateAt: ($("[name=privateAt]").prop("checked")) ? "Y" : "N",
+			privateAt: ($("[name=privateAt]").attr("lock")) ? "Y" : "N",
 			receiverBasicAddr: $("[name=receiverBasicAddr]").val(),
 			receiverDetailAddr: $("[name=receiverDetailAddr]").val(),
 			receiverZipcode: $("[name=receiverZipcode]").val(),
@@ -681,7 +774,10 @@ PurchaseController.prototype = {
 			location: $("[name=location]").val(),
 			purchaseStatus: "1",
 			changeAddr: controller.changeAddr,
-			serviceCnt: serviceCnt
+			serviceCnt: serviceCnt,
+      purchaseProvider:provider,
+      purchaseId:purchaseId,
+      usedRewardMoney:userInfo.usedRewardMoney
 		};
 
 		AjaxCall.call(apiUrl + "/purchase",
@@ -943,8 +1039,13 @@ CommentController.prototype = {
 		dataReload(["initMy();"]);
 		$("[data-comment='" + this.paintingId + "']").html(parseInt($("[data-comment='" + this.paintingId + "']").html()) + 1);
 		closePurchaseStep01();
-//		refreshDetailPosted();
-        loadDetail(this.paintingId, color, colorDark, 'comment');
+        // [fix] 코멘트 작성 오류 수정
+        if(isDetail){
+            refreshDetailPosted(detailSwiper);
+            detailSwiper.slideTo(1);
+        }else{
+            loadDetail(this.paintingId, color, colorDark, 'comment');
+        }
 	},
 	delComment: function (listData) {
 		var controller = this;

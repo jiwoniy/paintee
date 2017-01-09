@@ -1,5 +1,5 @@
 {
-	"about":
+	"about": 
 	{
         "overview": {
 			"randingCardTitle": "You can see paintings in Paintee.",
@@ -20,7 +20,7 @@
 			"randingCardContents3": "All purchased postcards will be delivered through regular mail.",
 			"randingCardTitle4": "Your support will be a lot to the artists.",
 			"randingCardContents4": "Part of your $2 USD support will be contributed to the artists for the sponsorship."
-		},
+		}, 
 		"upload": {
 			"randingCardTitle1": "Your image will become a postcard.",
 			"randingCardContents1": "It will truly be a postcard,<br>which delivers a message to the people in the world<br>with your artwork printed.",
@@ -35,73 +35,87 @@
             "explain":"Do not hesitate to contact us<br>We'll get back to you as soon as possible."
         }
 	},
-	"follow":
+    "tuesday":
+	{
+		"explainFree": "One painting, every week.<br>You can get this painting for free for a week.",
+		"explainNotFree": "This is pase Painting of Tuesday<br>Free period was over.",
+        "explainAlready": "You already purchase this painting for free.<br>You can get free postcard just once"
+	},
+	"follow": 
 	{
 		"loginexplain": "Images of the artist you are following.",
 		"notloginexplain": "Welcome.<br>Send or receive a beautiful image as a postcard."
 	},
-	"popular":
+	"popular": 
 	{
 		"explain": "This is the most popular image.",
 		"content": " people like in Paintee is searched."
 	},
-	"new":
+	"new": 
 	{
 		"explain": "This image is newly uploaded.",
 		"content": " images are in Paintee."
 	},
-	"my":
+	"my": 
 	{
-		"notloginexplain": "Please log-in to check followers' and my images.",
-		"loginexplain": "These are the images that I have uploaded and posted.",
+		"notloginexplain": "Please log-in to check followers' and my images.",	
+		"loginexplain": "These are the images that I have uploaded and posted.",	
 		"login-introduce": "Please introduce yourself.",
-		"cancelStatusPurchase": "Please wait, the postcard is in preparation. If you want to cancel your purchase, please click 'Cancel' button.",
-		"refundStatusPurchase": "Your refund requirement has been submitted. Please wait.",
+		"cancelStatusPurchase": "Please wait, the postcard is in preparation. If you want to cancel your purchase, please click 'Cancel' button.",	
+		"refundStatusPurchase": "Your refund requirement has been submitted. Please wait.",	
 		"sendStatusPurchase": "Your postcard is being sent. If you received the postcard, 'confirm' please.",
         "deleteStatusPurchase": "Are you sure want to delete this image?"
 	},
-	"rewardPop":
+	"rewardPop": 
 	{
-		"content1": "You can collect rewards every time you post your artworks.<br> Until now, ",
-		"content2": " times posting. Your total Rewards is ",
+		"content1": "You can collect rewards every time you post your artworks.<br> Until now, ",	
+		"content2": " times posting. Your total Rewards is ",	
 		"content3": "<br><br><br>",
-		"content4": "If you apply for Rewards now, you can payback ",
-		"content5": "excluding the commission fee $5 USD.",
-		"content6": "You can apply for rewards only if you have more than $10 USD of rewards."
+		"content4": "If you apply for Rewards now, you can payback ",	
+		"content5": "excluding the commission fee $5 USD.",	
+		"content6": "You can apply for rewards only if you have more than $10 USD of rewards."	
 	},
-	"rewardPop2":
+	"rewardPop2": 
 	{
-		"content1": "아래 계좌로 지금 받을 수 있는 (영)",
+		"content1": "아래 계좌로 지금 받을 수 있는 (영)",	
 		"content2": "에 <br>reward <b> 수수료 (영)",
-		"content3": "를 제외한(영)",
-		"content4": "이 입금됩니다.(영)",
+		"content3": "를 제외한(영)",	 
+		"content4": "이 입금됩니다.(영)",	
 		"content5": "Please enter your account name and account number correctly."	,
-		"content6": "If incorrect, there will be an error to transfer into your account."
-	},
-	"purchasePop1":
+		"content6": "If incorrect, there will be an error to transfer into your account."	
+	},	
+	"purchasePop1": 
 	{
 		"contents": "Now is the beta test period. We will begin service soon.<br><br><br><b>Send 3 free postcards per week till beta test period over.</b><br>Please click ‘Payment’ button to continue and get free postcard.",
+        "contents1": "어디든 $2면 충분합니다.<br>추가적인 배송료나 포장비가 없습니다.<br>아래 Payment 버튼을 눌러 결제를 계속하세요.",
         "alert": "Now is the beta test period. We will begin service soon.<br><br><br>Only $2 USD, you can have any images since commercial service.<br><br>Please, wait commercial service.",
+        "private": "private",
+        "public": "public",
 		"sender": "sender",
 		"address": "addresses",
-        "sentence": "Please tell your story"
-	},
-	"purchasePop2":
+        "sentence": "Please tell your story",
+        "tuesday": "You can get Painting of Tuesday as a postcard for free at once.<br> After free postcard service, you can get more by ordinary purchasing process<br>Please click ‘Payment’ button to continue and get free postcard.",
+        "reward1": "당신이 얻은 Reward로 엽서를 구매할 수 있습니다.<br> 당신의 리워드 <b>$</b>",
+        "reward2": "중에 <b>$2</b>가 차감됩니다.<br> 아래 Payment 버튼을 눌러 결제를 계속하세요.",
+        "promotionCode": "Promotion Code를 입력해서 엽서를 무료로 구매할 수 있습니다.<br>한번 사용된 Promotion Code는 재사용되거나 환불되지 않습니다.<br><br>아래에 6자리 Promotion Code를 정확히 입력해 주세요.<br><br><br>",
+        "select": "결재 방법을 선택해주세요."
+	},	
+	"purchasePop2": 
 	{
 		"contents": "The postcard will be sent soon.<br>But, please wait, it will take a while.<br>All purchased postcards will be delivered through regular mail. We won't be able to guarantee specific delivery date.<br><br><br><b>Please share with your friends.<br>"
-	},
-	"personal":
+	},	
+	"personal": 
 	{
 		"contents": " uploaded this image."
-	},
+	},	
 	"uploadPop":
 	{
 		"successContent": "Image has been uploaded successfully.<br>Please share us your thoughts and feelings regarding this image.",
 		"failContent": "<b>Upload Failed!</b><br>Larger size is required for high quality printing.<br><b>W: 1080px H: 1500px</b><br>",
-		"content1": "As many as you post your artworks,<br>the maximum number of uploading images will be increased.<br>You have posted",
-		"content2": " times. Your maximum number of posting is ",
-		"content3": " <br> You are able to upload",
-		"content4": " more images.<br><br><br>The image should be larger than<br> W: <b>1080px</b> H: <b>1500px</b><br> <br><br><br><br><span style='color:rgb(150,0,0)'>If the unauthorized uploading of copyrighted works of others, you receive a sanction for the post. For more information, please check our <b>Terms & Policy</b> </span>"
+		"content1": "As many as you get ♥ <br>the maximum number of uploading images will be increased.<br><br>",
+		"content2": "",
+		"content3": "now, you are able to upload ",
+		"content4": " more images.<br><br><br><br><br><span style='color:rgb(150,0,0)'>If the unauthorized uploading of copyrighted works of others, you receive a sanction for the post. For more information, please check our <b>Terms & Policy</b> </span>"
 	},
 	"detailPop":
 	{
@@ -111,7 +125,24 @@
     {
         "closeDetail" : "Swipe down to return to the list."
     },
-	"alert":
+    "news":
+    {
+        "like" : " liked your painting.",
+        "comment" : " commented on your painting.",
+        "post" : " bought your painting as a postcard.",
+        "follow" : " started following you."
+    },
+    "account":{
+        "loginHelp": "Forgot your login details? <span class='account_bold'>Get help signing in.</span>",
+        "signUp": "Don't have an account? <span class='account_bold'>Sign up</span>",
+        "logIn": "Already have an account? <span class='account_bold'>Log in</span>",
+        "terms": "By signing up, you agree to our <span class='account_bold'>Terms & Privacy Policy.</span>",
+        "email": "Enter your email address associated with your account",
+        "return": "Return to <span class='account_bold'>Log in</span>",
+        "ruleName": "Name should be 4 to 14 characters, which only contain letters or numbers.",
+        "rulePassword": "Password should be 8 to 12 characters, including letters and numbers."
+    },
+	"alert": 
 	{
 		"common" : {
 			"ruleName": "Name should be 4 to 14 characters, which only contain letters or numbers.",
@@ -128,7 +159,8 @@
 			"copyToClipboard": "Copy the link to clipboard by pressing Ctrl+C.",
 			"unkownServerError": "Connection failure.\nPlease wait a while and try again.",
 			"notExistArtist": "Author does not exist.",
-			"notExistPicture": "Image does not exist."
+			"notExistPicture": "Image does not exist.",
+			"processInsert": "successfully completed"
 		},
 		"purchase" : {
 			"limitEnterCount": "Line breaking is limited to 5 times.",
@@ -145,7 +177,9 @@
 			"processCancel": "Refund request is completed.",
 			"processCancelRefund": "Cancelling refund request is completed.",
 			"processComplete": "Re-sending request is completed.",
-			"finishPurchaseService": "You have turned off free service."
+			"finishPurchaseService": "You have turned off free service.",
+			"notFreeTuesdayPaint": "It's not free",
+			"alreadyPostedTuesdayPaint": "You already get a free postcard service."
 		},
 		"reward" : {
 			"existRequest": "You have already applied for another reward.",
@@ -175,11 +209,15 @@
             "processMemberJoin2": "/n Please check your email.",
 			"processSocialMemberJoin": "You are successfully registered.",
 			"correctEmailAddr": "Please enter the correct email address.",
-			"invalidUserName": "Name should be 4 to 14 characters, which only contain letters or numbers."
+			"invalidUserName": "Name should be 4 to 14 characters, which only contain letters or numbers.",
+            "preventSocial": "Signing up by facebook account is temporary available. \n Please continue signing up by e-mail address."
 		},
 		"upload" : {
 			"choiceFile": "Please select the upload file."
 		},
+		"comment" : {
+			"processInsert": "Your comment has registerd."
+ 		},
         "notyet" : "This function is not yet available"
-	}
+	}				
 }

@@ -1,532 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="description" content="그림으로 가득합니다. 누구에게나 간단하게 그림 엽서를 보냅니다.">
-
-    <!-- 페이스북 공유시 사용 ::: 정식 도메인이 나온다음 테스트 진행 -->
-    <meta property="og:url" id="ogUrl" content="" />
-    <meta property="og:title" id="ogTitle" content="paintee">
-    <meta property="og:description" id="ogDesc" content="Paintee is full of images, where you can be an author, and it is easy to have those as well.">
-    <meta property="og:image" id="ogImage" content="http://paintee.me/images/meta.jpg">
-
-    <title>Paintee</title>
-
-    <!-- CSS  -->
-    <link href="css/swiper.css" type="text/css" rel="stylesheet"/>
-    <link href="css/style.css" type="text/css" rel="stylesheet"/>
-    <link href="css/cropper.min.css" type="text/css" rel="stylesheet"/>
-    <link href="css/popup.css" type="text/css" rel="stylesheet"/>
-    <link href="css/search.css" type="text/css" rel="stylesheet"/>
-    <link rel="shortcut icon" href="icon/favicon.ico" />
-</head>
-<body>
-    <!--  화면이 스크롤되지 않도록 고정, 나중에 반응형으로 고정  -->
-    <div class="main_container swiper_container">
-        <div class="swiper-wrapper">
-        <!--    [tuesday] 화면 최상단에 tuesday를 위한 목록 추가    -->
-        <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [tuesday]  -->
-        <!--    화요의 그림  -->
-        <div class="mode_container swiper-slide" id="tuesday">
-            <div class="list_container swiper_container_tuesday">
-                <div class="home_btn">< This week</div>
-                <div class="tue_bg"></div>
-                <div class="tue_mask"></div>
-                <div class="swiper-wrapper"></div>
-                <div class="swiper-scrollbar swiper-scrollbar-tuesday"></div>
-
-            </div>
-        </div>
-        <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [follow]  -->
-        <div class="mode_container swiper-slide" id="follow">
-            <div class="list_container swiper_container_follow">
-                <div class="home_btn">< back</div>
-                <div class="bottom_bar" style="background-color: hsl(200,60%,20%)"></div>
-                <div class="swiper-wrapper"></div>
-                <div class="swiper-scrollbar swiper-scrollbar-follow"></div>
-
-            </div>
-        </div>
-        <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [popular]  -->
-        <div class="mode_container swiper-slide" id="popular">
-            <div class="list_container swiper_container_popular">
-                <div class="home_btn">< back</div>
-                <div class="bottom_bar" style="background-color: hsl(330,60%,20%)"></div>
-                <div class="swiper-wrapper"></div>
-                <div class="swiper-scrollbar swiper-scrollbar-popular"></div>
-
-            </div>
-        </div>
-        <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [new]  -->
-        <div class="mode_container swiper-slide" id="new">
-            <div class="list_container swiper_container_new">
-                <div class="home_btn">< back</div>
-                <div class="bottom_bar" style="background-color: hsl(90,60%,20%)"></div>
-                <div class="swiper-wrapper"></div>
-                <div class="swiper-scrollbar swiper-scrollbar-new"></div>
-
-            </div>
-        </div>
-        <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [my]  -->
-        <div class="mode_container swiper-slide" id="my">
-            <div class="list_container swiper_container_my">
-                <div class="home_btn">< back</div>
-                <div class="bottom_bar" style="background-color: hsl(250,60%,20%)"></div>
-                <div class="swiper-wrapper"></div>
-                <div class="swiper-scrollbar swiper-scrollbar-my"></div>
-            </div>
-        </div>
-        </div>
-
-        <!--   side menu     -->
-        <div id="side_menu">
-            <div class="side_menu_login"></div>
-            <!--     [tuesday] 화요의 그림을 위한 메뉴 추가       -->
-            <div class="side_menu_major" id="menu_tuesday">Tuesday</div>
-            <div class="side_menu_major" id="menu_follow">Follow</div>
-            <div class="side_menu_major" id="menu_popular">Popular</div>
-            <div class="side_menu_major" id="menu_new">New</div>
-            <div class="side_menu_major" id="menu_my">My</div>
-            <div class="side_menu_margin"></div>
-            <div class="side_menu_minor" id="menu_upload">upload</div>
-            <div class="side_menu_minor" id="menu_reward">reward</div>
-            <div class="side_menu_minor" id="menu_about">about</div>
-            <div class="side_menu_minor">search</div>
-            <div class="side_menu_btn"><img class="icon" src="ico/menu.png"></div>
-            <div class="side_menu_close"><img class="icon" src="ico/close.png"></div>
-            <div class="side_menu_bottom">
-                <div class="side_menu_lang">
-                    Language
-                    <select class="side_menu_lang_select">
-                            <option value="ko">Korean</option>
-                            <option value="en">English</option>
-                    </select>
-                </div>
-                <div class="side_menu_copyright">copyright ⓒ paintee.Inc</div>
-            </div>
-        </div>
-        <div class="modal"></div>
-    </div>
-
-    <!--  상세화면  -->
-    <div class="detail">
-    </div>
-
-    <!--  아래는 팝업화면으로 처리  -->
-    <div class="base_position">
-    <!--   구매 화면   -->
-    <div class="purchase_container">
-        <div class="purchase_box">
-            <div class="purchase_box_sentence">
-                <div class="purchase_box_sentence_in" style="text-align: left">
-                    <textarea name="sentence" class="sentence_textarea" length="200"></textarea>
-                    <span class="character_counter"><span id="pSentenceCount">0</span>/200</span>
-                    <span class="line_counter"></span>
-<!--                    <input type="checkbox" id="privateAt" name="privateAt" style="text-align: right"> Private-->
-                </div>
-            </div>
-<!--            <div class="purchase_box_right">
-                <div class="purchase_box_top">address</div>
-                <div class="purchase_box_middle">
-                    <div class="purchase_col_title" data-i18n='purchasePop1.sender'>sender</div>
-                    <div class="purchase_col_name">
-                        <input type="text" id="senderName" name="senderName" class="purchase_input" placeholder="name">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="description" content="그림으로 가득합니다. 누구에게나 간단하게 그림 엽서를 보냅니다.">
+            
+            <!-- 페이스북 공유시 사용 ::: 정식 도메인이 나온다음 테스트 진행 -->
+            <meta property="og:url" id="ogUrl" content="" />
+            <meta property="og:title" id="ogTitle" content="paintee">
+                <meta property="og:description" id="ogDesc" content="Paintee is full of images, where you can be an author, and it is easy to have those as well.">
+                    <meta property="og:image" id="ogImage" content="http://paintee.me/images/meta.jpg">
+                        
+                        <title>Paintee</title>
+                        
+                        <!-- CSS  -->
+                        <link href="css/swiper.css" type="text/css" rel="stylesheet"/>
+                        <link href="css/style.css" type="text/css" rel="stylesheet"/>
+                        <link href="css/cropper.min.css" type="text/css" rel="stylesheet"/>
+                        <link href="css/popup.css" type="text/css" rel="stylesheet"/>
+                        <link href="css/search.css" type="text/css" rel="stylesheet"/>
+                        <link rel="shortcut icon" href="icon/favicon.ico" />
+    </head>
+    <body>
+        <!--  화면이 스크롤되지 않도록 고정, 나중에 반응형으로 고정  -->
+        <div class="main_container swiper_container">
+            <div class="swiper-wrapper">
+                <!--    [tuesday] 화면 최상단에 tuesday를 위한 목록 추가    -->
+                <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [tuesday]  -->
+                <!--    화요의 그림  -->
+                <div class="mode_container swiper-slide" id="tuesday">
+                    <div class="list_container swiper_container_tuesday">
+                        <div class="home_btn">< This week</div>
+                            <div class="tue_bg"></div>
+                            <div class="tue_mask"></div>
+                            <div class="swiper-wrapper"></div>
+                            <div class="swiper-scrollbar swiper-scrollbar-tuesday"></div>
+                            
+                            </div>
                     </div>
-                    <div class="purchase_col_input"></div>
-
-                    <div class="purchase_col_title" data-i18n='purchasePop1.address'>addressee</div>
-                    <div class="purchase_col_name">
-                        <input type="text" id="receiverName" name="receiverName" class="purchase_input" placeholder="name">
-                    </div>
-                    <div class="purchase_col_input">
-                        <input type="text" name="receiverBasicAddr" class="purchase_input postcodify_address" placeholder="address 1">
-                        <input type="text" name="receiverDetailAddr" class="purchase_input" placeholder="address 2">
-                        <input type="text" name="receiverCity" class="purchase_input" placeholder="city" style="width: 30%">
-                        <input type="text" name="receiverZipcode" class="purchase_input postcodify_postcode" placeholder="zip code" style="width: 30%">
-                        <select name="location" class="purchase_select" style="width: 30%">
-                            <option value="Korea" selected="selected">Korea</option>
-                            <option value="USA">USA</option>
-                            <option value="China">China</option>
-                            <option value="Japan">Japan</option>
-                        </select>
-                    </div>
-                    <div class="purchase_col_check">
-                        <input type="checkbox" name="checkBasicAddr" class="purchase_input_check" checked> set as my address
-                    </div>
-                </div>
-                <div class="purchase_box_bottom">
-                    <div class="purchase_prev_btn"><img class="icon" src="ico/keyboard_arrow_left_black.png"><div class="purchase_btn_text"> message</div></div>
-                    <div class="purchase_pay_btn"><div class="purchase_btn_text">Payment </div><img class="icon" src="ico/payment.png"></div>
-                </div>
-            </div>-->
-            <!--
-	        <div id="layer" style="display:none;position:absolute;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-				<img src="http://i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
-			</div>
-			 -->
-        </div>
-        <div class="return_btn"><img class="icon" src="ico/close.png"></div>
-	</div>
-    <!--  결재 화면  -->
-    <div class="popup_container payment_container">
-        <div class="popup_box payment_box"></div>
-        <div class="return_btn"><img class="icon" src="ico/close.png"></div>
-    </div>
-
-
-    <!--  업로드 화면  -->
-    <div class="popup_container upload_container">
-        <div id="upload_popup_box" class="popup_box upload_box"></div>
-        <div id="upload_file_input_box" style="position:relative; left:-5000px;"></div>
-        <div class="return_btn"><img class="icon" src="ico/close.png"></div>
-    </div>
-
-    <!--  리워드 화면  -->
-    <div class="popup_container reward_container">
-        <div class="popup_box reward_box"></div>
-        <div class="return_btn"><img class="icon" src="ico/close.png"></div>
-    </div>
-
-    <!--  팔로우/팔로워 화면  -->
-    <div class="popup_container people_container">
-        <div class="popup_box people_box"></div>
-        <div class="return_btn"><img class="icon" src="ico/close.png"></div>
-    </div>
-
-    <!--  회원정보 수정 화면  -->
-    <div class="popup_container profile_container">
-    <div class="popup_box profile_box">
-        <div class="profile_title">
-            Edit Profile
-        </div>
-        <div class="profile_contents">
-            <div class="profile_section">username</div>
-            <div class="profile_form">
-                <input type="text" id="profileUserName" name="profileUserName" class="account_form profile_username" placeholder="name">
-            </div>
-            <div class="profile_section">password</div>
-            <div class="profile_form">
-                <input id="profileUserPassword" name="profileUserPassword" type="password" class="account_form profile_passward" placeholder="new password">
-                <input id="profileConfirmPassord" name="profileConfirmPassord" type="password" class="account_form profile_passward" placeholder="repeat password">
-            </div>
-            <div class="profile_section">introduction</div>
-            <div class="profile_form">
-                <input id="profileIntroduction" name="profileIntroduction" type="text" class="account_form profile_username" placeholder="introduction">
-            </div>
-            <div class="profile_section">address</div>
-            <div class="profile_form">
-                <input type="text" id="profileBasicAddr" name="profileBasicAddr " class="account_form postcodify_address"  placeholder="address 1">
-                <input type="text" id="profileDetailAddr" name="profileDetailAddr" class="account_form" placeholder="address 2">
-                <input type="text" id="profileCity" name="profileCity" class="account_form" placeholder="city" style="width: 30%">
-                <input type="text" id="profileZipcode" name="profileZipcode" class="account_form postcodify_postcode" placeholder="zip code" style="width: 30%">
-                <select id="profileLocation" name="profileLocation" class="profile_select" style="width: 30%">
-                        <option value="Korea">Korea</option>
-                        <option value="USA">USA</option>
-                        <option value="China">China</option>
-                        <option value="Japan">Japan</option>
-                </select>
-            </div>
-            <div class="profile_section">language</div>
-            <div class="profile_form">
-                <select class="profile_select">
-                        <option value="en">English</option>
-                        <option value="ko">Korean</option>
-                </select>
-            </div>
-            <div class="return_btn"><img class="icon" src="ico/keyboard_backspace.png"></div>
-            <!--
-	        <div id="profileLayer" style="display:none;position:absolute;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-				<img src="http://i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseProfileLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
-			</div>
-			 -->
-        </div>
-        <div class="profile_bottom">
-            <div class="popup_cancle_btn" id="logoutBtn"><img class="icon" src="ico/clear_black.png"> Logout</div>
-            <div class="profile_btn" id="profileUpdateBtn"> Update profile <img class="icon" src="ico/done.png"></div>
-        </div>
-    </div>
-    </div>
-
-    <!--  로그인화면  -->
-    <div class="account_container login_container">
-    <div class="account_wrapper">
-        <div class="account_margin"></div>
-        <div class="account_title">
-            Paintee
-        </div>
-        <div class="account_box">
-            <input type="text" id="userEmail" class="account_form login_id" placeholder="email address">
-            <input type="password" id="userPassword" class="account_form login_pw" placeholder="password">
-        </div>
-        <div class="account_middle login_help">
-            Forgot your login details? <b>Get help signing in.</b>
-        </div>
-        <div class="login_btn_main">
-            Log In
-        </div>
-        <div id="login_facebook_btn" class="login_social_btn">
-            Log in with Facebook
-        </div>
-        <div class="account_bottom_margin"></div>
-        <div class="account_bottom_btn login_signup_btn">
-            Don't have an account? <b>Sign up</b>
-        </div>
-    </div>
-    <div class="account_close_btn"><img class="icon" src="ico/close.png"></div>
-    </div>
-    <!--  회원가입 화면  -->
-    <div class="account_container signup_container">
-    <div class="account_wrapper">
-        <div class="account_margin"></div>
-        <div class="account_title">
-            Paintee
-        </div>
-        <div class="account_box">
-        	<form id="signupForm" name="signupForm" method="POST">
-            <input type="text" id="signupUserId" name="signupUserId" class="account_form signup_id" placeholder="Enter email address" value="">
-            <input type="password" id="signupUserPassword" name="signupUserPassword" class="account_form signup_pw" placeholder="Enter password" value="">
-            <input type="password" id="signupConfirmPassord" name="signupConfirmPassord" class="account_form signup_pw" placeholder="Repeat password" value="">
-            <input type="text" id="signupUserName" name="signupUserName" class="account_form signup_username" placeholder="username" value="">
-            </form>
-        </div>
-        <div class="account_middle signup_terms">
-            By signing up, you agree to our <b>Terms & Privacy Policy.</b>
-        </div>
-        <div id="signup_btn" class="signup_btn">
-            Sign Up
-        </div>
-        <div id="signup_facebook_btn" class="signup_social_btn">
-            Start with Facebook
-        </div>
-        <div class="account_bottom_margin"></div>
-        <div class="account_bottom_btn signup_login_btn">
-            Already have an account? <b>Log in</b>
-        </div>
-    </div>
-    <div class="account_close_btn"><img class="icon" src="ico/close.png"></div>
-    </div>
-    <!--  로그인 도움 화면  -->
-    <div class="account_container loginhelp_container">
-    <div class="account_wrapper">
-        <div class="account_margin"></div>
-        <div class="account_title">
-            Paintee
-        </div>
-        <div class="account_box">
-            <input type="text" id="resetUserEmail" name="resetUserEmail" class="account_form login_help_id" placeholder="Enter email address">
-        </div>
-        <div class="account_middle">
-            Enter your email address associated with your account
-        </div>
-        <div id="resetPasswordBtn" class="loginhelp_btn">
-            Send temporary password
-        </div>
-        <div class="account_bottom_margin"></div>
-        <div class="account_bottom_btn help_login_btn">
-            Return to <b>Log in</b>
-        </div>
-    </div>
-    <div class="account_close_btn"><img class="icon" src="ico/close.png"></div>
-    </div>
-
-	<!--  4.4 수정  -->
-	<!--  socail 가입시 username 입력 화면  -->
-	<div class="popup_container username_container">
-		<div class="popup_box username_box">
-			<div class="popup_title">Sign up</div>
-			<div class="username_contents">
-				거의 다 되었습니다. <br>
-				paintee에서 사용할 이름을 정해주세요.<br><br>
-				<input id="signup_social_username" type="text" class="account_form profile_username" placeholder="username">
-			</div>
-			<div class="popup_bottom username_bottom">
-					<div id="social_username_signup_btn" class="popup_btn username_btn"> Done <img class="icon" src="ico/done.png"></div>
-			</div>
-		</div>
-        <div class="return_btn"><img class="icon" src="ico/close.png"></div>
-	</div>
-
-    <!--  안내화면  -->
-    <div class="about_container">
-        <div class="about_wrapper">
-            <div class="about_card swiper_container_overview">
-            </div>
-            <div class="about_card swiper_container_post">
-            </div>
-            <div class="about_card swiper_container_upload">
-            </div>
-            <div class="about_card about_card_contact">
-                <div class="randing_card_margin"></div>
-                <div class="randing_card_contents">
-                    <a href="mailto:contact@paintee.me" style="text-decoration: none">
-                        <img style="width:64px" src="ico/mail.png"><br>
-                        <span style="color:white; font-size:1.5em; font-weight:700;">contact@paintee.me</span>
-                    </a>
-                    <br><br>
-                    <span data-i18n='[html]about.contact.explain' style="color:rgba(255,255,255,0.8);"></span>
-                    <br><br><br><br>
-                    <a href="https://www.facebook.com/paintee.me" style="text-decoration:none; color:white; font-size:12px; font-weight:700" target="_blank">
-                        <img style="width:12px" src="ico/social_facebook_white.png"> Facebook Page<br>
-                    </a>
-
-                </div>
-            </div>
-            <div class="about_card about_card_policy">
-                <div class="randing_card_policy_title randing_card_p_title">
-                    <div style="font-size: 2.5em;">Terms of Use</div>
-                    This document was written in Korean.
-                </div>
-                <div class="randing_card_policy_contents randing_card_p_contents">
-                </div>
-            </div>
-            <div class="about_card about_card_privacy">
-                <div class="randing_card_privacy_title randing_card_p_title">
-                    <div style="font-size: 2.5em;">Privacy Policy</div>
-                    This document was written in Korean.
-                </div>
-                <div class="randing_card_privacy_contents randing_card_p_contents">
-                </div>
-            </div>
-        </div>
-        <div class="about_navi">
-            <div class="about_navi_tab tab_overview">Overview</div>
-            <div class="about_navi_tab tab_purchase">Post</div>
-            <div class="about_navi_tab tab_upload about_navi_selected">Upload</div>
-            <div class="about_navi_tab tab_contact">Contact</div>
-            <div class="about_navi_tab tab_policy">Policy</div>
-            <div class="about_navi_tab tab_privacy">Privacy</div>
-        </div>
-		<!--	4.3 수정: about guide	-->
-		<div class="about_guide">
-			<img class="icon" src="ico/keyboard_arrow_up.png"><br>
-			Swipe up to start
-		</div>
-		<div class="return_btn" style="z-index:50;"><img class="icon" src="ico/close.png"></div>
-    </div>
-    </div>
-
-    <!--  이미지 크롭 테스트  -->
-    <div class="crop_container">
-        <img id="crop_original_image">
-        <div class="crop_return_btn"><img class="icon" src="ico/keyboard_backspace.png"></div>
-        <div class="crop_confirm_btn"><span style="vertical-align:top">crop the image </span><img class="icon" src="ico/fullscreen.png"></div>
-	</div>
-
-    <!--  안내문구 표시  -->
-    <div class="notice_container">
-        <div class="notice_box"></div>
-    </div>
-
-    <!--   이미지 로딩 완료후 화면표시  -->
-    <div class="splash">
-        <div class="splash_box">
-            <div class="home_title"><span style="letter-spacing:-2px;">P</span>aintee <sup style="font-size:16px;font-family:'Roboto',sans-serif;color:rgba(255,255,255,0.5)">Beta</sup></div>
-            <br>
-            <img src='spinner_white.png' class='spinner'>
-        </div>
-    </div>
-	<!--  spinner 표출시 마우스 입력을 막는 div  -->
-	<div class="stopper"></div>
-
-	<script src="cordova.js"></script>
-
-    <script>
- 	var painteeFB = (function() {
-
-		var runningInCordova = false;
-
-  		document.addEventListener("deviceready", onDeviceReady);
-
- 		function onDeviceReady() {
- 		    runningInCordova = true;
- 		}
-
- 		function isCordova(){
- 			return runningInCordova;
- 		}
-
- 		function login(callback, options){
-
- 			if(isCordova()){
- 				openFB.login(callback, options);
- 			}else{
- 				FB.login(callback, options);
- 			}
-
- 		}
-
-		function api(path, options, callback){
-
- 			if(isCordova()){
- 				openFB.api(path, options, callback);
- 			}else{
- 				FB.api(path, options, callback);
- 			}
-
- 		}
-
-
- 		 return {
- 			 onDeviceReady : onDeviceReady,
- 			 isCordova : isCordova,
- 			 login : login,
-       		 api : api
- 		 }
- 	}());
- 	</script>
-
-    <script src="js/jquery/jquery-2.1.1.js"></script>
-    <script src="js/swiper.jquery.min.js"></script>
-    <script src="js/jquery.touchSwipe.min.js"></script>
-    <script src="js/cropper.js"></script>
-
-	<!-- 다국어 지원 라이브러리 -->
-	<script src="js/jquery/i18next.min.js"></script>
-
-	<!-- 다국어 지원 -->
-	<script src="js/util/translation.js"></script>
-	<!-- 히스토리  -->
-    <script src="js/util/history.js"></script>
-
-	<!-- 공통 -->
-	<script src="js/util/common.js"></script>
-	<!-- 공통 AJAX -->
-	<script src="js/util/common-ajax.js"></script>
-
-	<!--  메인페이지 관련 스크립트 -->
-    <script src="js/index/detail3.js"></script>
-    <script src="js/index/init.js"></script>
-    <script src="js/index/myhome.js"></script>
-    <script src="js/index/follow.js"></script>
-    <script src="js/index/popular.js"></script>
-    <script src="js/index/new.js"></script>
-    <script src="js/index/personal.js"></script>
-    <script src="js/index/purchase2.js"></script>
-    <script src="js/index/login.js"></script>
-    <script src="js/index/reward.js"></script>
-    <script src="js/index/signup.js"></script>
-    <script src="js/index/profile.js"></script>
-    <script src="js/index/upload.js"></script>
-	<script src="js/index/about.js"></script>
-	<script src="js/index/like.js"></script>
-    <!--    [tuesday] tuesday 관련된 javascript    -->
-    <script src="js/index/tuesday.js"></script>
-
-
-    <!-- 페이스북 로그인 -->
-    <script src="js/util/openFB.js"></script>
-    <script src="js/util/facebook.js"></script>
-	<script src="js/util/spinner.js"></script>
-
-
-	 <!-- postcodify -->
-    <script src="js/util/search.js"></script>
-
-	<script>
-		$(function () {
-			exeTranslation('.about_container', lang);
-		});
-	</script>
-</body>
+                    <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [follow]  -->
+                    <div class="mode_container swiper-slide" id="follow">
+                        <div class="list_container swiper_container_follow">
+                            <div class="home_btn">< back</div>
+                                <div class="bottom_bar" style="background-color: hsl(200,60%,20%)"></div>
+                                <div class="swiper-wrapper"></div>
+                                <div class="swiper-scrollbar swiper-scrollbar-follow"></div>
+                                
+                                </div>
+                        </div>
+                        <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [popular]  -->
+                        <div class="mode_container swiper-slide" id="popular">
+                            <div class="list_container swiper_container_popular">
+                                <div class="home_btn">< back</div>
+                                    <div class="bottom_bar" style="background-color: hsl(330,60%,20%)"></div>
+                                    <div class="swiper-wrapper"></div>
+                                    <div class="swiper-scrollbar swiper-scrollbar-popular"></div>
+                                    
+                                    </div>
+                            </div>
+                            <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [new]  -->
+                            <div class="mode_container swiper-slide" id="new">
+                                <div class="list_container swiper_container_new">
+                                    <div class="home_btn">< back</div>
+                                        <div class="bottom_bar" style="background-color: hsl(90,60%,20%)"></div>
+                                        <div class="swiper-wrapper"></div>
+                                        <div class="swiper-scrollbar swiper-scrollbar-new"></div>
+                                        
+                                        </div>
+                                </div>
+                                <!--  상하 스크롤 또는 메뉴선택으로 변경되는 블록 [my]  -->
+                                <div class="mode_container swiper-slide" id="my">
+                                    <div class="list_container swiper_container_my">
+                                        <div class="home_btn">< back</div>
+                                            <div class="bottom_bar" style="background-color: hsl(250,60%,20%)"></div>
+                                            <div class="swiper-wrapper"></div>
+                                            <div class="swiper-scrollbar swiper-scrollbar-my"></div>
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                                <!--   side menu     -->
+                                <div id="side_menu">
+                                    <div class="side_menu_login"></div>
+                                    <!--     [tuesday] 화요의 그림을 위한 메뉴 추가       -->
+                                    <div class="side_menu_major" id="menu_tuesday">Tuesday</div>
+                                    <div class="side_menu_major" id="menu_follow">Follow</div>
+                                    <div class="side_menu_major" id="menu_popular">Popular</div>
+                                    <div class="side_menu_major" id="menu_new">New</div>
+                                    <div class="side_menu_major" id="menu_my">My</div>
+                                    <div class="side_menu_margin"></div>
+                                    <div class="side_menu_minor" id="menu_upload">upload</div>
+                                    <div class="side_menu_minor" id="menu_reward">reward</div>
+                                    <div class="side_menu_minor" id="menu_about">about</div>
+                                    <div class="side_menu_minor">search</div>
+                                    <div class="side_menu_btn"><img class="icon" src="ico/menu.png"></div>
+                                    <div class="side_menu_close"><img class="icon" src="ico/close.png"></div>
+                                    <div class="side_menu_bottom">
+                                        <div class="side_menu_lang">
+                                            Language
+                                            <select class="side_menu_lang_select">
+                                                <option value="ko">Korean</option>
+                                                <option value="en">English</option>
+                                            </select>
+                                        </div>
+                                        <div class="side_menu_copyright">copyright ⓒ paintee.Inc</div>
+                                    </div>
+                                </div>
+                                <div class="modal"></div>
+                            </div>
+                            
+                            <!--  상세화면  -->
+                            <div class="detail">
+                            </div>
+                            
+                            <!--  아래는 팝업화면으로 처리  -->
+                            <div class="base_position">
+                                
+                                <!--  새소식 화면  -->
+                                <!-- <div class="news_container">
+                                 <div class="news_box">
+                                 <div class="news_header">
+                                 <div class="news_header_div" id="news_like"><img class="header_ico" src="ico/like.png">5</div>
+                                 <div class="news_header_div" id="news_comment"><img class="header_ico" src="ico/comment_deact.png"></div>
+                                 <div class="news_header_div" id="news_post"><img class="header_ico" src="ico/post.png">2</div>
+                                 <div class="news_header_div" id="news_follow"><img class="header_ico" src="ico/follows.png">1</div>
+                                 </div>
+                                 <div class="news_contents">
+                                 </div>
+                                 </div>
+                                 </div> -->
+                                
+                                <!--   구매 화면   -->
+                                <div class="purchase_container">
+                                    <div class="purchase_box">
+                                        <div class="purchase_box_sentence">
+                                            <div class="purchase_box_sentence_in" style="text-align: left">
+                                                <textarea name="sentence" class="sentence_textarea" length="200"></textarea>
+                                                <div class="purchase_box_sentence_left" name="privateAt" lock="N">
+                                                    <img class="purchase_box_sentence_lock" src="ico/unlock.png"> Public
+                                                        <!--                    <input type="checkbox" id="privateAt" name="privateAt" style="text-align: right">-->
+                                                        </div>
+                                                <div class="purchase_box_sentence_right">
+                                                    <span class="character_counter"><span id="pSentenceCount">0</span>/200</span>
+                                                    <span class="line_counter"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="return_btn"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                                <!--  결재 화면  -->
+                                <div class="popup_container payment_container">
+                                    <div class="popup_box payment_box"></div>
+                                    <div class="return_btn"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                                <!--  업로드 화면  -->
+                                <div class="popup_container upload_container">
+                                    <div id="upload_popup_box" class="popup_box upload_box"></div>
+                                    <div id="upload_file_input_box" style="position:relative; left:-5000px;"></div>
+                                    <div class="return_btn"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                                
+                                <!--  리워드 화면  -->
+                                <div class="popup_container reward_container">
+                                    <div class="popup_box reward_box"></div>
+                                    <div class="return_btn"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                                
+                                <!--  팔로우/팔로워 화면  -->
+                                <div class="popup_container people_container">
+                                    <div class="popup_box people_box"></div>
+                                    <div class="return_btn"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                                
+                                <!--  회원정보 수정 화면  -->
+                                <div class="popup_container profile_container">
+                                    <div class="popup_box profile_box">
+                                        <div class="profile_title">
+                                            Edit Profile
+                                        </div>
+                                        <div class="profile_contents">
+                                            <div class="profile_section">username</div>
+                                            <div class="profile_form">
+                                                <input type="text" id="profileUserName" name="profileUserName" class="account_form profile_username" placeholder="name">
+                                                    </div>
+                                            <div class="profile_section">password</div>
+                                            <div class="profile_form">
+                                                <input id="profileUserPassword" name="profileUserPassword" type="password" class="account_form profile_passward" placeholder="new password">
+                                                    <input id="profileConfirmPassord" name="profileConfirmPassord" type="password" class="account_form profile_passward" placeholder="repeat password">
+                                                        </div>
+                                            <div class="profile_section">introduction</div>
+                                            <div class="profile_form">
+                                                <input id="profileIntroduction" name="profileIntroduction" type="text" class="account_form profile_username" placeholder="introduction">
+                                                    </div>
+                                            <div class="profile_section">address</div>
+                                            <div class="profile_form">
+                                                <input type="text" id="profileBasicAddr" name="profileBasicAddr " class="account_form postcodify_address"  placeholder="address 1">
+                                                    <input type="text" id="profileDetailAddr" name="profileDetailAddr" class="account_form" placeholder="address 2">
+                                                        <input type="text" id="profileCity" name="profileCity" class="account_form" placeholder="city" style="width: 30%">
+                                                            <input type="text" id="profileZipcode" name="profileZipcode" class="account_form postcodify_postcode" placeholder="zip code" style="width: 30%">
+                                                                <select id="profileLocation" name="profileLocation" class="profile_select" style="width: 30%">
+                                                                    <option value="Korea">Korea</option>
+                                                                    <option value="USA">USA</option>
+                                                                    <option value="China">China</option>
+                                                                    <option value="Japan">Japan</option>
+                                                                </select>
+                                                                </div>
+                                            <div class="profile_section">language</div>
+                                            <div class="profile_form">
+                                                <select class="profile_select">
+                                                    <option value="en">English</option>
+                                                    <option value="ko">Korean</option>
+                                                </select>
+                                            </div>
+                                            <div class="return_btn"><img class="icon" src="ico/keyboard_backspace.png"></div>
+                                            <!--
+                                             <div id="profileLayer" style="display:none;position:absolute;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+                                             <img src="http://i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseProfileLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+                                             </div>
+                                             -->
+                                        </div>
+                                        <div class="profile_bottom">
+                                            <div class="popup_cancle_btn" id="logoutBtn"><img class="icon" src="ico/clear_black.png"> Logout</div>
+                                            <div class="profile_btn" id="profileUpdateBtn"> Update profile <img class="icon" src="ico/done.png"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!--  로그인화면  -->
+                                <div class="account_container login_container">
+                                    <div class="account_wrapper">
+                                        <div class="account_margin"></div>
+                                        <div class="account_title">
+                                            Paintee
+                                        </div>
+                                        <div class="account_box">
+                                            <input type="text" id="userEmail" class="account_form login_id" placeholder="email address">
+                                                <input type="password" id="userPassword" class="account_form login_pw" placeholder="password">
+                                                    </div>
+                                        <div class="account_middle login_help">
+                                            <span data-i18n='[html]account.loginHelp'></span>
+                                        </div>
+                                        <div class="login_btn_main">
+                                            Log In
+                                        </div>
+                                        <div id="login_facebook_btn" class="login_social_btn">
+                                            Log in with Facebook
+                                        </div>
+                                        <div class="account_bottom_margin"></div>
+                                        <div class="account_bottom_btn login_signup_btn">
+                                            <span data-i18n='[html]account.signUp'></span>
+                                        </div>
+                                    </div>
+                                    <div class="account_close_btn"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                                <!--  회원가입 화면  -->
+                                <div class="account_container signup_container">
+                                    <div class="account_wrapper">
+                                        <div class="account_margin"></div>
+                                        <div class="account_title">
+                                            Paintee
+                                        </div>
+                                        <div class="account_box">
+                                            <form id="signupForm" name="signupForm" method="POST">
+                                                <input type="text" id="signupUserId" name="signupUserId" class="account_form signup_id" placeholder="Enter email address" value="">
+                                                    <input type="password" id="signupUserPassword" name="signupUserPassword" class="account_form signup_pw" placeholder="Enter password" value="">
+                                                        <div class="password_guide"></div>
+                                                        <input type="password" id="signupConfirmPassord" name="signupConfirmPassord" class="account_form signup_pw" placeholder="Repeat password" value="">
+                                                            <input type="text" id="signupUserName" name="signupUserName" class="account_form signup_username" placeholder="username" value="">
+                                                                <div class="username_guide"></div>
+                                                                </form>
+                                        </div>
+                                        <div class="account_middle signup_terms">
+                                            <span data-i18n='[html]account.terms'></span>
+                                        </div>
+                                        <div id="signup_btn" class="signup_btn">
+                                            Sign Up
+                                        </div>
+                                        <div id="signup_facebook_btn" class="signup_social_btn">
+                                            Start with Facebook
+                                        </div>
+                                        <div class="account_bottom_margin"></div>
+                                        <div class="account_bottom_btn signup_login_btn">
+                                            <span data-i18n='[html]account.logIn'></span>
+                                        </div>
+                                    </div>
+                                    <div class="account_close_btn"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                                <!--  로그인 도움 화면  -->
+                                <div class="account_container loginhelp_container">
+                                    <div class="account_wrapper">
+                                        <div class="account_margin"></div>
+                                        <div class="account_title">
+                                            Paintee
+                                        </div>
+                                        <div class="account_box">
+                                            <input type="text" id="resetUserEmail" name="resetUserEmail" class="account_form login_help_id" placeholder="Enter email address">
+                                                </div>
+                                        <div class="account_middle">
+                                            <span data-i18n='[html]account.email'></span>
+                                        </div>
+                                        <div id="resetPasswordBtn" class="loginhelp_btn">
+                                            Send temporary password
+                                        </div>
+                                        <div class="account_bottom_margin"></div>
+                                        <div class="account_bottom_btn help_login_btn">
+                                            <span data-i18n='[html]account.return'></span>
+                                        </div>
+                                    </div>
+                                    <div class="account_close_btn"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                                
+                                <!--  4.4 수정  -->
+                                <!--  socail 가입시 username 입력 화면  -->
+                                <div class="popup_container username_container">
+                                    <div class="popup_box username_box">
+                                        <div class="popup_title">Sign up</div>
+                                        <div class="username_contents">
+                                            거의 다 되었습니다.<br>paintee에서 사용할 이름을 정해주세요.<br><br>
+                                            <input id="signup_social_username" type="text" class="account_form profile_username" placeholder="username">
+                                                </div>
+                                        <div class="popup_bottom username_bottom">
+                                            <div id="social_username_signup_btn" class="popup_btn username_btn"> Done <img class="icon" src="ico/done.png"></div>
+                                        </div>
+                                    </div>
+                                    <div class="return_btn"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                                
+                                <!--  안내화면  -->
+                                <div class="about_container">
+                                    <div class="about_wrapper">
+                                        <div class="about_card swiper_container_overview">
+                                        </div>
+                                        <div class="about_card swiper_container_post">
+                                        </div>
+                                        <div class="about_card swiper_container_upload">
+                                        </div>
+                                        <div class="about_card about_card_contact">
+                                            <div class="randing_card_margin"></div>
+                                            <div class="randing_card_contents">
+                                                <a href="mailto:contact@paintee.me" style="text-decoration: none">
+                                                    <img style="width:64px" src="ico/mail.png"><br>
+                                                        <span style="color:white; font-size:1.5em; font-weight:700;">contact@paintee.me</span>
+                                                        </a>
+                                                <br><br>
+                                                <span data-i18n='[html]about.contact.explain' style="color:rgba(255,255,255,0.8);"></span>
+                                                <br><br><br><br>
+                                                <a href="https://www.facebook.com/paintee.me" style="text-decoration:none; color:white; font-size:12px; font-weight:700" target="_blank">
+                                                    <img style="width:12px" src="ico/social_facebook_white.png"> Facebook Page<br>
+                                                        </a>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="about_card about_card_policy">
+                                            <div class="randing_card_policy_title randing_card_p_title">
+                                                <div style="font-size: 2.5em;">Terms of Use</div>
+                                                This document was written in Korean.
+                                            </div>
+                                            <div class="randing_card_policy_contents randing_card_p_contents">
+                                            </div>
+                                        </div>
+                                        <div class="about_card about_card_privacy">
+                                            <div class="randing_card_privacy_title randing_card_p_title">
+                                                <div style="font-size: 2.5em;">Privacy Policy</div>
+                                                This document was written in Korean.
+                                            </div>
+                                            <div class="randing_card_privacy_contents randing_card_p_contents">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="about_navi">
+                                        <div class="about_navi_tab tab_overview">Overview</div>
+                                        <div class="about_navi_tab tab_purchase">Post</div>
+                                        <div class="about_navi_tab tab_upload about_navi_selected">Upload</div>
+                                        <div class="about_navi_tab tab_contact">Contact</div>
+                                        <div class="about_navi_tab tab_policy">Policy</div>
+                                        <div class="about_navi_tab tab_privacy">Privacy</div>
+                                    </div>
+                                    <!--	4.3 수정: about guide	-->
+                                    <div class="about_guide">
+                                        <img class="icon" src="ico/keyboard_arrow_up.png"><br>
+                                            Swipe up to start
+                                            </div>
+                                    <div class="return_btn" style="z-index:50;"><img class="icon" src="ico/close.png"></div>
+                                </div>
+                            </div>
+                            
+                            <!--  이미지 크롭 테스트  -->
+                            <div class="crop_container">
+                                <img id="crop_original_image">
+                                    <div class="crop_return_btn"><img class="icon" src="ico/keyboard_backspace.png"></div>
+                                    <div class="crop_confirm_btn"><span style="vertical-align:top">crop the image </span><img class="icon" src="ico/fullscreen.png"></div>
+                                    </div>
+                            
+                            <!--  안내문구 표시  -->
+                            <div class="notice_container">
+                                <div class="notice_box"></div>
+                            </div>
+                            
+                            <!--   이미지 로딩 완료후 화면표시  -->
+                            <div class="splash">
+                                <div class="splash_box">
+                                    <div class="home_title"><span style="letter-spacing:-2px;">P</span>aintee <sup style="font-size:16px;font-family:'Roboto',sans-serif;color:rgba(255,255,255,0.5)">Beta</sup></div>
+                                    <br>
+                                    <img src='spinner_white.png' class='spinner'>
+                                        </div>
+                            </div>
+                            <!--  spinner 표출시 마우스 입력을 막는 div  -->
+                            <div class="stopper"></div>
+                            
+                            <!--  Scripts-->
+                            <!--
+                             <script src="cordova.js"></script>
+                             -->
+                            
+                            <script>
+                                var painteeFB = (function() {
+                                                 
+                                                 var runningInCordova = false;
+                                                 
+                                                 document.addEventListener("deviceready", onDeviceReady);
+                                                 
+                                                 function onDeviceReady() {
+                                                 runningInCordova = true;
+                                                 }
+                                                 
+                                                 function isCordova(){
+                                                 return runningInCordova;
+                                                 }
+                                                 
+                                                 function login(callback, options){
+                                                 
+                                                 if(isCordova()){
+                                                 openFB.login(callback, options);
+                                                 }else{
+                                                 FB.login(callback, options);
+                                                 }
+                                                 
+                                                 }
+                                                 
+                                                 function api(path, options, callback){
+                                                 
+                                                 if(isCordova()){
+                                                 openFB.api(path, options, callback);
+                                                 }else{
+                                                 FB.api(path, options, callback);
+                                                 }
+                                                 
+                                                 }
+                                                 
+                                                 
+                                                 return {
+                                                 onDeviceReady : onDeviceReady,
+                                                 isCordova : isCordova,
+                                                 login : login,
+                                                 api : api
+                                                 }
+                                                 }());
+                                </script>
+                            
+                            <script src="js/jquery/jquery-2.1.1.js"></script>
+                            <script src="js/swiper.jquery.min.js"></script>
+                            <script src="js/jquery.touchSwipe.min.js"></script>
+                            <script src="js/cropper.js"></script>
+                            
+                            <!-- 다국어 지원 라이브러리 -->
+                            <script src="js/jquery/i18next.min.js"></script>
+                            
+                            <!-- 다국어 지원 -->
+                            <script src="js/util/translation.js"></script>
+                            <!-- 히스토리  -->
+                            <script src="js/util/history.js"></script>
+                            
+                            <!-- 공통 -->
+                            <script src="js/util/common.js"></script>
+                            <!-- 공통 AJAX -->
+                            <script src="js/util/common-ajax.js"></script>
+                            
+                            <!--  메인페이지 관련 스크립트 -->
+                            <script src="js/index/detail3.js"></script>
+                            <script src="js/index/init.js"></script>
+                            <script src="js/index/myhome.js"></script>
+                            <script src="js/index/follow.js"></script>
+                            <script src="js/index/popular.js"></script>
+                            <script src="js/index/new.js"></script>
+                            <script src="js/index/personal.js"></script>
+                            <script src="js/index/purchase2.js"></script>
+                            <script src="js/index/login.js"></script>
+                            <script src="js/index/reward.js"></script>
+                            <script src="js/index/signup.js"></script>
+                            <script src="js/index/profile.js"></script>
+                            <script src="js/index/upload.js"></script>
+                            <script src="js/index/about.js"></script>
+                            <script src="js/index/like.js"></script>
+                            <script src="js/index/tuesday.js"></script>
+                            <script src="js/index/news.js"></script>
+                            
+                            
+                            <!-- 페이스북 로그인 -->
+                            <script src="js/util/openFB.js"></script>
+                            <script src="js/util/facebook.js"></script>
+                            <script src="js/util/spinner.js"></script>
+                            
+                            
+                            <!-- postcodify -->
+                            <script src="js/util/search.js"></script>
+                            
+                            <script>
+                                $(function () {
+                                  exeTranslation('body', lang);
+                                  });
+                                </script>
+    </body>
 </html>

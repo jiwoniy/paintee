@@ -90,9 +90,12 @@ function setSideMenu() {
 	}
 }
 
+//var imageUrl="http://localhost:8000/paintee-admin";
+var imageUrl="http://52.78.12.134:8080/paintee-admin";
+
 //var imageUrl="http://localhost:8080/paintee-admin";
 //var imageUrl="http://52.78.93.238/paintee-admin";
-var imageUrl="http://paintee.me/paintee-admin";
+// var imageUrl="http://paintee.me/paintee-admin";
 //var imageUrl=window.location.protocol+"//paintee.me/paintee-admin";
 var apiUrl = imageUrl + "/api";
 
@@ -576,31 +579,38 @@ function mainLock(mainSwiper){
         color = "#505050";
         colorDark = "190,50%,20%";
         if(isPersonal){hidePersonal()};
+        hideNewsHead();
 
     }else if(mainSwiper.activeIndex==1){
         mainSwiper.unlockSwipes();
         color = "#33b3cc";
         colorDark = "200,60%,20%";
         if(isPersonal){hidePersonal()};
+        hideNewsHead();
 
     }else if(mainSwiper.activeIndex==2){
         mainSwiper.unlockSwipes();
         color = "#cc3380";
         colorDark = "330,60%,20%";
         if(isPersonal){hidePersonal()};
+        hideNewsHead();
 
     }else if(mainSwiper.activeIndex==3){
         mainSwiper.unlockSwipes();
         color = "#8ab82e";
         colorDark = "90,60%,20%";
         if(isPersonal){hidePersonal()};
+        hideNewsHead();
 
     }else if(mainSwiper.activeIndex==4){
         mainSwiper.lockSwipeToNext();
         color = "#4c33cc";
         colorDark = "250,60%,20%";
         if(isPersonal){hidePersonal()};
-    }currentSwiper="";
+        //        [news] 알림창 표출 주석처리
+        //        showNewsHead();
+    }
+    currentSwiper="";
 };
 
 // list 상태에서 mode container 스와이프 방지 && 마우스휠 해제/설정 && 페이지네이션 show/hide
@@ -610,6 +620,8 @@ function listLock(swiper){
             mainSwiper.unlockSwipeToNext();
         }else if(mainSwiper.isEnd){
             mainSwiper.unlockSwipeToPrev();
+            //        [news] 알림창 표출 주석처리
+            //        if(swiper.previousIndex==1)showNewsHead();
         }else{
             mainSwiper.unlockSwipes();
         }
@@ -622,6 +634,7 @@ function listLock(swiper){
         swiper.enableMousewheelControl();
         $(".swiper-scrollbar").show();
         if(!fullImage){$(".bottom_bar").css("opacity", 1)};
+        hideNewsHead();
         currentSwiper=swiper;
     }
 }
@@ -700,6 +713,7 @@ function sideOn(){
         e.stopPropagation();
         sideOff();
     });
+    hideNewsHead();
 }
 function sideOff(){
     sideMenu.css("right", "100%");
@@ -985,4 +999,3 @@ function showNotice(notice){
     $(".notice_box").delay(2000).fadeOut(2000);
 }
 $(".notice_box").hide();
-

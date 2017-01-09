@@ -19,8 +19,14 @@
 package org.apache.cordova.inappbrowser;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.provider.Browser;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -51,6 +57,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.android.vending.billing.IInAppBillingService;
+import com.paintee1.pnt.MainActivity;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
 import org.apache.cordova.CordovaArgs;
@@ -66,12 +75,32 @@ import org.json.JSONObject;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class InAppBrowser extends CordovaPlugin {
 
+    IInAppBillingService mService;
+
+    ServiceConnection mServiceConn = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name,
+                                       IBinder service) {
+            mService = IInAppBillingService.Stub.asInterface(service);
+
+            gotoBuy();
+        }
+    };
+
+
+    private MainActivity mActivity;
     private static final String NULL = "null";
     protected static final String LOG_TAG = "InAppBrowser";
     private static final String SELF = "_self";
@@ -92,6 +121,7 @@ public class InAppBrowser extends CordovaPlugin {
     private WebView inAppWebView;
     private EditText edittext;
     private CallbackContext callbackContext;
+    private CallbackContext tempCallbackContext;
     private boolean showLocationBar = true;
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
@@ -245,12 +275,132 @@ public class InAppBrowser extends CordovaPlugin {
             pluginResult.setKeepCallback(true);
             this.callbackContext.sendPluginResult(pluginResult);
         }
+        else if(action.equals("store")){
+
+            tempCallbackContext = callbackContext;
+
+            Intent serviceIntent =
+                    new Intent("com.android.vending.billing.InAppBillingService.BIND");
+            serviceIntent.setPackage("com.android.vending");
+            mActivity = (MainActivity) cordova.getActivity();
+            mActivity.bind(serviceIntent, mServiceConn, this);
+//            ..Service(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+        }
         else {
             return false;
         }
         return true;
     }
 
+    public void gotoBuy(){
+        ArrayList<String> skuList = new ArrayList<String>();
+        skuList.add("postcard");
+        Bundle querySkus = new Bundle();
+        querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
+
+        try {
+            Bundle skuDetails = mService.getSkuDetails(3, "com.paintee1.pnt", "inapp", querySkus);
+
+            int response = skuDetails.getInt("RESPONSE_CODE");
+            if (response == 0) {
+                ArrayList<String> responseList
+                        = skuDetails.getStringArrayList("DETAILS_LIST");
+
+                for (String thisResponse : responseList) {
+                    JSONObject object = new JSONObject(thisResponse);
+                    String sku = object.getString("productId");
+                    String price = object.getString("price");
+
+                    Bundle buyIntentBundle = mService.getBuyIntent(3, "com.paintee1.pnt", sku, "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+
+                    if(buyIntentBundle.getInt("RESPONSE_CODE") == 0) {
+                        PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+
+                        mActivity.startIntentSenderForResult(pendingIntent.getIntentSender(),
+                                1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+                                Integer.valueOf(0));
+                    }
+                    else if(buyIntentBundle.getInt("RESPONSE_CODE") == 7){
+                        Bundle ownedItems = mService.getPurchases(3, "com.paintee1.pnt", "inapp", null);
+
+                        int responseO = ownedItems.getInt("RESPONSE_CODE");
+                        if (responseO == 0) {
+                            ArrayList<String> ownedSkus =
+                                    ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+                            ArrayList<String>  purchaseDataList =
+                                    ownedItems.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
+                            ArrayList<String>  signatureList =
+                                    ownedItems.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
+                            String continuationToken =
+                                    ownedItems.getString("INAPP_CONTINUATION_TOKEN");
+
+                            for (int i = 0; i < purchaseDataList.size(); ++i) {
+                                String purchaseData = purchaseDataList.get(i);
+                                JSONObject tempO = new JSONObject(purchaseData);
+
+                                String token = tempO.getString("purchaseToken");
+
+                                int responseC = mService.consumePurchase(3, "com.paintee1.pnt", token);
+
+                                // do something with this purchase information
+                                // e.g. display the updated list of products owned by user
+                            }
+                            buyIntentBundle = mService.getBuyIntent(3, "com.paintee1.pnt", sku, "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+
+                            PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+
+                            mActivity.startIntentSenderForResult(pendingIntent.getIntentSender(),
+                                    1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+                                    Integer.valueOf(0));
+                            // if continuationToken != null, call getPurchases again
+                            // and pass in the token to retrieve more items
+                        }
+
+
+
+                    }
+
+                }
+
+
+            }
+
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IntentSender.SendIntentException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void paySuccessed(String token){
+        try {
+            int response = mService.consumePurchase(3, "com.paintee1.pnt", token);
+
+            if(response == 0){
+                JSONObject object = new JSONObject();
+
+                object.put("token",token);
+
+                if(tempCallbackContext == null){
+
+                }
+                else {
+                    tempCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, object));
+                }
+            }
+            else{
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Called when the view navigates.
      */

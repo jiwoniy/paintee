@@ -109,7 +109,7 @@ $(".tab_contact").click(function(){slideAboutNavi(3)});
 $(".tab_policy").click(function(){slideAboutNavi(4)});
 $(".tab_privacy").click(function(){slideAboutNavi(5)});
 
-function slideAboutNavi(index){
+function slideAboutNavi(index){  
 	aboutIndex = index;
 	$(".about_navi_tab").removeClass("about_navi_selected");
 	$(".about_navi_tab").eq(index).addClass("about_navi_selected");
@@ -181,7 +181,7 @@ function showAboutPost(){	   // 4.3 수정
 					 slideAboutNavi(0)
 				 }else if(translate < -(mainWidth*3.25)){
 					 slideAboutNavi(2)
-				 }
+				 }	
 			}
 		});
         exeTranslation(".swiper_container_post", lang);

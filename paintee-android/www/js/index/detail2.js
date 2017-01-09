@@ -11,7 +11,7 @@ function DetailStructure(paintingId, paintingInfo){
     // 히스토리 사용 부분 추가
     this.colorDark      = paintingInfo.colorDark;
     this.color          = paintingInfo.color;
-
+    
     this.detail             =$(".detail");
 
     this.detailBgContainer  =$("<div>").addClass("detail_bg_container");
@@ -69,7 +69,7 @@ DetailStructure.prototype = {
     	var paintingId = this.paintingId;
     	var color      = this.color;
     	var colorDark  = this.colorDark;
-
+    	
         this.detailArtistBtn.html(artistName);
         this.detailArtistBtn.click(function () {
         	processDetailClose();
@@ -148,10 +148,10 @@ DetailStructure.prototype = {
         */
 //        this.sociconInstagram   =$("<span>").addClass("social_btn").addClass("socicon-instagram");
 //        this.sociconPinterest   =$("<span>").addClass("social_btn").addClass("socicon-pinterest");
-
+        
         var paintingId = this.paintingId;
         var fileId = this.fileId;
-
+        
         // 소셜 공유
         var data = {name: artistName, page: paintingId, fileId: fileId};
         $("#detail_fac_share").click(function() {
@@ -195,7 +195,7 @@ DetailController.prototype = {
 		// 히스트리에서 사용하기 위해서 객체 변수 추가
 		result.color = color;
 		result.colorDark = colorDark;
-
+		
 		initDetail(paintingId, result);
 		setDetailLayout();
 
@@ -207,7 +207,7 @@ DetailController.prototype = {
 		$(".detail_postbar").css("background-color", "hsla("+colorDark+", 1)");
 
 		lockPosted(detailSwiper);
-
+		
 		// 소셜공유에서 직접 호출한 경우
 		if (call == 'personal') {
 			showPersonal(get.user, get.page);
@@ -241,10 +241,10 @@ function initDetail(paintingId, paintingInfo){
 	postedLock = true;
 	postedObj = new Array();
 	postedIndex = new Array();
-
+	
 	selectedArtistId = paintingInfo.artistId;
 	selectedArtistName = paintingInfo.artistName;
-
+	
 	this.detailStructure = new DetailStructure(paintingId, paintingInfo);
 	this.detailStructure.buildDetail();
 	this.detailSwiper = new Swiper('.swiper_container_detail', {
@@ -297,17 +297,17 @@ function processDetailClose() {
     	personal.swiper.slideTo(personal.swiper.slides.length - 1, 0);
         // 최초 한번만 동작하게 한다.
     	get.page = null;
-    }
+    }        
     $(".detail").animate({top: 200, opacity: 0}, 200, "linear", function(){
     	$(".detail").empty();
     	$(".detail").hide().css("top", 0);
     	delete detailStructure;
     	delete detailSwiper;
     });
-    isDetail = false;
+    isDetail = false; 
 }
 //디테일화면의 스크롤 잠금/열기
-function changeMode(swiper){
+function changeMode(swiper){            
     var translate = swiper.translate;
     console.log("translate ::: " + translate);
     if(translate>50){
@@ -327,7 +327,7 @@ function changeMode(swiper){
 
 //디테일화면의 스크롤 잠금
 function lockPosted(swiper){
-
+	
     postedLock = true;
     hidePosted(swiper);
     swiper.params.freeMode = false;
